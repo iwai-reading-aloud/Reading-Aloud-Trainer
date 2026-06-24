@@ -1,0 +1,2807 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Reading-Aloud Trainer 学生版 スマホプロトタイプ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --accent: #111827;
+        --bg: #f3f4f6;
+        --card: #ffffff;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #d1d5db;
+        --soft: #e5e7eb;
+        --danger: #dc2626;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --purple: #7c3aed;
+        --purple-dark: #6d28d9;
+        --jp-bg: #eef6ff;
+        --vocab-bg: #fff7ed;
+        --shadow: 0 8px 24px rgba(15,23,42,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", "Yu Gothic UI", "Meiryo", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        padding: 16px 18px;
+        z-index: 10;
+        position: sticky;
+        top: 0;
+    }
+
+    .title-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .student-title-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        position: relative;
+    }
+
+    .student-title-main {
+        grid-column: 1;
+    }
+
+    .student-load-area {
+        grid-column: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .student-lesson-info-area {
+        grid-column: 3;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 0;
+    }
+
+    h1 {
+        font-size: 2.15rem;
+        margin: 0;
+        letter-spacing: 0.01em;
+        line-height: 1.15;
+        color: #0f2e63;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-shadow: 0 1px 2px rgba(15,46,99,0.18);
+    }
+
+    h1::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 2.15em;
+        background: var(--primary);
+        border-radius: 2px;
+        flex: 0 0 auto;
+    }
+
+    .hint {
+        display: none;
+    }
+
+    .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+        align-items: center;
+    }
+
+    button, select {
+        border: none;
+        border-radius: 10px;
+        padding: 9px 14px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 0.92rem;
+    }
+
+    button {
+        background: var(--primary);
+        color: #fff;
+        position: relative;
+        transform: translateY(0);
+    }
+
+    button:hover { background: var(--primary-dark); }
+
+    button:active {
+        transform: translateY(2px) scale(0.97);
+        opacity: 0.72;
+        filter: brightness(0.92);
+    }
+
+    button.clicked-feedback {
+        animation: buttonPop 0.22s ease-out;
+    }
+
+    @keyframes buttonPop {
+        0% { transform: scale(1); filter: brightness(1); }
+        35% { transform: scale(0.94); filter: brightness(1.18); }
+        70% { transform: scale(1.04); }
+        100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    button.secondary {
+        background: var(--soft);
+        color: var(--text);
+    }
+
+    button.secondary:hover { background: #d1d5db; }
+
+
+    button.folder-settings-btn {
+        background: #fff;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 5px 9px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        box-shadow: none;
+    }
+
+    button.folder-settings-btn:hover {
+        background: #f9fafb;
+        color: var(--text);
+    }
+
+    button.danger { background: var(--danger); }
+    button.success { background: var(--success); }
+
+    button.warning {
+        background: var(--warning);
+        color: #111827;
+    }
+
+    button.purple {
+        background: var(--purple);
+        color: #fff;
+    }
+
+    button.purple:hover { background: var(--purple-dark); }
+
+    button.loop-active {
+        background: var(--success);
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(22,163,74,0.25), 0 0 16px rgba(22,163,74,0.75);
+        animation: loopPulse 1.45s ease-in-out infinite;
+    }
+
+    select {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text);
+    }
+
+    .slider-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 260px;
+        flex: 1;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .toggle-group {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    label.toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.88rem;
+        color: var(--text);
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 7px 10px;
+        border-radius: 999px;
+        user-select: none;
+    }
+
+    main {
+        flex: 1;
+        overflow: auto;
+        padding: 18px;
+    }
+
+    .stats {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+
+    .sentence-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: start;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+        margin-bottom: 12px;
+        scroll-margin-top: 90px;
+        box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    }
+
+    .sentence-row.current {
+        border-left: 8px solid var(--primary);
+        background: #eff6ff;
+    }
+
+    .sentence-row.current .english {
+        background: #fef3c7;
+        color: #1d4ed8;
+        font-weight: 900;
+        border-radius: 8px;
+        padding: 4px 8px;
+        box-shadow: 0 0 0 2px rgba(245,158,11,0.22);
+    }
+
+    .sentence-row.current .mini-btn {
+        box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+    }
+
+    .line-num {
+        width: 2.55rem;
+        height: 2.55rem;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 2.5px solid #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-weight: 900;
+        font-size: 1.05rem;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+
+    .line-num.long-num {
+        font-size: 0.78rem;
+        letter-spacing: -0.06em;
+    }
+
+    .line-num.choice-num {
+        background: #000000;
+        color: #ffffff;
+        border-color: #000000;
+    }
+
+
+    .sentence-main {
+        min-width: 0;
+    }
+
+    .english {
+        font-size: 1.38rem;
+        line-height: 1.85;
+        cursor: pointer;
+        word-break: normal;
+        margin-bottom: 10px;
+    }
+
+    .english.hidden-text {
+        color: transparent;
+        text-shadow: 0 0 10px rgba(17,24,39,0.35);
+    }
+
+    .plain-version {
+        margin: -4px 0 10px;
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.5;
+        display: block;
+    }
+
+    .plain-version.hidden-text {
+        color: transparent;
+        text-shadow: 0 0 10px rgba(17,24,39,0.35);
+    }
+
+    .sentence-row.current .english.hidden-text,
+    .sentence-row.current .plain-version.hidden-text,
+    .hidden-text,
+    .hidden-text * {
+        color: transparent !important;
+        text-shadow: 0 0 10px rgba(17,24,39,0.35) !important;
+    }
+
+    .hidden-text .accent-highlight,
+    .plain-version.hidden-text .accent-highlight {
+        background: transparent !important;
+        color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .accent-highlight {
+        background: var(--accent);
+        color: #fff;
+        border-radius: 5px;
+        padding: 2px 5px;
+        font-weight: 900;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+    }
+
+    .lesson-block {
+        display: grid;
+        gap: 8px;
+    }
+
+    .vocab, .jp {
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        white-space: pre-wrap;
+    }
+
+    .vocab {
+        background: var(--vocab-bg);
+        border: 1px solid #fed7aa;
+    }
+
+    .jp {
+        background: var(--jp-bg);
+        border: 1px solid #bfdbfe;
+    }
+
+    .lesson-title {
+        font-weight: 800;
+        margin-bottom: 4px;
+    }
+
+    .hide-vocab .vocab { display: none; }
+    .hide-jp .jp { display: none; }
+
+    .row-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 92px;
+    }
+
+    .mini-btn {
+        font-size: 0.78rem;
+        padding: 7px 9px;
+        border-radius: 8px;
+    }
+
+    .next-play {
+        background: #60a5fa;
+        color: #fff;
+        line-height: 1.25;
+        white-space: normal;
+    }
+
+    .next-play:hover {
+        background: #3b82f6;
+    }
+
+    .jump-box {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .jump-select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 7px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        background: #fff;
+        color: var(--text);
+    }
+
+    .main-jump-wrap {
+        position: relative;
+        width: 100%;
+    }
+
+    .main-jump-button {
+        color: var(--text);
+        text-align: center;
+        box-shadow: none;
+        line-height: 1.2;
+    }
+
+    .main-jump-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 0;
+        width: 66px;
+        /* 10件程度を一度に見せ、残りはメニュー内スクロールにする */
+        max-height: min(304px, calc(100vh - 28px));
+        overflow: auto;
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 10px 24px rgba(15,23,42,0.18);
+        z-index: 1200;
+    }
+
+    .main-jump-menu.open {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .main-jump-item {
+        background: #ffffff;
+        color: #111827;
+        border: 1px solid transparent;
+        border-radius: 7px;
+        padding: 4px 6px;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        font-weight: 500;
+        text-align: center;
+        box-shadow: none;
+    }
+
+    .main-jump-item:hover {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+
+    .main-float-tooltip {
+        display: none;
+        position: fixed;
+        z-index: 5000;
+        max-width: min(560px, calc(100vw - 28px));
+        background: #ffffff;
+        color: #111827;
+        border: 1px solid #d1d5db;
+        border-radius: 7px;
+        padding: 6px 8px;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        font-weight: 500;
+        box-shadow: 0 6px 16px rgba(15,23,42,0.18);
+        pointer-events: none;
+        white-space: normal;
+    }
+
+    .loop-on {
+        background: var(--success) !important;
+        color: #fff !important;
+        box-shadow: 0 0 0 3px rgba(22,163,74,0.25), 0 0 16px rgba(22,163,74,0.75) !important;
+        animation: loopPulse 1.45s ease-in-out infinite;
+    }
+
+    @keyframes loopPulse {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        50% {
+            opacity: 0.58;
+            transform: scale(1.03);
+            filter: brightness(1.16);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            filter: brightness(1);
+        }
+    }
+
+
+    .lesson-info {
+        display: none;
+        background: #ffffff;
+        border: 2px solid var(--purple);
+        border-radius: 10px;
+        padding: 7px 12px;
+        color: var(--text);
+        font-size: 0.88rem;
+        line-height: 1.45;
+        width: fit-content;
+        max-width: min(620px, 100%);
+        min-width: 0;
+        box-shadow: 0 2px 8px rgba(124,58,237,0.10);
+        text-align: left;
+    }
+
+    .lesson-info.visible {
+        display: block;
+    }
+
+    .lesson-info-title {
+        font-weight: 900;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+        scrollbar-width: thin;
+    }
+
+    .lesson-info-section {
+        color: var(--purple-dark);
+        font-weight: 900;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+        scrollbar-width: thin;
+    }
+
+    .empty-message {
+        background: #fff;
+        border: 1px dashed var(--border);
+        border-radius: 14px;
+        padding: 28px;
+        color: var(--muted);
+        line-height: 1.8;
+    }
+
+    @media (max-width: 760px) {
+        .sentence-row { grid-template-columns: 1fr; }
+        .line-num {
+            width: auto;
+            border-radius: 8px;
+        }
+        .row-actions {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .english { font-size: 1.12rem; }
+        h1 { font-size: 1.62rem; }
+        h1::before { height: 2.0em; }
+        .student-title-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .student-title-main,
+        .student-load-area,
+        .student-lesson-info-area {
+            grid-column: 1;
+        }
+        .student-lesson-info-area {
+            justify-content: flex-start;
+        }
+        .lesson-info {
+            max-width: 100%;
+        }
+    }
+
+
+/* ===== Smartphone prototype additions: keep all PC functions, optimize layout for phones ===== */
+html { -webkit-text-size-adjust: 100%; }
+body { min-height: 100dvh; }
+button, select, input { touch-action: manipulation; }
+button, select { min-height: 44px; }
+
+.mobile-note {
+    display: none;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: .78rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+    body { height: 100dvh; }
+    header {
+        padding: max(10px, env(safe-area-inset-top)) 10px 10px;
+        max-height: 58dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    main { padding: 10px; }
+    .title-row { margin-bottom: 8px; }
+    .student-title-row { grid-template-columns: 1fr; gap: 8px; }
+    .student-title-main, .student-load-area, .student-lesson-info-area { grid-column: 1; }
+    h1 { font-size: 1.34rem; gap: 8px; }
+    h1::before { width: 6px; height: 1.75em; }
+    .student-load-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        gap: 8px;
+    }
+    .student-load-area button { width: 100%; padding: 10px 8px; font-size: .86rem; }
+    button.folder-settings-btn { font-size: .76rem; padding: 8px 6px; }
+    .student-lesson-info-area { justify-content: stretch; width: 100%; }
+    .lesson-info {
+        width: 100%;
+        max-width: 100%;
+        font-size: .78rem;
+        padding: 6px 8px;
+    }
+    .controls {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        align-items: stretch;
+        margin-top: 8px;
+    }
+    .controls > button { width: 100%; padding: 10px 6px; font-size: .82rem; }
+    .slider-box {
+        grid-column: 1 / -1;
+        min-width: 0;
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 10px;
+    }
+    #voice-select {
+        grid-column: 1 / -1;
+        width: 100%;
+        font-size: .82rem;
+        padding: 8px 10px;
+    }
+    .toggle-group {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+    label.toggle {
+        width: 100%;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 8px 6px;
+        font-size: .78rem;
+        line-height: 1.2;
+        text-align: center;
+    }
+    .stats { margin: 4px 2px 8px; font-size: .78rem; }
+    .empty-message { padding: 18px; font-size: .92rem; }
+    .sentence-row {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 8px;
+        padding: 10px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        scroll-margin-top: 56dvh;
+    }
+    .line-num {
+        width: 2.28rem;
+        height: 2.28rem;
+        border-radius: 50%;
+        font-size: .92rem;
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .sentence-main { grid-column: 2; grid-row: 1; }
+    .english {
+        font-size: 1.04rem;
+        line-height: 1.75;
+        margin-bottom: 6px;
+    }
+    .plain-version { font-size: .82rem; line-height: 1.45; margin-bottom: 6px; }
+    .lesson-block { gap: 6px; }
+    .vocab, .jp { font-size: .86rem; line-height: 1.55; padding: 8px 9px; }
+    .row-actions {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        min-width: 0;
+        width: 100%;
+        margin-top: 2px;
+    }
+    .mini-btn { min-height: 42px; font-size: .76rem; padding: 7px 5px; border-radius: 9px; }
+    .jump-box {
+        grid-column: 1 / -1;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+    .main-jump-menu {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        top: auto;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        width: auto;
+        max-height: 52dvh;
+        display: none;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 5px;
+        padding: 8px;
+    }
+    .main-jump-menu.open { display: grid; }
+    .main-jump-item { min-height: 38px; font-size: .8rem; }
+    .main-float-tooltip { display: none !important; }
+}
+
+@media (max-width: 380px) {
+    .controls { grid-template-columns: 1fr; }
+    .toggle-group { grid-template-columns: 1fr; }
+    .student-load-area { grid-template-columns: 1fr; }
+    .row-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+</style>
+</head>
+<body>
+
+<input type="file" id="lesson-file-input" accept=".json,application/json" style="display:none;">
+<div id="mainFloatTooltip" class="main-float-tooltip"></div>
+
+<header>
+    <div class="title-row student-title-row">
+        <div class="student-title-main">
+            <h1>Reading-Aloud Trainer</h1>
+            <div class="hint">教材ファイルを読み込んで、英文・語彙・和訳を見ながら音読練習します。</div>
+        </div>
+        <div class="student-load-area">
+            <button class="action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
+            <button class="folder-settings-btn action-flash" onclick="setLessonFolder()">教材フォルダ設定</button>
+        </div>
+        <div class="student-lesson-info-area">
+            <div id="lesson-info" class="lesson-info" aria-live="polite"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="action-flash" onclick="playSequenceFrom(0)">最初から再生</button>
+        <button id="whole-loop-btn" class="success action-flash" onclick="toggleWholeLoop()">全体LOOP</button>
+        <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止/再開</button>
+        <button class="danger action-flash" onclick="stopAll()">STOP</button>
+
+        <div class="slider-box">
+            <strong id="speed-val">0.90x</strong>
+            <input type="range" id="speed-slider" min="0.25" max="2.0" step="0.05" value="0.9">
+        </div>
+
+        <select id="voice-select" title="音声">
+            <option value="">音声を読み込み中...</option>
+        </select>
+
+        <div class="toggle-group">
+            <label class="toggle"><input type="checkbox" id="hide-vocab-toggle"> 語彙を隠す</label>
+            <label class="toggle"><input type="checkbox" id="hide-jp-toggle"> 和訳を隠す</label>
+            <label class="toggle"><input type="checkbox" id="hide-english"> 英文ぼかし</label>
+            <label class="toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="stats" id="stats">0文</div>
+    <div id="display-area"></div>
+</main>
+
+<script>
+let lessonData = [];
+let loopSettings = [];
+let currentIndex = -1;
+let isPaused = false;
+let voices = [];
+let wholeLoop = false;
+let playbackAutoNext = false;
+let playbackWrapAtEnd = false;
+let returnToFirstAfterSequence = false;
+let lessonMeta = { material: "", section: "" };
+
+const displayArea = document.getElementById("display-area");
+const stats = document.getElementById("stats");
+const speedSlider = document.getElementById("speed-slider");
+const speedVal = document.getElementById("speed-val");
+const voiceSelect = document.getElementById("voice-select");
+const hideVocabToggle = document.getElementById("hide-vocab-toggle");
+const hideJpToggle = document.getElementById("hide-jp-toggle");
+const hideEnglish = document.getElementById("hide-english");
+const autoNext = document.getElementById("auto-next");
+const wholeLoopBtn = document.getElementById("whole-loop-btn");
+const pauseBtn = document.getElementById("pause-btn");
+const lessonFileInput = document.getElementById("lesson-file-input");
+const lessonInfo = document.getElementById("lesson-info");
+
+function escapeHtml(str) {
+    return String(str || "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    }[ch]));
+}
+
+function bookTitleHtmlFromEscaped(escaped) {
+    return String(escaped || "").replace(/_([^_\n]+)_/g, '<em>$1</em>');
+}
+
+function markedTextHtml(line) {
+    return bookTitleHtmlFromEscaped(escapeHtml(line));
+}
+
+function markedPlainHtml(line) {
+    // 表示用: ^ は消すが、_..._ は斜体変換のために残してから処理する。
+    return markedTextHtml(String(line || "").replace(/\^/g, ""));
+}
+
+function accentHtml(line) {
+    const highlighted = escapeHtml(line).replace(/\^(\p{L})/gu, '<span class="accent-highlight">$1</span>');
+    return bookTitleHtmlFromEscaped(highlighted);
+}
+
+function plainLine(line) {
+    return String(line || "")
+        .replace(/\^/g, "")
+        .replace(/_([^_\n]+)_/g, "$1")
+        .replace(/_/g, "");
+}
+
+function getRawVocabText(item) {
+    if (!item) return "";
+    return item.vocab || item.vocabulary || item["語彙"] || "";
+}
+
+function findLeakedVocabStart(text) {
+    const s = String(text || "");
+    const labelMatch = s.match(/【語彙(?:\d{2})?】/);
+    if (labelMatch && typeof labelMatch.index === "number") return labelMatch.index;
+
+    // 【アクセント】欄に語彙の箇条書きが混入した場合の保険。
+    // 例: "... delivered. ・Mr. Awetimbi「アウェティンビ氏」..."
+    const bulletMatch = s.match(/[\s　]+(?=・[^\n]{0,80}「)/);
+    if (bulletMatch && typeof bulletMatch.index === "number") {
+        return bulletMatch.index + bulletMatch[0].length;
+    }
+    return -1;
+}
+
+function normalizeAccentAndVocab(item) {
+    if (!item) return item;
+
+    const rawVocab = getRawVocabText(item);
+    const rawAccent = item.accent || item.accentText || item["アクセント"] || item.english || "";
+
+    item.accent = rawAccent;
+    item.vocab = rawVocab;
+
+    if (!item.vocab && item.accent) {
+        const leakStart = findLeakedVocabStart(item.accent);
+        if (leakStart > 0) {
+            const leaked = item.accent.slice(leakStart)
+                .replace(/^【語彙(?:\d{2})?】\s*/, "")
+                .trim();
+            item.accent = item.accent.slice(0, leakStart).trim();
+            item.vocab = leaked;
+        }
+    }
+
+    return item;
+}
+
+function getVocabText(item) {
+    if (!item) return "";
+    normalizeAccentAndVocab(item);
+    return item.vocab || "";
+}
+
+function getAccentText(item) {
+    if (!item) return "";
+    normalizeAccentAndVocab(item);
+    return item.accent || item.english || "";
+}
+
+function hasRealSplitData(item) {
+    function meaningful(value) {
+        const s = String(value || "")
+            .replace(/\s+/g, "")
+            .replace(/[。．.]/g, "")
+            .trim();
+        if (!s) return false;
+        return !["なし", "無し", "無", "none", "NONE", "なしです"].includes(s);
+    }
+    return meaningful(item.split) || meaningful(item.splitJp);
+}
+
+
+function parseLessonLabelInfo(rawLabel) {
+    const s = String(rawLabel || "")
+        .replace(/[【】]/g, "")
+        .trim();
+
+    let m = s.match(/^設問(\d{1,3})$/);
+    if (m) {
+        return {
+            sourceLabel: `設問${m[1]}`,
+            labelType: "question",
+            labelNumber: m[1],
+            displayLabel: m[1]
+        };
+    }
+
+    m = s.match(/^選択肢(\d{1,3})([A-Da-d])$/);
+    if (m) {
+        return {
+            sourceLabel: `選択肢${m[1]}${m[2].toUpperCase()}`,
+            labelType: "choice",
+            labelNumber: `${m[1]}${m[2].toUpperCase()}`,
+            displayLabel: m[2].toUpperCase()
+        };
+    }
+
+    m = s.match(/^英文(\d+)$/);
+    if (m) {
+        return {
+            sourceLabel: `英文${m[1]}`,
+            labelType: "english",
+            labelNumber: m[1],
+            displayLabel: String(Number.parseInt(m[1], 10))
+        };
+    }
+
+    m = s.match(/^英文$/);
+    if (m) {
+        return {
+            sourceLabel: "",
+            labelType: "english",
+            labelNumber: "",
+            displayLabel: ""
+        };
+    }
+
+    return null;
+}
+
+function normalizeLessonItemLabel(item, fallbackIndex) {
+    if (!item) return item;
+
+    const candidates = [
+        item.sourceLabel,
+        item.originalLabel,
+        item.label,
+        item.tag,
+        item.id
+    ];
+
+    let info = null;
+    for (const candidate of candidates) {
+        info = parseLessonLabelInfo(candidate);
+        if (info) break;
+    }
+
+    if (!info) {
+        if (item.labelType === "question" && item.labelNumber) {
+            info = parseLessonLabelInfo(`設問${item.labelNumber}`);
+        } else if (item.labelType === "choice" && item.labelNumber) {
+            info = parseLessonLabelInfo(`選択肢${item.labelNumber}`);
+        } else if (item.labelNumber !== undefined && item.labelNumber !== null && String(item.labelNumber).trim() !== "") {
+            info = parseLessonLabelInfo(`英文${String(item.labelNumber).trim()}`);
+        } else if (item.number !== undefined && item.number !== null && String(item.number).trim() !== "") {
+            item.displayLabel = String(item.number).trim();
+            item.labelType = item.labelType || "english";
+            return item;
+        }
+    }
+
+    if (!info) {
+        const displayNumber = fallbackIndex + 1;
+        info = {
+            sourceLabel: `英文${String(displayNumber).padStart(2, "0")}`,
+            labelType: "english",
+            labelNumber: String(displayNumber).padStart(2, "0"),
+            displayLabel: String(displayNumber)
+        };
+    }
+
+    item.sourceLabel = item.sourceLabel || info.sourceLabel;
+    item.labelType = item.labelType || info.labelType;
+    item.labelNumber = item.labelNumber || info.labelNumber;
+    item.displayLabel = item.displayLabel || info.displayLabel;
+
+    return item;
+}
+
+function getCircleNumber(item, fallbackIndex) {
+    normalizeLessonItemLabel(item, fallbackIndex);
+    if (item && item.displayLabel !== undefined && item.displayLabel !== null && String(item.displayLabel).trim() !== "") {
+        return String(item.displayLabel).trim();
+    }
+    if (item && item.number !== undefined && item.number !== null && String(item.number).trim() !== "") {
+        return String(item.number).trim();
+    }
+    return String(fallbackIndex + 1);
+}
+
+function getCircleNumberClass(item, fallbackIndex) {
+    normalizeLessonItemLabel(item, fallbackIndex);
+    const label = getCircleNumber(item, fallbackIndex);
+    const classes = [];
+    if (String(label).length >= 3) classes.push("long-num");
+    if (item && item.labelType === "choice") classes.push("choice-num");
+    return classes.join(" ");
+}
+
+function getFullItemLabel(item, fallbackIndex) {
+    normalizeLessonItemLabel(item, fallbackIndex);
+    if (item && item.sourceLabel) return String(item.sourceLabel);
+    const raw = item && item.labelNumber ? String(item.labelNumber) : String(fallbackIndex + 1).padStart(2, "0");
+    if (/^\d+$/.test(raw)) return `英文${raw.padStart(2, "0")}`;
+    return `英文${String(fallbackIndex + 1).padStart(2, "0")}`;
+}
+
+function getPaddedLabelNumber(item, fallbackIndex) {
+    const label = getFullItemLabel(item, fallbackIndex);
+    const english = label.match(/^英文(\d+)$/);
+    if (english) return english[1].padStart(2, "0");
+    return label;
+}
+
+function sentenceTooltipText(item) {
+    return plainLine((item && (item.english || getAccentText(item))) || "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+
+
+function cleanLessonMetaText(value) {
+    return String(value || "")
+        .split(/\n/)
+        .map(line => line.trim())
+        .filter(line => line && !/^■{3,}$/.test(line))
+        .join(" ")
+        .trim();
+}
+
+function setLessonMeta(material = "", section = "") {
+    lessonMeta = {
+        material: cleanLessonMetaText(material),
+        section: cleanLessonMetaText(section)
+    };
+    updateLessonInfo();
+}
+
+function updateLessonInfo() {
+    if (!lessonInfo) return;
+
+    const material = lessonMeta.material || "";
+    const section = lessonMeta.section || "";
+
+    if (!material && !section) {
+        lessonInfo.classList.remove("visible");
+        lessonInfo.innerHTML = "";
+        return;
+    }
+
+    const materialHtml = material
+        ? `<div class="lesson-info-title">${escapeHtml(material)}</div>`
+        : "";
+    const sectionHtml = section
+        ? `<div class="lesson-info-section">${escapeHtml(section)}</div>`
+        : "";
+
+    lessonInfo.innerHTML = [materialHtml, sectionHtml].filter(Boolean).join("");
+    lessonInfo.classList.add("visible");
+}
+
+function readLessonMetaFromObject(obj) {
+    if (!obj || Array.isArray(obj)) return { material: "", section: "" };
+    const meta = obj.lessonMeta || obj.meta || {};
+    return {
+        material: meta.material || obj.material || obj["教材"] || obj.lessonTitle || obj.lessonName || "",
+        section: meta.section || obj.section || obj["セクション"] || ""
+    };
+}
+
+function refreshClasses() {
+    document.body.classList.toggle("hide-vocab", hideVocabToggle.checked);
+    document.body.classList.toggle("hide-jp", hideJpToggle.checked);
+    document.querySelectorAll(".english, .plain-version").forEach(el => {
+        el.classList.toggle("hidden-text", hideEnglish.checked);
+    });
+    wholeLoopBtn.textContent = wholeLoop ? "🔁 全体LOOP ON" : "全体LOOP";
+    wholeLoopBtn.classList.toggle("loop-active", wholeLoop);
+    pauseBtn.textContent = isPaused ? "再開" : "一時停止/再開";
+}
+
+function updateDisplay() {
+    loopSettings = lessonData.map((_, i) => loopSettings[i] || false);
+    updateLessonInfo();
+
+    if (!lessonData.length) {
+        displayArea.innerHTML = `
+            <div class="empty-message">
+                <strong>教材ファイルを読み込んでください。</strong><br>
+                上部の「教材ファイルを読み込み」から、配布された教材ファイルを選択してください。<br>
+                最初に「教材フォルダ設定」をしておくと、次回からそのフォルダを起点に教材を選べます。
+            </div>`;
+        stats.textContent = "0文";
+        refreshClasses();
+        return;
+    }
+
+    displayArea.innerHTML = lessonData.map((item, i) => `
+        <div class="sentence-row" id="row-${i}">
+            <div class="line-num ${getCircleNumberClass(item, i)}">${escapeHtml(getCircleNumber(item, i))}</div>
+            <div class="sentence-main">
+                <div class="english" onclick="playFrom(${i})">${markedPlainHtml(item.english)}</div>
+                <div class="plain-version">${accentHtml(getAccentText(item))}</div>
+                <div class="lesson-block">
+                    <div class="vocab"><div class="lesson-title">【語彙】</div>${markedTextHtml(getVocabText(item))}</div>
+                    <div class="jp"><div class="lesson-title">【和訳】</div>${escapeHtml(item.jp || "")}</div>
+                </div>
+            </div>
+            <div class="row-actions">
+                <button class="mini-btn action-flash" onclick="playFrom(${i})">PLAY</button>
+                <button class="mini-btn next-play action-flash" onclick="playThenNext(${i})">自動で<br>次へ</button>
+                <button class="mini-btn danger action-flash" onclick="stopAll()">STOP</button>
+                <button class="mini-btn success action-flash ${loopSettings[i] ? "loop-on" : ""}" id="loop-${i}" onclick="toggleLoop(${i})">${loopSettings[i] ? "🔁 LOOP ON" : "LOOP"}</button>
+                ${hasRealSplitData(item) ? `<button class="mini-btn purple action-flash" onclick="openSplitPractice(${i})">分割練習</button>` : ""}
+                <div class="jump-box">
+                    <div class="main-jump-wrap" id="main-jump-${i}">
+                        <button type="button" class="jump-select main-jump-button" onclick="toggleMainJumpMenu(${i})">文を移動 ▼</button>
+                        <div class="main-jump-menu" id="main-jump-menu-${i}">
+                            ${lessonData.map((it, j) => `<button type="button" class="main-jump-item" data-tooltip="${escapeHtml(sentenceTooltipText(it))}" onmouseenter="showMainTooltip(event, this)" onmousemove="showMainTooltip(event, this)" onmouseleave="hideMainTooltip()" onclick="jumpToSentence(${j}); closeAllMainJumpMenus();">${escapeHtml(getCircleNumber(it, j))}</button>`).join("")}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join("");
+
+    stats.textContent = `${lessonData.length}文`;
+    refreshClasses();
+}
+
+function loadVoices() {
+    voices = speechSynthesis.getVoices();
+    const englishVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("en"));
+
+    if (!englishVoices.length) {
+        voiceSelect.innerHTML = `<option value="">英語音声が見つかりません</option>`;
+        return;
+    }
+
+    const ua = navigator.userAgent || "";
+    const isEdge = /Edg\//.test(ua);
+
+    function voiceText(v) {
+        return `${v.name || ""} ${v.lang || ""}`.toLowerCase();
+    }
+
+    function isGoogleVoice(v) {
+        return /google/i.test(v.name || "");
+    }
+
+    function countryMatches(v, code, keywords) {
+        const lang = (v.lang || "").toLowerCase();
+        const text = voiceText(v);
+        if (lang === code || lang.startsWith(code + "-")) return true;
+        return keywords.some(k => text.includes(k));
+    }
+
+    const preferredNames = {
+        "us-female": ["google us english", "aria", "jenny", "ava", "emma", "michelle", "sara", "zira", "samantha", "victoria"],
+        "us-male": ["guy", "roger", "brian", "andrew", "christopher", "eric", "david", "mark"],
+        "gb-female": ["google uk english female", "sonia", "libby", "maisie", "serena", "emma"],
+        "gb-male": ["google uk english male", "ryan", "george", "thomas", "daniel"],
+        "ca-female": ["clara", "linda"],
+        "ca-male": ["liam", "claude"],
+        "au-female": ["natasha", "catherine"],
+        "au-male": ["william", "james"],
+        "nz-female": ["molly"],
+        "nz-male": ["mitchell"]
+    };
+
+    const femaleHints = /(female|woman|aria|jenny|ava|emma|michelle|sara|zira|samantha|victoria|sonia|libby|maisie|serena|clara|linda|natasha|catherine|molly)/i;
+    const maleHints = /(male|man|guy|roger|brian|andrew|christopher|eric|david|mark|ryan|george|thomas|daniel|liam|claude|william|james|mitchell)/i;
+
+    function genderMatches(v, gender, key) {
+        const name = v.name || "";
+        const text = voiceText(v);
+        const names = preferredNames[key] || [];
+        if (names.some(n => text.includes(n))) return true;
+        if (gender === "female") return femaleHints.test(name) && !maleHints.test(name);
+        if (gender === "male") return maleHints.test(name) && !femaleHints.test(name);
+        return false;
+    }
+
+    function rankVoice(v, key) {
+        const text = voiceText(v);
+        const names = preferredNames[key] || [];
+        const nameRank = names.findIndex(n => text.includes(n));
+        const localBonus = v.localService ? -3 : 0;
+        const naturalBonus = /natural|online/.test(text) ? -2 : 0;
+        const googleBonus = isGoogleVoice(v) ? -2 : 0;
+        return (nameRank >= 0 ? nameRank : 100) + localBonus + naturalBonus + googleBonus;
+    }
+
+    const categories = [
+        { key: "us-female", label: "アメリカ英語・女性", code: "en-us", keywords: ["united states", "us english", "american"], gender: "female" },
+        { key: "us-male", label: "アメリカ英語・男性", code: "en-us", keywords: ["united states", "us english", "american"], gender: "male" },
+        { key: "gb-female", label: "イギリス英語・女性", code: "en-gb", keywords: ["united kingdom", "uk english", "british", "great britain"], gender: "female" },
+        { key: "gb-male", label: "イギリス英語・男性", code: "en-gb", keywords: ["united kingdom", "uk english", "british", "great britain"], gender: "male" },
+        { key: "ca-female", label: "カナダ英語・女性", code: "en-ca", keywords: ["canada", "canadian"], gender: "female" },
+        { key: "ca-male", label: "カナダ英語・男性", code: "en-ca", keywords: ["canada", "canadian"], gender: "male" },
+        { key: "au-female", label: "オーストラリア英語・女性", code: "en-au", keywords: ["australia", "australian"], gender: "female" },
+        { key: "au-male", label: "オーストラリア英語・男性", code: "en-au", keywords: ["australia", "australian"], gender: "male" },
+        { key: "nz-female", label: "ニュージーランド英語・女性", code: "en-nz", keywords: ["new zealand"], gender: "female" },
+        { key: "nz-male", label: "ニュージーランド英語・男性", code: "en-nz", keywords: ["new zealand"], gender: "male" }
+    ];
+
+    function pickCategoryVoice(category, pool) {
+        const candidates = pool.filter(v =>
+            countryMatches(v, category.code, category.keywords) &&
+            genderMatches(v, category.gender, category.key)
+        );
+        if (!candidates.length) return null;
+        return [...candidates].sort((a, b) => {
+            const diff = rankVoice(a, category.key) - rankVoice(b, category.key);
+            if (diff !== 0) return diff;
+            return (a.name || "").localeCompare(b.name || "");
+        })[0];
+    }
+
+    let target = [];
+
+    if (!isEdge) {
+        // Chromeでは従来どおりGoogle系の英語音声だけを表示する。
+        const googleOrder = [
+            { key: "us-female", label: "アメリカ英語・女性", match: /google us english/i },
+            { key: "gb-female", label: "イギリス英語・女性", match: /google uk english female/i },
+            { key: "gb-male", label: "イギリス英語・男性", match: /google uk english male/i }
+        ];
+
+        target = googleOrder
+            .map(item => {
+                const voice = englishVoices.find(v => item.match.test(v.name || ""));
+                return voice ? { voice, label: item.label } : null;
+            })
+            .filter(Boolean);
+
+        // Google系が見つからない環境では、国別カテゴリ方式に戻す。
+        if (!target.length) {
+            target = categories
+                .map(category => {
+                    const voice = pickCategoryVoice(category, englishVoices);
+                    return voice ? { voice, label: category.label } : null;
+                })
+                .filter(Boolean);
+        }
+    } else {
+        // Edgeでは大量に列挙される音声を、TOEIC想定の国別・男女別カテゴリに絞る。
+        target = categories
+            .map(category => {
+                const voice = pickCategoryVoice(category, englishVoices);
+                return voice ? { voice, label: category.label } : null;
+            })
+            .filter(Boolean);
+    }
+
+    if (!target.length) {
+        target = englishVoices.slice(0, 1).map(v => ({ voice: v, label: "英語音声" }));
+    }
+
+    voiceSelect.innerHTML = target.map(entry => {
+        const globalIndex = voices.indexOf(entry.voice);
+        const label = escapeHtml(entry.label);
+        const name = escapeHtml(entry.voice.name);
+        const lang = escapeHtml(entry.voice.lang);
+        return `<option value="${globalIndex}">${label} - ${name} / ${lang}</option>`;
+    }).join("");
+
+    const preferred =
+        target.find(entry => entry.label === "アメリカ英語・女性") ||
+        target[0];
+
+    if (preferred) voiceSelect.value = String(voices.indexOf(preferred.voice));
+}
+function getSelectedVoice() {
+    const idx = Number(voiceSelect.value);
+    const selected = voices[idx];
+    if (selected && selected.lang && selected.lang.toLowerCase().startsWith("en")) return selected;
+    return voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en")) || null;
+}
+
+function clearCurrent() {
+    document.querySelectorAll(".sentence-row").forEach(el => el.classList.remove("current"));
+}
+
+function markCurrent(index) {
+    clearCurrent();
+    const row = document.getElementById(`row-${index}`);
+    if (row) {
+        row.classList.add("current");
+        row.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+
+function returnViewToFirstSentence() {
+    clearCurrent();
+    const firstRow = document.getElementById("row-0");
+    if (firstRow) {
+        firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (displayArea) {
+        displayArea.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+function speakLine(index, continueMode = false, wrapAtEnd = false) {
+    if (index < 0 || index >= lessonData.length) return;
+
+    playbackAutoNext = continueMode;
+    playbackWrapAtEnd = continueMode ? wrapAtEnd : false;
+    currentIndex = index;
+    isPaused = false;
+    speechSynthesis.cancel();
+    markCurrent(index);
+    refreshClasses();
+
+    const utterance = new SpeechSynthesisUtterance(plainLine(lessonData[index].english));
+    const selectedVoice = getSelectedVoice();
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = selectedVoice ? selectedVoice.lang : "en-US";
+    utterance.rate = Number(speedSlider.value);
+    utterance.pitch = 1.0;
+
+    utterance.onend = () => {
+        if (isPaused) return;
+
+        if (loopSettings[index]) {
+            speakLine(index, playbackAutoNext, playbackWrapAtEnd);
+            return;
+        }
+
+        if (playbackAutoNext && index + 1 < lessonData.length) {
+            speakLine(index + 1, true, playbackWrapAtEnd);
+        } else if (playbackAutoNext && playbackWrapAtEnd && lessonData.length > 0) {
+            speakLine(0, true, true);
+        } else {
+            currentIndex = -1;
+            const shouldReturnToFirst = returnToFirstAfterSequence;
+            returnToFirstAfterSequence = false;
+            if (shouldReturnToFirst) {
+                returnViewToFirstSentence();
+            } else {
+                clearCurrent();
+            }
+        }
+    };
+
+    speechSynthesis.speak(utterance);
+}
+
+function jumpToSentence(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= lessonData.length) return;
+
+    speechSynthesis.cancel();
+    isPaused = false;
+    currentIndex = index;
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    refreshLoopButtons();
+    refreshClasses();
+    markCurrent(index);
+}
+
+function closeAllMainJumpMenus() {
+    document.querySelectorAll(".main-jump-menu.open").forEach(menu => menu.classList.remove("open"));
+    hideMainTooltip();
+}
+
+function toggleMainJumpMenu(index) {
+    const menu = document.getElementById(`main-jump-menu-${index}`);
+    if (!menu) return;
+    const willOpen = !menu.classList.contains("open");
+    closeAllMainJumpMenus();
+    if (willOpen) {
+        menu.classList.add("open");
+        requestAnimationFrame(() => {
+            menu.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+    }
+}
+
+function showMainTooltip(event, target) {
+    const tip = document.getElementById("mainFloatTooltip");
+    if (!tip || !target) return;
+    const text = target.getAttribute("data-tooltip") || "";
+    if (!text) return;
+    tip.textContent = text;
+    tip.style.display = "block";
+
+    const margin = 10;
+    const rect = tip.getBoundingClientRect();
+    let left = event.clientX - rect.width / 2;
+    left = Math.max(margin, Math.min(left, window.innerWidth - rect.width - margin));
+    let top = event.clientY - rect.height - 12;
+    if (top < margin) top = event.clientY + 16;
+
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+}
+
+function hideMainTooltip() {
+    const tip = document.getElementById("mainFloatTooltip");
+    if (tip) tip.style.display = "none";
+}
+
+document.addEventListener("click", (e) => {
+    const jump = e.target.closest(".main-jump-wrap");
+    if (!jump) closeAllMainJumpMenus();
+});
+
+window.addEventListener("scroll", hideMainTooltip, true);
+window.addEventListener("resize", hideMainTooltip);
+
+function clearLoopStateForManualPlayback() {
+    // 行ごとのPLAY/自動で次へを押したときは、現在のLOOP状態を解除して通常再生に戻す。
+    const hadLoop = wholeLoop || loopSettings.some(Boolean);
+    if (!hadLoop) return;
+
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    isPaused = false;
+    refreshLoopButtons();
+    refreshClasses();
+}
+
+function playFrom(index) {
+    // 行ごとのPLAYは、LOOP中でもLOOPを解除して、その文だけを1回再生する。
+    clearLoopStateForManualPlayback();
+    returnToFirstAfterSequence = false;
+    speakLine(index, false, false);
+}
+
+function playThenNext(index) {
+    // 行ごとの「自動で次へ」は、LOOP中でもLOOPを解除して、この文から連続再生する。
+    clearLoopStateForManualPlayback();
+    returnToFirstAfterSequence = false;
+    autoNext.checked = true;
+    refreshClasses();
+    speakLine(index, true, true);
+}
+
+function playSequenceFrom(index) {
+    // 「最初から再生」は1回だけ全体を再生し、最後に先頭へ戻って終了する。
+    returnToFirstAfterSequence = index === 0;
+    autoNext.checked = true;
+    refreshClasses();
+    speakLine(index, true, false);
+}
+
+function toggleWholeLoop() {
+    wholeLoop = !wholeLoop;
+
+    if (wholeLoop) {
+        autoNext.checked = true;
+        refreshClasses();
+        if (lessonData.length > 0) {
+            speakLine(currentIndex >= 0 ? currentIndex : 0, true, true);
+        }
+        return;
+    }
+
+    stopAll();
+    refreshClasses();
+}
+
+function pauseResume() {
+    if (isPaused) {
+        isPaused = false;
+        refreshClasses();
+        if (currentIndex >= 0) {
+            speakLine(currentIndex, playbackAutoNext, playbackWrapAtEnd);
+        } else if (lessonData.length > 0) {
+            speakLine(0, false, false);
+        }
+        return;
+    }
+
+    if (speechSynthesis.speaking || currentIndex >= 0) {
+        isPaused = true;
+        speechSynthesis.cancel();
+        refreshClasses();
+        return;
+    }
+
+    if (lessonData.length > 0) {
+        speakLine(0, false, false);
+    }
+}
+
+function refreshLoopButtons() {
+    loopSettings.forEach((isOn, i) => {
+        const btn = document.getElementById(`loop-${i}`);
+        if (btn) {
+            btn.classList.toggle("loop-on", isOn);
+            btn.textContent = isOn ? "🔁 LOOP ON" : "LOOP";
+        }
+    });
+}
+
+function stopAll() {
+    speechSynthesis.cancel();
+    isPaused = false;
+    currentIndex = -1;
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    clearCurrent();
+    refreshLoopButtons();
+    refreshClasses();
+}
+
+function toggleLoop(i) {
+    const nextState = !loopSettings[i];
+    loopSettings = loopSettings.map(() => false);
+    loopSettings[i] = nextState;
+    wholeLoop = false;
+    returnToFirstAfterSequence = false;
+    refreshLoopButtons();
+    refreshClasses();
+
+    if (nextState) {
+        speakLine(i, false);
+    } else if (currentIndex === i || speechSynthesis.speaking) {
+        stopAll();
+    }
+}
+
+function loadLessonObject(obj) {
+    let loadedData;
+    const loadedMeta = readLessonMetaFromObject(obj);
+
+    if (Array.isArray(obj)) {
+        loadedData = obj;
+    } else if (obj && Array.isArray(obj.data)) {
+        loadedData = obj.data;
+    } else {
+        throw new Error("教材データ配列が見つかりません。");
+    }
+
+    loadedData.forEach((item, i) => {
+        if (!item.english || typeof item.english !== "string") {
+            throw new Error(`${i + 1}番目のenglishが不正です。`);
+        }
+        item.vocab = getVocabText(item);
+        item.jp = item.jp || item.translation || "";
+        item.accent = item.accent || item.accentText || item["アクセント"] || item.english || "";
+        normalizeAccentAndVocab(item);
+        item.split = item.split || "";
+        item.splitJp = item.splitJp || item.splitTranslation || "";
+        normalizeLessonItemLabel(item, i);
+    });
+
+    stopAll();
+    setLessonMeta(loadedMeta.material, loadedMeta.section);
+    lessonData = loadedData;
+    loopSettings = [];
+    currentIndex = -1;
+    updateDisplay();
+}
+
+
+const LESSON_FOLDER_DB_NAME = "readingAloudTrainerSettings";
+const LESSON_FOLDER_STORE_NAME = "handles";
+const LESSON_FOLDER_KEY = "lessonFolderHandle";
+
+function openLessonFolderDb() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(LESSON_FOLDER_DB_NAME, 1);
+        request.onupgradeneeded = () => {
+            const db = request.result;
+            if (!db.objectStoreNames.contains(LESSON_FOLDER_STORE_NAME)) {
+                db.createObjectStore(LESSON_FOLDER_STORE_NAME);
+            }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function saveLessonFolderHandle(handle) {
+    const db = await openLessonFolderDb();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(LESSON_FOLDER_STORE_NAME, "readwrite");
+        tx.objectStore(LESSON_FOLDER_STORE_NAME).put(handle, LESSON_FOLDER_KEY);
+        tx.oncomplete = () => {
+            db.close();
+            resolve();
+        };
+        tx.onerror = () => {
+            db.close();
+            reject(tx.error);
+        };
+    });
+}
+
+async function getLessonFolderHandle() {
+    const db = await openLessonFolderDb();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(LESSON_FOLDER_STORE_NAME, "readonly");
+        const request = tx.objectStore(LESSON_FOLDER_STORE_NAME).get(LESSON_FOLDER_KEY);
+        request.onsuccess = () => resolve(request.result || null);
+        request.onerror = () => reject(request.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+
+async function setLessonFolder() {
+    if (!window.showDirectoryPicker) {
+        alert("このブラウザでは教材フォルダ設定に対応していません。ChromeまたはEdgeで使用してください。");
+        return;
+    }
+
+    try {
+        const handle = await window.showDirectoryPicker({
+            id: "reading-aloud-trainer-folder",
+            mode: "read"
+        });
+        await saveLessonFolderHandle(handle);
+        alert("教材フォルダを設定しました。\n\n" + handle.name + "\n\n次回以降の教材ファイル読み込みでは、このフォルダを起点に開きます。");
+    } catch (e) {
+        if (e && e.name === "AbortError") return;
+        alert("教材フォルダの設定に失敗しました。\n" + e.message);
+    }
+}
+
+async function buildLessonOpenOptions() {
+    const options = {
+        id: "reading-aloud-trainer",
+        types: [{
+            description: "教材JSONファイル",
+            accept: { "application/json": [".json"] }
+        }],
+        multiple: false
+    };
+
+    try {
+        const folderHandle = await getLessonFolderHandle();
+        if (folderHandle) {
+            options.startIn = folderHandle;
+        }
+    } catch (e) {
+        // 保存済みフォルダ情報が読めない場合は、通常のファイル選択に戻します。
+    }
+
+    return options;
+}
+
+async function loadLessonFromFile() {
+    if (window.showOpenFilePicker) {
+        try {
+            let options = await buildLessonOpenOptions();
+            let handle;
+
+            try {
+                [handle] = await window.showOpenFilePicker(options);
+            } catch (e) {
+                if (e && e.name === "AbortError") return;
+                // 保存済みフォルダを起点にできない場合は、通常のファイル選択で再試行します。
+                if (options.startIn) {
+                    delete options.startIn;
+                    [handle] = await window.showOpenFilePicker(options);
+                } else {
+                    throw e;
+                }
+            }
+
+            const file = await handle.getFile();
+            const text = await file.text();
+            loadLessonObject(JSON.parse(text));
+            return;
+        } catch (e) {
+            if (e && e.name === "AbortError") return;
+            alert("読み込みに失敗しました。\n" + e.message);
+            return;
+        }
+    }
+
+    lessonFileInput.click();
+}
+
+if (lessonFileInput) {
+    lessonFileInput.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        try {
+            const text = await file.text();
+            loadLessonObject(JSON.parse(text));
+        } catch (err) {
+            alert("読み込みに失敗しました。\n" + err.message);
+        } finally {
+            lessonFileInput.value = "";
+        }
+    });
+}
+
+function openSplitPractice(index) {
+    const item = lessonData[index];
+    if (!item) return;
+
+    const screenW = window.screen && window.screen.availWidth ? window.screen.availWidth : 1200;
+    const screenH = window.screen && window.screen.availHeight ? window.screen.availHeight : 850;
+    const num = getPaddedLabelNumber(item, index);
+    const fullItemLabel = getFullItemLabel(item, index);
+    const splitCircleNumber = escapeHtml(getCircleNumber(item, index));
+    const splitCircleNumberClass = escapeHtml(getCircleNumberClass(item, index));
+
+    const win = window.open(
+        "",
+        "splitPracticePopup",
+        `width=${screenW},height=${screenH},left=0,top=0,scrollbars=yes,resizable=yes`
+    );
+
+    if (!win) {
+        alert("ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。");
+        return;
+    }
+
+    // 分割練習へ移るときは、元画面側と既存ポップアップ側の再生・LOOPを自動停止する。
+    try {
+        if (win && typeof win.stopSplit === "function") {
+            win.stopSplit();
+        } else if (win && win.speechSynthesis) {
+            win.speechSynthesis.cancel();
+        }
+    } catch (e) {
+        // 既存ポップアップを停止できない場合でも、再描画を続行します。
+    }
+    stopAll();
+
+    function splitLines(text) {
+        return String(text || "")
+            .split(/\n+/)
+            .map(s => s.trim())
+            .filter(Boolean);
+    }
+
+    const englishAccent = accentHtml(getAccentText(item) || "");
+    const englishPlain = markedPlainHtml(item.english || "");
+    const vocab = markedTextHtml(getVocabText(item) || "（語彙データなし）");
+    const jp = escapeHtml(item.jp || "（和訳データなし）");
+    const splitTextRaw = item.split || "（分割データなし）";
+    const splitLinesRaw = splitLines(splitTextRaw);
+    const splitJpLinesRaw = splitLines(item.splitJp || "（分割訳データなし）");
+
+    const maxRows = Math.max(splitLinesRaw.length, splitJpLinesRaw.length);
+    const splitRowsHtml = Array.from({ length: maxRows }, (_, i) => {
+        const en = splitLinesRaw[i] ? accentHtml(splitLinesRaw[i]) : "";
+        const jpLine = splitJpLinesRaw[i] ? escapeHtml(splitJpLinesRaw[i]) : "";
+        return `<div class="split-row" id="split-row-${i}">
+            <div class="split-cell split-en">${en}</div>
+            <div class="split-play-cell"><button class="split-line-play" onclick="playOneSplitLine(${i})">PLAY</button><button class="split-line-toggle" onclick="toggleSplitLineVisibility(${i})">分割ON/OFF</button></div>
+            <div class="split-cell split-jp-line">${jpLine}</div>
+        </div>`;
+    }).join("");
+
+    function tooltipTextForItem(it) {
+        return sentenceTooltipText(it);
+    }
+
+    const prevIndex = index > 0 ? index - 1 : -1;
+    const nextIndex = index < lessonData.length - 1 ? index + 1 : -1;
+    const prevTooltip = prevIndex >= 0 ? escapeHtml(tooltipTextForItem(lessonData[prevIndex])) : "";
+    const nextTooltip = nextIndex >= 0 ? escapeHtml(tooltipTextForItem(lessonData[nextIndex])) : "";
+    const currentNavLabel = `${escapeHtml(getCircleNumber(item, index))}/${lessonData.length}`;
+    const sentenceMenuHtml = lessonData.map((it, j) => {
+        const label = escapeHtml(getCircleNumber(it, j));
+        const tip = escapeHtml(tooltipTextForItem(it));
+        const active = j === index ? " current" : "";
+        return `<button type="button" class="sentence-menu-item${active}" data-tooltip="${tip}" onmouseenter="showSplitTooltip(event, this)" onmousemove="showSplitTooltip(event, this)" onmouseleave="hideSplitTooltip()" onclick="stopSplit(); window.opener.openSplitPractice(${j})">${label}</button>`;
+    }).join("");
+    const splitSelectedVoice = getSelectedVoice();
+    const splitVoiceInfo = splitSelectedVoice ? {
+        name: splitSelectedVoice.name || "",
+        lang: splitSelectedVoice.lang || "",
+        voiceURI: splitSelectedVoice.voiceURI || "",
+        localService: Boolean(splitSelectedVoice.localService)
+    } : null;
+
+    const doc = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>分割練習 ${num}</title>
+<style>
+    :root {
+        --primary:#2563eb;
+        --primary-dark:#1d4ed8;
+        --accent:#111827;
+        --bg:#f3f4f6;
+        --card:#ffffff;
+        --text:#111827;
+        --muted:#6b7280;
+        --border:#d1d5db;
+        --danger:#dc2626;
+        --success:#16a34a;
+        --vocab-bg:#fff7ed;
+        --jp-bg:#eef6ff;
+        --split-bg:#f8fafc;
+        --split-jp-bg:#f0fdf4;
+        --purple:#7c3aed;
+    }
+    * { box-sizing:border-box; }
+    body {
+        margin:0;
+        font-family:"Segoe UI","Yu Gothic UI","Meiryo",Arial,sans-serif;
+        background:var(--bg);
+        color:var(--text);
+        height:100vh;
+        overflow:auto;
+    }
+    header {
+        padding:10px 18px;
+        background:#fff;
+        border-bottom:1px solid var(--border);
+        position:sticky;
+        top:0;
+        z-index:10;
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+        gap:14px;
+        box-shadow:0 3px 12px rgba(15,23,42,0.08);
+    }
+    .top-controls {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex:1;
+        max-width:1180px;
+    }
+    .sentence-nav {
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+        min-width:168px;
+    }
+    .nav-arrow, .nav-current {
+        border:none;
+        border-radius:9px;
+        padding:7px 10px;
+        font-weight:900;
+        cursor:pointer;
+    }
+    .nav-arrow {
+        background:#e5e7eb;
+        color:#111827;
+        min-width:36px;
+    }
+    .nav-arrow:hover { background:#d1d5db; }
+    .nav-arrow:disabled {
+        opacity:.35;
+        cursor:default;
+    }
+    .nav-current {
+        background:#ffffff;
+        color:#111827;
+        border:1px solid var(--border);
+        min-width:62px;
+        font-size:.72rem;
+        font-weight:600;
+    }
+    .nav-tooltip-source { position:relative; }
+    .split-float-tooltip {
+        display:none;
+        position:fixed;
+        z-index:5000;
+        max-width:min(560px, calc(100vw - 28px));
+        background:#ffffff;
+        color:#111827;
+        border:1px solid var(--border);
+        border-radius:7px;
+        padding:6px 8px;
+        font-size:.72rem;
+        line-height:1.45;
+        font-weight:500;
+        box-shadow:0 6px 16px rgba(15,23,42,.18);
+        pointer-events:none;
+        white-space:normal;
+    }
+    .sentence-menu {
+        display:none;
+        position:absolute;
+        top:calc(100% + 6px);
+        left:50%;
+        transform:translateX(-50%);
+        width:66px;
+        /* 10件程度を一度に見せ、残りはメニュー内スクロールにする */
+        max-height:min(314px, calc(100vh - 28px));
+        overflow:auto;
+        background:#ffffff;
+        border:1px solid var(--border);
+        border-radius:10px;
+        padding:6px;
+        box-shadow:0 10px 28px rgba(15,23,42,.18);
+        z-index:999;
+    }
+    .sentence-menu.open { display:flex; flex-direction:column; gap:4px; }
+    .sentence-menu-item {
+        position:relative;
+        background:#ffffff;
+        color:#111827;
+        border:1px solid transparent;
+        border-radius:7px;
+        padding:4px 6px;
+        font-size:.72rem;
+        line-height:1.45;
+        font-weight:500;
+        text-align:center;
+    }
+    .sentence-menu-item:hover {
+        background:#eff6ff;
+        border-color:#bfdbfe;
+    }
+    .sentence-menu-item.current {
+        background:#dbeafe;
+        border-color:#60a5fa;
+        color:#1d4ed8;
+    }
+    .speed-label {
+        font-weight:900;
+        min-width:58px;
+        text-align:right;
+    }
+    input[type="range"] {
+        width:100%;
+        cursor:pointer;
+    }
+    .pause-select {
+        border:1px solid var(--border);
+        border-radius:10px;
+        padding:8px 10px;
+        font-weight:800;
+        background:#fff;
+        color:var(--text);
+    }
+    .pause-label {
+        font-weight:900;
+        white-space:nowrap;
+    }
+    .toggle {
+        display:inline-flex;
+        align-items:center;
+        gap:5px;
+        font-size:.88rem;
+        color:var(--text);
+        background:#fff;
+        border:1px solid var(--border);
+        padding:7px 10px;
+        border-radius:999px;
+        user-select:none;
+        white-space:nowrap;
+    }
+    .split-hidden-text,
+    .split-hidden-text * {
+        color:transparent !important;
+        text-shadow:0 0 10px rgba(17,24,39,.35) !important;
+    }
+    .split-hidden-text .accent-highlight,
+    .english-card.split-hidden-text .accent-highlight {
+        background:transparent !important;
+        color:transparent !important;
+        box-shadow:none !important;
+    }
+    body.hide-split-vocab .vocab-card {
+        display:none;
+    }
+    body.hide-split-english .english-card {
+        color:transparent !important;
+    }
+    body.hide-split-english .english-card .split-main-english,
+    body.hide-split-english .english-card .split-accent-english,
+    body.hide-split-english .english-card .split-main-english *,
+    body.hide-split-english .english-card .split-accent-english * {
+        color:transparent !important;
+        text-shadow:0 0 10px rgba(17,24,39,.35) !important;
+    }
+    body.hide-split-english .english-card .accent-highlight {
+        background:transparent !important;
+        color:transparent !important;
+        box-shadow:none !important;
+    }
+    body.hide-split-lines .split-en,
+    body.hide-split-lines .split-row.current-split .split-en {
+        color:transparent !important;
+        text-shadow:none !important;
+        background:var(--split-bg) !important;
+        border:1px dashed var(--border) !important;
+        box-shadow:none !important;
+    }
+    body.hide-split-lines .split-en *,
+    body.hide-split-lines .split-row.current-split .split-en * {
+        color:transparent !important;
+        background:transparent !important;
+        text-shadow:none !important;
+        box-shadow:none !important;
+    }
+    body.hide-split-lines .split-row.split-line-force-show .split-en,
+    body.hide-split-lines .split-row.current-split.split-line-force-show .split-en {
+        color:var(--text) !important;
+        text-shadow:none !important;
+        background:var(--split-bg) !important;
+        border:1px dashed var(--border) !important;
+        box-shadow:none !important;
+    }
+    body.hide-split-lines .split-row.split-line-force-show .split-en *,
+    body.hide-split-lines .split-row.current-split.split-line-force-show .split-en * {
+        color:inherit !important;
+        text-shadow:none !important;
+        box-shadow:none !important;
+    }
+    body.hide-split-lines .split-row.split-line-force-show .split-en .accent-highlight,
+    body.hide-split-lines .split-row.current-split.split-line-force-show .split-en .accent-highlight {
+        background:var(--accent) !important;
+        color:#fff !important;
+        box-shadow:none !important;
+    }
+    .split-row.split-line-force-hide .split-en,
+    .split-row.current-split.split-line-force-hide .split-en {
+        color:transparent !important;
+        text-shadow:none !important;
+        background:var(--split-bg) !important;
+        border:1px dashed var(--border) !important;
+        box-shadow:none !important;
+    }
+    .split-row.split-line-force-hide .split-en *,
+    .split-row.current-split.split-line-force-hide .split-en * {
+        color:transparent !important;
+        background:transparent !important;
+        text-shadow:none !important;
+        box-shadow:none !important;
+    }
+    .wrap {
+        display:grid;
+        grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+        gap:16px;
+        padding:16px;
+        min-height:calc(100vh - 58px);
+    }
+    .left, .right {
+        display:flex;
+        flex-direction:column;
+        gap:14px;
+        min-width:0;
+        align-self:start;
+    }
+    .card {
+        background:var(--card);
+        border:1px solid var(--border);
+        border-radius:14px;
+        padding:16px;
+        box-shadow:0 3px 10px rgba(15,23,42,0.06);
+    }
+    .split-sentence-card {
+        display:grid;
+        grid-template-columns:auto minmax(0, 1fr);
+        gap:12px;
+        align-items:start;
+    }
+    .split-line-num {
+        width:2.55rem;
+        height:2.55rem;
+        border-radius:50%;
+        background:#fff;
+        border:2.5px solid #000;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#000;
+        font-weight:900;
+        font-size:1.05rem;
+        line-height:1;
+        flex-shrink:0;
+        /* 青色ハイライト英文の上下中央に丸数字の中心が来るよう再調整 */
+        margin-top:.39rem;
+    }
+    .split-line-num.long-num {
+        font-size:.78rem;
+        letter-spacing:-.06em;
+    }
+    .split-line-num.choice-num {
+        background:#000;
+        color:#fff;
+        border-color:#000;
+    }
+    .split-sentence-main {
+        min-width:0;
+    }
+    .split-main-english {
+        font-size:1.52rem;
+        line-height:1.85;
+        word-break:normal;
+        margin-bottom:8px;
+        background:#fef3c7;
+        color:#1d4ed8;
+        font-weight:900;
+        border-radius:8px;
+        padding:4px 8px;
+        box-shadow:0 0 0 2px rgba(245,158,11,0.22);
+        display:inline-block;
+        max-width:100%;
+    }
+    .split-accent-english {
+        color:var(--muted);
+        font-size:1.14rem;
+        line-height:1.7;
+    }
+    .title {
+        font-weight:900;
+        margin:0 0 8px 0;
+        padding:0;
+        color:#111827;
+        letter-spacing:.03em;
+        line-height:1.4;
+    }
+    .english {
+        font-size:1.5rem;
+        line-height:1.9;
+        margin-bottom:8px;
+    }
+    .plain {
+        color:var(--muted);
+        font-size:1rem;
+        line-height:1.65;
+    }
+    .text-box {
+        white-space:pre-wrap;
+        line-height:1.75;
+        font-size:1.04rem;
+        margin:0;
+        padding:0;
+        text-indent:0;
+    }
+    .jp-card {
+        background:var(--jp-bg);
+        border-color:#bfdbfe;
+    }
+    .vocab-card {
+        background:var(--vocab-bg);
+        border-color:#fed7aa;
+    }
+    .split-grid {
+        display:grid;
+        grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+        gap:16px;
+        align-items:start;
+        grid-column:1 / -1;
+    }
+    .split-header {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        margin-bottom:8px;
+        min-height:42px;
+    }
+    .split-actions {
+        display:flex;
+        gap:8px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+    }
+    .split-rows {
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+        min-width:0;
+    }
+    .split-row {
+        display:grid;
+        grid-template-columns: minmax(0, 1.15fr) 128px minmax(0, .85fr);
+        gap:8px;
+        grid-column:1 / -1;
+        align-items:stretch;
+    }
+    .split-row.current-split .split-en {
+        background:#fef3c7;
+        color:#1d4ed8;
+        font-weight:900;
+        border:1px solid #f59e0b;
+        box-shadow:0 0 0 2px rgba(245,158,11,0.22);
+    }
+    .split-cell {
+        min-width:0;
+        min-height:42px;
+        border-radius:10px;
+        padding:9px 12px;
+        line-height:1.75;
+        white-space:pre-wrap;
+        display:flex;
+        align-items:flex-start;
+    }
+    .split-play-cell {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+        flex-wrap:wrap;
+    }
+    .split-line-play,
+    .split-line-toggle {
+        color:#fff;
+        border:none;
+        border-radius:8px;
+        padding:5px 7px;
+        font-size:.68rem;
+        line-height:1;
+        font-weight:900;
+        min-width:40px;
+        white-space:nowrap;
+    }
+    .split-line-play {
+        background:#60a5fa;
+    }
+    .split-line-play:hover {
+        background:#3b82f6;
+    }
+    .split-line-toggle {
+        background:#64748b;
+        min-width:74px;
+    }
+    .split-line-toggle:hover {
+        background:#475569;
+    }
+    .split-en {
+        background:var(--split-bg);
+        border:1px dashed var(--border);
+        font-size:1.22rem;
+    }
+    .split-jp-line {
+        background:var(--split-jp-bg);
+        border:1px solid #bbf7d0;
+        font-size:1.05rem;
+    }
+    .accent-highlight {
+        background:var(--accent);
+        color:#fff;
+        border-radius:5px;
+        padding:2px 5px;
+        font-weight:900;
+        box-decoration-break:clone;
+        -webkit-box-decoration-break:clone;
+    }
+    button {
+        color:#fff;
+        border:none;
+        border-radius:10px;
+        padding:9px 14px;
+        font-weight:800;
+        cursor:pointer;
+        transform:translateY(0);
+    }
+    button:active {
+        transform:translateY(2px) scale(.97);
+        opacity:.75;
+        filter:brightness(.92);
+    }
+    .play { background:var(--primary); }
+    .play:hover { background:var(--primary-dark); }
+    .stop { background:var(--danger); }
+    .loop { background:var(--success); }
+    .close { background:var(--purple); }
+    .loop-on {
+        background:var(--success);
+        box-shadow:0 0 0 3px rgba(22,163,74,0.25),0 0 16px rgba(22,163,74,0.75);
+        animation:loopPulse 1.45s ease-in-out infinite;
+    }
+    @keyframes loopPulse {
+        0% { opacity:1; transform:scale(1); filter:brightness(1); }
+        50% { opacity:.58; transform:scale(1.03); filter:brightness(1.16); }
+        100% { opacity:1; transform:scale(1); filter:brightness(1); }
+    }
+
+    @media(max-width:700px) {
+        body { height:auto; min-height:100dvh; }
+        header {
+            position:sticky;
+            top:0;
+            padding: max(8px, env(safe-area-inset-top)) 8px 8px;
+            gap:8px;
+            flex-direction:column;
+            align-items:stretch;
+        }
+        .top-controls {
+            display:grid;
+            grid-template-columns: auto minmax(0,1fr);
+            gap:7px;
+            width:100%;
+        }
+        .speed-label { min-width:48px; font-size:.82rem; }
+        .pause-label { font-size:.78rem; align-self:center; }
+        .pause-select { min-height:40px; padding:6px 8px; }
+        .toggle { justify-content:center; border-radius:10px; padding:7px 5px; font-size:.76rem; }
+        .top-controls .toggle { grid-column:span 1; }
+        header > .close { width:100%; min-height:42px; }
+        .wrap { grid-template-columns:1fr; gap:10px; padding:10px; min-height:auto; }
+        .left, .right { gap:10px; }
+        .card { padding:11px; border-radius:12px; }
+        .split-sentence-card { grid-template-columns:auto minmax(0,1fr); gap:8px; }
+        .split-line-num { width:2.25rem; height:2.25rem; font-size:.9rem; margin-top:.32rem; }
+        .split-main-english { font-size:1.08rem; line-height:1.65; }
+        .split-accent-english { font-size:.86rem; line-height:1.5; }
+        .text-box { font-size:.9rem; line-height:1.6; }
+        .split-grid { grid-template-columns:1fr; gap:10px; }
+        .split-header { flex-direction:column; align-items:stretch; gap:8px; }
+        .split-actions {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:7px;
+        }
+        .split-actions > button { min-height:42px; padding:7px 6px; font-size:.78rem; }
+        .sentence-nav { grid-column:1 / -1; width:100%; min-width:0; }
+        .nav-arrow, .nav-current { min-height:40px; }
+        .sentence-menu {
+            position:fixed;
+            left:10px;
+            right:10px;
+            top:auto;
+            bottom:max(10px, env(safe-area-inset-bottom));
+            transform:none;
+            width:auto;
+            max-height:52dvh;
+            display:none;
+            grid-template-columns:repeat(5,minmax(0,1fr));
+            gap:5px;
+            padding:8px;
+        }
+        .sentence-menu.open { display:grid; }
+        .sentence-menu-item { min-height:38px; font-size:.8rem; }
+        .split-row { grid-template-columns:1fr; gap:6px; }
+        .split-cell { min-height:38px; padding:8px 10px; line-height:1.55; }
+        .split-en { font-size:1rem; }
+        .split-jp-line { font-size:.88rem; }
+        .split-play-cell {
+            justify-content:stretch;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+        }
+        .split-line-play, .split-line-toggle { min-height:36px; width:100%; }
+        .split-float-tooltip { display:none !important; }
+    }
+
+    @media(max-width:900px) {
+        .wrap, .split-grid, .split-row { grid-template-columns:1fr; }
+        header { align-items:flex-start; flex-direction:column; }
+        .top-controls { width:100%; max-width:none; }
+    }
+</style>
+</head>
+<body>
+<div id="splitFloatTooltip" class="split-float-tooltip"></div>
+<header>
+    <div class="top-controls">
+        <span class="speed-label" id="speedVal">0.90x</span>
+        <input type="range" id="speedSlider" min="0.25" max="2.0" step="0.05" value="0.9">
+        <span class="pause-label">停止時間</span>
+        <select id="pauseSelect" class="pause-select">
+            <option value="1000">1.00秒</option>
+            <option value="750">0.75秒</option>
+            <option value="500" selected>0.50秒</option>
+            <option value="250">0.25秒</option>
+            <option value="0">0秒</option>
+        </select>
+        <label class="toggle"><input type="checkbox" id="splitHideVocab"> 語彙を隠す</label>
+        <label class="toggle"><input type="checkbox" id="splitHideEnglish"> 英文ぼかし</label>
+        <label class="toggle"><input type="checkbox" id="splitHideSplit"> 分割を隠す</label>
+    </div>
+    <button class="close" onclick="window.close()">閉じる</button>
+</header>
+
+<div class="wrap">
+    <section class="left">
+        <div class="card english-card split-sentence-card">
+            <div class="split-line-num ${splitCircleNumberClass}">${splitCircleNumber}</div>
+            <div class="split-sentence-main">
+                <div class="split-main-english">${englishPlain}</div>
+                <div class="split-accent-english">${englishAccent}</div>
+            </div>
+        </div>
+
+        <div class="card jp-card">
+            <div class="title">【和訳】</div>
+            <div class="text-box">${jp}</div>
+        </div>
+    </section>
+
+    <aside class="right">
+        <div class="card vocab-card">
+            <div class="title">【語彙】</div>
+            <div class="text-box">${vocab}</div>
+        </div>
+    </aside>
+
+    <section class="split-grid">
+        <div class="card" style="grid-column:1 / -1;">
+            <div class="split-header">
+                <div class="title" style="margin-bottom:0;">【分割】 / 【分割訳】</div>
+                <div class="split-actions">
+                    <button class="play" onclick="playSplit()">PLAY</button>
+                    <button class="stop" onclick="stopSplit()">STOP</button>
+                    <button id="loopBtn" class="loop" onclick="toggleLoop()">LOOP</button>
+                    <div class="sentence-nav" id="sentenceNav">
+                        <button type="button" class="nav-arrow nav-tooltip-source" ${prevIndex >= 0 ? `data-tooltip="${prevTooltip}" onmouseenter="showSplitTooltip(event, this)" onmousemove="showSplitTooltip(event, this)" onmouseleave="hideSplitTooltip()" onclick="stopSplit(); window.opener.openSplitPractice(${prevIndex})"` : "disabled"}>◀</button>
+                        <button type="button" class="nav-current" onclick="toggleSentenceMenu()">${currentNavLabel} ▼</button>
+                        <button type="button" class="nav-arrow nav-tooltip-source" ${nextIndex >= 0 ? `data-tooltip="${nextTooltip}" onmouseenter="showSplitTooltip(event, this)" onmousemove="showSplitTooltip(event, this)" onmouseleave="hideSplitTooltip()" onclick="stopSplit(); window.opener.openSplitPractice(${nextIndex})"` : "disabled"}>▶</button>
+                        <div class="sentence-menu" id="sentenceMenu">${sentenceMenuHtml}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-rows">
+                ${splitRowsHtml}
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    var splitLines = ${JSON.stringify(splitLinesRaw.map(line => plainLine(line)).filter(Boolean))};
+    var speedSlider = document.getElementById("speedSlider");
+    var speedVal = document.getElementById("speedVal");
+    var pauseSelect = document.getElementById("pauseSelect");
+    var splitHideVocab = document.getElementById("splitHideVocab");
+    var splitHideEnglish = document.getElementById("splitHideEnglish");
+    var splitHideSplit = document.getElementById("splitHideSplit");
+    var loopBtn = document.getElementById("loopBtn");
+    var loopMode = false;
+    var isStopped = true;
+    var currentLineIndex = 0;
+    var pauseTimer = null;
+
+    function showSplitTooltip(event, target) {
+        var tip = document.getElementById("splitFloatTooltip");
+        if (!tip || !target) return;
+        var text = target.getAttribute("data-tooltip") || "";
+        if (!text) return;
+        tip.textContent = text;
+        tip.style.display = "block";
+
+        var margin = 10;
+        var rect = tip.getBoundingClientRect();
+        var left = event.clientX - rect.width / 2;
+        left = Math.max(margin, Math.min(left, window.innerWidth - rect.width - margin));
+        var top = event.clientY - rect.height - 12;
+        if (top < margin) top = event.clientY + 16;
+
+        tip.style.left = left + "px";
+        tip.style.top = top + "px";
+    }
+
+
+    function hideSplitTooltip() {
+        var tip = document.getElementById("splitFloatTooltip");
+        if (tip) tip.style.display = "none";
+    }
+
+
+    function toggleSentenceMenu() {
+        var menu = document.getElementById("sentenceMenu");
+        if (!menu) return;
+        menu.classList.toggle("open");
+        if (menu.classList.contains("open")) {
+            requestAnimationFrame(function() {
+                menu.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            });
+        }
+    }
+
+    document.addEventListener("click", function(e) {
+        var nav = document.getElementById("sentenceNav");
+        var menu = document.getElementById("sentenceMenu");
+        if (nav && menu && !nav.contains(e.target)) {
+            menu.classList.remove("open");
+        }
+    });
+
+    speedSlider.addEventListener("input", () => {
+        speedVal.textContent = Number(speedSlider.value).toFixed(2) + "x";
+    });
+
+    function refreshSplitHideModes() {
+        document.body.classList.toggle("hide-split-vocab", splitHideVocab && splitHideVocab.checked);
+        document.body.classList.toggle("hide-split-english", splitHideEnglish && splitHideEnglish.checked);
+        document.body.classList.toggle("hide-split-lines", splitHideSplit && splitHideSplit.checked);
+    }
+
+    [splitHideVocab, splitHideEnglish].forEach(el => {
+        if (el) el.addEventListener("change", refreshSplitHideModes);
+    });
+    if (splitHideSplit) {
+        splitHideSplit.addEventListener("change", () => {
+            document.querySelectorAll(".split-row").forEach(row => {
+                row.classList.remove("split-line-force-show", "split-line-force-hide");
+            });
+            refreshSplitHideModes();
+        });
+    }
+    refreshSplitHideModes();
+
+    function toggleSplitLineVisibility(index) {
+        var row = document.getElementById("split-row-" + index);
+        if (!row) return;
+        var globalHidden = splitHideSplit && splitHideSplit.checked;
+
+        if (globalHidden) {
+            row.classList.remove("split-line-force-hide");
+            row.classList.toggle("split-line-force-show");
+        } else {
+            row.classList.remove("split-line-force-show");
+            row.classList.toggle("split-line-force-hide");
+        }
+    }
+
+    var parentSelectedVoiceInfo = ${JSON.stringify(splitVoiceInfo)};
+
+    function getEnglishVoice() {
+        var voices = speechSynthesis.getVoices();
+        var info = parentSelectedVoiceInfo || null;
+
+        if (info && voices.length) {
+            var exact = voices.find(function(v) {
+                return (v.voiceURI || "") === (info.voiceURI || "") &&
+                       (v.name || "") === (info.name || "") &&
+                       (v.lang || "") === (info.lang || "");
+            });
+            if (exact) return exact;
+
+            var byNameLang = voices.find(function(v) {
+                return (v.name || "") === (info.name || "") &&
+                       (v.lang || "") === (info.lang || "");
+            });
+            if (byNameLang) return byNameLang;
+
+            var byName = voices.find(function(v) {
+                return (v.name || "") === (info.name || "");
+            });
+            if (byName) return byName;
+        }
+
+        try {
+            if (window.opener && typeof window.opener.getSelectedVoice === "function") {
+                var openerVoice = window.opener.getSelectedVoice();
+                if (openerVoice) {
+                    var openerMatch = voices.find(function(v) {
+                        return (v.voiceURI || "") === (openerVoice.voiceURI || "") &&
+                               (v.name || "") === (openerVoice.name || "") &&
+                               (v.lang || "") === (openerVoice.lang || "");
+                    }) || voices.find(function(v) {
+                        return (v.name || "") === (openerVoice.name || "") &&
+                               (v.lang || "") === (openerVoice.lang || "");
+                    });
+                    if (openerMatch) return openerMatch;
+                    if (openerVoice.lang && openerVoice.lang.toLowerCase().startsWith("en")) return openerVoice;
+                }
+            }
+        } catch (e) {
+            // opener参照ができない環境では、下の英語音声フォールバックに進みます。
+        }
+
+        return voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith("en"); }) || voices[0] || null;
+    }
+
+    function clearPauseTimer() {
+        if (pauseTimer) {
+            clearTimeout(pauseTimer);
+            pauseTimer = null;
+        }
+    }
+
+    function clearCurrentSplit() {
+        document.querySelectorAll(".split-row").forEach(row => row.classList.remove("current-split"));
+    }
+
+    function markCurrentSplit(index) {
+        clearCurrentSplit();
+        var row = document.getElementById("split-row-" + index);
+        if (row) {
+            row.classList.add("current-split");
+            row.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+    }
+
+    function playOneSplitLine(index) {
+        clearPauseTimer();
+        isStopped = true;
+        loopMode = false;
+        loopBtn.classList.remove("loop-on");
+        loopBtn.textContent = "LOOP";
+        speechSynthesis.cancel();
+
+        var text = splitLines[index];
+        if (!text) return;
+
+        var utt = new SpeechSynthesisUtterance(text);
+        var voice = getEnglishVoice();
+        if (voice) {
+            utt.voice = voice;
+            utt.lang = voice.lang;
+        } else {
+            utt.lang = "en-US";
+        }
+        utt.rate = Number(speedSlider.value);
+        utt.pitch = 1.0;
+        markCurrentSplit(index);
+        utt.onend = () => {
+            clearCurrentSplit();
+        };
+        speechSynthesis.speak(utt);
+    }
+
+    function speakLineAt(index) {
+        clearPauseTimer();
+
+        if (isStopped) return;
+
+        if (index >= splitLines.length) {
+            if (loopMode) {
+                pauseTimer = setTimeout(() => {
+                    currentLineIndex = 0;
+                    speakLineAt(0);
+                }, Number(pauseSelect.value));
+            } else {
+                isStopped = true;
+                currentLineIndex = 0;
+                clearCurrentSplit();
+            }
+            return;
+        }
+
+        currentLineIndex = index;
+        markCurrentSplit(index);
+        speechSynthesis.cancel();
+
+        var utt = new SpeechSynthesisUtterance(splitLines[index]);
+        var voice = getEnglishVoice();
+        if (voice) {
+            utt.voice = voice;
+            utt.lang = voice.lang;
+        } else {
+            utt.lang = "en-US";
+        }
+        utt.rate = Number(speedSlider.value);
+        utt.pitch = 1.0;
+
+        utt.onend = () => {
+            if (isStopped) return;
+            pauseTimer = setTimeout(() => {
+                speakLineAt(index + 1);
+            }, Number(pauseSelect.value));
+        };
+
+        speechSynthesis.speak(utt);
+    }
+
+    function playSplit() {
+        if (!splitLines.length) return;
+        isStopped = false;
+        loopMode = false;
+        loopBtn.classList.remove("loop-on");
+        loopBtn.textContent = "LOOP";
+        currentLineIndex = 0;
+        speakLineAt(0);
+    }
+
+    function stopSplit() {
+        isStopped = true;
+        loopMode = false;
+        currentLineIndex = 0;
+        clearPauseTimer();
+        clearCurrentSplit();
+        loopBtn.classList.remove("loop-on");
+        loopBtn.textContent = "LOOP";
+        speechSynthesis.cancel();
+    }
+
+    function toggleLoop() {
+        loopMode = !loopMode;
+        loopBtn.classList.toggle("loop-on", loopMode);
+        loopBtn.textContent = loopMode ? "🔁 LOOP ON" : "LOOP";
+
+        if (loopMode) {
+            isStopped = false;
+            currentLineIndex = 0;
+            speakLineAt(0);
+        } else {
+            stopSplit();
+        }
+    }
+
+    window.addEventListener("beforeunload", () => {
+        clearPauseTimer();
+        speechSynthesis.cancel();
+    });
+
+    speechSynthesis.onvoiceschanged = () => {};
+<\/script>
+</body>
+</html>`;
+
+    win.document.open();
+    win.document.write(doc);
+    win.document.close();
+
+    try {
+        win.moveTo(0, 0);
+        win.resizeTo(screenW, screenH);
+        win.focus();
+    } catch (e) {
+        // ブラウザ設定によりリサイズできない場合があります。
+    }
+}
+
+document.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    if (btn.classList.contains("loop-on") || btn.classList.contains("loop-active")) return;
+    btn.classList.remove("clicked-feedback");
+    void btn.offsetWidth;
+    btn.classList.add("clicked-feedback");
+    setTimeout(() => btn.classList.remove("clicked-feedback"), 240);
+});
+
+speedSlider.addEventListener("input", e => {
+    speedVal.textContent = Number(e.target.value).toFixed(2) + "x";
+});
+
+[hideVocabToggle, hideJpToggle, hideEnglish].forEach(el => el.addEventListener("change", refreshClasses));
+
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+updateDisplay();
+</script>
+</body>
+</html>
