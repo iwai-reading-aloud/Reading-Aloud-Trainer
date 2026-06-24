@@ -1,7 +1,5 @@
 {
   "version": 1,
-  "title": "2年生",
-  "updated": "2026-06-25",
   "categories": [
     {
       "name": "語彙小テスト",
@@ -51,18 +49,6 @@
           "file": "教材/語彙小テスト/小テスト#11 - UNIT-26.json"
         }
       ]
-    },
-    {
-      "name": "TOEIC公式問題集",
-      "items": []
-    },
-    {
-      "name": "TOEIC教科書",
-      "items": []
-    },
-    {
-      "name": "Newspaper Article",
-      "items": []
     }
   ]
 }
