@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "updated": "2026-06-25",
+  "categories": [
+    {
+      "name": "語彙小テスト",
+      "items": [
+        {
+          "title": "語彙小テスト#01（UNIT-16）",
+          "file": "小テスト#01 - UNIT-16.json"
+        },
+        {
+          "title": "語彙小テスト#02（UNIT-17）",
+          "file": "小テスト#02 - UNIT-176.json"
+        }
+      ]
+    },
+    {
+      "name": "TOEIC公式問題集",
+      "items": []
+    },
+    {
+      "name": "TOEIC教科書",
+      "items": []
+    },
+    {
+      "name": "Newspaper Article",
+      "items": []
+    }
+  ]
+}
