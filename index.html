@@ -1299,28 +1299,69 @@ function safeRelativeFileUrl(file) {
 }
 
 const DEFAULT_LIBRARY_FILE = "libraries/2年生.json";
+const LIBRARY_FILE_STORAGE_KEY = "rat-library-file";
 
-async function loadLibraryFromServer(showAlert = false) {
-    libraryLoadError = "";
+function getCurrentLibraryFile() {
     try {
-        const res = await fetch(DEFAULT_LIBRARY_FILE + "?ts=" + Date.now(), { cache: "no-store" });
+        return localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || DEFAULT_LIBRARY_FILE;
+    } catch (e) {
+        return DEFAULT_LIBRARY_FILE;
+    }
+}
+
+function setCurrentLibraryFile(filePath) {
+    try {
+        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath || DEFAULT_LIBRARY_FILE);
+    } catch (e) {}
+}
+
+async function loadLibraryFromServer(showAlert = false, filePath = null) {
+    libraryLoadError = "";
+    const libraryFile = filePath || getCurrentLibraryFile();
+    try {
+        const res = await fetch(safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now(), { cache: "no-store" });
         if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
         const data = await res.json();
         if (!data || !Array.isArray(data.categories)) {
             throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
         }
         libraryData = data;
+        setCurrentLibraryFile(libraryFile);
         try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
         lessonData = [];
         setLessonMeta("", "");
         updateDisplay();
-        if (showAlert) alert("教材ライブラリを読み込みました。");
+        if (showAlert) alert("教材ライブラリを読み込みました。
+" + libraryFile);
     } catch (e) {
         libraryLoadError = e && e.message ? e.message : String(e);
         libraryData = null;
         updateDisplay();
         if (showAlert) alert("教材ライブラリの読み込みに失敗しました。\n" + libraryLoadError);
     }
+}
+
+async function changeLibraryFile() {
+    const current = getCurrentLibraryFile();
+    const next = prompt(
+        "読み込む教材ライブラリのパスを入力してください。\n例：libraries/2年生.json\n例：libraries/ALL.json",
+        current
+    );
+    if (!next) return;
+    await loadLibraryFromServer(true, next.trim());
+}
+
+function resetLibrarySelection() {
+    if (!confirm("現在の教材ライブラリの記憶をリセットしますか？")) return;
+    try {
+        localStorage.removeItem("rat-library-autoload");
+        localStorage.removeItem(LIBRARY_FILE_STORAGE_KEY);
+    } catch (e) {}
+    libraryData = null;
+    libraryLoadError = "";
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
 }
 
 function getVisibleLibraryCategories() {
@@ -1348,6 +1389,7 @@ function renderLibraryHome() {
                 <div class="library-hero-sub">教材ライブラリを読み込むと、教材一覧が表示されます。</div>
                 <div class="library-actions centered">
                     <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
+                    <button class="secondary action-flash" onclick="changeLibraryFile()">別の教材ライブラリを指定</button>
                 </div>
             </div>
             ${errorHtml}
@@ -1374,6 +1416,8 @@ function renderLibraryHome() {
             <div class="library-hero-sub">教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+                <button class="secondary action-flash" onclick="changeLibraryFile()">教材ライブラリを変更</button>
+                <button class="secondary action-flash" onclick="resetLibrarySelection()">リセット</button>
                 <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
             </div>
         </div>
