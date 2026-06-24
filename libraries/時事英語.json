@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "name": "新聞記事",
+      "sections": [
+        {
+          "name": "NY Times",
+          "items": [
+            {
+              "title": "US-Iran Talk 01 - Could Iran still build nuclear weapon",
+              "file": "教材/新聞記事/NY Times/(2026-0623) US-Iran Talk_01 - Could Iran still build nuclear weapon.json"
+            },
+            {
+              "title": "US-Iran Talk 02 - Strait of Hormuz & Iran's financial interests",
+              "file": "教材/新聞記事/NY Times/(2026-0623) US-Iran Talk_02 - Strait of Hormuz & Iran's financial interests.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
