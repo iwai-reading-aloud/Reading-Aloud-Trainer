@@ -963,13 +963,13 @@ body.library-mode .stats {
 }
 
 
-/* Library folder drill-down v2 */
+/* Library folder drill-down: simple arrow-only style */
 .library-folder-btn {
     width: 100%;
     text-align: left;
-    background: #eef2ff;
-    color: #3730a3;
-    border: 1px solid #c7d2fe;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 13px 14px;
     font-size: 1.04rem;
@@ -981,9 +981,15 @@ body.library-mode .stats {
     justify-content: space-between;
     gap: 10px;
 }
+.library-folder-btn:hover,
+.library-folder-btn.open {
+    background: #ffffff;
+    color: var(--text);
+    border-color: var(--border);
+}
 .library-folder-btn::after {
     content: "▶";
-    color: #6366f1;
+    color: var(--muted);
     font-size: .9rem;
 }
 .library-folder-btn.open::after {
@@ -993,7 +999,7 @@ body.library-mode .stats {
     display: none;
     margin-top: 8px;
     padding-left: 8px;
-    border-left: 3px solid #c7d2fe;
+    border-left: 3px solid var(--border);
 }
 .library-folder-panel.open {
     display: grid;
@@ -1025,7 +1031,7 @@ body.lesson-mode .stats {
 }
 body.lesson-mode .controls {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 5px;
     margin: 0;
     align-items: stretch;
@@ -1042,7 +1048,7 @@ body.lesson-mode .controls > button {
 body.lesson-mode .controls .toggle-group {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 5px;
 }
 body.lesson-mode label.toggle {
@@ -1053,6 +1059,9 @@ body.lesson-mode label.toggle {
     line-height: 1.1;
     border-radius: 8px;
     text-align: center;
+}
+body.lesson-mode .auto-next-toggle {
+    display: none !important;
 }
 body.lesson-mode .slider-box {
     grid-column: 1 / -1;
@@ -1219,20 +1228,125 @@ body.lesson-mode #display-area {
     z-index: 1;
 }
 .mobile-current-top {
-    grid-template-columns: auto 1fr auto auto !important;
-    gap: 6px;
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    gap: 6px 8px;
+    align-items: center;
 }
 .mobile-current-count {
     text-align: left !important;
+    font-weight: 900;
 }
-.mobile-nav-btn {
-    width: 34px !important;
-    min-width: 34px !important;
-    height: 32px !important;
-    padding: 0 !important;
+.mobile-sentence-nav {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(64px, .8fr) minmax(130px, 1.4fr) minmax(64px, .8fr);
+    gap: 8px;
+    align-items: center;
+}
+.mobile-nav-btn,
+.mobile-jump-btn {
+    min-height: 36px !important;
+    padding: 0 10px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1;
+    box-shadow: none;
+}
+.mobile-nav-btn {
+    width: 100% !important;
+    min-width: 64px !important;
+}
+.mobile-nav-btn.end-reached {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.mobile-jump-btn {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.35);
+    z-index: 9000;
+    display: none;
+}
+.sentence-sheet-backdrop.open { display: block; }
+.sentence-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 78dvh;
+    background: #ffffff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -12px 30px rgba(15,23,42,.22);
+    z-index: 9001;
+    transform: translateY(105%);
+    transition: transform .22s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sentence-sheet.open { transform: translateY(0); }
+.sentence-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-close {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 999px;
+    min-width: 40px;
+    padding: 7px 10px;
+    box-shadow: none;
+}
+.sentence-sheet-list {
+    overflow-y: auto;
+    padding: 8px 10px 18px;
+}
+.sentence-sheet-item {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    margin-bottom: 7px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.45;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 8px;
+    box-shadow: none;
+}
+.sentence-sheet-item.current {
+    border-color: var(--primary);
+    background: #eff6ff;
+}
+.sentence-sheet-num {
+    color: var(--muted);
+    font-weight: 900;
+}
+.sentence-sheet-text {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .mobile-detail-scroll {
     flex: 1 1 auto;
@@ -1265,7 +1379,8 @@ body.lesson-mode #display-area {
     </div>
 
     <div class="controls">
-        <button class="action-flash" onclick="playSequenceFrom(0)">最初から再生</button>
+        <button class="secondary action-flash" onclick="showLibraryHome()">←教材一覧</button>
+        <button class="action-flash" onclick="playSequenceFrom(0)">自動再生</button>
         <button id="whole-loop-btn" class="success action-flash" onclick="toggleWholeLoop()">全体LOOP</button>
         <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止/再開</button>
         <button class="danger action-flash" onclick="stopAll()">STOP</button>
@@ -1284,7 +1399,7 @@ body.lesson-mode #display-area {
             <label class="toggle"><input type="checkbox" id="hide-vocab-toggle"> 語彙を隠す</label>
             <label class="toggle"><input type="checkbox" id="hide-jp-toggle"> 和訳を隠す</label>
             <label class="toggle"><input type="checkbox" id="hide-english"> 英文ぼかし</label>
-            <label class="toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
+            <label class="toggle auto-next-toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
         </div>
     </div>
 </header>
@@ -1796,7 +1911,7 @@ function renderLibraryHome() {
                 }).join("");
                 const folderId = `lib-folder-${ci}-${si}`;
                 return `<div class="library-subcategory">
-                    <button type="button" class="library-folder-btn action-flash" onclick="toggleLibraryFolder('${folderId}', this)">📁 ${escapeHtml(sec.name || "未分類")}</button>
+                    <button type="button" class="library-folder-btn action-flash" onclick="toggleLibraryFolder('${folderId}', this)">${escapeHtml(sec.name || "未分類")}</button>
                     <div class="library-folder-panel" id="${folderId}">${itemsHtml}</div>
                 </div>`;
             }).join("");
@@ -1854,6 +1969,7 @@ async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex) {
 }
 
 function showLibraryHome() {
+    closeSentenceSheet();
     stopAll();
     lessonData = [];
     setLessonMeta("", "");
@@ -1871,14 +1987,21 @@ function getActiveIndex() {
 function renderMobilePracticeScreen() {
     const idx = getActiveIndex();
     return `<div class="mobile-lesson-shell">
-        <div class="mobile-return-row"><button class="mobile-list-btn action-flash" onclick="showLibraryHome()">← 教材一覧</button></div>
         <div id="mobile-current-card" class="mobile-current-card"></div>
         <div id="mobile-detail-scroll" class="mobile-detail-scroll"></div>
         <div class="mobile-bottom-actions">
             <button class="action-flash" onclick="playFrom(getActiveIndex())">PLAY</button>
-            <button class="danger action-flash" onclick="stopAll()">STOP</button>
             <button id="mobile-loop-btn" class="success action-flash" onclick="toggleLoop(getActiveIndex())">LOOP</button>
-            <button id="mobile-split-btn" class="purple action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習</button>
+            <button id="mobile-split-btn" class="warning action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習</button>
+            <button class="danger action-flash" onclick="stopAll()">STOP</button>
+        </div>
+        <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
+        <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
+            <div class="sentence-sheet-header">
+                <span>文を移動</span>
+                <button type="button" class="sentence-sheet-close" onclick="closeSentenceSheet()">×</button>
+            </div>
+            <div id="sentenceSheetList" class="sentence-sheet-list"></div>
         </div>
     </div>`;
 }
@@ -1897,8 +2020,11 @@ function updateMobilePracticeView() {
             <div class="mobile-current-top">
                 <div class="line-num ${getCircleNumberClass(item, idx)}">${escapeHtml(getCircleNumber(item, idx))}</div>
                 <div class="mobile-current-count">${idx + 1}/${lessonData.length}</div>
-                <button class="mobile-nav-btn action-flash" ${canPrev ? `onclick="jumpToSentence(${idx - 1})"` : "disabled"}>◀</button>
-                <button class="mobile-nav-btn action-flash" ${canNext ? `onclick="jumpToSentence(${idx + 1})"` : "disabled"}>▶</button>
+                <div class="mobile-sentence-nav">
+                    <button class="mobile-nav-btn action-flash" ${canPrev ? `onclick="jumpToSentence(${idx - 1})"` : "disabled"}>◀</button>
+                    <button type="button" class="mobile-jump-btn action-flash" onclick="openSentenceSheet()">文を移動</button>
+                    <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" ${canNext ? `onclick="jumpToSentence(${idx + 1})"` : "disabled"}>▶</button>
+                </div>
             </div>
             <div class="mobile-current-english ${hideEnglish.checked ? "hidden-text" : ""}" onclick="playFrom(${idx})">${markedPlainHtml(item.english)}</div>
             <div class="mobile-current-accent ${hideEnglish.checked ? "hidden-text" : ""}">${accentHtml(getAccentText(item))}</div>`;
@@ -1917,6 +2043,37 @@ function updateMobilePracticeView() {
     if (splitBtn) {
         splitBtn.style.display = hasRealSplitData(item) ? "" : "none";
     }
+}
+
+function openSentenceSheet() {
+    if (!lessonData.length) return;
+    const sheet = document.getElementById("sentenceSheet");
+    const backdrop = document.getElementById("sentenceSheetBackdrop");
+    const list = document.getElementById("sentenceSheetList");
+    if (!sheet || !backdrop || !list) return;
+    const active = getActiveIndex();
+    list.innerHTML = lessonData.map((it, i) => {
+        const text = sentenceTooltipText(it) || plainLine((it && it.english) || "");
+        const label = getCircleNumber(it, i);
+        const current = i === active ? " current" : "";
+        return `<button type="button" class="sentence-sheet-item${current}" onclick="jumpToSentence(${i}); closeSentenceSheet();">
+            <span class="sentence-sheet-num">${escapeHtml(label)}</span>
+            <span class="sentence-sheet-text">${escapeHtml(text)}</span>
+        </button>`;
+    }).join("");
+    backdrop.classList.add("open");
+    sheet.classList.add("open");
+    requestAnimationFrame(() => {
+        const currentBtn = list.querySelector(".sentence-sheet-item.current");
+        if (currentBtn) currentBtn.scrollIntoView({ block: "center" });
+    });
+}
+
+function closeSentenceSheet() {
+    const sheet = document.getElementById("sentenceSheet");
+    const backdrop = document.getElementById("sentenceSheetBackdrop");
+    if (sheet) sheet.classList.remove("open");
+    if (backdrop) backdrop.classList.remove("open");
 }
 
 function refreshClasses() {
@@ -2387,6 +2544,7 @@ function refreshLoopButtons() {
 }
 
 function stopAll() {
+    closeSentenceSheet();
     speechSynthesis.cancel();
     isPaused = false;
     currentIndex = -1;
@@ -3292,13 +3450,13 @@ body.library-mode .stats {
 }
 
 
-/* Library folder drill-down v2 */
+/* Library folder drill-down: simple arrow-only style */
 .library-folder-btn {
     width: 100%;
     text-align: left;
-    background: #eef2ff;
-    color: #3730a3;
-    border: 1px solid #c7d2fe;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 13px 14px;
     font-size: 1.04rem;
@@ -3310,9 +3468,15 @@ body.library-mode .stats {
     justify-content: space-between;
     gap: 10px;
 }
+.library-folder-btn:hover,
+.library-folder-btn.open {
+    background: #ffffff;
+    color: var(--text);
+    border-color: var(--border);
+}
 .library-folder-btn::after {
     content: "▶";
-    color: #6366f1;
+    color: var(--muted);
     font-size: .9rem;
 }
 .library-folder-btn.open::after {
@@ -3322,7 +3486,7 @@ body.library-mode .stats {
     display: none;
     margin-top: 8px;
     padding-left: 8px;
-    border-left: 3px solid #c7d2fe;
+    border-left: 3px solid var(--border);
 }
 .library-folder-panel.open {
     display: grid;
@@ -3354,7 +3518,7 @@ body.lesson-mode .stats {
 }
 body.lesson-mode .controls {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 5px;
     margin: 0;
     align-items: stretch;
@@ -3371,7 +3535,7 @@ body.lesson-mode .controls > button {
 body.lesson-mode .controls .toggle-group {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 5px;
 }
 body.lesson-mode label.toggle {
@@ -3382,6 +3546,9 @@ body.lesson-mode label.toggle {
     line-height: 1.1;
     border-radius: 8px;
     text-align: center;
+}
+body.lesson-mode .auto-next-toggle {
+    display: none !important;
 }
 body.lesson-mode .slider-box {
     grid-column: 1 / -1;
@@ -3548,20 +3715,125 @@ body.lesson-mode #display-area {
     z-index: 1;
 }
 .mobile-current-top {
-    grid-template-columns: auto 1fr auto auto !important;
-    gap: 6px;
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    gap: 6px 8px;
+    align-items: center;
 }
 .mobile-current-count {
     text-align: left !important;
+    font-weight: 900;
 }
-.mobile-nav-btn {
-    width: 34px !important;
-    min-width: 34px !important;
-    height: 32px !important;
-    padding: 0 !important;
+.mobile-sentence-nav {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(64px, .8fr) minmax(130px, 1.4fr) minmax(64px, .8fr);
+    gap: 8px;
+    align-items: center;
+}
+.mobile-nav-btn,
+.mobile-jump-btn {
+    min-height: 36px !important;
+    padding: 0 10px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1;
+    box-shadow: none;
+}
+.mobile-nav-btn {
+    width: 100% !important;
+    min-width: 64px !important;
+}
+.mobile-nav-btn.end-reached {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.mobile-jump-btn {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.35);
+    z-index: 9000;
+    display: none;
+}
+.sentence-sheet-backdrop.open { display: block; }
+.sentence-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 78dvh;
+    background: #ffffff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -12px 30px rgba(15,23,42,.22);
+    z-index: 9001;
+    transform: translateY(105%);
+    transition: transform .22s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sentence-sheet.open { transform: translateY(0); }
+.sentence-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-close {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 999px;
+    min-width: 40px;
+    padding: 7px 10px;
+    box-shadow: none;
+}
+.sentence-sheet-list {
+    overflow-y: auto;
+    padding: 8px 10px 18px;
+}
+.sentence-sheet-item {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    margin-bottom: 7px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.45;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 8px;
+    box-shadow: none;
+}
+.sentence-sheet-item.current {
+    border-color: var(--primary);
+    background: #eff6ff;
+}
+.sentence-sheet-num {
+    color: var(--muted);
+    font-weight: 900;
+}
+.sentence-sheet-text {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .mobile-detail-scroll {
     flex: 1 1 auto;
