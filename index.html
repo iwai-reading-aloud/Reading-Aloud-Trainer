@@ -826,6 +826,18 @@ button, select { min-height: 44px; }
     display: grid;
     gap: 8px;
 }
+
+.library-subcategory {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+.library-subcategory-title {
+    font-weight: 900;
+    color: var(--purple-dark);
+    margin: 0 0 8px;
+    font-size: 1.02rem;
+}
 .library-item-btn {
     width: 100%;
     text-align: left;
@@ -934,7 +946,7 @@ body.library-mode .stats {
             <div class="hint">教材ファイルを読み込んで、英文・語彙・和訳を見ながら音読練習します。</div>
         </div>
         <div class="student-load-area">
-            <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
+            <button class="action-flash" onclick="showLibraryChooser()">教材ライブラリを読み込む</button>
             <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
         </div>
         <div class="student-lesson-info-area">
@@ -985,6 +997,9 @@ let returnToFirstAfterSequence = false;
 let lessonMeta = { material: "", section: "" };
 let libraryData = null;
 let libraryLoadError = "";
+let libraryCatalogData = null;
+let libraryCatalogError = "";
+let showingLibraryChooser = false;
 
 const displayArea = document.getElementById("display-area");
 const stats = document.getElementById("stats");
@@ -1298,26 +1313,64 @@ function safeRelativeFileUrl(file) {
         .join("/");
 }
 
-const DEFAULT_LIBRARY_FILE = "libraries/2年生.json";
 const LIBRARY_FILE_STORAGE_KEY = "rat-library-file";
 
-function getCurrentLibraryFile() {
+function getUrlLibraryName() {
     try {
-        return localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || DEFAULT_LIBRARY_FILE;
+        const params = new URLSearchParams(window.location.search || "");
+        return (params.get("lib") || "").trim();
     } catch (e) {
-        return DEFAULT_LIBRARY_FILE;
+        return "";
+    }
+}
+
+function getCurrentLibraryFile() {
+    const urlLib = getUrlLibraryName();
+    if (urlLib) return `libraries/${urlLib}.json`;
+    try {
+        return localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+    } catch (e) {
+        return "";
     }
 }
 
 function setCurrentLibraryFile(filePath) {
+    if (!filePath) return;
+    if (getUrlLibraryName()) return;
     try {
-        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath || DEFAULT_LIBRARY_FILE);
+        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath);
     } catch (e) {}
+}
+
+function normalizeLibraryCatalog(data) {
+    return [];
+}
+
+async function loadLibraryCatalog() {
+    libraryCatalogData = null;
+    libraryCatalogError = "";
+}
+
+async function showLibraryChooser() {
+    showingLibraryChooser = true;
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+function closeLibraryChooser() {
+    showingLibraryChooser = false;
+    updateDisplay();
 }
 
 async function loadLibraryFromServer(showAlert = false, filePath = null) {
     libraryLoadError = "";
     const libraryFile = filePath || getCurrentLibraryFile();
+    if (!libraryFile) {
+        await showLibraryChooser();
+        if (showAlert) alert("教材ライブラリを選択してください。");
+        return;
+    }
     try {
         const res = await fetch(safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now(), { cache: "no-store" });
         if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
@@ -1326,28 +1379,27 @@ async function loadLibraryFromServer(showAlert = false, filePath = null) {
             throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
         }
         libraryData = data;
+        showingLibraryChooser = false;
         setCurrentLibraryFile(libraryFile);
         try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
         lessonData = [];
         setLessonMeta("", "");
         updateDisplay();
-        if (showAlert) alert("教材ライブラリを読み込みました。\n" + libraryFile);
+        if (showAlert) alert("教材ライブラリを読み込みました。");
     } catch (e) {
         libraryLoadError = e && e.message ? e.message : String(e);
         libraryData = null;
+        showingLibraryChooser = false;
         updateDisplay();
         if (showAlert) alert("教材ライブラリの読み込みに失敗しました。\n" + libraryLoadError);
     }
 }
 
-async function changeLibraryFile() {
-    const current = getCurrentLibraryFile();
-    const next = prompt(
-        "読み込む教材ライブラリのパスを入力してください。\n例：libraries/2年生.json\n例：libraries/ALL.json",
-        current
-    );
-    if (!next) return;
-    await loadLibraryFromServer(true, next.trim());
+async function selectLibraryFromCatalog(index) {
+    const libraries = libraryCatalogData && Array.isArray(libraryCatalogData.libraries) ? libraryCatalogData.libraries : [];
+    const entry = libraries[index];
+    if (!entry || !entry.file) return;
+    await loadLibraryFromServer(true, entry.file);
 }
 
 function resetLibrarySelection() {
@@ -1358,6 +1410,7 @@ function resetLibrarySelection() {
     } catch (e) {}
     libraryData = null;
     libraryLoadError = "";
+    showingLibraryChooser = false;
     lessonData = [];
     setLessonMeta("", "");
     updateDisplay();
@@ -1366,15 +1419,38 @@ function resetLibrarySelection() {
 function getVisibleLibraryCategories() {
     const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
     return categories
-        .map((cat, ci) => ({
-            cat,
-            ci,
-            items: Array.isArray(cat.items) ? cat.items.filter(item => item && item.file) : []
-        }))
-        .filter(entry => entry.items.length > 0);
+        .map((cat, ci) => {
+            const directItems = Array.isArray(cat.items) ? cat.items.filter(item => item && item.file) : [];
+            const sections = Array.isArray(cat.sections)
+                ? cat.sections
+                    .map((sec, si) => ({
+                        sec,
+                        si,
+                        items: Array.isArray(sec.items) ? sec.items.filter(item => item && item.file) : []
+                    }))
+                    .filter(entry => entry.items.length > 0)
+                : [];
+            return { cat, ci, directItems, sections };
+        })
+        .filter(entry => entry.directItems.length > 0 || entry.sections.length > 0);
+}
+
+function renderLibraryChooser() {
+    return `<div class="library-home clean-start">
+        <div class="library-hero big-start">
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-hero-sub">クラス別URLで教材ライブラリを開きます。</div>
+            <div class="library-note">例：index.html?lib=2年生 / index.html?lib=TOEIC / index.html?lib=時事英語 / index.html?lib=ALL</div>
+            <div class="library-actions centered">
+                <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
+                ${libraryData ? `<button class="secondary action-flash" onclick="closeLibraryChooser()">戻る</button>` : ""}
+            </div>
+        </div>
+    </div>`;
 }
 
 function renderLibraryHome() {
+    if (showingLibraryChooser) return renderLibraryChooser();
     const visibleCategories = getVisibleLibraryCategories();
 
     if (!libraryData) {
@@ -1387,8 +1463,7 @@ function renderLibraryHome() {
                 <div class="library-hero-title">Reading-Aloud Trainer</div>
                 <div class="library-hero-sub">教材ライブラリを読み込むと、教材一覧が表示されます。</div>
                 <div class="library-actions centered">
-                    <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
-                    <button class="secondary action-flash" onclick="changeLibraryFile()">別の教材ライブラリを指定</button>
+                    <button class="library-primary-btn action-flash" onclick="showLibraryChooser()">教材ライブラリを読み込む</button>
                 </div>
             </div>
             ${errorHtml}
@@ -1396,15 +1471,27 @@ function renderLibraryHome() {
     }
 
     const categoryHtml = visibleCategories.length
-        ? visibleCategories.map(({ cat, ci, items }) => {
-            const sourceItems = Array.isArray(cat.items) ? cat.items : [];
-            const itemsHtml = items.map(item => {
-                const originalIndex = sourceItems.indexOf(item);
-                return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+        ? visibleCategories.map(({ cat, ci, directItems, sections }) => {
+            const directHtml = directItems.map(item => {
+                const originalIndex = Array.isArray(cat.items) ? cat.items.indexOf(item) : -1;
+                return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, null, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
             }).join("");
+
+            const sectionHtml = sections.map(({ sec, si, items }) => {
+                const itemsHtml = items.map(item => {
+                    const originalIndex = Array.isArray(sec.items) ? sec.items.indexOf(item) : -1;
+                    return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${si}, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+                }).join("");
+                return `<div class="library-subcategory">
+                    <div class="library-subcategory-title">${escapeHtml(sec.name || "未分類")}</div>
+                    <div class="library-items">${itemsHtml}</div>
+                </div>`;
+            }).join("");
+
             return `<section class="library-category">
                 <div class="library-category-title">${escapeHtml(cat.name || "未分類")}</div>
-                <div class="library-items">${itemsHtml}</div>
+                ${directHtml ? `<div class="library-items">${directHtml}</div>` : ""}
+                ${sectionHtml}
             </section>`;
         }).join("")
         : `<div class="library-empty">現在表示できる教材がありません。</div>`;
@@ -1415,8 +1502,7 @@ function renderLibraryHome() {
             <div class="library-hero-sub">教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
-                <button class="secondary action-flash" onclick="changeLibraryFile()">教材ライブラリを変更</button>
-                <button class="secondary action-flash" onclick="resetLibrarySelection()">リセット</button>
+                <button class="secondary action-flash" onclick="showLibraryChooser()">URL指定を確認</button>
                 <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
             </div>
         </div>
@@ -1424,10 +1510,16 @@ function renderLibraryHome() {
     </div>`;
 }
 
-async function loadLessonFromLibrary(categoryIndex, itemIndex) {
+async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex) {
     try {
         const category = libraryData && libraryData.categories ? libraryData.categories[categoryIndex] : null;
-        const item = category && Array.isArray(category.items) ? category.items[itemIndex] : null;
+        let item = null;
+        if (sectionIndex === null || sectionIndex === undefined) {
+            item = category && Array.isArray(category.items) ? category.items[itemIndex] : null;
+        } else {
+            const section = category && Array.isArray(category.sections) ? category.sections[sectionIndex] : null;
+            item = section && Array.isArray(section.items) ? section.items[itemIndex] : null;
+        }
         if (!item || !item.file) throw new Error("教材ファイル名が見つかりません。");
 
         stopAll();
@@ -3178,7 +3270,7 @@ speedSlider.addEventListener("input", e => {
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 try {
-    if (localStorage.getItem("rat-library-autoload") === "1") {
+    if (getCurrentLibraryFile()) {
         loadLibraryFromServer(false);
     } else {
         updateDisplay();
