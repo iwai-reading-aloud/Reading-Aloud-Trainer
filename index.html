@@ -783,6 +783,90 @@ button, select { min-height: 44px; }
     .row-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+
+/* ===== Library prototype ===== */
+.library-home {
+    display: grid;
+    gap: 14px;
+}
+.library-hero {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.06);
+}
+.library-hero-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #0f2e63;
+    margin-bottom: 6px;
+}
+.library-hero-sub {
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: .95rem;
+}
+.library-category {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.05);
+}
+.library-category-title {
+    font-size: 1.08rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #111827;
+    border-left: 6px solid var(--primary);
+    padding-left: 10px;
+}
+.library-items {
+    display: grid;
+    gap: 8px;
+}
+.library-item-btn {
+    width: 100%;
+    text-align: left;
+    background: #f8fafc;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    line-height: 1.45;
+    box-shadow: none;
+}
+.library-item-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+}
+.library-empty {
+    color: var(--muted);
+    background: #f9fafb;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 12px;
+}
+.library-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+.library-back-btn {
+    background: #ffffff;
+    color: var(--primary-dark);
+    border: 1px solid #bfdbfe;
+}
+@media (max-width: 760px) {
+    .library-hero { padding: 14px; }
+    .library-hero-title { font-size: 1.12rem; }
+    .library-category { padding: 12px; }
+    .library-item-btn { min-height: 50px; font-size: .98rem; }
+}
+
 </style>
 </head>
 <body>
@@ -797,8 +881,8 @@ button, select { min-height: 44px; }
             <div class="hint">教材ファイルを読み込んで、英文・語彙・和訳を見ながら音読練習します。</div>
         </div>
         <div class="student-load-area">
-            <button class="action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
-            <button class="folder-settings-btn action-flash" onclick="setLessonFolder()">教材フォルダ設定</button>
+            <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
+            <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
         </div>
         <div class="student-lesson-info-area">
             <div id="lesson-info" class="lesson-info" aria-live="polite"></div>
@@ -846,6 +930,8 @@ let playbackAutoNext = false;
 let playbackWrapAtEnd = false;
 let returnToFirstAfterSequence = false;
 let lessonMeta = { material: "", section: "" };
+let libraryData = null;
+let libraryLoadError = "";
 
 const displayArea = document.getElementById("display-area");
 const stats = document.getElementById("stats");
@@ -1152,6 +1238,94 @@ function readLessonMetaFromObject(obj) {
     };
 }
 
+function safeRelativeFileUrl(file) {
+    return String(file || "")
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+}
+
+async function loadLibraryFromServer(showAlert = false) {
+    libraryLoadError = "";
+    try {
+        const res = await fetch("library.json?ts=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("library.jsonを読み込めませんでした。HTTP " + res.status);
+        const data = await res.json();
+        if (!data || !Array.isArray(data.categories)) {
+            throw new Error("library.jsonの形式が不正です。categories配列が必要です。");
+        }
+        libraryData = data;
+        lessonData = [];
+        setLessonMeta("", "");
+        updateDisplay();
+        if (showAlert) alert("教材ライブラリを読み込みました。");
+    } catch (e) {
+        libraryLoadError = e && e.message ? e.message : String(e);
+        libraryData = null;
+        updateDisplay();
+        if (showAlert) alert("教材ライブラリの読み込みに失敗しました。\n" + libraryLoadError);
+    }
+}
+
+function renderLibraryHome() {
+    const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+    const categoryHtml = categories.map((cat, ci) => {
+        const items = Array.isArray(cat.items) ? cat.items : [];
+        const itemsHtml = items.length
+            ? items.map((item, ii) => `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${ii})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`).join("")
+            : `<div class="library-empty">このカテゴリーにはまだ教材がありません。</div>`;
+        return `<section class="library-category">
+            <div class="library-category-title">${escapeHtml(cat.name || "未分類")}</div>
+            <div class="library-items">${itemsHtml}</div>
+        </section>`;
+    }).join("");
+
+    const loadedText = libraryData
+        ? `教材ライブラリを読み込み済みです。教材名をタップしてください。`
+        : `教材ライブラリを読み込むと、ここに教材一覧が表示されます。`;
+
+    const errorHtml = libraryLoadError
+        ? `<div class="library-empty">library.jsonの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
+        : "";
+
+    return `<div class="library-home">
+        <div class="library-hero">
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-hero-sub">${loadedText}</div>
+            <div class="library-actions">
+                <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
+                <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
+            </div>
+        </div>
+        ${errorHtml}
+        ${categoryHtml}
+    </div>`;
+}
+
+async function loadLessonFromLibrary(categoryIndex, itemIndex) {
+    try {
+        const category = libraryData && libraryData.categories ? libraryData.categories[categoryIndex] : null;
+        const item = category && Array.isArray(category.items) ? category.items[itemIndex] : null;
+        if (!item || !item.file) throw new Error("教材ファイル名が見つかりません。");
+
+        stopAll();
+        const fileUrl = safeRelativeFileUrl(item.file) + "?ts=" + Date.now();
+        const res = await fetch(fileUrl, { cache: "no-store" });
+        if (!res.ok) throw new Error(`${item.file}を読み込めませんでした。HTTP ${res.status}`);
+        const obj = await res.json();
+        loadLessonObject(obj);
+    } catch (e) {
+        alert("教材の読み込みに失敗しました。\n" + (e && e.message ? e.message : String(e)));
+    }
+}
+
+function showLibraryHome() {
+    stopAll();
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
 function refreshClasses() {
     document.body.classList.toggle("hide-vocab", hideVocabToggle.checked);
     document.body.classList.toggle("hide-jp", hideJpToggle.checked);
@@ -1168,13 +1342,8 @@ function updateDisplay() {
     updateLessonInfo();
 
     if (!lessonData.length) {
-        displayArea.innerHTML = `
-            <div class="empty-message">
-                <strong>教材ファイルを読み込んでください。</strong><br>
-                上部の「教材ファイルを読み込み」から、配布された教材ファイルを選択してください。<br>
-                最初に「教材フォルダ設定」をしておくと、次回からそのフォルダを起点に教材を選べます。
-            </div>`;
-        stats.textContent = "0文";
+        displayArea.innerHTML = renderLibraryHome();
+        stats.textContent = libraryData ? "教材ライブラリ" : "0文";
         refreshClasses();
         return;
     }
@@ -2832,6 +3001,7 @@ speedSlider.addEventListener("input", e => {
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 updateDisplay();
+loadLibraryFromServer(false);
 </script>
 </body>
 </html>
