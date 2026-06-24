@@ -8,20 +8,20 @@
           "name": "公式00",
           "items": [
             {
-              "title": "公式00 TEST-1 Part-4 86-88《設問・選択肢》",
-              "file": "教材/TOEIC公式問題集/00/公式00_TEST-1【Part-4】86-88《設問・選択肢》.json"
-            },
-            {
               "title": "公式00 TEST-1 Part-4 86-88《本文》",
               "file": "教材/TOEIC公式問題集/00/公式00_TEST-1【Part-4】86-88《本文》.json"
             },
             {
-              "title": "公式00 TEST-1 Part-4 89-91《設問・選択肢》",
-              "file": "教材/TOEIC公式問題集/00/公式00_TEST-1【Part-4】89-91《設問・選択肢》.json"
+              "title": "公式00 TEST-1 Part-4 86-88《設問・選択肢》",
+              "file": "教材/TOEIC公式問題集/00/公式00_TEST-1【Part-4】86-88《設問・選択肢》.json"
             },
             {
               "title": "公式00 TEST-1 Part-4 89-91《本文》",
               "file": "教材/TOEIC公式問題集/00/公式00_TEST-1【Part-4】89-91《本文》.json"
+            },
+            {
+              "title": "公式00 TEST-1 Part-4 89-91《設問・選択肢》",
+              "file": "教材/TOEIC公式問題集/00/公式00_TEST-1【Part-4】89-91《設問・選択肢》.json"
             }
           ]
         },
@@ -29,12 +29,12 @@
           "name": "公式09",
           "items": [
             {
-              "title": "公式09 TEST-1 Part-3 56-58《設問・選択肢》",
-              "file": "教材/TOEIC公式問題集/09/公式09_TEST-1_【Part-3】56-58《設問・選択肢》.json"
-            },
-            {
               "title": "公式09 TEST-1 Part-3 56-58《本文》",
               "file": "教材/TOEIC公式問題集/09/公式09_TEST-1_【Part-3】56-58《本文》.json"
+            },
+            {
+              "title": "公式09 TEST-1 Part-3 56-58《設問・選択肢》",
+              "file": "教材/TOEIC公式問題集/09/公式09_TEST-1_【Part-3】56-58《設問・選択肢》.json"
             },
             {
               "title": "公式09 TEST-1 Part-5 101-110",
