@@ -1,0 +1,152 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-06T16:56:51.692Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEIC TEST 単語　頻度順徹底マスター",
+    "section": "UNIT-25"
+  },
+  "data": [
+    {
+      "english": "The c^ompany f^ounder ^emphasized the imp^ortance of compet^ition between dep^artments.",
+      "vocab": "・company founder「会社の創設者」\n・emphasize「～を強調する」\n・importance「重要性」\n・competition「競争」\n・department「部署」",
+      "jp": "その会社の創設者は部署間での競争の重要性を強調した。",
+      "split": "The company founder\nemphasized\nthe importance\nof competition\nbetween departments.",
+      "splitJp": "その会社の創設者は\n強調した\n重要性を\n競争の\n部署間での"
+    },
+    {
+      "english": "B^ill neg^otiated a n^ew agr^eement with the c^ontractor.",
+      "vocab": "・negotiate「～を交渉して取り決める」\n・agreement「契約」\n・contractor「請負業者」",
+      "jp": "ビルはその請負業者と新しい契約を交渉して取り決めた。",
+      "split": "Bill negotiated\na new agreement\nwith the contractor.",
+      "splitJp": "ビルは交渉して取決めた\n新しい契約を\nその請負業者と"
+    },
+    {
+      "english": "The s^ales ex^ecutive ^accurately pred^icted s^ales of the n^ew l^aptop.",
+      "vocab": "・sales executive「販売担当重役」◆sales「販売」◆executive「重役」\n・accurately「正確に」\n・predict「～を予測する」\n・sales「売上」\n・laptop「ノートパソコン」",
+      "jp": "その販売担当重役は新しいノートパソコンの売上を正確に予測した。",
+      "split": "The sales executive\naccurately predicted\nsales\nof the new laptop.",
+      "splitJp": "その販売担当重役は\n正確に予測した\n売上を\n新しいノートパソコンの"
+    },
+    {
+      "english": "M^ike d^emonstrated the n^ew s^oftware install^ation proc^edure to all personn^el.",
+      "vocab": "・demonstrate「～を実演する」\n・software「ソフトウェア」\n・installation procedure「インストールの手順」◆installation「（ソフトの）インストール」「（機械などの）据え付け」◆procedure「手順」\n・personnel「スタッフ」",
+      "jp": "マイクは新しいソフトウェアのインストールの手順をスタッフ全員に実演した。",
+      "split": "Mike demonstrated\nthe new software\ninstallation procedure\nto all personnel.",
+      "splitJp": "マイクは実演した\n新しいソフトウェアの\nインストールの手順を\nスタッフ全員に"
+    },
+    {
+      "english": "The c^ameras m^onitor the ^airport dep^arture l^obby at all t^imes.",
+      "vocab": "・camera「カメラ」\n・monitor「～を監視する」\n・airport「空港」\n・departure lobby「出発ロビー」◆departure「出発」◆lobby「ロビー」。公共の場における「待合スペース」や「共用スペース」のこと。\n・at all times「常時」",
+      "jp": "カメラが空港の出発ロビーを常時監視している。",
+      "split": "The cameras monitor\nthe airport\ndeparture lobby\nat all times.",
+      "splitJp": "カメラが監視している\n空港の\n出発ロビーを\n常時"
+    },
+    {
+      "english": "The n^umber of c^ustomer ^inquiries exc^eeded ^one h^undred a d^ay.",
+      "vocab": "・the number of～「～の件数」\n・customer inquiry「顧客からの問い合わせ」◆customer「顧客」◆inquiry /^ｲﾝｸｫﾘｨ/「問い合わせ」\n・exceed「（数量が）～を超える」",
+      "jp": "顧客からの問い合わせ件数が1日に100件を超えた。",
+      "split": "The number\nof customer inquiries\nexceeded\none hundred a day.",
+      "splitJp": "件数が\n顧客からの問い合わせの\n超えた\n1日に100件を"
+    },
+    {
+      "english": "^One of S^ally’s d^uties is to s^upervise the l^aboratory personn^el.",
+      "vocab": "・Sally「サリー」◆女性名Sarah「サラ」の愛称。Sarahの発音は /ｾｧﾗ/ に近い。\n・duty「職務」\n・supervise「《人》を監督する」\n・laboratory「研究所」\n・personnel「スタッフ」◆personnelは全職員を集合的に指す言葉。複数扱い。「人事部」という訳語もよく使われる。",
+      "jp": "サリーの職務のひとつは研究所のスタッフを監督することだ。",
+      "split": "One of Sally’s duties\nis to supervise\nthe laboratory personnel.",
+      "splitJp": "サリーの職務のひとつは\n監督することだ\n研究所のスタッフを"
+    },
+    {
+      "english": "The c^ontract with the t^enant exp^ires n^ext m^onth.",
+      "vocab": "・contract「契約」◆contract with《人》「《人》との契約」\n・tenant「賃借人」◆日本語でも「テナント」というカタカナ語が使われている。\n・expire「期限が切れる」",
+      "jp": "その賃借人との契約は来月に期限が切れる。",
+      "split": "The contract\nwith the tenant\nexpires\nnext month.",
+      "splitJp": "その契約は\nその賃借人との\n期限が切れる\n来月に"
+    },
+    {
+      "english": "The n^ew medic^ation is h^ighly ev^aluated by a l^ot of d^octors.",
+      "vocab": "・medication「薬、新薬」\n・highly「高く」◆be highly evaluated「高く評価される」というつながりで覚える。\n・evaluate「評価する」\n・doctor「医師」",
+      "jp": "その新薬は多くの医師に高く評価されている。",
+      "split": "The new medication\nis highly evaluated\nby a lot of doctors.",
+      "splitJp": "その新薬は\n高く評価されている\n多くの医師に"
+    },
+    {
+      "english": "I’ve been ^operating these f^actory mach^ines for a d^ecade.",
+      "vocab": "・operate「（機械など）を操作する」\n・factory machine「工場の機械」\n・for a decade「10年間」",
+      "jp": "私は10年間ずっとこれらの工場の機械を操作してきた。",
+      "split": "I’ve been operating\nthese factory machines\nfor a decade.",
+      "splitJp": "私はずっと操作してきた\nこれらの工場の機械を\n10年間"
+    },
+    {
+      "english": "The c^ompany r^ecognized ^Ellen for her ^efforts to dev^elop the n^ew s^oftware.",
+      "vocab": "・recognize「《人》を表彰する」◆「《人》を評価する」という訳もある。\n・effort「努力」\n・develop「～を開発する」◆ここではeffort to developという不定詞なので、開発はまだ途上であると考える。開発済みなら、effort for developingという動名詞のはず。\n・software「ソフトウェア」",
+      "jp": "その会社は新しいソフトウェアを開発しようとする努力に対してエレンを表彰した。",
+      "split": "The company\nrecognized Ellen\nfor her efforts\nto develop\nthe new software.",
+      "splitJp": "その会社は\nエレンを表彰した\n彼女の努力に対して\n開発しようとする\n新しいソフトウェアを"
+    },
+    {
+      "english": "That c^ity’s n^ew p^olicies refl^ect the m^ayor’s comm^itments to the c^itizens.",
+      "vocab": "・policy「政策」\n・reflect「～を反映する」\n・mayor「市長」\n・commitment「約束」◆「公約」という訳語もある。また「真剣な取り組み」と訳すこともある。あるいは、ここでは「（市民への）献身」と訳せる可能性もある。\n・citizen「市民」",
+      "jp": "その市の新しい政策には市長の市民との約束が反映されている。",
+      "split": "That city’s\nnew policies\nreflect\nthe mayor’s commitments\nto the citizens.",
+      "splitJp": "その市の\nしい政策は\n反映している\n市長の約束を\n市民との"
+    },
+    {
+      "english": "L^inda is tr^ansferring to the Nag^oya br^anch n^ext m^onth.",
+      "vocab": "・Linda「リンダ」◆女性名\n・transfer「転勤する」◆transfer to《場所》「《場所・部署》へ転勤する」\n・branch「支店」",
+      "jp": "リンダは来月名古屋支店に転勤する予定だ。",
+      "split": "Linda is transferring\nto the Nagoya branch\nnext month.",
+      "splitJp": "リンダは転勤する予定だ\n名古屋支店に\n来月"
+    },
+    {
+      "english": "D^avid was prom^oted to g^eneral m^anager of the c^ity’s s^outhern d^istrict.",
+      "vocab": "・David「デイヴィッド」◆男性名\n・promote「《人》を昇進させる」◆be promoted to《職位》で「《職位》に昇進する」\n・general manager「統括マネージャー」\n・southern district「南部地区」",
+      "jp": "デイヴィッドは市の南部地区の統括マネジャーに昇進した。",
+      "split": "David was promoted\nto general manager\nof the city’s\nsouthern district.",
+      "splitJp": "デイビッドは昇進した\n統括マネジャーに\n市の\n南部地区の"
+    },
+    {
+      "english": "The l^ocal h^ikers appr^eciated c^ity’s dec^ision to rest^ore the tr^ail.",
+      "vocab": "・local「地元の」\n・hiker「ハイカー」\n・appreciate「～をありがたく思う」\n・decision「決定」◆decision to《不定詞》「《不定詞》するという決定」\n・restore「～を修復する」\n・trail「登山道」",
+      "jp": "地元のハイカーたちは登山道を修復するという市の決定をありがたく思った。",
+      "split": "The local hikers\nappreciated\ncity’s decision\nto restore\nthe trail.",
+      "splitJp": "地元のハイカーたちは\nありがたく思った\n市の決定を\n修復するという\n登山道を"
+    },
+    {
+      "english": "Pl^ease f^ind encl^osed your cr^edit c^ard st^atement.",
+      "vocab": "・find enclosed ～「～を同封しましたのでご確認ください」◆この文は、本来はfind [your credit card statement] [enclosed] の形、つまり、find O C「OがCの状態であると確認する」ということだが、O（your credit card statement）が長いので、短いC（enclosed）が前に来て定型化したと考えるとよい。\n・credit card statement「クレジットカードの明細書」",
+      "jp": "お客さまのクレジットカードの明細書を同封いたしました。",
+      "split": "Please find\nenclosed\nyour credit card statement.",
+      "splitJp": "ご確認ください\n同封されているものとして\nあなたのクレジットカード明細書を"
+    },
+    {
+      "english": "G^eorge f^orwarded the conv^ention sch^edule to his c^olleague at the v^enue.",
+      "vocab": "・George「ジョージ」\n・forward「～を転送する」\n・convention「大会」\n・schedule「予定表」\n・colleague「同僚」\n・venue「開催場所」",
+      "jp": "ジョージはその大会の予定表を開催場所にいる同僚に転送した。",
+      "split": "George forwarded\nthe convention schedule\nto his colleague\nat the venue.",
+      "splitJp": "ジョージは転送した\nその大会の予定表を\n彼の同僚に\n開催場所にいる"
+    },
+    {
+      "english": "Acc^ording to the sp^okesperson, the c^ompany r^aised en^ough f^unds for r^enovating their h^eadquarters.",
+      "vocab": "・according to《情報源》「《情報源》によると」\n・spokesperson「広報担当者」\n・enough「十分な」\n・raise funds「資金を集める」\n・renovate「リフォームする」\n・headquarters「本社」",
+      "jp": "広報担当者によると、社は本社をリフォームする十分な資金を集めたそうだ。",
+      "split": "According to the spokesperson,\nthe company raised\nenough funds\nfor renovating\ntheir headquarters.",
+      "splitJp": "広報担当者によれば、\nその会社は集めた\n十分な資金を\nリフォームするための\n本社を"
+    },
+    {
+      "english": "That c^aterer ^operates in m^ore than t^en c^ities.",
+      "vocab": "・caterer「ケータリング業者」\n・operate「営業する」\n・more than～「～以上」",
+      "jp": "そのケータリング業者は10以上の市で営業している。",
+      "split": "That caterer\noperates\nin more than ten\ncities.",
+      "splitJp": "そのケータリング業者は\n営業している\n10より多い数の\n都市（で）"
+    },
+    {
+      "english": "The f^ood cr^itic rev^iewed some l^ong-est^ablished r^estaurants in the c^ity.",
+      "vocab": "・food critic「料理評論家」\n・review「批評する」\n・long-established「老舗の」\n・restaurant「レストラン」",
+      "jp": "その料理評論家はその市のいくつかの老舗レストランを批評した。",
+      "split": "The food critic\nreviewed\nsome long-established\nrestaurants\nin the city.",
+      "splitJp": "その料理評論家は\n評した\nいくつかの老舗の\nレストランを\nその市の"
+    }
+  ]
+}
