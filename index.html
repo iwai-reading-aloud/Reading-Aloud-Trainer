@@ -1298,14 +1298,16 @@ function safeRelativeFileUrl(file) {
         .join("/");
 }
 
+const DEFAULT_LIBRARY_FILE = "libraries/2年生.json";
+
 async function loadLibraryFromServer(showAlert = false) {
     libraryLoadError = "";
     try {
-        const res = await fetch("libraries/2年生.json?ts=" + Date.now(), { cache: "no-store" });
-        if (!res.ok) throw new Error("libraries/2年生.jsonを読み込めませんでした。HTTP " + res.status);
+        const res = await fetch(DEFAULT_LIBRARY_FILE + "?ts=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
         const data = await res.json();
         if (!data || !Array.isArray(data.categories)) {
-            throw new Error("2年生ライブラリの形式が不正です。categories配列が必要です。");
+            throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
         }
         libraryData = data;
         try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
@@ -1321,44 +1323,55 @@ async function loadLibraryFromServer(showAlert = false) {
     }
 }
 
-function renderLibraryHome() {
+function getVisibleLibraryCategories() {
     const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+    return categories
+        .map((cat, ci) => ({
+            cat,
+            ci,
+            items: Array.isArray(cat.items) ? cat.items.filter(item => item && item.file) : []
+        }))
+        .filter(entry => entry.items.length > 0);
+}
+
+function renderLibraryHome() {
+    const visibleCategories = getVisibleLibraryCategories();
 
     if (!libraryData) {
         const errorHtml = libraryLoadError
-            ? `<div class="library-empty">2年生ライブラリの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
+            ? `<div class="library-empty">教材ライブラリの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
             : "";
 
         return `<div class="library-home clean-start">
             <div class="library-hero big-start">
                 <div class="library-hero-title">Reading-Aloud Trainer</div>
-                <div class="library-hero-sub">2年生用の教材ライブラリを読み込むと、教材一覧が表示されます。</div>
+                <div class="library-hero-sub">教材ライブラリを読み込むと、教材一覧が表示されます。</div>
                 <div class="library-actions centered">
                     <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
                 </div>
-                <div class="library-note">通常は libraries/2年生.json を読み込みます。</div>
             </div>
             ${errorHtml}
         </div>`;
     }
 
-    const categoryHtml = categories.map((cat, ci) => {
-        const items = Array.isArray(cat.items) ? cat.items : [];
-        const itemsHtml = items.length
-            ? items.map((item, ii) => `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${ii})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`).join("")
-            : `<div class="library-empty">このカテゴリーにはまだ教材がありません。</div>`;
-        return `<section class="library-category">
-            <div class="library-category-title">${escapeHtml(cat.name || "未分類")}</div>
-            <div class="library-items">${itemsHtml}</div>
-        </section>`;
-    }).join("");
-
-    const updatedText = libraryData.updated ? `更新日：${escapeHtml(libraryData.updated)}` : `教材名をタップしてください。`;
+    const categoryHtml = visibleCategories.length
+        ? visibleCategories.map(({ cat, ci, items }) => {
+            const sourceItems = Array.isArray(cat.items) ? cat.items : [];
+            const itemsHtml = items.map(item => {
+                const originalIndex = sourceItems.indexOf(item);
+                return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+            }).join("");
+            return `<section class="library-category">
+                <div class="library-category-title">${escapeHtml(cat.name || "未分類")}</div>
+                <div class="library-items">${itemsHtml}</div>
+            </section>`;
+        }).join("")
+        : `<div class="library-empty">現在表示できる教材がありません。</div>`;
 
     return `<div class="library-home has-library">
         <div class="library-hero">
             <div class="library-hero-title">Reading-Aloud Trainer</div>
-            <div class="library-hero-sub">教材ライブラリを読み込み済みです。${updatedText}</div>
+            <div class="library-hero-sub">教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
                 <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
