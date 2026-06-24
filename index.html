@@ -867,6 +867,59 @@ button, select { min-height: 44px; }
     .library-item-btn { min-height: 50px; font-size: .98rem; }
 }
 
+
+/* ===== Library start screen refinement ===== */
+body.library-mode header {
+    display: none;
+}
+body.library-mode main {
+    padding: 18px;
+}
+body.library-mode .stats {
+    display: none;
+}
+.library-home.clean-start {
+    max-width: 720px;
+    margin: 0 auto;
+    min-height: calc(100dvh - 36px);
+    align-content: center;
+}
+.library-home.has-library {
+    max-width: 860px;
+    margin: 0 auto;
+}
+.library-hero.big-start {
+    text-align: center;
+    padding: 30px 20px;
+}
+.library-hero.big-start .library-hero-title {
+    font-size: 1.9rem;
+    margin-bottom: 14px;
+}
+.library-primary-btn {
+    width: 100%;
+    max-width: 360px;
+    min-height: 52px;
+    font-size: 1.02rem;
+    border-radius: 14px;
+}
+.library-actions.centered {
+    justify-content: center;
+}
+.library-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+@media (max-width: 760px) {
+    body.library-mode main { padding: 14px; }
+    .library-home.clean-start { min-height: calc(100dvh - 28px); }
+    .library-hero.big-start { padding: 24px 16px; }
+    .library-hero.big-start .library-hero-title { font-size: 1.55rem; }
+    .library-primary-btn { max-width: none; }
+}
+
 </style>
 </head>
 <body>
@@ -1255,6 +1308,7 @@ async function loadLibraryFromServer(showAlert = false) {
             throw new Error("library.jsonの形式が不正です。categories配列が必要です。");
         }
         libraryData = data;
+        try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
         lessonData = [];
         setLessonMeta("", "");
         updateDisplay();
@@ -1269,6 +1323,25 @@ async function loadLibraryFromServer(showAlert = false) {
 
 function renderLibraryHome() {
     const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+
+    if (!libraryData) {
+        const errorHtml = libraryLoadError
+            ? `<div class="library-empty">library.jsonの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
+            : "";
+
+        return `<div class="library-home clean-start">
+            <div class="library-hero big-start">
+                <div class="library-hero-title">Reading-Aloud Trainer</div>
+                <div class="library-hero-sub">教材ライブラリを読み込むと、教材一覧が表示されます。</div>
+                <div class="library-actions centered">
+                    <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
+                </div>
+                <div class="library-note">通常は同じ場所に置いた library.json を読み込みます。</div>
+            </div>
+            ${errorHtml}
+        </div>`;
+    }
+
     const categoryHtml = categories.map((cat, ci) => {
         const items = Array.isArray(cat.items) ? cat.items : [];
         const itemsHtml = items.length
@@ -1280,24 +1353,17 @@ function renderLibraryHome() {
         </section>`;
     }).join("");
 
-    const loadedText = libraryData
-        ? `教材ライブラリを読み込み済みです。教材名をタップしてください。`
-        : `教材ライブラリを読み込むと、ここに教材一覧が表示されます。`;
+    const updatedText = libraryData.updated ? `更新日：${escapeHtml(libraryData.updated)}` : `教材名をタップしてください。`;
 
-    const errorHtml = libraryLoadError
-        ? `<div class="library-empty">library.jsonの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
-        : "";
-
-    return `<div class="library-home">
+    return `<div class="library-home has-library">
         <div class="library-hero">
             <div class="library-hero-title">Reading-Aloud Trainer</div>
-            <div class="library-hero-sub">${loadedText}</div>
+            <div class="library-hero-sub">教材ライブラリを読み込み済みです。${updatedText}</div>
             <div class="library-actions">
-                <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを読み込む</button>
+                <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
                 <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
             </div>
         </div>
-        ${errorHtml}
         ${categoryHtml}
     </div>`;
 }
@@ -1342,12 +1408,14 @@ function updateDisplay() {
     updateLessonInfo();
 
     if (!lessonData.length) {
+        document.body.classList.add("library-mode");
         displayArea.innerHTML = renderLibraryHome();
         stats.textContent = libraryData ? "教材ライブラリ" : "0文";
         refreshClasses();
         return;
     }
 
+    document.body.classList.remove("library-mode");
     displayArea.innerHTML = lessonData.map((item, i) => `
         <div class="sentence-row" id="row-${i}">
             <div class="line-num ${getCircleNumberClass(item, i)}">${escapeHtml(getCircleNumber(item, i))}</div>
@@ -2618,6 +2686,59 @@ function openSplitPractice(index) {
         header { align-items:flex-start; flex-direction:column; }
         .top-controls { width:100%; max-width:none; }
     }
+
+/* ===== Library start screen refinement ===== */
+body.library-mode header {
+    display: none;
+}
+body.library-mode main {
+    padding: 18px;
+}
+body.library-mode .stats {
+    display: none;
+}
+.library-home.clean-start {
+    max-width: 720px;
+    margin: 0 auto;
+    min-height: calc(100dvh - 36px);
+    align-content: center;
+}
+.library-home.has-library {
+    max-width: 860px;
+    margin: 0 auto;
+}
+.library-hero.big-start {
+    text-align: center;
+    padding: 30px 20px;
+}
+.library-hero.big-start .library-hero-title {
+    font-size: 1.9rem;
+    margin-bottom: 14px;
+}
+.library-primary-btn {
+    width: 100%;
+    max-width: 360px;
+    min-height: 52px;
+    font-size: 1.02rem;
+    border-radius: 14px;
+}
+.library-actions.centered {
+    justify-content: center;
+}
+.library-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+@media (max-width: 760px) {
+    body.library-mode main { padding: 14px; }
+    .library-home.clean-start { min-height: calc(100dvh - 28px); }
+    .library-hero.big-start { padding: 24px 16px; }
+    .library-hero.big-start .library-hero-title { font-size: 1.55rem; }
+    .library-primary-btn { max-width: none; }
+}
+
 </style>
 </head>
 <body>
@@ -3000,8 +3121,15 @@ speedSlider.addEventListener("input", e => {
 
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
-updateDisplay();
-loadLibraryFromServer(false);
+try {
+    if (localStorage.getItem("rat-library-autoload") === "1") {
+        loadLibraryFromServer(false);
+    } else {
+        updateDisplay();
+    }
+} catch (e) {
+    updateDisplay();
+}
 </script>
 </body>
 </html>
