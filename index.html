@@ -2838,6 +2838,11 @@ function openSplitPractice(index) {
         voiceURI: splitSelectedVoice.voiceURI || "",
         localService: Boolean(splitSelectedVoice.localService)
     } : null;
+    const splitInitialSpeed = localStorage.getItem("rat-split-speed") || String(speedSlider.value || "0.9");
+    const splitInitialPause = localStorage.getItem("rat-split-pause") || "500";
+    const splitInitialHideVocab = localStorage.getItem("rat-split-hide-vocab") === "1";
+    const splitInitialHideEnglish = localStorage.getItem("rat-split-hide-english") === "1";
+    const splitInitialHideSplit = localStorage.getItem("rat-split-hide-split") === "1";
 
     const doc = `<!DOCTYPE html>
 <html lang="ja">
@@ -3100,6 +3105,16 @@ function openSplitPractice(index) {
         gap:16px;
         padding:16px;
         min-height:calc(100vh - 58px);
+    }
+    .split-only-wrap {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
+        min-height: calc(100vh - 58px);
+    }
+    .split-only-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
     .left, .right {
         display:flex;
@@ -3885,30 +3900,8 @@ body.lesson-mode #display-area {
     <button class="close" onclick="window.close()">閉じる</button>
 </header>
 
-<div class="wrap">
-    <section class="left">
-        <div class="card english-card split-sentence-card">
-            <div class="split-line-num ${splitCircleNumberClass}">${splitCircleNumber}</div>
-            <div class="split-sentence-main">
-                <div class="split-main-english">${englishPlain}</div>
-                <div class="split-accent-english">${englishAccent}</div>
-            </div>
-        </div>
-
-        <div class="card jp-card">
-            <div class="title">【和訳】</div>
-            <div class="text-box">${jp}</div>
-        </div>
-    </section>
-
-    <aside class="right">
-        <div class="card vocab-card">
-            <div class="title">【語彙】</div>
-            <div class="text-box">${vocab}</div>
-        </div>
-    </aside>
-
-    <section class="split-grid">
+<div class="wrap split-only-wrap">
+    <section class="split-grid split-only-grid">
         <div class="card" style="grid-column:1 / -1;">
             <div class="split-header">
                 <div class="title" style="margin-bottom:0;">【分割】 / 【分割訳】</div>
@@ -3945,6 +3938,15 @@ body.lesson-mode #display-area {
     var isStopped = true;
     var currentLineIndex = 0;
     var pauseTimer = null;
+    var splitTouchStartX = 0;
+    var splitTouchStartY = 0;
+
+    speedSlider.value = ${JSON.stringify(splitInitialSpeed)};
+    speedVal.textContent = Number(speedSlider.value).toFixed(2) + "x";
+    pauseSelect.value = ${JSON.stringify(splitInitialPause)};
+    splitHideVocab.checked = ${splitInitialHideVocab ? "true" : "false"};
+    splitHideEnglish.checked = ${splitInitialHideEnglish ? "true" : "false"};
+    splitHideSplit.checked = ${splitInitialHideSplit ? "true" : "false"};
 
     function showSplitTooltip(event, target) {
         var tip = document.getElementById("splitFloatTooltip");
@@ -3993,6 +3995,10 @@ body.lesson-mode #display-area {
 
     speedSlider.addEventListener("input", () => {
         speedVal.textContent = Number(speedSlider.value).toFixed(2) + "x";
+        try { window.opener.localStorage.setItem("rat-split-speed", String(speedSlider.value)); } catch(e) {}
+    });
+    pauseSelect.addEventListener("change", () => {
+        try { window.opener.localStorage.setItem("rat-split-pause", String(pauseSelect.value)); } catch(e) {}
     });
 
     function refreshSplitHideModes() {
@@ -4002,10 +4008,17 @@ body.lesson-mode #display-area {
     }
 
     [splitHideVocab, splitHideEnglish].forEach(el => {
-        if (el) el.addEventListener("change", refreshSplitHideModes);
+        if (el) el.addEventListener("change", () => {
+            try {
+                window.opener.localStorage.setItem("rat-split-hide-vocab", splitHideVocab && splitHideVocab.checked ? "1" : "0");
+                window.opener.localStorage.setItem("rat-split-hide-english", splitHideEnglish && splitHideEnglish.checked ? "1" : "0");
+            } catch(e) {}
+            refreshSplitHideModes();
+        });
     });
     if (splitHideSplit) {
         splitHideSplit.addEventListener("change", () => {
+            try { window.opener.localStorage.setItem("rat-split-hide-split", splitHideSplit.checked ? "1" : "0"); } catch(e) {}
             document.querySelectorAll(".split-row").forEach(row => {
                 row.classList.remove("split-line-force-show", "split-line-force-hide");
             });
@@ -4203,6 +4216,23 @@ body.lesson-mode #display-area {
         }
     }
 
+    document.addEventListener("touchstart", function(e) {
+        if (!e.touches || !e.touches.length) return;
+        splitTouchStartX = e.touches[0].clientX;
+        splitTouchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener("touchend", function(e) {
+        if (!e.changedTouches || !e.changedTouches.length) return;
+        var dx = e.changedTouches[0].clientX - splitTouchStartX;
+        var dy = e.changedTouches[0].clientY - splitTouchStartY;
+        if (dx > 80 && Math.abs(dy) < 60) {
+            stopSplit();
+            try { if (window.opener) window.opener.focus(); } catch(err) {}
+            window.close();
+        }
+    }, { passive: true });
+
     window.addEventListener("beforeunload", () => {
         clearPauseTimer();
         speechSynthesis.cancel();
@@ -4241,6 +4271,31 @@ speedSlider.addEventListener("input", e => {
 });
 
 [hideVocabToggle, hideJpToggle, hideEnglish].forEach(el => el.addEventListener("change", refreshClasses));
+
+
+let lessonTouchStartX = 0;
+let lessonTouchStartY = 0;
+
+document.addEventListener("touchstart", function(e) {
+    if (!document.body.classList.contains("lesson-mode")) return;
+    if (!e.touches || !e.touches.length) return;
+    const target = e.target;
+    if (target && target.closest && target.closest("button, input, select, .sentence-sheet, .sentence-sheet-backdrop")) return;
+    lessonTouchStartX = e.touches[0].clientX;
+    lessonTouchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener("touchend", function(e) {
+    if (!document.body.classList.contains("lesson-mode")) return;
+    if (!e.changedTouches || !e.changedTouches.length) return;
+    const target = e.target;
+    if (target && target.closest && target.closest("button, input, select, .sentence-sheet, .sentence-sheet-backdrop")) return;
+    const dx = e.changedTouches[0].clientX - lessonTouchStartX;
+    const dy = e.changedTouches[0].clientY - lessonTouchStartY;
+    if (dx < -80 && Math.abs(dy) < 60) {
+        openSplitPractice(getActiveIndex());
+    }
+}, { passive: true });
 
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
