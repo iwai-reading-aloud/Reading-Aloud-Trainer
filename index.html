@@ -1254,7 +1254,7 @@ body.lesson-mode #display-area {
     min-width: 64px !important;
 }
 .mobile-nav-btn.end-reached {
-    background: var(--primary) !important;
+    background: #111111 !important;
     color: #ffffff !important;
     opacity: 1 !important;
 }
@@ -2022,15 +2022,17 @@ function updateMobilePracticeView() {
     if (card) {
         const canPrev = idx > 0;
         const canNext = idx < lessonData.length - 1;
+        const prevIndex = canPrev ? idx - 1 : lessonData.length - 1;
+        const nextIndex = canNext ? idx + 1 : 0;
         card.innerHTML = `
             <div class="mobile-current-top">
                 <div class="mobile-sentence-nav">
-                    <button class="mobile-nav-btn action-flash" ${canPrev ? `onclick="jumpToSentence(${idx - 1})"` : "disabled"}>◀</button>
+                    <button class="mobile-nav-btn action-flash" onclick="jumpToSentence(${prevIndex})">◀</button>
                     <button type="button" class="mobile-jump-btn action-flash" onclick="openSentenceSheet()">
                         <span class="mobile-jump-num">${escapeHtml(getCircleNumber(item, idx))}</span>
                         <span class="mobile-jump-label">文を移動</span>
                     </button>
-                    <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" ${canNext ? `onclick="jumpToSentence(${idx + 1})"` : "disabled"}>▶</button>
+                    <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" onclick="jumpToSentence(${nextIndex})">▶</button>
                 </div>
             </div>
             <div class="mobile-current-english ${hideEnglish.checked ? "hidden-text" : ""}" onclick="playFrom(${idx})">${markedPlainHtml(item.english)}</div>
@@ -3748,7 +3750,7 @@ body.lesson-mode #display-area {
     min-width: 64px !important;
 }
 .mobile-nav-btn.end-reached {
-    background: var(--primary) !important;
+    background: #111111 !important;
     color: #ffffff !important;
     opacity: 1 !important;
 }
