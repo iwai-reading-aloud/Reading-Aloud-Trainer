@@ -1436,7 +1436,7 @@ body.split-mode #display-area {
 }
 .mobile-split-actions {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 6px;
 }
 .mobile-split-actions button {
@@ -1484,17 +1484,15 @@ body.split-mode #display-area {
     overscroll-behavior: contain;
 }
 .mobile-split-global-toggle-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
     margin: 0 0 7px 0;
 }
 .mobile-split-global-toggle-row .mobile-split-toggle-btn {
-    min-height: 32px;
-    min-width: 88px;
-    border-radius: 8px;
-    padding: 4px 5px;
-    font-size: .66rem;
+    width: 100%;
+    min-height: 38px;
+    border-radius: 9px;
+    padding: 6px 6px;
+    font-size: .72rem;
     line-height: 1;
 }
 .mobile-split-rows {
@@ -3236,6 +3234,7 @@ function renderMobileSplitScreen() {
                 </select>
             </div>
             <div class="mobile-split-actions">
+                <button class="purple action-flash" onclick="closeSplitPractice()">◀1文練習</button>
                 <button class="action-flash" onclick="playSplit()">PLAY</button>
                 <button class="danger action-flash" onclick="stopSplitPlayback()">STOP</button>
                 <button id="mobile-split-loop-btn" class="success action-flash ${splitLoopMode ? "loop-on" : ""}" onclick="toggleSplitLoop()">${splitLoopMode ? "🔁 LOOP ON" : "LOOP"}</button>
@@ -3251,7 +3250,7 @@ function renderMobileSplitScreen() {
         </div>
         <div class="mobile-split-body">
             <div class="mobile-split-global-toggle-row">
-                <button type="button" id="mobileSplitHideLinesBtn" class="mobile-split-toggle-btn${splitSettings.hideLines ? " split-off" : ""} action-flash" onclick="toggleSplitHideLines()">${splitSettings.hideLines ? "分割OFF" : "分割ON"}</button>
+                <button type="button" id="mobileSplitHideLinesBtn" class="mobile-split-toggle-btn${splitSettings.hideLines ? " split-off" : ""} action-flash" onclick="toggleSplitHideLines()">${splitSettings.hideLines ? "分割を一括でOFF" : "分割を一括でON"}</button>
             </div>
             <div class="mobile-split-rows">
                 ${rowsHtml || `<div class="library-empty">分割データがありません。</div>`}
@@ -3277,7 +3276,7 @@ function updateSplitModeClasses() {
     }
     const hideLinesBtn = document.getElementById("mobileSplitHideLinesBtn");
     if (hideLinesBtn) {
-        hideLinesBtn.textContent = splitSettings.hideLines ? "分割OFF" : "分割ON";
+        hideLinesBtn.textContent = splitSettings.hideLines ? "分割を一括でOFF" : "分割を一括でON";
         hideLinesBtn.classList.toggle("split-off", Boolean(splitSettings.hideLines));
     }
 }
@@ -3480,9 +3479,9 @@ document.addEventListener("touchend", function(e) {
     const dx = e.changedTouches[0].clientX - lessonTouchStartX;
     const dy = e.changedTouches[0].clientY - lessonTouchStartY;
 
-    if (document.body.classList.contains("lesson-mode") && dx < -80 && Math.abs(dy) < 60) {
+    if (document.body.classList.contains("lesson-mode") && dx > 80 && Math.abs(dy) < 60) {
         openSplitPractice(getActiveIndex());
-    } else if (document.body.classList.contains("split-mode") && dx > 80 && Math.abs(dy) < 60) {
+    } else if (document.body.classList.contains("split-mode") && dx < -80 && Math.abs(dy) < 60) {
         closeSplitPractice();
     }
 }, { passive: true });
