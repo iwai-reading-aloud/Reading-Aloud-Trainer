@@ -3362,7 +3362,10 @@ function playOneSplitLine(index) {
 
     markCurrentSplitLine(index);
     utterance.onend = () => {
-        clearCurrentSplitLine();
+        // 各分割のPLAYでは、音声終了後も最後に練習した分割のハイライトを残す。
+        // これにより、学生が現在の練習位置を見失いにくくなる。
+        splitCurrentLineIndex = index;
+        markCurrentSplitLine(index);
     };
     speechSynthesis.speak(utterance);
 }
