@@ -2499,10 +2499,20 @@ function toggleWholeLoop() {
     wholeLoop = !wholeLoop;
 
     if (wholeLoop) {
+        // 全体LOOPは常に①から開始する。文LOOP中でも、その文LOOPを解除して全体LOOPへ切り替える。
+        speechSynthesis.cancel();
+        isPaused = false;
+        currentIndex = -1;
+        selectedIndex = 0;
+        playbackAutoNext = true;
+        playbackWrapAtEnd = true;
+        returnToFirstAfterSequence = false;
+        loopSettings = loopSettings.map(() => false);
         autoNext.checked = true;
+        refreshLoopButtons();
         refreshClasses();
         if (lessonData.length > 0) {
-            speakLine(currentIndex >= 0 ? currentIndex : 0, true, true);
+            speakLine(0, true, true);
         }
         return;
     }
