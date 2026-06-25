@@ -3382,6 +3382,11 @@ function speakSplitLineAt(index) {
             splitCurrentLineIndex = 0;
             clearCurrentSplitLine();
             updateSplitModeClasses();
+            // 上部PLAYで全分割の再生が終わったら、先頭分割へ表示を戻す。
+            const firstRow = document.getElementById("mobile-split-row-0");
+            if (firstRow) {
+                firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
         }
         return;
     }
