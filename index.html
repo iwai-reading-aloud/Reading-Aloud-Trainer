@@ -1524,8 +1524,11 @@ body.split-mode #display-area {
 .mobile-split-en {
     background: #ffffff;
     border: 1px solid var(--border);
-    font-size: 1.32rem;
+    font-size: 1.36rem;
     font-weight: 900;
+    letter-spacing: 0.01em;
+    color: #0f172a;
+    text-shadow: 0 0 0.01px currentColor;
 }
 .mobile-split-jp {
     background: var(--jp-bg);
@@ -1689,9 +1692,9 @@ body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en *
         <div class="voice-fixed-display" aria-label="音声">音声：アメリカ英語・女性（端末標準）</div>
 
         <div class="toggle-group">
-            <label class="toggle"><input type="checkbox" id="hide-vocab-toggle"> 語彙を隠す</label>
-            <label class="toggle"><input type="checkbox" id="hide-jp-toggle"> 和訳を隠す</label>
             <label class="toggle"><input type="checkbox" id="hide-english"> 英文ぼかし</label>
+            <label class="toggle"><input type="checkbox" id="hide-vocab-toggle"> 語彙OFF</label>
+            <label class="toggle"><input type="checkbox" id="hide-jp-toggle"> 和訳OFF</label>
             <label class="toggle auto-next-toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
         </div>
     </div>
