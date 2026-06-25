@@ -1362,6 +1362,238 @@ body.lesson-mode #display-area {
     overscroll-behavior: contain;
 }
 
+
+
+/* ===== Smartphone split screen v3: same-page practice screen ===== */
+body.split-mode header {
+    display: none !important;
+}
+body.split-mode main {
+    padding: 0;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+body.split-mode #display-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-split-shell {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+.mobile-split-top {
+    flex: 0 0 auto;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 3px 12px rgba(15,23,42,0.08);
+    padding: max(7px, env(safe-area-inset-top)) 8px 7px;
+    display: grid;
+    gap: 6px;
+}
+.mobile-split-settings {
+    display: grid;
+    grid-template-columns: 58px minmax(0,1fr) 74px 82px;
+    gap: 6px;
+    align-items: center;
+}
+.mobile-split-speed-label {
+    font-weight: 900;
+    font-size: .82rem;
+    text-align: right;
+}
+.mobile-split-pause {
+    width: 100%;
+    min-height: 36px;
+    padding: 5px 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-weight: 800;
+    background: #fff;
+    color: var(--text);
+    font-size: .76rem;
+}
+.mobile-split-toggle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-height: 36px;
+    padding: 5px 4px;
+    font-size: .72rem;
+    font-weight: 800;
+    background: #fff;
+    white-space: nowrap;
+}
+.mobile-split-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+}
+.mobile-split-actions button {
+    min-height: 40px;
+    padding: 6px 4px;
+    border-radius: 9px;
+    font-size: .78rem;
+}
+.mobile-split-nav {
+    display: grid;
+    grid-template-columns: minmax(76px, 1fr) minmax(122px, 1.25fr) minmax(76px, 1fr);
+    gap: 6px;
+}
+.mobile-split-nav button {
+    min-height: 40px;
+    padding: 5px 6px;
+    border-radius: 9px;
+    font-size: .86rem;
+}
+.mobile-split-nav .mobile-split-jump-btn {
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-split-num {
+    font-size: 1rem;
+    line-height: 1;
+}
+.mobile-split-label {
+    font-size: .66rem;
+    line-height: 1;
+    color: var(--muted);
+}
+.mobile-split-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 8px;
+    overscroll-behavior: contain;
+}
+.mobile-split-title {
+    font-weight: 900;
+    font-size: .82rem;
+    color: var(--muted);
+    margin: 0 0 6px 2px;
+}
+.mobile-split-rows {
+    display: grid;
+    gap: 7px;
+}
+.mobile-split-row {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 88px minmax(0,.78fr);
+    gap: 6px;
+    align-items: stretch;
+}
+.mobile-split-cell {
+    min-width: 0;
+    min-height: 42px;
+    border-radius: 10px;
+    padding: 8px 9px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    display: flex;
+    align-items: flex-start;
+}
+.mobile-split-en {
+    background: #f8fafc;
+    border: 1px dashed var(--border);
+    font-size: 1rem;
+}
+.mobile-split-jp {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    font-size: .88rem;
+}
+.mobile-split-play-cell {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+}
+.mobile-split-line-play,
+.mobile-split-line-toggle {
+    min-height: 32px;
+    border-radius: 8px;
+    padding: 4px 5px;
+    font-size: .66rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-split-line-play {
+    background: #60a5fa;
+    color: #fff;
+}
+.mobile-split-line-toggle {
+    background: #64748b;
+    color: #fff;
+}
+.mobile-split-row.current-split .mobile-split-en {
+    background: #fef3c7;
+    color: #1d4ed8;
+    font-weight: 900;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245,158,11,0.22);
+}
+body.split-hide-lines .mobile-split-en,
+body.split-hide-lines .mobile-split-row.current-split .mobile-split-en {
+    color: transparent !important;
+    text-shadow: none !important;
+    background: #f8fafc !important;
+    border: 1px dashed var(--border) !important;
+    box-shadow: none !important;
+}
+body.split-hide-lines .mobile-split-en *,
+body.split-hide-lines .mobile-split-row.current-split .mobile-split-en * {
+    color: transparent !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en,
+body.split-hide-lines .mobile-split-row.current-split.split-line-force-show .mobile-split-en {
+    color: var(--text) !important;
+    text-shadow: none !important;
+    background: #f8fafc !important;
+}
+body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en * {
+    color: inherit !important;
+    text-shadow: none !important;
+}
+.mobile-split-row.split-line-force-hide .mobile-split-en,
+.mobile-split-row.current-split.split-line-force-hide .mobile-split-en {
+    color: transparent !important;
+    text-shadow: none !important;
+    background: #f8fafc !important;
+    border: 1px dashed var(--border) !important;
+    box-shadow: none !important;
+}
+.mobile-split-row.split-line-force-hide .mobile-split-en * {
+    color: transparent !important;
+    background: transparent !important;
+    text-shadow: none !important;
+}
+@media (max-width: 430px) {
+    .mobile-split-row {
+        grid-template-columns: 1fr;
+    }
+    .mobile-split-play-cell {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 </style>
 </head>
 <body>
@@ -1429,6 +1661,19 @@ let libraryLoadError = "";
 let libraryCatalogData = null;
 let libraryCatalogError = "";
 let showingLibraryChooser = false;
+
+let splitMode = false;
+let splitIndex = 0;
+let splitLoopMode = false;
+let splitStopped = true;
+let splitCurrentLineIndex = 0;
+let splitPauseTimer = null;
+let splitForceVisibility = {};
+let splitSettings = {
+    speed: "0.9",
+    pause: "500",
+    hideLines: false
+};
 
 const displayArea = document.getElementById("display-area");
 const stats = document.getElementById("stats");
@@ -1969,6 +2214,7 @@ async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex) {
 }
 
 function showLibraryHome() {
+    splitMode = false;
     closeSentenceSheet();
     stopAll();
     lessonData = [];
@@ -2054,12 +2300,13 @@ function openSentenceSheet() {
     const backdrop = document.getElementById("sentenceSheetBackdrop");
     const list = document.getElementById("sentenceSheetList");
     if (!sheet || !backdrop || !list) return;
-    const active = getActiveIndex();
+    const active = splitMode ? splitIndex : getActiveIndex();
     list.innerHTML = lessonData.map((it, i) => {
         const text = sentenceTooltipText(it) || plainLine((it && it.english) || "");
         const label = getCircleNumber(it, i);
         const current = i === active ? " current" : "";
-        return `<button type="button" class="sentence-sheet-item${current}" onclick="jumpToSentence(${i}); closeSentenceSheet();">
+        const action = splitMode ? `switchSplitSentence(${i}); closeSentenceSheet();` : `jumpToSentence(${i}); closeSentenceSheet();`;
+        return `<button type="button" class="sentence-sheet-item${current}" onclick="${action}">
             <span class="sentence-sheet-num">${escapeHtml(label)}</span>
             <span class="sentence-sheet-text">${escapeHtml(text)}</span>
         </button>`;
@@ -2105,6 +2352,18 @@ function updateDisplay() {
     }
 
     document.body.classList.remove("library-mode");
+
+    if (splitMode) {
+        document.body.classList.remove("lesson-mode");
+        document.body.classList.add("split-mode");
+        if (splitIndex < 0 || splitIndex >= lessonData.length) splitIndex = getActiveIndex();
+        displayArea.innerHTML = renderMobileSplitScreen();
+        stats.textContent = `${lessonData.length}文`;
+        updateSplitModeClasses();
+        return;
+    }
+
+    document.body.classList.remove("split-mode", "split-hide-lines");
     document.body.classList.add("lesson-mode");
     if (selectedIndex < 0 || selectedIndex >= lessonData.length) selectedIndex = 0;
     displayArea.innerHTML = renderMobilePracticeScreen();
@@ -2588,6 +2847,7 @@ function toggleLoop(i) {
 }
 
 function loadLessonObject(obj) {
+    splitMode = false;
     let loadedData;
     const loadedMeta = readLessonMetaFromObject(obj);
 
@@ -2756,1503 +3016,332 @@ if (lessonFileInput) {
     });
 }
 
-function openSplitPractice(index) {
-    const item = lessonData[index];
-    if (!item) return;
 
-    const screenW = window.screen && window.screen.availWidth ? window.screen.availWidth : 1200;
-    const screenH = window.screen && window.screen.availHeight ? window.screen.availHeight : 850;
-    const num = getPaddedLabelNumber(item, index);
-    const fullItemLabel = getFullItemLabel(item, index);
-    const splitCircleNumber = escapeHtml(getCircleNumber(item, index));
-    const splitCircleNumberClass = escapeHtml(getCircleNumberClass(item, index));
+function getSplitLines(item) {
+    return String((item && item.split) || "")
+        .split(/\n+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+}
 
-    const win = window.open(
-        "",
-        "splitPracticePopup",
-        `width=${screenW},height=${screenH},left=0,top=0,scrollbars=yes,resizable=yes`
-    );
+function getSplitJpLines(item) {
+    return String((item && item.splitJp) || "")
+        .split(/\n+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+}
 
-    if (!win) {
-        alert("ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。");
-        return;
-    }
-
-    // 分割練習へ移るときは、元画面側と既存ポップアップ側の再生・LOOPを自動停止する。
+function getSplitSetting(key, fallback) {
     try {
-        if (win && typeof win.stopSplit === "function") {
-            win.stopSplit();
-        } else if (win && win.speechSynthesis) {
-            win.speechSynthesis.cancel();
-        }
+        const value = localStorage.getItem("rat-split-" + key);
+        return value === null || value === undefined || value === "" ? fallback : value;
     } catch (e) {
-        // 既存ポップアップを停止できない場合でも、再描画を続行します。
+        return fallback;
     }
-    stopAll();
+}
 
-    function splitLines(text) {
-        return String(text || "")
-            .split(/\n+/)
-            .map(s => s.trim())
-            .filter(Boolean);
+function setSplitSetting(key, value) {
+    splitSettings[key] = value;
+    try {
+        localStorage.setItem("rat-split-" + key, String(value));
+    } catch (e) {}
+}
+
+function loadSplitSettings() {
+    splitSettings.speed = getSplitSetting("speed", String(speedSlider.value || "0.9"));
+    splitSettings.pause = getSplitSetting("pause", "500");
+    splitSettings.hideLines = getSplitSetting("hide-lines", "0") === "1";
+}
+
+function stopReadingPlaybackOnly() {
+    speechSynthesis.cancel();
+    isPaused = false;
+    currentIndex = -1;
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    refreshLoopButtons();
+}
+
+function clearSplitPauseTimer() {
+    if (splitPauseTimer) {
+        clearTimeout(splitPauseTimer);
+        splitPauseTimer = null;
     }
+}
 
-    const englishAccent = accentHtml(getAccentText(item) || "");
-    const englishPlain = markedPlainHtml(item.english || "");
-    const vocab = markedTextHtml(getVocabText(item) || "（語彙データなし）");
-    const jp = escapeHtml(item.jp || "（和訳データなし）");
-    const splitTextRaw = item.split || "（分割データなし）";
-    const splitLinesRaw = splitLines(splitTextRaw);
-    const splitJpLinesRaw = splitLines(item.splitJp || "（分割訳データなし）");
+function clearCurrentSplitLine() {
+    document.querySelectorAll(".mobile-split-row").forEach(row => row.classList.remove("current-split"));
+}
 
+function markCurrentSplitLine(index) {
+    clearCurrentSplitLine();
+    const row = document.getElementById("mobile-split-row-" + index);
+    if (row) {
+        row.classList.add("current-split");
+        row.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+}
+
+function stopSplitPlayback() {
+    splitStopped = true;
+    splitLoopMode = false;
+    splitCurrentLineIndex = 0;
+    clearSplitPauseTimer();
+    clearCurrentSplitLine();
+    speechSynthesis.cancel();
+
+    const loopBtn = document.getElementById("mobile-split-loop-btn");
+    if (loopBtn) {
+        loopBtn.classList.remove("loop-on");
+        loopBtn.textContent = "LOOP";
+    }
+}
+
+function closeSplitPractice() {
+    stopSplitPlayback();
+    splitMode = false;
+    document.body.classList.remove("split-mode", "split-hide-lines");
+    updateDisplay();
+}
+
+function openSplitPractice(index) {
+    if (!lessonData.length) return;
+    const safeIndex = Number.isInteger(index) && index >= 0 && index < lessonData.length ? index : getActiveIndex();
+    const item = lessonData[safeIndex];
+    if (!item || !hasRealSplitData(item)) return;
+
+    stopReadingPlaybackOnly();
+    closeSentenceSheet();
+    selectedIndex = safeIndex;
+    splitIndex = safeIndex;
+    splitMode = true;
+    splitStopped = true;
+    splitLoopMode = false;
+    splitCurrentLineIndex = 0;
+    splitForceVisibility = {};
+    loadSplitSettings();
+    updateDisplay();
+}
+
+function renderMobileSplitScreen() {
+    const idx = splitIndex >= 0 && splitIndex < lessonData.length ? splitIndex : getActiveIndex();
+    splitIndex = idx;
+    selectedIndex = idx;
+
+    const item = lessonData[idx];
+    const splitLinesRaw = getSplitLines(item);
+    const splitJpLinesRaw = getSplitJpLines(item);
     const maxRows = Math.max(splitLinesRaw.length, splitJpLinesRaw.length);
-    const splitRowsHtml = Array.from({ length: maxRows }, (_, i) => {
+    const prevIndex = idx > 0 ? idx - 1 : lessonData.length - 1;
+    const nextIndex = idx < lessonData.length - 1 ? idx + 1 : 0;
+
+    const rowsHtml = Array.from({ length: maxRows }, (_, i) => {
         const en = splitLinesRaw[i] ? accentHtml(splitLinesRaw[i]) : "";
         const jpLine = splitJpLinesRaw[i] ? escapeHtml(splitJpLinesRaw[i]) : "";
-        return `<div class="split-row" id="split-row-${i}">
-            <div class="split-cell split-en">${en}</div>
-            <div class="split-play-cell"><button class="split-line-play" onclick="playOneSplitLine(${i})">PLAY</button><button class="split-line-toggle" onclick="toggleSplitLineVisibility(${i})">分割ON/OFF</button></div>
-            <div class="split-cell split-jp-line">${jpLine}</div>
+        const forceClass = splitForceVisibility[i] === "show"
+            ? " split-line-force-show"
+            : splitForceVisibility[i] === "hide"
+                ? " split-line-force-hide"
+                : "";
+        return `<div class="mobile-split-row${forceClass}" id="mobile-split-row-${i}">
+            <div class="mobile-split-cell mobile-split-en">${en}</div>
+            <div class="mobile-split-play-cell">
+                <button class="mobile-split-line-play action-flash" onclick="playOneSplitLine(${i})">PLAY</button>
+                <button class="mobile-split-line-toggle action-flash" onclick="toggleSplitLineVisibility(${i})">ON/OFF</button>
+            </div>
+            <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
         </div>`;
     }).join("");
 
-    function tooltipTextForItem(it) {
-        return sentenceTooltipText(it);
-    }
-
-    const prevIndex = index > 0 ? index - 1 : -1;
-    const nextIndex = index < lessonData.length - 1 ? index + 1 : -1;
-    const prevTooltip = prevIndex >= 0 ? escapeHtml(tooltipTextForItem(lessonData[prevIndex])) : "";
-    const nextTooltip = nextIndex >= 0 ? escapeHtml(tooltipTextForItem(lessonData[nextIndex])) : "";
-    const currentNavLabel = `${escapeHtml(getCircleNumber(item, index))}/${lessonData.length}`;
-    const sentenceMenuHtml = lessonData.map((it, j) => {
-        const label = escapeHtml(getCircleNumber(it, j));
-        const tip = escapeHtml(tooltipTextForItem(it));
-        const active = j === index ? " current" : "";
-        return `<button type="button" class="sentence-menu-item${active}" data-tooltip="${tip}" onmouseenter="showSplitTooltip(event, this)" onmousemove="showSplitTooltip(event, this)" onmouseleave="hideSplitTooltip()" onclick="stopSplit(); window.opener.openSplitPractice(${j})">${label}</button>`;
-    }).join("");
-    const splitSelectedVoice = getSelectedVoice();
-    const splitVoiceInfo = splitSelectedVoice ? {
-        name: splitSelectedVoice.name || "",
-        lang: splitSelectedVoice.lang || "",
-        voiceURI: splitSelectedVoice.voiceURI || "",
-        localService: Boolean(splitSelectedVoice.localService)
-    } : null;
-    const splitInitialSpeed = localStorage.getItem("rat-split-speed") || String(speedSlider.value || "0.9");
-    const splitInitialPause = localStorage.getItem("rat-split-pause") || "500";
-    const splitInitialHideVocab = localStorage.getItem("rat-split-hide-vocab") === "1";
-    const splitInitialHideEnglish = localStorage.getItem("rat-split-hide-english") === "1";
-    const splitInitialHideSplit = localStorage.getItem("rat-split-hide-split") === "1";
-
-    const doc = `<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>分割練習 ${num}</title>
-<style>
-    :root {
-        --primary:#2563eb;
-        --primary-dark:#1d4ed8;
-        --accent:#111827;
-        --bg:#f3f4f6;
-        --card:#ffffff;
-        --text:#111827;
-        --muted:#6b7280;
-        --border:#d1d5db;
-        --danger:#dc2626;
-        --success:#16a34a;
-        --vocab-bg:#fff7ed;
-        --jp-bg:#eef6ff;
-        --split-bg:#f8fafc;
-        --split-jp-bg:#f0fdf4;
-        --purple:#7c3aed;
-    }
-    * { box-sizing:border-box; }
-    body {
-        margin:0;
-        font-family:"Segoe UI","Yu Gothic UI","Meiryo",Arial,sans-serif;
-        background:var(--bg);
-        color:var(--text);
-        height:100vh;
-        overflow:auto;
-    }
-    header {
-        padding:10px 18px;
-        background:#fff;
-        border-bottom:1px solid var(--border);
-        position:sticky;
-        top:0;
-        z-index:10;
-        display:flex;
-        justify-content:flex-end;
-        align-items:center;
-        gap:14px;
-        box-shadow:0 3px 12px rgba(15,23,42,0.08);
-    }
-    .top-controls {
-        display:flex;
-        align-items:center;
-        gap:10px;
-        flex:1;
-        max-width:1180px;
-    }
-    .sentence-nav {
-        position:relative;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:6px;
-        min-width:168px;
-    }
-    .nav-arrow, .nav-current {
-        border:none;
-        border-radius:9px;
-        padding:7px 10px;
-        font-weight:900;
-        cursor:pointer;
-    }
-    .nav-arrow {
-        background:#e5e7eb;
-        color:#111827;
-        min-width:36px;
-    }
-    .nav-arrow:hover { background:#d1d5db; }
-    .nav-arrow:disabled {
-        opacity:.35;
-        cursor:default;
-    }
-    .nav-current {
-        background:#ffffff;
-        color:#111827;
-        border:1px solid var(--border);
-        min-width:62px;
-        font-size:.72rem;
-        font-weight:600;
-    }
-    .nav-tooltip-source { position:relative; }
-    .split-float-tooltip {
-        display:none;
-        position:fixed;
-        z-index:5000;
-        max-width:min(560px, calc(100vw - 28px));
-        background:#ffffff;
-        color:#111827;
-        border:1px solid var(--border);
-        border-radius:7px;
-        padding:6px 8px;
-        font-size:.72rem;
-        line-height:1.45;
-        font-weight:500;
-        box-shadow:0 6px 16px rgba(15,23,42,.18);
-        pointer-events:none;
-        white-space:normal;
-    }
-    .sentence-menu {
-        display:none;
-        position:absolute;
-        top:calc(100% + 6px);
-        left:50%;
-        transform:translateX(-50%);
-        width:66px;
-        /* 10件程度を一度に見せ、残りはメニュー内スクロールにする */
-        max-height:min(314px, calc(100vh - 28px));
-        overflow:auto;
-        background:#ffffff;
-        border:1px solid var(--border);
-        border-radius:10px;
-        padding:6px;
-        box-shadow:0 10px 28px rgba(15,23,42,.18);
-        z-index:999;
-    }
-    .sentence-menu.open { display:flex; flex-direction:column; gap:4px; }
-    .sentence-menu-item {
-        position:relative;
-        background:#ffffff;
-        color:#111827;
-        border:1px solid transparent;
-        border-radius:7px;
-        padding:4px 6px;
-        font-size:.72rem;
-        line-height:1.45;
-        font-weight:500;
-        text-align:center;
-    }
-    .sentence-menu-item:hover {
-        background:#eff6ff;
-        border-color:#bfdbfe;
-    }
-    .sentence-menu-item.current {
-        background:#dbeafe;
-        border-color:#60a5fa;
-        color:#1d4ed8;
-    }
-    .speed-label {
-        font-weight:900;
-        min-width:58px;
-        text-align:right;
-    }
-    input[type="range"] {
-        width:100%;
-        cursor:pointer;
-    }
-    .pause-select {
-        border:1px solid var(--border);
-        border-radius:10px;
-        padding:8px 10px;
-        font-weight:800;
-        background:#fff;
-        color:var(--text);
-    }
-    .pause-label {
-        font-weight:900;
-        white-space:nowrap;
-    }
-    .toggle {
-        display:inline-flex;
-        align-items:center;
-        gap:5px;
-        font-size:.88rem;
-        color:var(--text);
-        background:#fff;
-        border:1px solid var(--border);
-        padding:7px 10px;
-        border-radius:999px;
-        user-select:none;
-        white-space:nowrap;
-    }
-    .split-hidden-text,
-    .split-hidden-text * {
-        color:transparent !important;
-        text-shadow:0 0 10px rgba(17,24,39,.35) !important;
-    }
-    .split-hidden-text .accent-highlight,
-    .english-card.split-hidden-text .accent-highlight {
-        background:transparent !important;
-        color:transparent !important;
-        box-shadow:none !important;
-    }
-    body.hide-split-vocab .vocab-card {
-        display:none;
-    }
-    body.hide-split-english .english-card {
-        color:transparent !important;
-    }
-    body.hide-split-english .english-card .split-main-english,
-    body.hide-split-english .english-card .split-accent-english,
-    body.hide-split-english .english-card .split-main-english *,
-    body.hide-split-english .english-card .split-accent-english * {
-        color:transparent !important;
-        text-shadow:0 0 10px rgba(17,24,39,.35) !important;
-    }
-    body.hide-split-english .english-card .accent-highlight {
-        background:transparent !important;
-        color:transparent !important;
-        box-shadow:none !important;
-    }
-    body.hide-split-lines .split-en,
-    body.hide-split-lines .split-row.current-split .split-en {
-        color:transparent !important;
-        text-shadow:none !important;
-        background:var(--split-bg) !important;
-        border:1px dashed var(--border) !important;
-        box-shadow:none !important;
-    }
-    body.hide-split-lines .split-en *,
-    body.hide-split-lines .split-row.current-split .split-en * {
-        color:transparent !important;
-        background:transparent !important;
-        text-shadow:none !important;
-        box-shadow:none !important;
-    }
-    body.hide-split-lines .split-row.split-line-force-show .split-en,
-    body.hide-split-lines .split-row.current-split.split-line-force-show .split-en {
-        color:var(--text) !important;
-        text-shadow:none !important;
-        background:var(--split-bg) !important;
-        border:1px dashed var(--border) !important;
-        box-shadow:none !important;
-    }
-    body.hide-split-lines .split-row.split-line-force-show .split-en *,
-    body.hide-split-lines .split-row.current-split.split-line-force-show .split-en * {
-        color:inherit !important;
-        text-shadow:none !important;
-        box-shadow:none !important;
-    }
-    body.hide-split-lines .split-row.split-line-force-show .split-en .accent-highlight,
-    body.hide-split-lines .split-row.current-split.split-line-force-show .split-en .accent-highlight {
-        background:var(--accent) !important;
-        color:#fff !important;
-        box-shadow:none !important;
-    }
-    .split-row.split-line-force-hide .split-en,
-    .split-row.current-split.split-line-force-hide .split-en {
-        color:transparent !important;
-        text-shadow:none !important;
-        background:var(--split-bg) !important;
-        border:1px dashed var(--border) !important;
-        box-shadow:none !important;
-    }
-    .split-row.split-line-force-hide .split-en *,
-    .split-row.current-split.split-line-force-hide .split-en * {
-        color:transparent !important;
-        background:transparent !important;
-        text-shadow:none !important;
-        box-shadow:none !important;
-    }
-    .wrap {
-        display:grid;
-        grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
-        gap:16px;
-        padding:16px;
-        min-height:calc(100vh - 58px);
-    }
-    .split-only-wrap {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 10px;
-        min-height: calc(100vh - 58px);
-    }
-    .split-only-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    .left, .right {
-        display:flex;
-        flex-direction:column;
-        gap:14px;
-        min-width:0;
-        align-self:start;
-    }
-    .card {
-        background:var(--card);
-        border:1px solid var(--border);
-        border-radius:14px;
-        padding:16px;
-        box-shadow:0 3px 10px rgba(15,23,42,0.06);
-    }
-    .split-sentence-card {
-        display:grid;
-        grid-template-columns:auto minmax(0, 1fr);
-        gap:12px;
-        align-items:start;
-    }
-    .split-line-num {
-        width:2.55rem;
-        height:2.55rem;
-        border-radius:50%;
-        background:#fff;
-        border:2.5px solid #000;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:#000;
-        font-weight:900;
-        font-size:1.05rem;
-        line-height:1;
-        flex-shrink:0;
-        /* 青色ハイライト英文の上下中央に丸数字の中心が来るよう再調整 */
-        margin-top:.39rem;
-    }
-    .split-line-num.long-num {
-        font-size:.78rem;
-        letter-spacing:-.06em;
-    }
-    .split-line-num.choice-num {
-        background:#000;
-        color:#fff;
-        border-color:#000;
-    }
-    .split-sentence-main {
-        min-width:0;
-    }
-    .split-main-english {
-        font-size:1.52rem;
-        line-height:1.85;
-        word-break:normal;
-        margin-bottom:8px;
-        background:#fef3c7;
-        color:#1d4ed8;
-        font-weight:900;
-        border-radius:8px;
-        padding:4px 8px;
-        box-shadow:0 0 0 2px rgba(245,158,11,0.22);
-        display:inline-block;
-        max-width:100%;
-    }
-    .split-accent-english {
-        color:var(--muted);
-        font-size:1.14rem;
-        line-height:1.7;
-    }
-    .title {
-        font-weight:900;
-        margin:0 0 8px 0;
-        padding:0;
-        color:#111827;
-        letter-spacing:.03em;
-        line-height:1.4;
-    }
-    .english {
-        font-size:1.5rem;
-        line-height:1.9;
-        margin-bottom:8px;
-    }
-    .plain {
-        color:var(--muted);
-        font-size:1rem;
-        line-height:1.65;
-    }
-    .text-box {
-        white-space:pre-wrap;
-        line-height:1.75;
-        font-size:1.04rem;
-        margin:0;
-        padding:0;
-        text-indent:0;
-    }
-    .jp-card {
-        background:var(--jp-bg);
-        border-color:#bfdbfe;
-    }
-    .vocab-card {
-        background:var(--vocab-bg);
-        border-color:#fed7aa;
-    }
-    .split-grid {
-        display:grid;
-        grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
-        gap:16px;
-        align-items:start;
-        grid-column:1 / -1;
-    }
-    .split-header {
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:12px;
-        margin-bottom:8px;
-        min-height:42px;
-    }
-    .split-actions {
-        display:flex;
-        gap:8px;
-        flex-wrap:wrap;
-        justify-content:flex-end;
-    }
-    .split-rows {
-        display:flex;
-        flex-direction:column;
-        gap:8px;
-        min-width:0;
-    }
-    .split-row {
-        display:grid;
-        grid-template-columns: minmax(0, 1.15fr) 128px minmax(0, .85fr);
-        gap:8px;
-        grid-column:1 / -1;
-        align-items:stretch;
-    }
-    .split-row.current-split .split-en {
-        background:#fef3c7;
-        color:#1d4ed8;
-        font-weight:900;
-        border:1px solid #f59e0b;
-        box-shadow:0 0 0 2px rgba(245,158,11,0.22);
-    }
-    .split-cell {
-        min-width:0;
-        min-height:42px;
-        border-radius:10px;
-        padding:9px 12px;
-        line-height:1.75;
-        white-space:pre-wrap;
-        display:flex;
-        align-items:flex-start;
-    }
-    .split-play-cell {
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:6px;
-        flex-wrap:wrap;
-    }
-    .split-line-play,
-    .split-line-toggle {
-        color:#fff;
-        border:none;
-        border-radius:8px;
-        padding:5px 7px;
-        font-size:.68rem;
-        line-height:1;
-        font-weight:900;
-        min-width:40px;
-        white-space:nowrap;
-    }
-    .split-line-play {
-        background:#60a5fa;
-    }
-    .split-line-play:hover {
-        background:#3b82f6;
-    }
-    .split-line-toggle {
-        background:#64748b;
-        min-width:74px;
-    }
-    .split-line-toggle:hover {
-        background:#475569;
-    }
-    .split-en {
-        background:var(--split-bg);
-        border:1px dashed var(--border);
-        font-size:1.22rem;
-    }
-    .split-jp-line {
-        background:var(--split-jp-bg);
-        border:1px solid #bbf7d0;
-        font-size:1.05rem;
-    }
-    .accent-highlight {
-        background:var(--accent);
-        color:#fff;
-        border-radius:5px;
-        padding:2px 5px;
-        font-weight:900;
-        box-decoration-break:clone;
-        -webkit-box-decoration-break:clone;
-    }
-    button {
-        color:#fff;
-        border:none;
-        border-radius:10px;
-        padding:9px 14px;
-        font-weight:800;
-        cursor:pointer;
-        transform:translateY(0);
-    }
-    button:active {
-        transform:translateY(2px) scale(.97);
-        opacity:.75;
-        filter:brightness(.92);
-    }
-    .play { background:var(--primary); }
-    .play:hover { background:var(--primary-dark); }
-    .stop { background:var(--danger); }
-    .loop { background:var(--success); }
-    .close { background:var(--purple); }
-    .loop-on {
-        background:var(--success);
-        box-shadow:0 0 0 3px rgba(22,163,74,0.25),0 0 16px rgba(22,163,74,0.75);
-        animation:loopPulse 1.45s ease-in-out infinite;
-    }
-    @keyframes loopPulse {
-        0% { opacity:1; transform:scale(1); filter:brightness(1); }
-        50% { opacity:.58; transform:scale(1.03); filter:brightness(1.16); }
-        100% { opacity:1; transform:scale(1); filter:brightness(1); }
-    }
-
-    @media(max-width:700px) {
-        body { height:auto; min-height:100dvh; }
-        header {
-            position:sticky;
-            top:0;
-            padding: max(8px, env(safe-area-inset-top)) 8px 8px;
-            gap:8px;
-            flex-direction:column;
-            align-items:stretch;
-        }
-        .top-controls {
-            display:grid;
-            grid-template-columns: auto minmax(0,1fr);
-            gap:7px;
-            width:100%;
-        }
-        .speed-label { min-width:48px; font-size:.82rem; }
-        .pause-label { font-size:.78rem; align-self:center; }
-        .pause-select { min-height:40px; padding:6px 8px; }
-        .toggle { justify-content:center; border-radius:10px; padding:7px 5px; font-size:.76rem; }
-        .top-controls .toggle { grid-column:span 1; }
-        header > .close { width:100%; min-height:42px; }
-        .wrap { grid-template-columns:1fr; gap:10px; padding:10px; min-height:auto; }
-        .left, .right { gap:10px; }
-        .card { padding:11px; border-radius:12px; }
-        .split-sentence-card { grid-template-columns:auto minmax(0,1fr); gap:8px; }
-        .split-line-num { width:2.25rem; height:2.25rem; font-size:.9rem; margin-top:.32rem; }
-        .split-main-english { font-size:1.08rem; line-height:1.65; }
-        .split-accent-english { font-size:.86rem; line-height:1.5; }
-        .text-box { font-size:.9rem; line-height:1.6; }
-        .split-grid { grid-template-columns:1fr; gap:10px; }
-        .split-header { flex-direction:column; align-items:stretch; gap:8px; }
-        .split-actions {
-            display:grid;
-            grid-template-columns:repeat(3,minmax(0,1fr));
-            gap:7px;
-        }
-        .split-actions > button { min-height:42px; padding:7px 6px; font-size:.78rem; }
-        .sentence-nav { grid-column:1 / -1; width:100%; min-width:0; }
-        .nav-arrow, .nav-current { min-height:40px; }
-        .sentence-menu {
-            position:fixed;
-            left:10px;
-            right:10px;
-            top:auto;
-            bottom:max(10px, env(safe-area-inset-bottom));
-            transform:none;
-            width:auto;
-            max-height:52dvh;
-            display:none;
-            grid-template-columns:repeat(5,minmax(0,1fr));
-            gap:5px;
-            padding:8px;
-        }
-        .sentence-menu.open { display:grid; }
-        .sentence-menu-item { min-height:38px; font-size:.8rem; }
-        .split-row { grid-template-columns:1fr; gap:6px; }
-        .split-cell { min-height:38px; padding:8px 10px; line-height:1.55; }
-        .split-en { font-size:1rem; }
-        .split-jp-line { font-size:.88rem; }
-        .split-play-cell {
-            justify-content:stretch;
-            display:grid;
-            grid-template-columns:1fr 1fr;
-        }
-        .split-line-play, .split-line-toggle { min-height:36px; width:100%; }
-        .split-float-tooltip { display:none !important; }
-    }
-
-    @media(max-width:900px) {
-        .wrap, .split-grid, .split-row { grid-template-columns:1fr; }
-        header { align-items:flex-start; flex-direction:column; }
-        .top-controls { width:100%; max-width:none; }
-    }
-
-/* ===== Library start screen refinement ===== */
-body.library-mode header {
-    display: none;
-}
-body.library-mode main {
-    padding: 18px;
-}
-body.library-mode .stats {
-    display: none;
-}
-.library-home.clean-start {
-    max-width: 720px;
-    margin: 0 auto;
-    min-height: calc(100dvh - 36px);
-    align-content: center;
-}
-.library-home.has-library {
-    max-width: 860px;
-    margin: 0 auto;
-}
-.library-hero.big-start {
-    text-align: center;
-    padding: 30px 20px;
-}
-.library-hero.big-start .library-hero-title {
-    font-size: 1.9rem;
-    margin-bottom: 14px;
-}
-.library-primary-btn {
-    width: 100%;
-    max-width: 360px;
-    min-height: 52px;
-    font-size: 1.02rem;
-    border-radius: 14px;
-}
-.library-actions.centered {
-    justify-content: center;
-}
-.library-note {
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: .86rem;
-    line-height: 1.6;
-}
-@media (max-width: 760px) {
-    body.library-mode main { padding: 14px; }
-    .library-home.clean-start { min-height: calc(100dvh - 28px); }
-    .library-hero.big-start { padding: 24px 16px; }
-    .library-hero.big-start .library-hero-title { font-size: 1.55rem; }
-    .library-primary-btn { max-width: none; }
-}
-
-
-/* Library folder drill-down: simple arrow-only style */
-.library-folder-btn {
-    width: 100%;
-    text-align: left;
-    background: #ffffff;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 13px 14px;
-    font-size: 1.04rem;
-    line-height: 1.35;
-    font-weight: 900;
-    box-shadow: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-.library-folder-btn:hover,
-.library-folder-btn.open {
-    background: #ffffff;
-    color: var(--text);
-    border-color: var(--border);
-}
-.library-folder-btn::after {
-    content: "▶";
-    color: var(--muted);
-    font-size: .9rem;
-}
-.library-folder-btn.open::after {
-    content: "▼";
-}
-.library-folder-panel {
-    display: none;
-    margin-top: 8px;
-    padding-left: 8px;
-    border-left: 3px solid var(--border);
-}
-.library-folder-panel.open {
-    display: grid;
-    gap: 8px;
-}
-
-
-
-/* ===== Smartphone reading screen v1: compact practice UI ===== */
-body.lesson-mode header {
-    padding: 6px 8px;
-}
-body.lesson-mode .title-row,
-body.lesson-mode .student-title-row,
-body.lesson-mode .student-title-main,
-body.lesson-mode .student-load-area,
-body.lesson-mode .student-lesson-info-area,
-body.lesson-mode .voice-fixed-display,
-body.lesson-mode #voice-select {
-    display: none !important;
-}
-body.lesson-mode main {
-    padding: 8px;
-    padding-bottom: 74px;
-    overflow: auto;
-}
-body.lesson-mode .stats {
-    display: none;
-}
-body.lesson-mode .controls {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 5px;
-    margin: 0;
-    align-items: stretch;
-}
-body.lesson-mode .controls > button {
-    width: 100%;
-    min-height: 36px;
-    padding: 6px 3px;
-    font-size: 0.70rem;
-    line-height: 1.15;
-    border-radius: 8px;
-    white-space: normal;
-}
-body.lesson-mode .controls .toggle-group {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 5px;
-}
-body.lesson-mode label.toggle {
-    justify-content: center;
-    min-height: 34px;
-    padding: 5px 3px;
-    font-size: 0.66rem;
-    line-height: 1.1;
-    border-radius: 8px;
-    text-align: center;
-}
-body.lesson-mode .auto-next-toggle {
-    display: none !important;
-}
-body.lesson-mode .slider-box {
-    grid-column: 1 / -1;
-    min-width: 0;
-    width: 100%;
-    flex: none;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 5px 8px;
-}
-.mobile-lesson-shell {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.mobile-current-card {
-    position: sticky;
-    top: 118px;
-    z-index: 5;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 6px solid var(--primary);
-    border-radius: 12px;
-    padding: 9px;
-    box-shadow: 0 4px 14px rgba(15,23,42,0.10);
-}
-.mobile-current-top {
-    display: grid;
-    grid-template-columns: auto auto 1fr auto auto;
-    gap: 6px;
-    align-items: center;
-    margin-bottom: 6px;
-}
-.mobile-back-btn,
-.mobile-nav-btn {
-    background: var(--soft);
-    color: var(--text);
-    border-radius: 8px;
-    padding: 6px 8px;
-    font-size: .72rem;
-    box-shadow: none;
-}
-.mobile-back-btn { white-space: nowrap; }
-.mobile-current-count {
-    color: var(--muted);
-    font-weight: 800;
-    font-size: .74rem;
-    text-align: right;
-}
-.mobile-current-card .line-num {
-    width: 2.1rem;
-    height: 2.1rem;
-    font-size: .9rem;
-}
-.mobile-current-english {
-    font-size: 1.12rem;
-    line-height: 1.55;
-    font-weight: 900;
-    color: #1d4ed8;
-    background: #fef3c7;
-    border-radius: 8px;
-    padding: 6px 8px;
-    margin-bottom: 6px;
-    word-break: normal;
-}
-.mobile-current-accent {
-    font-size: .92rem;
-    line-height: 1.45;
-    color: var(--muted);
-}
-.mobile-detail-scroll {
-    display: grid;
-    gap: 8px;
-}
-.mobile-detail-scroll .vocab,
-.mobile-detail-scroll .jp {
-    font-size: .92rem;
-    line-height: 1.55;
-    padding: 9px 10px;
-}
-.mobile-bottom-actions {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 30;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 6px;
-    padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
-    background: rgba(255,255,255,0.96);
-    border-top: 1px solid var(--border);
-    box-shadow: 0 -4px 14px rgba(15,23,42,0.12);
-}
-.mobile-bottom-actions button {
-    min-height: 42px;
-    padding: 7px 4px;
-    border-radius: 10px;
-    font-size: .76rem;
-    line-height: 1.1;
-}
-body.hide-vocab .mobile-detail-scroll .vocab { display: none; }
-body.hide-jp .mobile-detail-scroll .jp { display: none; }
-body.lesson-mode .mobile-current-english.hidden-text,
-body.lesson-mode .mobile-current-accent.hidden-text,
-body.lesson-mode .mobile-current-accent.hidden-text * {
-    color: transparent !important;
-    text-shadow: 0 0 10px rgba(17,24,39,0.35) !important;
-}
-body.lesson-mode .mobile-current-accent.hidden-text .accent-highlight {
-    background: transparent !important;
-    color: transparent !important;
-    box-shadow: none !important;
-}
-@media (min-width: 761px) {
-    body.lesson-mode .controls > button { font-size: .82rem; }
-    .mobile-current-card { top: 132px; }
-    .mobile-current-english { font-size: 1.35rem; }
-    .mobile-current-accent { font-size: 1.05rem; }
-}
-
-
-/* ===== Smartphone reading screen v2: fixed current sentence + independent detail scroll ===== */
-body.lesson-mode main {
-    overflow: hidden !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-}
-body.lesson-mode #display-area {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-.mobile-lesson-shell {
-    height: 100%;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-.mobile-return-row {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.mobile-list-btn {
-    background: #ffffff;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 4px 8px;
-    font-size: .72rem;
-    line-height: 1.1;
-    box-shadow: none;
-}
-.mobile-current-card {
-    position: static !important;
-    top: auto !important;
-    flex: 0 0 auto;
-    z-index: 1;
-}
-.mobile-current-top {
-    display: block !important;
-}
-.mobile-current-count { display: none !important; }
-.mobile-sentence-nav {
-    display: grid;
-    grid-template-columns: minmax(92px, 1fr) minmax(130px, 1.2fr) minmax(92px, 1fr);
-    gap: 8px;
-    align-items: stretch;
-}
-.mobile-nav-btn,
-.mobile-jump-btn {
-    min-height: 42px !important;
-    padding: 0 10px !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    font-size: .9rem;
-    line-height: 1.1;
-    box-shadow: none;
-}
-.mobile-nav-btn {
-    width: 100% !important;
-    min-width: 64px !important;
-}
-.mobile-nav-btn.end-reached {
-    background: #111111 !important;
-    color: #ffffff !important;
-    opacity: 1 !important;
-}
-.mobile-jump-btn {
-    width: 100%;
-    background: #ffffff;
-    color: var(--text);
-    border: 1px solid var(--border);
-    font-weight: 900;
-    flex-direction: column;
-    gap: 2px;
-}
-.mobile-jump-num {
-    font-size: 1.05rem;
-    line-height: 1;
-    font-weight: 900;
-}
-.mobile-jump-label {
-    font-size: .68rem;
-    line-height: 1;
-    color: var(--muted);
-    font-weight: 800;
-}
-.sentence-sheet-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(15,23,42,.35);
-    z-index: 9000;
-    display: none;
-}
-.sentence-sheet-backdrop.open { display: block; }
-.sentence-sheet {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 78dvh;
-    background: #ffffff;
-    border-radius: 18px 18px 0 0;
-    box-shadow: 0 -12px 30px rgba(15,23,42,.22);
-    z-index: 9001;
-    transform: translateY(105%);
-    transition: transform .22s ease;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-.sentence-sheet.open { transform: translateY(0); }
-.sentence-sheet-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--border);
-    font-weight: 900;
-}
-.sentence-sheet-close {
-    background: var(--soft);
-    color: var(--text);
-    border-radius: 999px;
-    min-width: 40px;
-    padding: 7px 10px;
-    box-shadow: none;
-}
-.sentence-sheet-list {
-    overflow-y: auto;
-    padding: 8px 10px 18px;
-}
-.sentence-sheet-item {
-    width: 100%;
-    background: #ffffff;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 9px 10px;
-    margin-bottom: 7px;
-    text-align: left;
-    font-weight: 700;
-    line-height: 1.45;
-    display: grid;
-    grid-template-columns: 42px minmax(0, 1fr);
-    gap: 8px;
-    box-shadow: none;
-}
-.sentence-sheet-item.current {
-    border-color: var(--primary);
-    background: #eff6ff;
-}
-.sentence-sheet-num {
-    color: var(--muted);
-    font-weight: 900;
-}
-.sentence-sheet-text {
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.mobile-detail-scroll {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-    padding-bottom: 8px;
-    overscroll-behavior: contain;
-}
-
-</style>
-</head>
-<body>
-<div id="splitFloatTooltip" class="split-float-tooltip"></div>
-<header>
-    <div class="top-controls">
-        <span class="speed-label" id="speedVal">0.90x</span>
-        <input type="range" id="speedSlider" min="0.25" max="2.0" step="0.05" value="0.9">
-        <span class="pause-label">停止時間</span>
-        <select id="pauseSelect" class="pause-select">
-            <option value="1000">1.00秒</option>
-            <option value="750">0.75秒</option>
-            <option value="500" selected>0.50秒</option>
-            <option value="250">0.25秒</option>
-            <option value="0">0秒</option>
-        </select>
-        <label class="toggle"><input type="checkbox" id="splitHideVocab"> 語彙を隠す</label>
-        <label class="toggle"><input type="checkbox" id="splitHideEnglish"> 英文ぼかし</label>
-        <label class="toggle"><input type="checkbox" id="splitHideSplit"> 分割を隠す</label>
-    </div>
-    <button class="close" onclick="window.close()">閉じる</button>
-</header>
-
-<div class="wrap split-only-wrap">
-    <section class="split-grid split-only-grid">
-        <div class="card" style="grid-column:1 / -1;">
-            <div class="split-header">
-                <div class="title" style="margin-bottom:0;">【分割】 / 【分割訳】</div>
-                <div class="split-actions">
-                    <button class="play" onclick="playSplit()">PLAY</button>
-                    <button class="stop" onclick="stopSplit()">STOP</button>
-                    <button id="loopBtn" class="loop" onclick="toggleLoop()">LOOP</button>
-                    <div class="sentence-nav" id="sentenceNav">
-                        <button type="button" class="nav-arrow nav-tooltip-source" ${prevIndex >= 0 ? `data-tooltip="${prevTooltip}" onmouseenter="showSplitTooltip(event, this)" onmousemove="showSplitTooltip(event, this)" onmouseleave="hideSplitTooltip()" onclick="stopSplit(); window.opener.openSplitPractice(${prevIndex})"` : "disabled"}>◀</button>
-                        <button type="button" class="nav-current" onclick="toggleSentenceMenu()">${currentNavLabel} ▼</button>
-                        <button type="button" class="nav-arrow nav-tooltip-source" ${nextIndex >= 0 ? `data-tooltip="${nextTooltip}" onmouseenter="showSplitTooltip(event, this)" onmousemove="showSplitTooltip(event, this)" onmouseleave="hideSplitTooltip()" onclick="stopSplit(); window.opener.openSplitPractice(${nextIndex})"` : "disabled"}>▶</button>
-                        <div class="sentence-menu" id="sentenceMenu">${sentenceMenuHtml}</div>
-                    </div>
-                </div>
+    return `<div class="mobile-split-shell">
+        <div class="mobile-split-top">
+            <div class="mobile-split-settings">
+                <span id="mobileSplitSpeedVal" class="mobile-split-speed-label">${Number(splitSettings.speed || 0.9).toFixed(2)}x</span>
+                <input type="range" id="mobileSplitSpeed" min="0.25" max="2.0" step="0.05" value="${escapeHtml(splitSettings.speed || "0.9")}" oninput="updateSplitSpeed(this.value)">
+                <select id="mobileSplitPause" class="mobile-split-pause" onchange="updateSplitPause(this.value)">
+                    <option value="1000" ${splitSettings.pause === "1000" ? "selected" : ""}>1.00秒</option>
+                    <option value="750" ${splitSettings.pause === "750" ? "selected" : ""}>0.75秒</option>
+                    <option value="500" ${splitSettings.pause === "500" ? "selected" : ""}>0.50秒</option>
+                    <option value="250" ${splitSettings.pause === "250" ? "selected" : ""}>0.25秒</option>
+                    <option value="0" ${splitSettings.pause === "0" ? "selected" : ""}>0秒</option>
+                </select>
+                <label class="mobile-split-toggle"><input type="checkbox" id="mobileSplitHideLines" ${splitSettings.hideLines ? "checked" : ""} onchange="updateSplitHideLines(this.checked)"> 分割隠し</label>
             </div>
-
-            <div class="split-rows">
-                ${splitRowsHtml}
+            <div class="mobile-split-actions">
+                <button class="action-flash" onclick="playSplit()">PLAY</button>
+                <button class="danger action-flash" onclick="stopSplitPlayback()">STOP</button>
+                <button id="mobile-split-loop-btn" class="success action-flash ${splitLoopMode ? "loop-on" : ""}" onclick="toggleSplitLoop()">${splitLoopMode ? "🔁 LOOP ON" : "LOOP"}</button>
+            </div>
+            <div class="mobile-split-nav">
+                <button class="mobile-nav-btn action-flash" onclick="switchSplitSentence(${prevIndex})">◀</button>
+                <button type="button" class="mobile-split-jump-btn action-flash" onclick="openSentenceSheet()">
+                    <span class="mobile-split-num">${escapeHtml(getCircleNumber(item, idx))}</span>
+                    <span class="mobile-split-label">文を移動</span>
+                </button>
+                <button class="mobile-nav-btn action-flash" onclick="switchSplitSentence(${nextIndex})">▶</button>
             </div>
         </div>
-    </section>
-</div>
+        <div class="mobile-split-body">
+            <div class="mobile-split-title">【分割】 / 【分割訳】</div>
+            <div class="mobile-split-rows">
+                ${rowsHtml || `<div class="library-empty">分割データがありません。</div>`}
+            </div>
+        </div>
+        <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
+        <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
+            <div class="sentence-sheet-header">
+                <span>文を移動</span>
+                <button type="button" class="sentence-sheet-close" onclick="closeSentenceSheet()">×</button>
+            </div>
+            <div id="sentenceSheetList" class="sentence-sheet-list"></div>
+        </div>
+    </div>`;
+}
 
-<script>
-    var splitLines = ${JSON.stringify(splitLinesRaw.map(line => plainLine(line)).filter(Boolean))};
-    var speedSlider = document.getElementById("speedSlider");
-    var speedVal = document.getElementById("speedVal");
-    var pauseSelect = document.getElementById("pauseSelect");
-    var splitHideVocab = document.getElementById("splitHideVocab");
-    var splitHideEnglish = document.getElementById("splitHideEnglish");
-    var splitHideSplit = document.getElementById("splitHideSplit");
-    var loopBtn = document.getElementById("loopBtn");
-    var loopMode = false;
-    var isStopped = true;
-    var currentLineIndex = 0;
-    var pauseTimer = null;
-    var splitTouchStartX = 0;
-    var splitTouchStartY = 0;
-
-    speedSlider.value = ${JSON.stringify(splitInitialSpeed)};
-    speedVal.textContent = Number(speedSlider.value).toFixed(2) + "x";
-    pauseSelect.value = ${JSON.stringify(splitInitialPause)};
-    splitHideVocab.checked = ${splitInitialHideVocab ? "true" : "false"};
-    splitHideEnglish.checked = ${splitInitialHideEnglish ? "true" : "false"};
-    splitHideSplit.checked = ${splitInitialHideSplit ? "true" : "false"};
-
-    function showSplitTooltip(event, target) {
-        var tip = document.getElementById("splitFloatTooltip");
-        if (!tip || !target) return;
-        var text = target.getAttribute("data-tooltip") || "";
-        if (!text) return;
-        tip.textContent = text;
-        tip.style.display = "block";
-
-        var margin = 10;
-        var rect = tip.getBoundingClientRect();
-        var left = event.clientX - rect.width / 2;
-        left = Math.max(margin, Math.min(left, window.innerWidth - rect.width - margin));
-        var top = event.clientY - rect.height - 12;
-        if (top < margin) top = event.clientY + 16;
-
-        tip.style.left = left + "px";
-        tip.style.top = top + "px";
+function updateSplitModeClasses() {
+    document.body.classList.toggle("split-hide-lines", Boolean(splitSettings.hideLines));
+    const loopBtn = document.getElementById("mobile-split-loop-btn");
+    if (loopBtn) {
+        loopBtn.classList.toggle("loop-on", splitLoopMode);
+        loopBtn.textContent = splitLoopMode ? "🔁 LOOP ON" : "LOOP";
     }
+}
 
+function updateSplitSpeed(value) {
+    setSplitSetting("speed", String(value));
+    const label = document.getElementById("mobileSplitSpeedVal");
+    if (label) label.textContent = Number(value).toFixed(2) + "x";
+}
 
-    function hideSplitTooltip() {
-        var tip = document.getElementById("splitFloatTooltip");
-        if (tip) tip.style.display = "none";
-    }
+function updateSplitPause(value) {
+    setSplitSetting("pause", String(value));
+}
 
+function updateSplitHideLines(checked) {
+    splitSettings.hideLines = Boolean(checked);
+    setSplitSetting("hide-lines", checked ? "1" : "0");
+    splitForceVisibility = {};
+    updateSplitModeClasses();
+}
 
-    function toggleSentenceMenu() {
-        var menu = document.getElementById("sentenceMenu");
-        if (!menu) return;
-        menu.classList.toggle("open");
-        if (menu.classList.contains("open")) {
-            requestAnimationFrame(function() {
-                menu.scrollIntoView({ behavior: "smooth", block: "nearest" });
-            });
-        }
-    }
+function switchSplitSentence(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= lessonData.length) return;
+    stopSplitPlayback();
+    splitIndex = index;
+    selectedIndex = index;
+    splitForceVisibility = {};
+    updateDisplay();
+}
 
-    document.addEventListener("click", function(e) {
-        var nav = document.getElementById("sentenceNav");
-        var menu = document.getElementById("sentenceMenu");
-        if (nav && menu && !nav.contains(e.target)) {
-            menu.classList.remove("open");
-        }
-    });
+function getSplitPlainLinesForCurrent() {
+    const item = lessonData[splitIndex];
+    return getSplitLines(item).map(line => plainLine(line)).filter(Boolean);
+}
 
-    speedSlider.addEventListener("input", () => {
-        speedVal.textContent = Number(speedSlider.value).toFixed(2) + "x";
-        try { window.opener.localStorage.setItem("rat-split-speed", String(speedSlider.value)); } catch(e) {}
-    });
-    pauseSelect.addEventListener("change", () => {
-        try { window.opener.localStorage.setItem("rat-split-pause", String(pauseSelect.value)); } catch(e) {}
-    });
+function playOneSplitLine(index) {
+    const splitLines = getSplitPlainLinesForCurrent();
+    const text = splitLines[index];
+    if (!text) return;
 
-    function refreshSplitHideModes() {
-        document.body.classList.toggle("hide-split-vocab", splitHideVocab && splitHideVocab.checked);
-        document.body.classList.toggle("hide-split-english", splitHideEnglish && splitHideEnglish.checked);
-        document.body.classList.toggle("hide-split-lines", splitHideSplit && splitHideSplit.checked);
-    }
+    stopSplitPlayback();
+    splitStopped = true;
+    splitLoopMode = false;
 
-    [splitHideVocab, splitHideEnglish].forEach(el => {
-        if (el) el.addEventListener("change", () => {
-            try {
-                window.opener.localStorage.setItem("rat-split-hide-vocab", splitHideVocab && splitHideVocab.checked ? "1" : "0");
-                window.opener.localStorage.setItem("rat-split-hide-english", splitHideEnglish && splitHideEnglish.checked ? "1" : "0");
-            } catch(e) {}
-            refreshSplitHideModes();
-        });
-    });
-    if (splitHideSplit) {
-        splitHideSplit.addEventListener("change", () => {
-            try { window.opener.localStorage.setItem("rat-split-hide-split", splitHideSplit.checked ? "1" : "0"); } catch(e) {}
-            document.querySelectorAll(".split-row").forEach(row => {
-                row.classList.remove("split-line-force-show", "split-line-force-hide");
-            });
-            refreshSplitHideModes();
-        });
-    }
-    refreshSplitHideModes();
+    const utterance = new SpeechSynthesisUtterance(text);
+    const selectedVoice = getUsEnglishVoiceOrNull();
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = "en-US";
+    utterance.rate = Number(splitSettings.speed || 0.9);
+    utterance.pitch = 1.0;
 
-    function toggleSplitLineVisibility(index) {
-        var row = document.getElementById("split-row-" + index);
-        if (!row) return;
-        var globalHidden = splitHideSplit && splitHideSplit.checked;
+    markCurrentSplitLine(index);
+    utterance.onend = () => {
+        clearCurrentSplitLine();
+    };
+    speechSynthesis.speak(utterance);
+}
 
-        if (globalHidden) {
-            row.classList.remove("split-line-force-hide");
-            row.classList.toggle("split-line-force-show");
+function speakSplitLineAt(index) {
+    const splitLines = getSplitPlainLinesForCurrent();
+    clearSplitPauseTimer();
+
+    if (splitStopped) return;
+
+    if (index >= splitLines.length) {
+        if (splitLoopMode) {
+            splitPauseTimer = setTimeout(() => {
+                splitCurrentLineIndex = 0;
+                speakSplitLineAt(0);
+            }, Number(splitSettings.pause || 500));
         } else {
-            row.classList.remove("split-line-force-show");
-            row.classList.toggle("split-line-force-hide");
+            splitStopped = true;
+            splitCurrentLineIndex = 0;
+            clearCurrentSplitLine();
+            updateSplitModeClasses();
         }
+        return;
     }
 
-    var parentSelectedVoiceInfo = ${JSON.stringify(splitVoiceInfo)};
+    splitCurrentLineIndex = index;
+    markCurrentSplitLine(index);
+    speechSynthesis.cancel();
 
-    function getEnglishVoice() {
-        var voices = speechSynthesis.getVoices();
-        var info = parentSelectedVoiceInfo || null;
+    const utterance = new SpeechSynthesisUtterance(splitLines[index]);
+    const selectedVoice = getUsEnglishVoiceOrNull();
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = "en-US";
+    utterance.rate = Number(splitSettings.speed || 0.9);
+    utterance.pitch = 1.0;
 
-        if (info && voices.length && String(info.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) {
-            var exact = voices.find(function(v) {
-                return (v.voiceURI || "") === (info.voiceURI || "") &&
-                       (v.name || "") === (info.name || "") &&
-                       (v.lang || "") === (info.lang || "");
-            });
-            if (exact) return exact;
+    utterance.onend = () => {
+        if (splitStopped) return;
+        splitPauseTimer = setTimeout(() => {
+            speakSplitLineAt(index + 1);
+        }, Number(splitSettings.pause || 500));
+    };
 
-            var byNameLang = voices.find(function(v) {
-                return (v.name || "") === (info.name || "") &&
-                       (v.lang || "") === (info.lang || "");
-            });
-            if (byNameLang) return byNameLang;
+    speechSynthesis.speak(utterance);
+}
 
-            var byName = voices.find(function(v) {
-                return (v.name || "") === (info.name || "") &&
-                       String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us");
-            });
-            if (byName) return byName;
-        }
+function playSplit() {
+    const splitLines = getSplitPlainLinesForCurrent();
+    if (!splitLines.length) return;
+    splitStopped = false;
+    splitLoopMode = false;
+    splitCurrentLineIndex = 0;
+    updateSplitModeClasses();
+    speakSplitLineAt(0);
+}
 
-        try {
-            if (window.opener && typeof window.opener.getSelectedVoice === "function") {
-                var openerVoice = window.opener.getSelectedVoice();
-                if (openerVoice) {
-                    var openerMatch = voices.find(function(v) {
-                        return (v.voiceURI || "") === (openerVoice.voiceURI || "") &&
-                               (v.name || "") === (openerVoice.name || "") &&
-                               (v.lang || "") === (openerVoice.lang || "");
-                    }) || voices.find(function(v) {
-                        return (v.name || "") === (openerVoice.name || "") &&
-                               (v.lang || "") === (openerVoice.lang || "");
-                    });
-                    if (openerMatch && String(openerMatch.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) return openerMatch;
-                    if (openerVoice.lang && String(openerVoice.lang).toLowerCase().replace("_", "-").startsWith("en-us")) return openerVoice;
-                }
-            }
-        } catch (e) {
-            // opener参照ができない環境では、下の英語音声フォールバックに進みます。
-        }
+function toggleSplitLoop() {
+    splitLoopMode = !splitLoopMode;
+    updateSplitModeClasses();
 
-        return voices.find(function(v) {
-            return v.lang && String(v.lang).toLowerCase().replace("_", "-").startsWith("en-us");
-        }) || null;
+    if (splitLoopMode) {
+        splitStopped = false;
+        splitCurrentLineIndex = 0;
+        speakSplitLineAt(0);
+    } else {
+        stopSplitPlayback();
+    }
+}
+
+function toggleSplitLineVisibility(index) {
+    const current = splitForceVisibility[index] || "";
+    if (splitSettings.hideLines) {
+        splitForceVisibility[index] = current === "show" ? "" : "show";
+    } else {
+        splitForceVisibility[index] = current === "hide" ? "" : "hide";
     }
 
-    function clearPauseTimer() {
-        if (pauseTimer) {
-            clearTimeout(pauseTimer);
-            pauseTimer = null;
-        }
-    }
-
-    function clearCurrentSplit() {
-        document.querySelectorAll(".split-row").forEach(row => row.classList.remove("current-split"));
-    }
-
-    function markCurrentSplit(index) {
-        clearCurrentSplit();
-        var row = document.getElementById("split-row-" + index);
-        if (row) {
-            row.classList.add("current-split");
-            row.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }
-    }
-
-    function playOneSplitLine(index) {
-        clearPauseTimer();
-        isStopped = true;
-        loopMode = false;
-        loopBtn.classList.remove("loop-on");
-        loopBtn.textContent = "LOOP";
-        speechSynthesis.cancel();
-
-        var text = splitLines[index];
-        if (!text) return;
-
-        var utt = new SpeechSynthesisUtterance(text);
-        var voice = getEnglishVoice();
-        if (voice) {
-            utt.voice = voice;
-        }
-        utt.lang = "en-US";
-        utt.rate = Number(speedSlider.value);
-        utt.pitch = 1.0;
-        markCurrentSplit(index);
-        utt.onend = () => {
-            clearCurrentSplit();
-        };
-        speechSynthesis.speak(utt);
-    }
-
-    function speakLineAt(index) {
-        clearPauseTimer();
-
-        if (isStopped) return;
-
-        if (index >= splitLines.length) {
-            if (loopMode) {
-                pauseTimer = setTimeout(() => {
-                    currentLineIndex = 0;
-                    speakLineAt(0);
-                }, Number(pauseSelect.value));
-            } else {
-                isStopped = true;
-                currentLineIndex = 0;
-                clearCurrentSplit();
-            }
-            return;
-        }
-
-        currentLineIndex = index;
-        markCurrentSplit(index);
-        speechSynthesis.cancel();
-
-        var utt = new SpeechSynthesisUtterance(splitLines[index]);
-        var voice = getEnglishVoice();
-        if (voice) {
-            utt.voice = voice;
-        }
-        utt.lang = "en-US";
-        utt.rate = Number(speedSlider.value);
-        utt.pitch = 1.0;
-
-        utt.onend = () => {
-            if (isStopped) return;
-            pauseTimer = setTimeout(() => {
-                speakLineAt(index + 1);
-            }, Number(pauseSelect.value));
-        };
-
-        speechSynthesis.speak(utt);
-    }
-
-    function playSplit() {
-        if (!splitLines.length) return;
-        isStopped = false;
-        loopMode = false;
-        loopBtn.classList.remove("loop-on");
-        loopBtn.textContent = "LOOP";
-        currentLineIndex = 0;
-        speakLineAt(0);
-    }
-
-    function stopSplit() {
-        isStopped = true;
-        loopMode = false;
-        currentLineIndex = 0;
-        clearPauseTimer();
-        clearCurrentSplit();
-        loopBtn.classList.remove("loop-on");
-        loopBtn.textContent = "LOOP";
-        speechSynthesis.cancel();
-    }
-
-    function toggleLoop() {
-        loopMode = !loopMode;
-        loopBtn.classList.toggle("loop-on", loopMode);
-        loopBtn.textContent = loopMode ? "🔁 LOOP ON" : "LOOP";
-
-        if (loopMode) {
-            isStopped = false;
-            currentLineIndex = 0;
-            speakLineAt(0);
-        } else {
-            stopSplit();
-        }
-    }
-
-    document.addEventListener("touchstart", function(e) {
-        if (!e.touches || !e.touches.length) return;
-        splitTouchStartX = e.touches[0].clientX;
-        splitTouchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    document.addEventListener("touchend", function(e) {
-        if (!e.changedTouches || !e.changedTouches.length) return;
-        var dx = e.changedTouches[0].clientX - splitTouchStartX;
-        var dy = e.changedTouches[0].clientY - splitTouchStartY;
-        if (dx > 80 && Math.abs(dy) < 60) {
-            stopSplit();
-            try { if (window.opener) window.opener.focus(); } catch(err) {}
-            window.close();
-        }
-    }, { passive: true });
-
-    window.addEventListener("beforeunload", () => {
-        clearPauseTimer();
-        speechSynthesis.cancel();
-    });
-
-    speechSynthesis.onvoiceschanged = () => {};
-<\/script>
-</body>
-</html>`;
-
-    win.document.open();
-    win.document.write(doc);
-    win.document.close();
-
-    try {
-        win.moveTo(0, 0);
-        win.resizeTo(screenW, screenH);
-        win.focus();
-    } catch (e) {
-        // ブラウザ設定によりリサイズできない場合があります。
+    const row = document.getElementById("mobile-split-row-" + index);
+    if (row) {
+        row.classList.remove("split-line-force-show", "split-line-force-hide");
+        if (splitForceVisibility[index] === "show") row.classList.add("split-line-force-show");
+        if (splitForceVisibility[index] === "hide") row.classList.add("split-line-force-hide");
     }
 }
 
@@ -4277,7 +3366,7 @@ let lessonTouchStartX = 0;
 let lessonTouchStartY = 0;
 
 document.addEventListener("touchstart", function(e) {
-    if (!document.body.classList.contains("lesson-mode")) return;
+    if (!document.body.classList.contains("lesson-mode") && !document.body.classList.contains("split-mode")) return;
     if (!e.touches || !e.touches.length) return;
     const target = e.target;
     if (target && target.closest && target.closest("button, input, select, .sentence-sheet, .sentence-sheet-backdrop")) return;
@@ -4286,14 +3375,17 @@ document.addEventListener("touchstart", function(e) {
 }, { passive: true });
 
 document.addEventListener("touchend", function(e) {
-    if (!document.body.classList.contains("lesson-mode")) return;
+    if (!document.body.classList.contains("lesson-mode") && !document.body.classList.contains("split-mode")) return;
     if (!e.changedTouches || !e.changedTouches.length) return;
     const target = e.target;
     if (target && target.closest && target.closest("button, input, select, .sentence-sheet, .sentence-sheet-backdrop")) return;
     const dx = e.changedTouches[0].clientX - lessonTouchStartX;
     const dy = e.changedTouches[0].clientY - lessonTouchStartY;
-    if (dx < -80 && Math.abs(dy) < 60) {
+
+    if (document.body.classList.contains("lesson-mode") && dx < -80 && Math.abs(dy) < 60) {
         openSplitPractice(getActiveIndex());
+    } else if (document.body.classList.contains("split-mode") && dx > 80 && Math.abs(dy) < 60) {
+        closeSplitPractice();
     }
 }, { passive: true });
 
