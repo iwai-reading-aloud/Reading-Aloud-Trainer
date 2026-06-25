@@ -1375,10 +1375,7 @@ body.lesson-mode #display-area {
             <h1>Reading-Aloud Trainer</h1>
             <div class="hint">教材ファイルを読み込んで、英文・語彙・和訳を見ながら音読練習します。</div>
         </div>
-        <div class="student-load-area">
-            <button class="action-flash" onclick="showLibraryChooser()">教材ライブラリを読み込む</button>
-            <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
-        </div>
+        <div class="student-load-area"></div>
         <div class="student-lesson-info-area">
             <div id="lesson-info" class="lesson-info" aria-live="polite"></div>
         </div>
@@ -1388,7 +1385,7 @@ body.lesson-mode #display-area {
         <button class="secondary action-flash" onclick="showLibraryHome()">←教材一覧</button>
         <button class="action-flash" onclick="playSequenceFrom(0)">自動再生</button>
         <button id="whole-loop-btn" class="success action-flash" onclick="toggleWholeLoop()">全体LOOP</button>
-        <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止/再開</button>
+        <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止</button>
         <button class="danger action-flash" onclick="stopAll()">STOP</button>
 
         <div class="slider-box">
@@ -1875,7 +1872,6 @@ function renderLibraryChooser() {
             <div class="library-hero-sub">クラス別URLで教材ライブラリを開きます。</div>
             <div class="library-note">例：index.html?lib=2年生 / index.html?lib=TOEIC / index.html?lib=時事英語 / index.html?lib=ALL</div>
             <div class="library-actions centered">
-                <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
                 ${libraryData ? `<button class="secondary action-flash" onclick="closeLibraryChooser()">戻る</button>` : ""}
             </div>
         </div>
@@ -1894,9 +1890,9 @@ function renderLibraryHome() {
         return `<div class="library-home clean-start">
             <div class="library-hero big-start">
                 <div class="library-hero-title">Reading-Aloud Trainer</div>
-                <div class="library-hero-sub">教材ライブラリを読み込むと、教材一覧が表示されます。</div>
+                <div class="library-hero-sub">クラス別URLの教材ライブラリを表示します。</div>
                 <div class="library-actions centered">
-                    <button class="library-primary-btn action-flash" onclick="showLibraryChooser()">教材ライブラリを読み込む</button>
+                    <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
                 </div>
             </div>
             ${errorHtml}
@@ -1936,8 +1932,6 @@ function renderLibraryHome() {
             <div class="library-hero-sub">教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
-                <button class="secondary action-flash" onclick="showLibraryChooser()">URL指定を確認</button>
-                <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
             </div>
         </div>
         ${categoryHtml}
@@ -2093,7 +2087,7 @@ function refreshClasses() {
     });
     wholeLoopBtn.textContent = wholeLoop ? "🔁 全体LOOP ON" : "全体LOOP";
     wholeLoopBtn.classList.toggle("loop-active", wholeLoop);
-    pauseBtn.textContent = isPaused ? "再開" : "一時停止/再開";
+    pauseBtn.textContent = isPaused ? "再開" : "一時停止";
     if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
 }
 
