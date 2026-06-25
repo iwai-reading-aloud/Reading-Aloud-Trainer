@@ -3380,6 +3380,12 @@ function speakSplitLineAt(index) {
         if (splitLoopMode) {
             splitPauseTimer = setTimeout(() => {
                 splitCurrentLineIndex = 0;
+                const globalToggleRow = document.querySelector(".mobile-split-global-toggle-row");
+                const firstRow = document.getElementById("mobile-split-row-0");
+                const scrollTarget = globalToggleRow || firstRow;
+                if (scrollTarget) {
+                    scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
                 speakSplitLineAt(0);
             }, Number(splitSettings.pause || "0"));
         } else {
