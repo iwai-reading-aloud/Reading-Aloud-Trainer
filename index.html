@@ -1400,7 +1400,7 @@ body.split-mode #display-area {
 }
 .mobile-split-settings {
     display: grid;
-    grid-template-columns: 58px minmax(0,1fr) 74px 82px;
+    grid-template-columns: 58px minmax(0,1fr) 74px;
     gap: 6px;
     align-items: center;
 }
@@ -1483,11 +1483,19 @@ body.split-mode #display-area {
     padding: 8px;
     overscroll-behavior: contain;
 }
-.mobile-split-title {
-    font-weight: 900;
-    font-size: .82rem;
-    color: var(--muted);
-    margin: 0 0 6px 2px;
+.mobile-split-global-toggle-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 7px 0;
+}
+.mobile-split-global-toggle-row .mobile-split-toggle-btn {
+    min-height: 32px;
+    min-width: 88px;
+    border-radius: 8px;
+    padding: 4px 5px;
+    font-size: .66rem;
+    line-height: 1;
 }
 .mobile-split-rows {
     display: grid;
@@ -1495,8 +1503,8 @@ body.split-mode #display-area {
 }
 .mobile-split-row {
     display: grid;
-    grid-template-columns: minmax(0,1fr) 88px minmax(0,.78fr);
-    gap: 6px;
+    grid-template-columns: 1fr;
+    gap: 5px;
     align-items: stretch;
 }
 .mobile-split-cell {
@@ -1521,8 +1529,8 @@ body.split-mode #display-area {
 }
 .mobile-split-play-cell {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
 }
 .mobile-split-line-play,
 .mobile-split-line-toggle {
@@ -3198,11 +3206,11 @@ function renderMobileSplitScreen() {
         const toggleClass = lineIsOn ? "" : " split-off";
         return `<div class="mobile-split-row${forceClass}" id="mobile-split-row-${i}">
             <div class="mobile-split-cell mobile-split-en">${en}</div>
+            <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
             <div class="mobile-split-play-cell">
                 <button class="mobile-split-line-play action-flash" onclick="playOneSplitLine(${i})">PLAY</button>
                 <button id="mobile-split-line-toggle-${i}" class="mobile-split-line-toggle${toggleClass} action-flash" onclick="toggleSplitLineVisibility(${i})">${toggleLabel}</button>
             </div>
-            <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
         </div>`;
     }).join("");
 
@@ -3218,7 +3226,6 @@ function renderMobileSplitScreen() {
                     <option value="250" ${splitSettings.pause === "250" ? "selected" : ""}>0.25秒</option>
                     <option value="0" ${splitSettings.pause === "0" ? "selected" : ""}>0秒</option>
                 </select>
-                <button type="button" id="mobileSplitHideLinesBtn" class="mobile-split-toggle-btn${splitSettings.hideLines ? " split-off" : ""} action-flash" onclick="toggleSplitHideLines()">${splitSettings.hideLines ? "分割OFF" : "分割ON"}</button>
             </div>
             <div class="mobile-split-actions">
                 <button class="action-flash" onclick="playSplit()">PLAY</button>
@@ -3235,7 +3242,9 @@ function renderMobileSplitScreen() {
             </div>
         </div>
         <div class="mobile-split-body">
-            <div class="mobile-split-title">【分割】 / 【分割訳】</div>
+            <div class="mobile-split-global-toggle-row">
+                <button type="button" id="mobileSplitHideLinesBtn" class="mobile-split-toggle-btn${splitSettings.hideLines ? " split-off" : ""} action-flash" onclick="toggleSplitHideLines()">${splitSettings.hideLines ? "分割OFF" : "分割ON"}</button>
+            </div>
             <div class="mobile-split-rows">
                 ${rowsHtml || `<div class="library-empty">分割データがありません。</div>`}
             </div>
