@@ -3214,7 +3214,7 @@ function renderMobileSplitScreen() {
         const lineIsOn = splitSettings.hideLines
             ? splitForceVisibility[i] === "show"
             : splitForceVisibility[i] !== "hide";
-        const toggleLabel = lineIsOn ? "分割ON" : "分割OFF";
+        const toggleLabel = lineIsOn ? "分割OFF" : "分割ON";
         const toggleClass = lineIsOn ? "" : " split-off";
         const currentClass = i === splitCurrentLineIndex ? " current-split" : "";
         return `<div class="mobile-split-row${currentClass}${forceClass}" id="mobile-split-row-${i}">
@@ -3283,7 +3283,7 @@ function updateSplitModeClasses() {
     }
     const hideLinesBtn = document.getElementById("mobileSplitHideLinesBtn");
     if (hideLinesBtn) {
-        hideLinesBtn.textContent = splitSettings.hideLines ? "分割を一括でOFF" : "分割を一括でON";
+        hideLinesBtn.textContent = splitSettings.hideLines ? "分割を一括でON" : "分割を一括でOFF";
         hideLinesBtn.classList.toggle("split-off", Boolean(splitSettings.hideLines));
     }
 }
@@ -3297,7 +3297,7 @@ function updateSplitLineToggleButton(index) {
     const btn = document.getElementById("mobile-split-line-toggle-" + index);
     if (!btn) return;
     const isOn = isSplitLineOn(index);
-    btn.textContent = isOn ? "分割ON" : "分割OFF";
+    btn.textContent = isOn ? "分割OFF" : "分割ON";
     btn.classList.toggle("split-off", !isOn);
 }
 
