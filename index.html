@@ -3380,13 +3380,17 @@ function speakSplitLineAt(index) {
         if (splitLoopMode) {
             splitPauseTimer = setTimeout(() => {
                 splitCurrentLineIndex = 0;
-                const globalToggleRow = document.querySelector(".mobile-split-global-toggle-row");
-                const firstRow = document.getElementById("mobile-split-row-0");
-                const scrollTarget = globalToggleRow || firstRow;
-                if (scrollTarget) {
-                    scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
                 speakSplitLineAt(0);
+                // LOOPで先頭分割へ戻るときは、先頭分割そのものではなく、
+                // その1行上の一括ON/OFFボタン行が見える位置まで戻す。
+                requestAnimationFrame(() => {
+                    const globalToggleRow = document.querySelector(".mobile-split-global-toggle-row");
+                    const firstRow = document.getElementById("mobile-split-row-0");
+                    const scrollTarget = globalToggleRow || firstRow;
+                    if (scrollTarget) {
+                        scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                });
             }, Number(splitSettings.pause || "0"));
         } else {
             splitStopped = true;
