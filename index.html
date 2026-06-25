@@ -1534,12 +1534,43 @@ body.split-mode #display-area {
     font-weight: 900;
 }
 .mobile-split-line-play {
-    background: #60a5fa;
-    color: #fff;
+    background: #f59e0b;
+    color: #111827;
+}
+.mobile-split-line-play:hover {
+    background: #d97706;
+    color: #ffffff;
 }
 .mobile-split-line-toggle {
-    background: #64748b;
-    color: #fff;
+    background: #8b5cf6;
+    color: #ffffff;
+}
+.mobile-split-line-toggle:hover {
+    background: #7c3aed;
+}
+.mobile-split-line-toggle.split-off {
+    background: #c026d3;
+    color: #ffffff;
+}
+.mobile-split-line-toggle.split-off:hover {
+    background: #a21caf;
+}
+.mobile-split-toggle-btn {
+    min-height: 34px;
+    border-radius: 10px;
+    padding: 5px 8px;
+    font-size: .70rem;
+    line-height: 1.1;
+    font-weight: 900;
+    background: #8b5cf6;
+    color: #ffffff;
+}
+.mobile-split-toggle-btn.split-off {
+    background: #c026d3;
+    color: #ffffff;
+}
+.mobile-split-toggle-btn:hover {
+    filter: brightness(.95);
 }
 .mobile-split-row.current-split .mobile-split-en {
     background: #fef3c7;
@@ -1671,7 +1702,7 @@ let splitPauseTimer = null;
 let splitForceVisibility = {};
 let splitSettings = {
     speed: "0.9",
-    pause: "500",
+    pause: "0",
     hideLines: false
 };
 
@@ -3049,7 +3080,7 @@ function setSplitSetting(key, value) {
 
 function loadSplitSettings() {
     splitSettings.speed = getSplitSetting("speed", String(speedSlider.value || "0.9"));
-    splitSettings.pause = getSplitSetting("pause", "500");
+    splitSettings.pause = getSplitSetting("pause", "0");
     splitSettings.hideLines = getSplitSetting("hide-lines", "0") === "1";
 }
 
@@ -3135,8 +3166,10 @@ function renderMobileSplitScreen() {
     const splitLinesRaw = getSplitLines(item);
     const splitJpLinesRaw = getSplitJpLines(item);
     const maxRows = Math.max(splitLinesRaw.length, splitJpLinesRaw.length);
-    const prevIndex = idx > 0 ? idx - 1 : lessonData.length - 1;
-    const nextIndex = idx < lessonData.length - 1 ? idx + 1 : 0;
+    const canPrev = idx > 0;
+    const canNext = idx < lessonData.length - 1;
+    const prevIndex = canPrev ? idx - 1 : lessonData.length - 1;
+    const nextIndex = canNext ? idx + 1 : 0;
 
     const rowsHtml = Array.from({ length: maxRows }, (_, i) => {
         const en = splitLinesRaw[i] ? accentHtml(splitLinesRaw[i]) : "";
@@ -3146,11 +3179,16 @@ function renderMobileSplitScreen() {
             : splitForceVisibility[i] === "hide"
                 ? " split-line-force-hide"
                 : "";
+        const lineIsOn = splitSettings.hideLines
+            ? splitForceVisibility[i] === "show"
+            : splitForceVisibility[i] !== "hide";
+        const toggleLabel = lineIsOn ? "分割ON" : "分割OFF";
+        const toggleClass = lineIsOn ? "" : " split-off";
         return `<div class="mobile-split-row${forceClass}" id="mobile-split-row-${i}">
             <div class="mobile-split-cell mobile-split-en">${en}</div>
             <div class="mobile-split-play-cell">
                 <button class="mobile-split-line-play action-flash" onclick="playOneSplitLine(${i})">PLAY</button>
-                <button class="mobile-split-line-toggle action-flash" onclick="toggleSplitLineVisibility(${i})">ON/OFF</button>
+                <button id="mobile-split-line-toggle-${i}" class="mobile-split-line-toggle${toggleClass} action-flash" onclick="toggleSplitLineVisibility(${i})">${toggleLabel}</button>
             </div>
             <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
         </div>`;
@@ -3168,7 +3206,7 @@ function renderMobileSplitScreen() {
                     <option value="250" ${splitSettings.pause === "250" ? "selected" : ""}>0.25秒</option>
                     <option value="0" ${splitSettings.pause === "0" ? "selected" : ""}>0秒</option>
                 </select>
-                <label class="mobile-split-toggle"><input type="checkbox" id="mobileSplitHideLines" ${splitSettings.hideLines ? "checked" : ""} onchange="updateSplitHideLines(this.checked)"> 分割隠し</label>
+                <button type="button" id="mobileSplitHideLinesBtn" class="mobile-split-toggle-btn${splitSettings.hideLines ? " split-off" : ""} action-flash" onclick="toggleSplitHideLines()">${splitSettings.hideLines ? "分割OFF" : "分割ON"}</button>
             </div>
             <div class="mobile-split-actions">
                 <button class="action-flash" onclick="playSplit()">PLAY</button>
@@ -3181,7 +3219,7 @@ function renderMobileSplitScreen() {
                     <span class="mobile-split-num">${escapeHtml(getCircleNumber(item, idx))}</span>
                     <span class="mobile-split-label">文を移動</span>
                 </button>
-                <button class="mobile-nav-btn action-flash" onclick="switchSplitSentence(${nextIndex})">▶</button>
+                <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" onclick="switchSplitSentence(${nextIndex})">${canNext ? "▶" : "▷"}</button>
             </div>
         </div>
         <div class="mobile-split-body">
@@ -3208,6 +3246,31 @@ function updateSplitModeClasses() {
         loopBtn.classList.toggle("loop-on", splitLoopMode);
         loopBtn.textContent = splitLoopMode ? "🔁 LOOP ON" : "LOOP";
     }
+    const hideLinesBtn = document.getElementById("mobileSplitHideLinesBtn");
+    if (hideLinesBtn) {
+        hideLinesBtn.textContent = splitSettings.hideLines ? "分割OFF" : "分割ON";
+        hideLinesBtn.classList.toggle("split-off", Boolean(splitSettings.hideLines));
+    }
+}
+
+function isSplitLineOn(index) {
+    if (splitSettings.hideLines) return splitForceVisibility[index] === "show";
+    return splitForceVisibility[index] !== "hide";
+}
+
+function updateSplitLineToggleButton(index) {
+    const btn = document.getElementById("mobile-split-line-toggle-" + index);
+    if (!btn) return;
+    const isOn = isSplitLineOn(index);
+    btn.textContent = isOn ? "分割ON" : "分割OFF";
+    btn.classList.toggle("split-off", !isOn);
+}
+
+function updateAllSplitLineToggleButtons() {
+    document.querySelectorAll(".mobile-split-line-toggle").forEach((btn) => {
+        const m = String(btn.id || "").match(/mobile-split-line-toggle-(\d+)/);
+        if (m) updateSplitLineToggleButton(Number(m[1]));
+    });
 }
 
 function updateSplitSpeed(value) {
@@ -3225,6 +3288,11 @@ function updateSplitHideLines(checked) {
     setSplitSetting("hide-lines", checked ? "1" : "0");
     splitForceVisibility = {};
     updateSplitModeClasses();
+    updateAllSplitLineToggleButtons();
+}
+
+function toggleSplitHideLines() {
+    updateSplitHideLines(!splitSettings.hideLines);
 }
 
 function switchSplitSentence(index) {
@@ -3275,7 +3343,7 @@ function speakSplitLineAt(index) {
             splitPauseTimer = setTimeout(() => {
                 splitCurrentLineIndex = 0;
                 speakSplitLineAt(0);
-            }, Number(splitSettings.pause || 500));
+            }, Number(splitSettings.pause || "0"));
         } else {
             splitStopped = true;
             splitCurrentLineIndex = 0;
@@ -3300,7 +3368,7 @@ function speakSplitLineAt(index) {
         if (splitStopped) return;
         splitPauseTimer = setTimeout(() => {
             speakSplitLineAt(index + 1);
-        }, Number(splitSettings.pause || 500));
+        }, Number(splitSettings.pause || "0"));
     };
 
     speechSynthesis.speak(utterance);
@@ -3343,6 +3411,7 @@ function toggleSplitLineVisibility(index) {
         if (splitForceVisibility[index] === "show") row.classList.add("split-line-force-show");
         if (splitForceVisibility[index] === "hide") row.classList.add("split-line-force-hide");
     }
+    updateSplitLineToggleButton(index);
 }
 
 document.addEventListener("click", (e) => {
