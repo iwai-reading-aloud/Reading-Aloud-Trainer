@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Reading-Aloud Trainer 学生版</title>
+<title>Reading-Aloud Trainer 学生版 スマホプロトタイプ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     :root {
@@ -203,6 +203,17 @@
         border: 1px solid var(--border);
         background: #fff;
         color: var(--text);
+    }
+
+    .voice-fixed-display {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: #1d4ed8;
+        border-radius: 10px;
+        padding: 9px 14px;
+        font-weight: 900;
+        font-size: 0.92rem;
+        white-space: nowrap;
     }
 
     .slider-box {
@@ -614,6 +625,743 @@
             max-width: 100%;
         }
     }
+
+
+/* ===== Smartphone prototype additions: keep all PC functions, optimize layout for phones ===== */
+html { -webkit-text-size-adjust: 100%; }
+body { min-height: 100dvh; }
+button, select, input { touch-action: manipulation; }
+button, select { min-height: 44px; }
+
+.mobile-note {
+    display: none;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: .78rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+    body { height: 100dvh; }
+    header {
+        padding: max(10px, env(safe-area-inset-top)) 10px 10px;
+        max-height: 58dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    main { padding: 10px; }
+    .title-row { margin-bottom: 8px; }
+    .student-title-row { grid-template-columns: 1fr; gap: 8px; }
+    .student-title-main, .student-load-area, .student-lesson-info-area { grid-column: 1; }
+    h1 { font-size: 1.34rem; gap: 8px; }
+    h1::before { width: 6px; height: 1.75em; }
+    .student-load-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        gap: 8px;
+    }
+    .student-load-area button { width: 100%; padding: 10px 8px; font-size: .86rem; }
+    button.folder-settings-btn { font-size: .76rem; padding: 8px 6px; }
+    .student-lesson-info-area { justify-content: stretch; width: 100%; }
+    .lesson-info {
+        width: 100%;
+        max-width: 100%;
+        font-size: .78rem;
+        padding: 6px 8px;
+    }
+    .controls {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        align-items: stretch;
+        margin-top: 8px;
+    }
+    .controls > button { width: 100%; padding: 10px 6px; font-size: .82rem; }
+    .slider-box {
+        grid-column: 1 / -1;
+        min-width: 0;
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 10px;
+    }
+    #voice-select { display: none; }
+    .voice-fixed-display {
+        grid-column: 1 / -1;
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 10px;
+        font-size: .82rem;
+        font-weight: 900;
+        color: #1d4ed8;
+        text-align: center;
+    }
+    .toggle-group {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+    label.toggle {
+        width: 100%;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 8px 6px;
+        font-size: .78rem;
+        line-height: 1.2;
+        text-align: center;
+    }
+    .stats { margin: 4px 2px 8px; font-size: .78rem; }
+    .empty-message { padding: 18px; font-size: .92rem; }
+    .sentence-row {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 8px;
+        padding: 10px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        scroll-margin-top: 56dvh;
+    }
+    .line-num {
+        width: 2.28rem;
+        height: 2.28rem;
+        border-radius: 50%;
+        font-size: .92rem;
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .sentence-main { grid-column: 2; grid-row: 1; }
+    .english {
+        font-size: 1.04rem;
+        line-height: 1.75;
+        margin-bottom: 6px;
+    }
+    .plain-version { font-size: .82rem; line-height: 1.45; margin-bottom: 6px; }
+    .lesson-block { gap: 6px; }
+    .vocab, .jp { font-size: .86rem; line-height: 1.55; padding: 8px 9px; }
+    .row-actions {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        min-width: 0;
+        width: 100%;
+        margin-top: 2px;
+    }
+    .mini-btn { min-height: 42px; font-size: .76rem; padding: 7px 5px; border-radius: 9px; }
+    .jump-box {
+        grid-column: 1 / -1;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+    .main-jump-menu {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        top: auto;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        width: auto;
+        max-height: 52dvh;
+        display: none;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 5px;
+        padding: 8px;
+    }
+    .main-jump-menu.open { display: grid; }
+    .main-jump-item { min-height: 38px; font-size: .8rem; }
+    .main-float-tooltip { display: none !important; }
+}
+
+@media (max-width: 380px) {
+    .controls { grid-template-columns: 1fr; }
+    .toggle-group { grid-template-columns: 1fr; }
+    .student-load-area { grid-template-columns: 1fr; }
+    .row-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+
+/* ===== Library prototype ===== */
+.library-home {
+    display: grid;
+    gap: 14px;
+}
+.library-hero {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.06);
+}
+.library-hero-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #0f2e63;
+    margin-bottom: 6px;
+}
+.library-hero-sub {
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: .95rem;
+}
+.library-category {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.05);
+}
+.library-category-title {
+    font-size: 1.08rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #111827;
+    border-left: 6px solid var(--primary);
+    padding-left: 10px;
+}
+.library-items {
+    display: grid;
+    gap: 8px;
+}
+
+.library-subcategory {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+.library-subcategory-title {
+    font-weight: 900;
+    color: var(--purple-dark);
+    margin: 0 0 8px;
+    font-size: 1.02rem;
+}
+
+.library-subcategory-toggle {
+    width: 100%;
+    list-style: none;
+    cursor: pointer;
+    font-weight: 900;
+    color: var(--purple-dark);
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 1.02rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.library-subcategory-toggle::-webkit-details-marker { display: none; }
+.library-subcategory-toggle::after {
+    content: "▶";
+    color: var(--muted);
+    font-size: .9rem;
+    transition: transform .16s ease;
+}
+.library-subcategory[open] .library-subcategory-toggle::after {
+    transform: rotate(90deg);
+}
+.library-subcategory .library-items {
+    margin-top: 8px;
+}
+.library-item-btn {
+    width: 100%;
+    text-align: left;
+    background: #f8fafc;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    line-height: 1.45;
+    box-shadow: none;
+}
+.library-item-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+}
+.library-empty {
+    color: var(--muted);
+    background: #f9fafb;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 12px;
+}
+.library-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+.library-back-btn {
+    background: #ffffff;
+    color: var(--primary-dark);
+    border: 1px solid #bfdbfe;
+}
+@media (max-width: 760px) {
+    .library-hero { padding: 14px; }
+    .library-hero-title { font-size: 1.12rem; }
+    .library-category { padding: 12px; }
+    .library-item-btn { min-height: 50px; font-size: .98rem; }
+}
+
+
+/* ===== Library start screen refinement ===== */
+body.library-mode header {
+    display: none;
+}
+body.library-mode main {
+    padding: 18px;
+}
+body.library-mode .stats {
+    display: none;
+}
+.library-home.clean-start {
+    max-width: 720px;
+    margin: 0 auto;
+    min-height: calc(100dvh - 36px);
+    align-content: center;
+}
+.library-home.has-library {
+    max-width: 860px;
+    margin: 0 auto;
+}
+.library-hero.big-start {
+    text-align: center;
+    padding: 30px 20px;
+}
+.library-hero.big-start .library-hero-title {
+    font-size: 1.9rem;
+    margin-bottom: 14px;
+}
+.library-primary-btn {
+    width: 100%;
+    max-width: 360px;
+    min-height: 52px;
+    font-size: 1.02rem;
+    border-radius: 14px;
+}
+.library-actions.centered {
+    justify-content: center;
+}
+.library-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+@media (max-width: 760px) {
+    body.library-mode main { padding: 14px; }
+    .library-home.clean-start { min-height: calc(100dvh - 28px); }
+    .library-hero.big-start { padding: 24px 16px; }
+    .library-hero.big-start .library-hero-title { font-size: 1.55rem; }
+    .library-primary-btn { max-width: none; }
+}
+
+
+/* Library folder drill-down: simple arrow-only style */
+.library-folder-btn {
+    width: 100%;
+    text-align: left;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 14px;
+    font-size: 1.04rem;
+    line-height: 1.35;
+    font-weight: 900;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.library-folder-btn:hover,
+.library-folder-btn.open {
+    background: #ffffff;
+    color: var(--text);
+    border-color: var(--border);
+}
+.library-folder-btn::after {
+    content: "▶";
+    color: var(--muted);
+    font-size: .9rem;
+}
+.library-folder-btn.open::after {
+    content: "▼";
+}
+.library-folder-panel {
+    display: none;
+    margin-top: 8px;
+    padding-left: 8px;
+    border-left: 3px solid var(--border);
+}
+.library-folder-panel.open {
+    display: grid;
+    gap: 8px;
+}
+
+
+
+/* ===== Smartphone reading screen v1: compact practice UI ===== */
+body.lesson-mode header {
+    padding: 6px 8px;
+}
+body.lesson-mode .title-row,
+body.lesson-mode .student-title-row,
+body.lesson-mode .student-title-main,
+body.lesson-mode .student-load-area,
+body.lesson-mode .student-lesson-info-area,
+body.lesson-mode .voice-fixed-display,
+body.lesson-mode #voice-select {
+    display: none !important;
+}
+body.lesson-mode main {
+    padding: 8px;
+    padding-bottom: 74px;
+    overflow: auto;
+}
+body.lesson-mode .stats {
+    display: none;
+}
+body.lesson-mode .controls {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    margin: 0;
+    align-items: stretch;
+}
+body.lesson-mode .controls > button {
+    width: 100%;
+    min-height: 36px;
+    padding: 6px 3px;
+    font-size: 0.70rem;
+    line-height: 1.15;
+    border-radius: 8px;
+    white-space: normal;
+}
+body.lesson-mode .controls .toggle-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+body.lesson-mode label.toggle {
+    justify-content: center;
+    min-height: 34px;
+    padding: 5px 3px;
+    font-size: 0.66rem;
+    line-height: 1.1;
+    border-radius: 8px;
+    text-align: center;
+}
+body.lesson-mode .auto-next-toggle {
+    display: none !important;
+}
+body.lesson-mode .slider-box {
+    grid-column: 1 / -1;
+    min-width: 0;
+    width: 100%;
+    flex: none;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 5px 8px;
+}
+.mobile-lesson-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.mobile-current-card {
+    position: sticky;
+    top: 118px;
+    z-index: 5;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--primary);
+    border-radius: 12px;
+    padding: 9px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.10);
+}
+.mobile-current-top {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.mobile-back-btn,
+.mobile-nav-btn {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: .72rem;
+    box-shadow: none;
+}
+.mobile-back-btn { white-space: nowrap; }
+.mobile-current-count {
+    color: var(--muted);
+    font-weight: 800;
+    font-size: .74rem;
+    text-align: right;
+}
+.mobile-current-card .line-num {
+    width: 2.1rem;
+    height: 2.1rem;
+    font-size: .9rem;
+}
+.mobile-current-english {
+    font-size: 1.12rem;
+    line-height: 1.55;
+    font-weight: 900;
+    color: #1d4ed8;
+    background: #fef3c7;
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    word-break: normal;
+}
+.mobile-current-accent {
+    font-size: .92rem;
+    line-height: 1.45;
+    color: var(--muted);
+}
+.mobile-detail-scroll {
+    display: grid;
+    gap: 8px;
+}
+.mobile-detail-scroll .vocab,
+.mobile-detail-scroll .jp {
+    font-size: .92rem;
+    line-height: 1.55;
+    padding: 9px 10px;
+}
+.mobile-bottom-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.96);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 14px rgba(15,23,42,0.12);
+}
+.mobile-bottom-actions button {
+    min-height: 42px;
+    padding: 7px 4px;
+    border-radius: 10px;
+    font-size: .76rem;
+    line-height: 1.1;
+}
+body.hide-vocab .mobile-detail-scroll .vocab { display: none; }
+body.hide-jp .mobile-detail-scroll .jp { display: none; }
+body.lesson-mode .mobile-current-english.hidden-text,
+body.lesson-mode .mobile-current-accent.hidden-text,
+body.lesson-mode .mobile-current-accent.hidden-text * {
+    color: transparent !important;
+    text-shadow: 0 0 10px rgba(17,24,39,0.35) !important;
+}
+body.lesson-mode .mobile-current-accent.hidden-text .accent-highlight {
+    background: transparent !important;
+    color: transparent !important;
+    box-shadow: none !important;
+}
+@media (min-width: 761px) {
+    body.lesson-mode .controls > button { font-size: .82rem; }
+    .mobile-current-card { top: 132px; }
+    .mobile-current-english { font-size: 1.35rem; }
+    .mobile-current-accent { font-size: 1.05rem; }
+}
+
+
+/* ===== Smartphone reading screen v2: fixed current sentence + independent detail scroll ===== */
+body.lesson-mode main {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+body.lesson-mode #display-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-lesson-shell {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.mobile-return-row {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.mobile-list-btn {
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: .72rem;
+    line-height: 1.1;
+    box-shadow: none;
+}
+.mobile-current-card {
+    position: static !important;
+    top: auto !important;
+    flex: 0 0 auto;
+    z-index: 1;
+}
+.mobile-current-top {
+    display: block !important;
+}
+.mobile-current-count { display: none !important; }
+.mobile-sentence-nav {
+    display: grid;
+    grid-template-columns: minmax(92px, 1fr) minmax(130px, 1.2fr) minmax(92px, 1fr);
+    gap: 8px;
+    align-items: stretch;
+}
+.mobile-nav-btn,
+.mobile-jump-btn {
+    min-height: 42px !important;
+    padding: 0 10px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.1;
+    box-shadow: none;
+}
+.mobile-nav-btn {
+    width: 100% !important;
+    min-width: 64px !important;
+}
+.mobile-nav-btn.end-reached {
+    background: #111111 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.mobile-jump-btn {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+    flex-direction: column;
+    gap: 2px;
+}
+.mobile-jump-num {
+    font-size: 1.05rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-jump-label {
+    font-size: .68rem;
+    line-height: 1;
+    color: var(--muted);
+    font-weight: 800;
+}
+.sentence-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.35);
+    z-index: 9000;
+    display: none;
+}
+.sentence-sheet-backdrop.open { display: block; }
+.sentence-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 78dvh;
+    background: #ffffff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -12px 30px rgba(15,23,42,.22);
+    z-index: 9001;
+    transform: translateY(105%);
+    transition: transform .22s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sentence-sheet.open { transform: translateY(0); }
+.sentence-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-close {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 999px;
+    min-width: 40px;
+    padding: 7px 10px;
+    box-shadow: none;
+}
+.sentence-sheet-list {
+    overflow-y: auto;
+    padding: 8px 10px 18px;
+}
+.sentence-sheet-item {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    margin-bottom: 7px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.45;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 8px;
+    box-shadow: none;
+}
+.sentence-sheet-item.current {
+    border-color: var(--primary);
+    background: #eff6ff;
+}
+.sentence-sheet-num {
+    color: var(--muted);
+    font-weight: 900;
+}
+.sentence-sheet-text {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mobile-detail-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 8px;
+    overscroll-behavior: contain;
+}
+
 </style>
 </head>
 <body>
@@ -628,8 +1376,8 @@
             <div class="hint">教材ファイルを読み込んで、英文・語彙・和訳を見ながら音読練習します。</div>
         </div>
         <div class="student-load-area">
-            <button class="action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
-            <button class="folder-settings-btn action-flash" onclick="setLessonFolder()">教材フォルダ設定</button>
+            <button class="action-flash" onclick="showLibraryChooser()">教材ライブラリを読み込む</button>
+            <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを読み込み</button>
         </div>
         <div class="student-lesson-info-area">
             <div id="lesson-info" class="lesson-info" aria-live="polite"></div>
@@ -637,7 +1385,8 @@
     </div>
 
     <div class="controls">
-        <button class="action-flash" onclick="playSequenceFrom(0)">最初から再生</button>
+        <button class="secondary action-flash" onclick="showLibraryHome()">←教材一覧</button>
+        <button class="action-flash" onclick="playSequenceFrom(0)">自動再生</button>
         <button id="whole-loop-btn" class="success action-flash" onclick="toggleWholeLoop()">全体LOOP</button>
         <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止</button>
         <button class="danger action-flash" onclick="stopAll()">STOP</button>
@@ -647,15 +1396,16 @@
             <input type="range" id="speed-slider" min="0.25" max="2.0" step="0.05" value="0.9">
         </div>
 
-        <select id="voice-select" title="音声">
-            <option value="">音声を読み込み中...</option>
+        <select id="voice-select" title="音声" aria-hidden="true" tabindex="-1">
+            <option value="">アメリカ英語・女性（端末標準）</option>
         </select>
+        <div class="voice-fixed-display" aria-label="音声">音声：アメリカ英語・女性（端末標準）</div>
 
         <div class="toggle-group">
             <label class="toggle"><input type="checkbox" id="hide-vocab-toggle"> 語彙を隠す</label>
             <label class="toggle"><input type="checkbox" id="hide-jp-toggle"> 和訳を隠す</label>
             <label class="toggle"><input type="checkbox" id="hide-english"> 英文ぼかし</label>
-            <label class="toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
+            <label class="toggle auto-next-toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
         </div>
     </div>
 </header>
@@ -669,6 +1419,7 @@
 let lessonData = [];
 let loopSettings = [];
 let currentIndex = -1;
+let selectedIndex = 0;
 let isPaused = false;
 let voices = [];
 let wholeLoop = false;
@@ -676,6 +1427,11 @@ let playbackAutoNext = false;
 let playbackWrapAtEnd = false;
 let returnToFirstAfterSequence = false;
 let lessonMeta = { material: "", section: "" };
+let libraryData = null;
+let libraryLoadError = "";
+let libraryCatalogData = null;
+let libraryCatalogError = "";
+let showingLibraryChooser = false;
 
 const displayArea = document.getElementById("display-area");
 const stats = document.getElementById("stats");
@@ -982,6 +1738,353 @@ function readLessonMetaFromObject(obj) {
     };
 }
 
+function safeRelativeFileUrl(file) {
+    return String(file || "")
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+}
+
+const LIBRARY_FILE_STORAGE_KEY = "rat-library-file";
+
+function getUrlLibraryName() {
+    try {
+        const params = new URLSearchParams(window.location.search || "");
+        return (params.get("lib") || "").trim();
+    } catch (e) {
+        return "";
+    }
+}
+
+function getCurrentLibraryFile() {
+    const urlLib = getUrlLibraryName();
+    if (urlLib) return `libraries/${urlLib}.json`;
+    try {
+        return localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+    } catch (e) {
+        return "";
+    }
+}
+
+function setCurrentLibraryFile(filePath) {
+    if (!filePath) return;
+    if (getUrlLibraryName()) return;
+    try {
+        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath);
+    } catch (e) {}
+}
+
+function normalizeLibraryCatalog(data) {
+    return [];
+}
+
+async function loadLibraryCatalog() {
+    libraryCatalogData = null;
+    libraryCatalogError = "";
+}
+
+async function showLibraryChooser() {
+    showingLibraryChooser = true;
+    lessonData = [];
+    selectedIndex = 0;
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+function closeLibraryChooser() {
+    showingLibraryChooser = false;
+    updateDisplay();
+}
+
+async function loadLibraryFromServer(showAlert = false, filePath = null) {
+    libraryLoadError = "";
+    const libraryFile = filePath || getCurrentLibraryFile();
+    if (!libraryFile) {
+        await showLibraryChooser();
+        if (showAlert) alert("教材ライブラリを選択してください。");
+        return;
+    }
+    try {
+        const res = await fetch(safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
+        const data = await res.json();
+        if (!data || !Array.isArray(data.categories)) {
+            throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
+        }
+        libraryData = data;
+        showingLibraryChooser = false;
+        setCurrentLibraryFile(libraryFile);
+        try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
+        lessonData = [];
+        setLessonMeta("", "");
+        updateDisplay();
+        if (showAlert) alert("教材ライブラリを読み込みました。");
+    } catch (e) {
+        libraryLoadError = e && e.message ? e.message : String(e);
+        libraryData = null;
+        showingLibraryChooser = false;
+        updateDisplay();
+        if (showAlert) alert("教材ライブラリの読み込みに失敗しました。\n" + libraryLoadError);
+    }
+}
+
+async function selectLibraryFromCatalog(index) {
+    const libraries = libraryCatalogData && Array.isArray(libraryCatalogData.libraries) ? libraryCatalogData.libraries : [];
+    const entry = libraries[index];
+    if (!entry || !entry.file) return;
+    await loadLibraryFromServer(true, entry.file);
+}
+
+function resetLibrarySelection() {
+    if (!confirm("現在の教材ライブラリの記憶をリセットしますか？")) return;
+    try {
+        localStorage.removeItem("rat-library-autoload");
+        localStorage.removeItem(LIBRARY_FILE_STORAGE_KEY);
+    } catch (e) {}
+    libraryData = null;
+    libraryLoadError = "";
+    showingLibraryChooser = false;
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+function getVisibleLibraryCategories() {
+    const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+    return categories
+        .map((cat, ci) => {
+            const directItems = Array.isArray(cat.items) ? cat.items.filter(item => item && item.file) : [];
+            const sections = Array.isArray(cat.sections)
+                ? cat.sections
+                    .map((sec, si) => ({
+                        sec,
+                        si,
+                        items: Array.isArray(sec.items) ? sec.items.filter(item => item && item.file) : []
+                    }))
+                    .filter(entry => entry.items.length > 0)
+                : [];
+            return { cat, ci, directItems, sections };
+        })
+        .filter(entry => entry.directItems.length > 0 || entry.sections.length > 0);
+}
+
+function renderLibraryChooser() {
+    return `<div class="library-home clean-start">
+        <div class="library-hero big-start">
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-hero-sub">クラス別URLで教材ライブラリを開きます。</div>
+            <div class="library-note">例：index.html?lib=2年生 / index.html?lib=TOEIC / index.html?lib=時事英語 / index.html?lib=ALL</div>
+            <div class="library-actions centered">
+                <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
+                ${libraryData ? `<button class="secondary action-flash" onclick="closeLibraryChooser()">戻る</button>` : ""}
+            </div>
+        </div>
+    </div>`;
+}
+
+function renderLibraryHome() {
+    if (showingLibraryChooser) return renderLibraryChooser();
+    const visibleCategories = getVisibleLibraryCategories();
+
+    if (!libraryData) {
+        const errorHtml = libraryLoadError
+            ? `<div class="library-empty">教材ライブラリの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
+            : "";
+
+        return `<div class="library-home clean-start">
+            <div class="library-hero big-start">
+                <div class="library-hero-title">Reading-Aloud Trainer</div>
+                <div class="library-hero-sub">教材ライブラリを読み込むと、教材一覧が表示されます。</div>
+                <div class="library-actions centered">
+                    <button class="library-primary-btn action-flash" onclick="showLibraryChooser()">教材ライブラリを読み込む</button>
+                </div>
+            </div>
+            ${errorHtml}
+        </div>`;
+    }
+
+    const categoryHtml = visibleCategories.length
+        ? visibleCategories.map(({ cat, ci, directItems, sections }) => {
+            const directHtml = directItems.map(item => {
+                const originalIndex = Array.isArray(cat.items) ? cat.items.indexOf(item) : -1;
+                return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, null, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+            }).join("");
+
+            const sectionHtml = sections.map(({ sec, si, items }) => {
+                const itemsHtml = items.map(item => {
+                    const originalIndex = Array.isArray(sec.items) ? sec.items.indexOf(item) : -1;
+                    return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${si}, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+                }).join("");
+                const folderId = `lib-folder-${ci}-${si}`;
+                return `<div class="library-subcategory">
+                    <button type="button" class="library-folder-btn action-flash" onclick="toggleLibraryFolder('${folderId}', this)">${escapeHtml(sec.name || "未分類")}</button>
+                    <div class="library-folder-panel" id="${folderId}">${itemsHtml}</div>
+                </div>`;
+            }).join("");
+
+            return `<section class="library-category">
+                <div class="library-category-title">${escapeHtml(cat.name || "未分類")}</div>
+                ${directHtml ? `<div class="library-items">${directHtml}</div>` : ""}
+                ${sectionHtml}
+            </section>`;
+        }).join("")
+        : `<div class="library-empty">現在表示できる教材がありません。</div>`;
+
+    return `<div class="library-home has-library">
+        <div class="library-hero">
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-hero-sub">教材名をタップしてください。</div>
+            <div class="library-actions">
+                <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+                <button class="secondary action-flash" onclick="showLibraryChooser()">URL指定を確認</button>
+                <button class="secondary action-flash" onclick="loadLessonFromFile()">教材ファイルを直接読み込む</button>
+            </div>
+        </div>
+        ${categoryHtml}
+    </div>`;
+}
+
+function toggleLibraryFolder(panelId, buttonEl) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const isOpen = panel.classList.toggle("open");
+    if (buttonEl) buttonEl.classList.toggle("open", isOpen);
+}
+
+async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex) {
+    try {
+        const category = libraryData && libraryData.categories ? libraryData.categories[categoryIndex] : null;
+        let item = null;
+        if (sectionIndex === null || sectionIndex === undefined) {
+            item = category && Array.isArray(category.items) ? category.items[itemIndex] : null;
+        } else {
+            const section = category && Array.isArray(category.sections) ? category.sections[sectionIndex] : null;
+            item = section && Array.isArray(section.items) ? section.items[itemIndex] : null;
+        }
+        if (!item || !item.file) throw new Error("教材ファイル名が見つかりません。");
+
+        stopAll();
+        const fileUrl = safeRelativeFileUrl(item.file) + "?ts=" + Date.now();
+        const res = await fetch(fileUrl, { cache: "no-store" });
+        if (!res.ok) throw new Error(`${item.file}を読み込めませんでした。HTTP ${res.status}`);
+        const obj = await res.json();
+        loadLessonObject(obj);
+    } catch (e) {
+        alert("教材の読み込みに失敗しました。\n" + (e && e.message ? e.message : String(e)));
+    }
+}
+
+function showLibraryHome() {
+    closeSentenceSheet();
+    stopAll();
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+
+function getActiveIndex() {
+    if (!lessonData.length) return 0;
+    const idx = currentIndex >= 0 ? currentIndex : selectedIndex;
+    if (!Number.isInteger(idx) || idx < 0 || idx >= lessonData.length) return 0;
+    return idx;
+}
+
+function renderMobilePracticeScreen() {
+    const idx = getActiveIndex();
+    return `<div class="mobile-lesson-shell">
+        <div id="mobile-current-card" class="mobile-current-card"></div>
+        <div id="mobile-detail-scroll" class="mobile-detail-scroll"></div>
+        <div class="mobile-bottom-actions">
+            <button class="action-flash" onclick="playFrom(getActiveIndex())">PLAY</button>
+            <button id="mobile-loop-btn" class="success action-flash" onclick="toggleLoop(getActiveIndex())">LOOP</button>
+            <button id="mobile-split-btn" class="warning action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習</button>
+            <button class="danger action-flash" onclick="stopAll()">STOP</button>
+        </div>
+        <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
+        <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
+            <div class="sentence-sheet-header">
+                <span>文を移動</span>
+                <button type="button" class="sentence-sheet-close" onclick="closeSentenceSheet()">×</button>
+            </div>
+            <div id="sentenceSheetList" class="sentence-sheet-list"></div>
+        </div>
+    </div>`;
+}
+
+function updateMobilePracticeView() {
+    if (!lessonData.length) return;
+    const idx = getActiveIndex();
+    const item = lessonData[idx];
+    if (!item) return;
+    const card = document.getElementById("mobile-current-card");
+    const details = document.getElementById("mobile-detail-scroll");
+    if (card) {
+        const canPrev = idx > 0;
+        const canNext = idx < lessonData.length - 1;
+        const prevIndex = canPrev ? idx - 1 : lessonData.length - 1;
+        const nextIndex = canNext ? idx + 1 : 0;
+        card.innerHTML = `
+            <div class="mobile-current-top">
+                <div class="mobile-sentence-nav">
+                    <button class="mobile-nav-btn action-flash" onclick="jumpToSentence(${prevIndex})">◀</button>
+                    <button type="button" class="mobile-jump-btn action-flash" onclick="openSentenceSheet()">
+                        <span class="mobile-jump-num">${escapeHtml(getCircleNumber(item, idx))}</span>
+                        <span class="mobile-jump-label">文を移動</span>
+                    </button>
+                    <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" onclick="jumpToSentence(${nextIndex})">▶</button>
+                </div>
+            </div>
+            <div class="mobile-current-english ${hideEnglish.checked ? "hidden-text" : ""}" onclick="playFrom(${idx})">${markedPlainHtml(item.english)}</div>
+            <div class="mobile-current-accent ${hideEnglish.checked ? "hidden-text" : ""}">${accentHtml(getAccentText(item))}</div>`;
+    }
+    if (details) {
+        details.innerHTML = `
+            <div class="vocab"><div class="lesson-title">【語彙】</div>${markedTextHtml(getVocabText(item))}</div>
+            <div class="jp"><div class="lesson-title">【和訳】</div>${escapeHtml(item.jp || "")}</div>`;
+    }
+    const loopBtn = document.getElementById("mobile-loop-btn");
+    if (loopBtn) {
+        loopBtn.classList.toggle("loop-on", Boolean(loopSettings[idx]));
+        loopBtn.textContent = loopSettings[idx] ? "🔁 LOOP ON" : "LOOP";
+    }
+    const splitBtn = document.getElementById("mobile-split-btn");
+    if (splitBtn) {
+        splitBtn.style.display = hasRealSplitData(item) ? "" : "none";
+    }
+}
+
+function openSentenceSheet() {
+    if (!lessonData.length) return;
+    const sheet = document.getElementById("sentenceSheet");
+    const backdrop = document.getElementById("sentenceSheetBackdrop");
+    const list = document.getElementById("sentenceSheetList");
+    if (!sheet || !backdrop || !list) return;
+    const active = getActiveIndex();
+    list.innerHTML = lessonData.map((it, i) => {
+        const text = sentenceTooltipText(it) || plainLine((it && it.english) || "");
+        const label = getCircleNumber(it, i);
+        const current = i === active ? " current" : "";
+        return `<button type="button" class="sentence-sheet-item${current}" onclick="jumpToSentence(${i}); closeSentenceSheet();">
+            <span class="sentence-sheet-num">${escapeHtml(label)}</span>
+            <span class="sentence-sheet-text">${escapeHtml(text)}</span>
+        </button>`;
+    }).join("");
+    backdrop.classList.add("open");
+    sheet.classList.add("open");
+    requestAnimationFrame(() => {
+        const currentBtn = list.querySelector(".sentence-sheet-item.current");
+        if (currentBtn) currentBtn.scrollIntoView({ block: "center" });
+    });
+}
+
+function closeSentenceSheet() {
+    const sheet = document.getElementById("sentenceSheet");
+    const backdrop = document.getElementById("sentenceSheetBackdrop");
+    if (sheet) sheet.classList.remove("open");
+    if (backdrop) backdrop.classList.remove("open");
+}
+
 function refreshClasses() {
     document.body.classList.toggle("hide-vocab", hideVocabToggle.checked);
     document.body.classList.toggle("hide-jp", hideJpToggle.checked);
@@ -991,6 +2094,7 @@ function refreshClasses() {
     wholeLoopBtn.textContent = wholeLoop ? "🔁 全体LOOP ON" : "全体LOOP";
     wholeLoopBtn.classList.toggle("loop-active", wholeLoop);
     pauseBtn.textContent = isPaused ? "再開" : "一時停止";
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
 }
 
 function updateDisplay() {
@@ -998,16 +2102,22 @@ function updateDisplay() {
     updateLessonInfo();
 
     if (!lessonData.length) {
-        displayArea.innerHTML = `
-            <div class="empty-message">
-                <strong>教材ファイルを読み込んでください。</strong><br>
-                上部の「教材ファイルを読み込み」から、配布された教材ファイルを選択してください。<br>
-                最初に「教材フォルダ設定」をしておくと、次回からそのフォルダを起点に教材を選べます。
-            </div>`;
-        stats.textContent = "0文";
+        document.body.classList.add("library-mode");
+        document.body.classList.remove("lesson-mode");
+        displayArea.innerHTML = renderLibraryHome();
+        stats.textContent = libraryData ? "教材ライブラリ" : "0文";
         refreshClasses();
         return;
     }
+
+    document.body.classList.remove("library-mode");
+    document.body.classList.add("lesson-mode");
+    if (selectedIndex < 0 || selectedIndex >= lessonData.length) selectedIndex = 0;
+    displayArea.innerHTML = renderMobilePracticeScreen();
+    stats.textContent = `${lessonData.length}文`;
+    updateMobilePracticeView();
+    refreshClasses();
+    return;
 
     displayArea.innerHTML = lessonData.map((item, i) => `
         <div class="sentence-row" id="row-${i}">
@@ -1044,6 +2154,10 @@ function updateDisplay() {
 
 function loadVoices() {
     voices = speechSynthesis.getVoices();
+    if (voiceSelect) {
+        voiceSelect.innerHTML = `<option value="">アメリカ英語・女性（端末標準）</option>`;
+        voiceSelect.value = "";
+    }
     const englishVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("en"));
 
     if (!englishVoices.length) {
@@ -1192,12 +2306,25 @@ function getSelectedVoice() {
     return voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en")) || null;
 }
 
+function getUsEnglishVoiceOrNull() {
+    const selected = getSelectedVoice();
+    if (selected && String(selected.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) return selected;
+    const usVoice = voices.find(v => String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us"));
+    return usVoice || null;
+}
+
 function clearCurrent() {
     document.querySelectorAll(".sentence-row").forEach(el => el.classList.remove("current"));
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
 }
 
 function markCurrent(index) {
+    if (Number.isInteger(index) && index >= 0 && index < lessonData.length) selectedIndex = index;
     clearCurrent();
+    if (document.body.classList.contains("lesson-mode")) {
+        updateMobilePracticeView();
+        return;
+    }
     const row = document.getElementById(`row-${index}`);
     if (row) {
         row.classList.add("current");
@@ -1207,7 +2334,12 @@ function markCurrent(index) {
 
 
 function returnViewToFirstSentence() {
+    selectedIndex = 0;
     clearCurrent();
+    if (document.body.classList.contains("lesson-mode")) {
+        updateMobilePracticeView();
+        return;
+    }
     const firstRow = document.getElementById("row-0");
     if (firstRow) {
         firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1228,9 +2360,10 @@ function speakLine(index, continueMode = false, wrapAtEnd = false) {
     refreshClasses();
 
     const utterance = new SpeechSynthesisUtterance(plainLine(lessonData[index].english));
-    const selectedVoice = getSelectedVoice();
+    // Android Chromeでは音声リストに en_AU だけが返ることがあるため、読み上げ要求は必ず en-US に固定する。
+    const selectedVoice = getUsEnglishVoiceOrNull();
     if (selectedVoice) utterance.voice = selectedVoice;
-    utterance.lang = selectedVoice ? selectedVoice.lang : "en-US";
+    utterance.lang = "en-US";
     utterance.rate = Number(speedSlider.value);
     utterance.pitch = 1.0;
 
@@ -1267,6 +2400,7 @@ function jumpToSentence(index) {
     speechSynthesis.cancel();
     isPaused = false;
     currentIndex = index;
+    selectedIndex = index;
     playbackAutoNext = false;
     playbackWrapAtEnd = false;
     returnToFirstAfterSequence = false;
@@ -1340,6 +2474,7 @@ function clearLoopStateForManualPlayback() {
     isPaused = false;
     refreshLoopButtons();
     refreshClasses();
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
 }
 
 function playFrom(index) {
@@ -1414,9 +2549,11 @@ function refreshLoopButtons() {
             btn.textContent = isOn ? "🔁 LOOP ON" : "LOOP";
         }
     });
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
 }
 
 function stopAll() {
+    closeSentenceSheet();
     speechSynthesis.cancel();
     isPaused = false;
     currentIndex = -1;
@@ -1476,6 +2613,7 @@ function loadLessonObject(obj) {
     lessonData = loadedData;
     loopSettings = [];
     currentIndex = -1;
+    selectedIndex = 0;
     updateDisplay();
 }
 
@@ -2192,11 +3330,534 @@ function openSplitPractice(index) {
         50% { opacity:.58; transform:scale(1.03); filter:brightness(1.16); }
         100% { opacity:1; transform:scale(1); filter:brightness(1); }
     }
+
+    @media(max-width:700px) {
+        body { height:auto; min-height:100dvh; }
+        header {
+            position:sticky;
+            top:0;
+            padding: max(8px, env(safe-area-inset-top)) 8px 8px;
+            gap:8px;
+            flex-direction:column;
+            align-items:stretch;
+        }
+        .top-controls {
+            display:grid;
+            grid-template-columns: auto minmax(0,1fr);
+            gap:7px;
+            width:100%;
+        }
+        .speed-label { min-width:48px; font-size:.82rem; }
+        .pause-label { font-size:.78rem; align-self:center; }
+        .pause-select { min-height:40px; padding:6px 8px; }
+        .toggle { justify-content:center; border-radius:10px; padding:7px 5px; font-size:.76rem; }
+        .top-controls .toggle { grid-column:span 1; }
+        header > .close { width:100%; min-height:42px; }
+        .wrap { grid-template-columns:1fr; gap:10px; padding:10px; min-height:auto; }
+        .left, .right { gap:10px; }
+        .card { padding:11px; border-radius:12px; }
+        .split-sentence-card { grid-template-columns:auto minmax(0,1fr); gap:8px; }
+        .split-line-num { width:2.25rem; height:2.25rem; font-size:.9rem; margin-top:.32rem; }
+        .split-main-english { font-size:1.08rem; line-height:1.65; }
+        .split-accent-english { font-size:.86rem; line-height:1.5; }
+        .text-box { font-size:.9rem; line-height:1.6; }
+        .split-grid { grid-template-columns:1fr; gap:10px; }
+        .split-header { flex-direction:column; align-items:stretch; gap:8px; }
+        .split-actions {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:7px;
+        }
+        .split-actions > button { min-height:42px; padding:7px 6px; font-size:.78rem; }
+        .sentence-nav { grid-column:1 / -1; width:100%; min-width:0; }
+        .nav-arrow, .nav-current { min-height:40px; }
+        .sentence-menu {
+            position:fixed;
+            left:10px;
+            right:10px;
+            top:auto;
+            bottom:max(10px, env(safe-area-inset-bottom));
+            transform:none;
+            width:auto;
+            max-height:52dvh;
+            display:none;
+            grid-template-columns:repeat(5,minmax(0,1fr));
+            gap:5px;
+            padding:8px;
+        }
+        .sentence-menu.open { display:grid; }
+        .sentence-menu-item { min-height:38px; font-size:.8rem; }
+        .split-row { grid-template-columns:1fr; gap:6px; }
+        .split-cell { min-height:38px; padding:8px 10px; line-height:1.55; }
+        .split-en { font-size:1rem; }
+        .split-jp-line { font-size:.88rem; }
+        .split-play-cell {
+            justify-content:stretch;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+        }
+        .split-line-play, .split-line-toggle { min-height:36px; width:100%; }
+        .split-float-tooltip { display:none !important; }
+    }
+
     @media(max-width:900px) {
         .wrap, .split-grid, .split-row { grid-template-columns:1fr; }
         header { align-items:flex-start; flex-direction:column; }
         .top-controls { width:100%; max-width:none; }
     }
+
+/* ===== Library start screen refinement ===== */
+body.library-mode header {
+    display: none;
+}
+body.library-mode main {
+    padding: 18px;
+}
+body.library-mode .stats {
+    display: none;
+}
+.library-home.clean-start {
+    max-width: 720px;
+    margin: 0 auto;
+    min-height: calc(100dvh - 36px);
+    align-content: center;
+}
+.library-home.has-library {
+    max-width: 860px;
+    margin: 0 auto;
+}
+.library-hero.big-start {
+    text-align: center;
+    padding: 30px 20px;
+}
+.library-hero.big-start .library-hero-title {
+    font-size: 1.9rem;
+    margin-bottom: 14px;
+}
+.library-primary-btn {
+    width: 100%;
+    max-width: 360px;
+    min-height: 52px;
+    font-size: 1.02rem;
+    border-radius: 14px;
+}
+.library-actions.centered {
+    justify-content: center;
+}
+.library-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+@media (max-width: 760px) {
+    body.library-mode main { padding: 14px; }
+    .library-home.clean-start { min-height: calc(100dvh - 28px); }
+    .library-hero.big-start { padding: 24px 16px; }
+    .library-hero.big-start .library-hero-title { font-size: 1.55rem; }
+    .library-primary-btn { max-width: none; }
+}
+
+
+/* Library folder drill-down: simple arrow-only style */
+.library-folder-btn {
+    width: 100%;
+    text-align: left;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 14px;
+    font-size: 1.04rem;
+    line-height: 1.35;
+    font-weight: 900;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.library-folder-btn:hover,
+.library-folder-btn.open {
+    background: #ffffff;
+    color: var(--text);
+    border-color: var(--border);
+}
+.library-folder-btn::after {
+    content: "▶";
+    color: var(--muted);
+    font-size: .9rem;
+}
+.library-folder-btn.open::after {
+    content: "▼";
+}
+.library-folder-panel {
+    display: none;
+    margin-top: 8px;
+    padding-left: 8px;
+    border-left: 3px solid var(--border);
+}
+.library-folder-panel.open {
+    display: grid;
+    gap: 8px;
+}
+
+
+
+/* ===== Smartphone reading screen v1: compact practice UI ===== */
+body.lesson-mode header {
+    padding: 6px 8px;
+}
+body.lesson-mode .title-row,
+body.lesson-mode .student-title-row,
+body.lesson-mode .student-title-main,
+body.lesson-mode .student-load-area,
+body.lesson-mode .student-lesson-info-area,
+body.lesson-mode .voice-fixed-display,
+body.lesson-mode #voice-select {
+    display: none !important;
+}
+body.lesson-mode main {
+    padding: 8px;
+    padding-bottom: 74px;
+    overflow: auto;
+}
+body.lesson-mode .stats {
+    display: none;
+}
+body.lesson-mode .controls {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    margin: 0;
+    align-items: stretch;
+}
+body.lesson-mode .controls > button {
+    width: 100%;
+    min-height: 36px;
+    padding: 6px 3px;
+    font-size: 0.70rem;
+    line-height: 1.15;
+    border-radius: 8px;
+    white-space: normal;
+}
+body.lesson-mode .controls .toggle-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+body.lesson-mode label.toggle {
+    justify-content: center;
+    min-height: 34px;
+    padding: 5px 3px;
+    font-size: 0.66rem;
+    line-height: 1.1;
+    border-radius: 8px;
+    text-align: center;
+}
+body.lesson-mode .auto-next-toggle {
+    display: none !important;
+}
+body.lesson-mode .slider-box {
+    grid-column: 1 / -1;
+    min-width: 0;
+    width: 100%;
+    flex: none;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 5px 8px;
+}
+.mobile-lesson-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.mobile-current-card {
+    position: sticky;
+    top: 118px;
+    z-index: 5;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--primary);
+    border-radius: 12px;
+    padding: 9px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.10);
+}
+.mobile-current-top {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.mobile-back-btn,
+.mobile-nav-btn {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: .72rem;
+    box-shadow: none;
+}
+.mobile-back-btn { white-space: nowrap; }
+.mobile-current-count {
+    color: var(--muted);
+    font-weight: 800;
+    font-size: .74rem;
+    text-align: right;
+}
+.mobile-current-card .line-num {
+    width: 2.1rem;
+    height: 2.1rem;
+    font-size: .9rem;
+}
+.mobile-current-english {
+    font-size: 1.12rem;
+    line-height: 1.55;
+    font-weight: 900;
+    color: #1d4ed8;
+    background: #fef3c7;
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    word-break: normal;
+}
+.mobile-current-accent {
+    font-size: .92rem;
+    line-height: 1.45;
+    color: var(--muted);
+}
+.mobile-detail-scroll {
+    display: grid;
+    gap: 8px;
+}
+.mobile-detail-scroll .vocab,
+.mobile-detail-scroll .jp {
+    font-size: .92rem;
+    line-height: 1.55;
+    padding: 9px 10px;
+}
+.mobile-bottom-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.96);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 14px rgba(15,23,42,0.12);
+}
+.mobile-bottom-actions button {
+    min-height: 42px;
+    padding: 7px 4px;
+    border-radius: 10px;
+    font-size: .76rem;
+    line-height: 1.1;
+}
+body.hide-vocab .mobile-detail-scroll .vocab { display: none; }
+body.hide-jp .mobile-detail-scroll .jp { display: none; }
+body.lesson-mode .mobile-current-english.hidden-text,
+body.lesson-mode .mobile-current-accent.hidden-text,
+body.lesson-mode .mobile-current-accent.hidden-text * {
+    color: transparent !important;
+    text-shadow: 0 0 10px rgba(17,24,39,0.35) !important;
+}
+body.lesson-mode .mobile-current-accent.hidden-text .accent-highlight {
+    background: transparent !important;
+    color: transparent !important;
+    box-shadow: none !important;
+}
+@media (min-width: 761px) {
+    body.lesson-mode .controls > button { font-size: .82rem; }
+    .mobile-current-card { top: 132px; }
+    .mobile-current-english { font-size: 1.35rem; }
+    .mobile-current-accent { font-size: 1.05rem; }
+}
+
+
+/* ===== Smartphone reading screen v2: fixed current sentence + independent detail scroll ===== */
+body.lesson-mode main {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+body.lesson-mode #display-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-lesson-shell {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.mobile-return-row {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.mobile-list-btn {
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: .72rem;
+    line-height: 1.1;
+    box-shadow: none;
+}
+.mobile-current-card {
+    position: static !important;
+    top: auto !important;
+    flex: 0 0 auto;
+    z-index: 1;
+}
+.mobile-current-top {
+    display: block !important;
+}
+.mobile-current-count { display: none !important; }
+.mobile-sentence-nav {
+    display: grid;
+    grid-template-columns: minmax(92px, 1fr) minmax(130px, 1.2fr) minmax(92px, 1fr);
+    gap: 8px;
+    align-items: stretch;
+}
+.mobile-nav-btn,
+.mobile-jump-btn {
+    min-height: 42px !important;
+    padding: 0 10px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.1;
+    box-shadow: none;
+}
+.mobile-nav-btn {
+    width: 100% !important;
+    min-width: 64px !important;
+}
+.mobile-nav-btn.end-reached {
+    background: #111111 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.mobile-jump-btn {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+    flex-direction: column;
+    gap: 2px;
+}
+.mobile-jump-num {
+    font-size: 1.05rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-jump-label {
+    font-size: .68rem;
+    line-height: 1;
+    color: var(--muted);
+    font-weight: 800;
+}
+.sentence-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.35);
+    z-index: 9000;
+    display: none;
+}
+.sentence-sheet-backdrop.open { display: block; }
+.sentence-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 78dvh;
+    background: #ffffff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -12px 30px rgba(15,23,42,.22);
+    z-index: 9001;
+    transform: translateY(105%);
+    transition: transform .22s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sentence-sheet.open { transform: translateY(0); }
+.sentence-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-close {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 999px;
+    min-width: 40px;
+    padding: 7px 10px;
+    box-shadow: none;
+}
+.sentence-sheet-list {
+    overflow-y: auto;
+    padding: 8px 10px 18px;
+}
+.sentence-sheet-item {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    margin-bottom: 7px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.45;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 8px;
+    box-shadow: none;
+}
+.sentence-sheet-item.current {
+    border-color: var(--primary);
+    background: #eff6ff;
+}
+.sentence-sheet-num {
+    color: var(--muted);
+    font-weight: 900;
+}
+.sentence-sheet-text {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mobile-detail-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 8px;
+    overscroll-behavior: contain;
+}
+
 </style>
 </head>
 <body>
@@ -2369,7 +4030,7 @@ function openSplitPractice(index) {
         var voices = speechSynthesis.getVoices();
         var info = parentSelectedVoiceInfo || null;
 
-        if (info && voices.length) {
+        if (info && voices.length && String(info.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) {
             var exact = voices.find(function(v) {
                 return (v.voiceURI || "") === (info.voiceURI || "") &&
                        (v.name || "") === (info.name || "") &&
@@ -2384,7 +4045,8 @@ function openSplitPractice(index) {
             if (byNameLang) return byNameLang;
 
             var byName = voices.find(function(v) {
-                return (v.name || "") === (info.name || "");
+                return (v.name || "") === (info.name || "") &&
+                       String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us");
             });
             if (byName) return byName;
         }
@@ -2401,15 +4063,17 @@ function openSplitPractice(index) {
                         return (v.name || "") === (openerVoice.name || "") &&
                                (v.lang || "") === (openerVoice.lang || "");
                     });
-                    if (openerMatch) return openerMatch;
-                    if (openerVoice.lang && openerVoice.lang.toLowerCase().startsWith("en")) return openerVoice;
+                    if (openerMatch && String(openerMatch.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) return openerMatch;
+                    if (openerVoice.lang && String(openerVoice.lang).toLowerCase().replace("_", "-").startsWith("en-us")) return openerVoice;
                 }
             }
         } catch (e) {
             // opener参照ができない環境では、下の英語音声フォールバックに進みます。
         }
 
-        return voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith("en"); }) || voices[0] || null;
+        return voices.find(function(v) {
+            return v.lang && String(v.lang).toLowerCase().replace("_", "-").startsWith("en-us");
+        }) || null;
     }
 
     function clearPauseTimer() {
@@ -2447,10 +4111,8 @@ function openSplitPractice(index) {
         var voice = getEnglishVoice();
         if (voice) {
             utt.voice = voice;
-            utt.lang = voice.lang;
-        } else {
-            utt.lang = "en-US";
         }
+        utt.lang = "en-US";
         utt.rate = Number(speedSlider.value);
         utt.pitch = 1.0;
         markCurrentSplit(index);
@@ -2487,10 +4149,8 @@ function openSplitPractice(index) {
         var voice = getEnglishVoice();
         if (voice) {
             utt.voice = voice;
-            utt.lang = voice.lang;
-        } else {
-            utt.lang = "en-US";
         }
+        utt.lang = "en-US";
         utt.rate = Number(speedSlider.value);
         utt.pitch = 1.0;
 
@@ -2580,7 +4240,15 @@ speedSlider.addEventListener("input", e => {
 
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
-updateDisplay();
+try {
+    if (getCurrentLibraryFile()) {
+        loadLibraryFromServer(false);
+    } else {
+        updateDisplay();
+    }
+} catch (e) {
+    updateDisplay();
+}
 </script>
 </body>
 </html>
