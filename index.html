@@ -1388,7 +1388,7 @@ body.lesson-mode #display-area {
         <button class="secondary action-flash" onclick="showLibraryHome()">←教材一覧</button>
         <button class="action-flash" onclick="playSequenceFrom(0)">自動再生</button>
         <button id="whole-loop-btn" class="success action-flash" onclick="toggleWholeLoop()">全体LOOP</button>
-        <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止</button>
+        <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止/再開</button>
         <button class="danger action-flash" onclick="stopAll()">STOP</button>
 
         <div class="slider-box">
@@ -1998,8 +1998,8 @@ function renderMobilePracticeScreen() {
         <div class="mobile-bottom-actions">
             <button class="action-flash" onclick="playFrom(getActiveIndex())">PLAY</button>
             <button id="mobile-loop-btn" class="success action-flash" onclick="toggleLoop(getActiveIndex())">LOOP</button>
-            <button id="mobile-split-btn" class="warning action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習</button>
             <button class="danger action-flash" onclick="stopAll()">STOP</button>
+            <button id="mobile-split-btn" class="purple action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習</button>
         </div>
         <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
         <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
@@ -2093,7 +2093,7 @@ function refreshClasses() {
     });
     wholeLoopBtn.textContent = wholeLoop ? "🔁 全体LOOP ON" : "全体LOOP";
     wholeLoopBtn.classList.toggle("loop-active", wholeLoop);
-    pauseBtn.textContent = isPaused ? "再開" : "一時停止";
+    pauseBtn.textContent = isPaused ? "再開" : "一時停止/再開";
     if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
 }
 
