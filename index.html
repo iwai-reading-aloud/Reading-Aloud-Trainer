@@ -3382,9 +3382,9 @@ function speakSplitLineAt(index) {
         } else {
             splitStopped = true;
             splitCurrentLineIndex = 0;
-            clearCurrentSplitLine();
             updateSplitModeClasses();
-            // 上部PLAYで全分割の再生が終わったら、先頭分割へ表示を戻す。
+            // 上部PLAYで全分割の再生が終わったら、先頭分割へ表示を戻し、先頭分割をハイライトしたまま停止する。
+            markCurrentSplitLine(0);
             const firstRow = document.getElementById("mobile-split-row-0");
             if (firstRow) {
                 firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
