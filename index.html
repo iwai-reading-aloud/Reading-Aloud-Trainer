@@ -1993,7 +1993,7 @@ function renderMobilePracticeScreen() {
             <button class="action-flash" onclick="playFrom(getActiveIndex())">PLAY</button>
             <button id="mobile-loop-btn" class="success action-flash" onclick="toggleLoop(getActiveIndex())">LOOP</button>
             <button class="danger action-flash" onclick="stopAll()">STOP</button>
-            <button id="mobile-split-btn" class="purple action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習</button>
+            <button id="mobile-split-btn" class="purple action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習▶</button>
         </div>
         <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
         <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
@@ -2129,7 +2129,7 @@ function updateDisplay() {
                 <button class="mini-btn next-play action-flash" onclick="playThenNext(${i})">自動で<br>次へ</button>
                 <button class="mini-btn danger action-flash" onclick="stopAll()">STOP</button>
                 <button class="mini-btn success action-flash ${loopSettings[i] ? "loop-on" : ""}" id="loop-${i}" onclick="toggleLoop(${i})">${loopSettings[i] ? "🔁 LOOP ON" : "LOOP"}</button>
-                ${hasRealSplitData(item) ? `<button class="mini-btn purple action-flash" onclick="openSplitPractice(${i})">分割練習</button>` : ""}
+                ${hasRealSplitData(item) ? `<button class="mini-btn purple action-flash" onclick="openSplitPractice(${i})">分割練習▶</button>` : ""}
                 <div class="jump-box">
                     <div class="main-jump-wrap" id="main-jump-${i}">
                         <button type="button" class="jump-select main-jump-button" onclick="toggleMainJumpMenu(${i})">文を移動 ▼</button>
