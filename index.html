@@ -1497,26 +1497,26 @@ body.split-mode #display-area {
 }
 .mobile-split-rows {
     display: grid;
-    gap: 14px;
+    gap: 8px;
 }
 .mobile-split-row {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 7px;
+    gap: 5px;
     align-items: stretch;
     background: #ffffff;
     border: 1px solid var(--border);
     border-left: 6px solid var(--primary);
     border-radius: 14px;
-    padding: 10px;
+    padding: 7px 8px;
     box-shadow: 0 2px 8px rgba(15,23,42,0.04);
 }
 .mobile-split-cell {
     min-width: 0;
-    min-height: 50px;
-    border-radius: 11px;
-    padding: 11px 12px;
-    line-height: 1.65;
+    min-height: 0;
+    border-radius: 9px;
+    padding: 8px 10px;
+    line-height: 1.45;
     white-space: pre-wrap;
     display: flex;
     align-items: flex-start;
@@ -1524,8 +1524,8 @@ body.split-mode #display-area {
 .mobile-split-en {
     background: #ffffff;
     border: 1px solid var(--border);
-    font-size: 1.16rem;
-    font-weight: 800;
+    font-size: 1.24rem;
+    font-weight: 850;
 }
 .mobile-split-jp {
     background: var(--jp-bg);
@@ -1536,26 +1536,26 @@ body.split-mode #display-area {
 .mobile-split-play-cell {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 2px;
+    gap: 7px;
+    margin-top: 0;
 }
 .mobile-split-line-play,
 .mobile-split-line-toggle {
-    min-height: 38px;
+    min-height: 34px;
     border-radius: 9px;
-    padding: 6px 6px;
+    padding: 5px 6px;
     font-size: .72rem;
     line-height: 1;
     font-weight: 900;
 }
 .mobile-split-line-play {
-    background: #ffffff;
-    color: var(--primary);
+    background: var(--primary) !important;
+    color: #ffffff !important;
     border: 1.5px solid var(--primary);
 }
 .mobile-split-line-play:hover {
-    background: #ffffff;
-    color: var(--primary);
+    background: var(--primary-dark) !important;
+    color: #ffffff !important;
 }
 .mobile-split-line-toggle {
     background: #1e3a8a;
@@ -1625,7 +1625,7 @@ body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en,
 body.split-hide-lines .mobile-split-row.current-split.split-line-force-show .mobile-split-en {
     color: var(--text) !important;
     text-shadow: none !important;
-    background: #ffffff !important;
+    background: #f8fafc !important;
 }
 body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en * {
     color: inherit !important;
@@ -3211,8 +3211,7 @@ function renderMobileSplitScreen() {
             : splitForceVisibility[i] !== "hide";
         const toggleLabel = lineIsOn ? "分割ON" : "分割OFF";
         const toggleClass = lineIsOn ? "" : " split-off";
-        const currentClass = i === splitCurrentLineIndex ? " current-split" : "";
-        return `<div class="mobile-split-row${currentClass}${forceClass}" id="mobile-split-row-${i}">
+        return `<div class="mobile-split-row${forceClass}" id="mobile-split-row-${i}">
             <div class="mobile-split-cell mobile-split-en">${en}</div>
             <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
             <div class="mobile-split-play-cell">
