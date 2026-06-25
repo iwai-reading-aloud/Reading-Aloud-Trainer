@@ -1524,14 +1524,14 @@ body.split-mode #display-area {
 .mobile-split-en {
     background: #ffffff;
     border: 1px solid var(--border);
-    font-size: 1.24rem;
-    font-weight: 850;
+    font-size: 1.32rem;
+    font-weight: 900;
 }
 .mobile-split-jp {
     background: var(--jp-bg);
     border: 1px solid #bfdbfe;
-    font-size: 1.02rem;
-    font-weight: 700;
+    font-size: 0.94rem;
+    font-weight: 500;
 }
 .mobile-split-play-cell {
     display: grid;
@@ -3211,7 +3211,8 @@ function renderMobileSplitScreen() {
             : splitForceVisibility[i] !== "hide";
         const toggleLabel = lineIsOn ? "分割ON" : "分割OFF";
         const toggleClass = lineIsOn ? "" : " split-off";
-        return `<div class="mobile-split-row${forceClass}" id="mobile-split-row-${i}">
+        const currentClass = i === splitCurrentLineIndex ? " current-split" : "";
+        return `<div class="mobile-split-row${currentClass}${forceClass}" id="mobile-split-row-${i}">
             <div class="mobile-split-cell mobile-split-en">${en}</div>
             <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
             <div class="mobile-split-play-cell">
