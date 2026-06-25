@@ -1228,32 +1228,25 @@ body.lesson-mode #display-area {
     z-index: 1;
 }
 .mobile-current-top {
-    display: grid !important;
-    grid-template-columns: auto 1fr !important;
-    gap: 6px 8px;
-    align-items: center;
+    display: block !important;
 }
-.mobile-current-count {
-    text-align: left !important;
-    font-weight: 900;
-}
+.mobile-current-count { display: none !important; }
 .mobile-sentence-nav {
-    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: minmax(64px, .8fr) minmax(130px, 1.4fr) minmax(64px, .8fr);
+    grid-template-columns: minmax(92px, 1fr) minmax(130px, 1.2fr) minmax(92px, 1fr);
     gap: 8px;
-    align-items: center;
+    align-items: stretch;
 }
 .mobile-nav-btn,
 .mobile-jump-btn {
-    min-height: 36px !important;
+    min-height: 42px !important;
     padding: 0 10px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     font-size: .9rem;
-    line-height: 1;
+    line-height: 1.1;
     box-shadow: none;
 }
 .mobile-nav-btn {
@@ -1271,6 +1264,19 @@ body.lesson-mode #display-area {
     color: var(--text);
     border: 1px solid var(--border);
     font-weight: 900;
+    flex-direction: column;
+    gap: 2px;
+}
+.mobile-jump-num {
+    font-size: 1.05rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-jump-label {
+    font-size: .68rem;
+    line-height: 1;
+    color: var(--muted);
+    font-weight: 800;
 }
 .sentence-sheet-backdrop {
     position: fixed;
@@ -2018,11 +2024,12 @@ function updateMobilePracticeView() {
         const canNext = idx < lessonData.length - 1;
         card.innerHTML = `
             <div class="mobile-current-top">
-                <div class="line-num ${getCircleNumberClass(item, idx)}">${escapeHtml(getCircleNumber(item, idx))}</div>
-                <div class="mobile-current-count">${idx + 1}/${lessonData.length}</div>
                 <div class="mobile-sentence-nav">
                     <button class="mobile-nav-btn action-flash" ${canPrev ? `onclick="jumpToSentence(${idx - 1})"` : "disabled"}>◀</button>
-                    <button type="button" class="mobile-jump-btn action-flash" onclick="openSentenceSheet()">文を移動</button>
+                    <button type="button" class="mobile-jump-btn action-flash" onclick="openSentenceSheet()">
+                        <span class="mobile-jump-num">${escapeHtml(getCircleNumber(item, idx))}</span>
+                        <span class="mobile-jump-label">文を移動</span>
+                    </button>
                     <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" ${canNext ? `onclick="jumpToSentence(${idx + 1})"` : "disabled"}>▶</button>
                 </div>
             </div>
@@ -3715,32 +3722,25 @@ body.lesson-mode #display-area {
     z-index: 1;
 }
 .mobile-current-top {
-    display: grid !important;
-    grid-template-columns: auto 1fr !important;
-    gap: 6px 8px;
-    align-items: center;
+    display: block !important;
 }
-.mobile-current-count {
-    text-align: left !important;
-    font-weight: 900;
-}
+.mobile-current-count { display: none !important; }
 .mobile-sentence-nav {
-    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: minmax(64px, .8fr) minmax(130px, 1.4fr) minmax(64px, .8fr);
+    grid-template-columns: minmax(92px, 1fr) minmax(130px, 1.2fr) minmax(92px, 1fr);
     gap: 8px;
-    align-items: center;
+    align-items: stretch;
 }
 .mobile-nav-btn,
 .mobile-jump-btn {
-    min-height: 36px !important;
+    min-height: 42px !important;
     padding: 0 10px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     font-size: .9rem;
-    line-height: 1;
+    line-height: 1.1;
     box-shadow: none;
 }
 .mobile-nav-btn {
@@ -3758,6 +3758,19 @@ body.lesson-mode #display-area {
     color: var(--text);
     border: 1px solid var(--border);
     font-weight: 900;
+    flex-direction: column;
+    gap: 2px;
+}
+.mobile-jump-num {
+    font-size: 1.05rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-jump-label {
+    font-size: .68rem;
+    line-height: 1;
+    color: var(--muted);
+    font-weight: 800;
 }
 .sentence-sheet-backdrop {
     position: fixed;
