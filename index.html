@@ -3386,11 +3386,14 @@ function speakSplitLineAt(index) {
             splitStopped = true;
             splitCurrentLineIndex = 0;
             updateSplitModeClasses();
-            // 上部PLAYで全分割の再生が終わったら、先頭分割へ表示を戻し、先頭分割をハイライトしたまま停止する。
+            // 上部PLAYで全分割の再生が終わったら、一括ON/OFFボタン行が見える位置まで戻し、
+            // 先頭分割をハイライトしたまま停止する。
             markCurrentSplitLine(0);
+            const globalToggleRow = document.querySelector(".mobile-split-global-toggle-row");
             const firstRow = document.getElementById("mobile-split-row-0");
-            if (firstRow) {
-                firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+            const scrollTarget = globalToggleRow || firstRow;
+            if (scrollTarget) {
+                scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
             }
         }
         return;
