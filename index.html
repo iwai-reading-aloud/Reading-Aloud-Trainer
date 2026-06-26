@@ -1665,76 +1665,6 @@ body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en *
         grid-template-columns: 1fr 1fr;
     }
 }
-
-
-/* ===== Temporary PWA library diagnostics ===== */
-.pwa-debug-panel {
-    margin-top: 12px;
-    background: #fff7ed;
-    border: 1px solid #fdba74;
-    border-radius: 12px;
-    padding: 12px;
-    color: #111827;
-    font-size: .78rem;
-    line-height: 1.55;
-    text-align: left;
-    word-break: break-all;
-}
-.pwa-debug-panel-title {
-    font-weight: 900;
-    color: #9a3412;
-    margin-bottom: 6px;
-}
-.pwa-debug-panel code {
-    background: rgba(255,255,255,.75);
-    border: 1px solid #fed7aa;
-    border-radius: 6px;
-    padding: 1px 4px;
-}
-
-
-/* ===== Temporary always-visible PWA diagnostics v2 ===== */
-.pwa-debug-fixed-panel {
-    position: fixed;
-    left: 8px;
-    right: 8px;
-    top: 8px;
-    z-index: 99999;
-    max-height: 42dvh;
-    overflow: auto;
-    background: #fff7ed;
-    border: 2px solid #f97316;
-    border-radius: 12px;
-    padding: 10px 12px;
-    color: #111827;
-    font-size: 12px;
-    line-height: 1.45;
-    text-align: left;
-    word-break: break-all;
-    box-shadow: 0 8px 28px rgba(15,23,42,.22);
-}
-.pwa-debug-fixed-panel-title {
-    font-weight: 900;
-    color: #9a3412;
-    margin-bottom: 4px;
-}
-.pwa-debug-fixed-panel code {
-    background: rgba(255,255,255,.8);
-    border: 1px solid #fed7aa;
-    border-radius: 5px;
-    padding: 1px 4px;
-}
-.pwa-debug-fixed-close {
-    float: right;
-    min-height: 26px;
-    padding: 2px 8px;
-    font-size: 12px;
-    border-radius: 999px;
-    background: #9a3412;
-    color: #fff;
-}
-body { padding-top: 0; }
-
 </style>
 </head>
 <body>
@@ -2130,6 +2060,7 @@ function safeRelativeFileUrl(file) {
 
 const LIBRARY_FILE_STORAGE_KEY = "rat-library-file";
 const LIBRARY_NAME_STORAGE_KEY = "rat-library-name";
+
 function getUrlLibraryName() {
     try {
         const params = new URLSearchParams(window.location.search || "");
@@ -2153,36 +2084,6 @@ function rememberLibraryName(name) {
     } catch (e) {}
 }
 
-function getLibraryDebugInfoHtml() {
-    let storedName = "";
-    let storedFile = "";
-    let storageError = "";
-    try {
-        storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
-        storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
-    } catch (e) {
-        storageError = e && e.message ? e.message : String(e);
-    }
-
-    const currentFile = getCurrentLibraryFile();
-    const rows = [
-        ["location.href", window.location.href],
-        ["location.search", window.location.search || "（なし）"],
-        ["URLのlib", getUrlLibraryName() || "（なし）"],
-        ["localStorage名", storedName || "（なし）"],
-        ["localStorageファイル", storedFile || "（なし）"],
-        ["getCurrentLibraryFile", currentFile || "（なし）"],
-        ["standalone", window.navigator.standalone === true ? "true" : "false"],
-        ["display-mode standalone", window.matchMedia && window.matchMedia("(display-mode: standalone)").matches ? "true" : "false"],
-        ["storage error", storageError || "（なし）"]
-    ];
-
-    return `<div class="pwa-debug-panel">
-        <div class="pwa-debug-panel-title">PWAライブラリ診断</div>
-        ${rows.map(([k, v]) => `<div><strong>${escapeHtml(k)}：</strong><code>${escapeHtml(v)}</code></div>`).join("")}
-    </div>`;
-}
-
 function getCurrentLibraryFile() {
     const urlLib = getUrlLibraryName();
     if (urlLib) {
@@ -2195,7 +2096,6 @@ function getCurrentLibraryFile() {
         const storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
         if (storedName) return libraryFileFromName(storedName);
     } catch (e) {}
-
     return "";
 }
 
@@ -2233,48 +2133,28 @@ function closeLibraryChooser() {
 async function loadLibraryFromServer(showAlert = false, filePath = null) {
     libraryLoadError = "";
     const libraryFile = filePath || getCurrentLibraryFile();
-    pwaDebugResetFetchTrace(libraryFile);
-    pwaDebugLogFetch("01 loadLibraryFromServer開始", "showAlert=" + showAlert);
     if (!libraryFile) {
-        pwaDebugLogFetch("02 libraryFileなし", "showLibraryChooserへ");
         await showLibraryChooser();
         if (showAlert) alert("教材ライブラリを選択してください。");
         return;
     }
     try {
-        const fetchUrl = safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now();
-        pwaDebugLogFetch("03 fetch開始", fetchUrl);
-        const res = await fetch(fetchUrl, { cache: "no-store" });
-        pwaDebugLogFetch("04 fetch応答", "ok=" + res.ok + " / status=" + res.status + " " + res.statusText + " / type=" + res.type);
+        const res = await fetch(safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now(), { cache: "no-store" });
         if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
-        const text = await res.text();
-        pwaDebugLogFetch("05 response.text成功", "文字数=" + text.length + " / 先頭=" + text.slice(0, 80));
-        let data;
-        try {
-            data = JSON.parse(text);
-            pwaDebugLogFetch("06 JSON.parse成功", "categories=" + (data && Array.isArray(data.categories) ? data.categories.length : "なし"));
-        } catch (jsonError) {
-            pwaDebugLogFetch("06 JSON.parse失敗", jsonError && jsonError.message ? jsonError.message : String(jsonError));
-            throw jsonError;
-        }
+        const data = await res.json();
         if (!data || !Array.isArray(data.categories)) {
-            pwaDebugLogFetch("07 形式チェック失敗", "categories配列なし");
             throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
         }
-        pwaDebugLogFetch("07 形式チェック成功", "categories配列あり");
         libraryData = data;
         showingLibraryChooser = false;
         setCurrentLibraryFile(libraryFile);
         try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
         lessonData = [];
         setLessonMeta("", "");
-        pwaDebugLogFetch("08 updateDisplay直前", "libraryDataセット済み");
         updateDisplay();
-        pwaDebugLogFetch("09 updateDisplay完了", "表示更新済み");
         if (showAlert) alert("教材ライブラリを読み込みました。");
     } catch (e) {
         libraryLoadError = e && e.message ? e.message : String(e);
-        pwaDebugLogFetch("ERROR catch", libraryLoadError);
         libraryData = null;
         showingLibraryChooser = false;
         updateDisplay();
@@ -2351,7 +2231,6 @@ function renderLibraryHome() {
                 <div class="library-actions centered">
                     <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
                 </div>
-                ${getLibraryDebugInfoHtml()}
             </div>
             ${errorHtml}
         </div>`;
@@ -2391,7 +2270,6 @@ function renderLibraryHome() {
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
             </div>
-            ${getLibraryDebugInfoHtml()}
         </div>
         ${categoryHtml}
     </div>`;
@@ -3726,82 +3604,6 @@ document.addEventListener("touchend", function(e) {
         closeSplitPractice();
     }
 }, { passive: true });
-
-
-
-let pwaFetchTrace = [];
-let pwaFetchTargetFile = "";
-
-function pwaDebugResetFetchTrace(file) {
-    pwaFetchTargetFile = file || "";
-    pwaFetchTrace = [];
-    pwaDebugLogFetch("00 診断開始", "target=" + (pwaFetchTargetFile || "（なし）"));
-}
-
-function pwaDebugLogFetch(label, value) {
-    try {
-        const now = new Date();
-        const time = now.toLocaleTimeString ? now.toLocaleTimeString() : String(now.getTime());
-        pwaFetchTrace.push({ time, label: String(label || ""), value: String(value || "") });
-        updateAlwaysVisiblePwaDebugPanel();
-    } catch (e) {}
-}
-
-function getPwaDebugBaseRows() {
-    let storedName = "";
-    let storedFile = "";
-    let storageError = "";
-    try {
-        storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
-        storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
-    } catch (e) {
-        storageError = e && e.message ? e.message : String(e);
-    }
-    return [
-        ["診断版", "2026-06-26 v3 fetch追跡"],
-        ["navigator.onLine", navigator.onLine ? "true" : "false"],
-        ["location.href", window.location.href],
-        ["location.search", window.location.search || "（なし）"],
-        ["URLのlib", getUrlLibraryName() || "（なし）"],
-        ["localStorage名", storedName || "（なし）"],
-        ["localStorageファイル", storedFile || "（なし）"],
-        ["getCurrentLibraryFile", getCurrentLibraryFile() || "（なし）"],
-        ["fetch対象", pwaFetchTargetFile || "（なし）"],
-        ["standalone", window.navigator.standalone === true ? "true" : "false"],
-        ["display-mode standalone", window.matchMedia && window.matchMedia("(display-mode: standalone)").matches ? "true" : "false"],
-        ["storage error", storageError || "（なし）"]
-    ];
-}
-function updateAlwaysVisiblePwaDebugPanel() {
-    const panel = document.getElementById("pwaDebugFixedPanel");
-    if (!panel) return;
-    try {
-        const rows = getPwaDebugBaseRows();
-        const traceHtml = pwaFetchTrace.length
-            ? pwaFetchTrace.map(item => '<div><strong>' + escapeHtml(item.time + ' ' + item.label) + '：</strong><code>' + escapeHtml(item.value) + '</code></div>').join("")
-            : '<div><strong>fetch trace：</strong><code>（まだ開始していません）</code></div>';
-        panel.innerHTML = '<button class="pwa-debug-fixed-close" onclick="document.getElementById(\'pwaDebugFixedPanel\').remove()">閉じる</button>' +
-            '<div class="pwa-debug-fixed-panel-title">PWAライブラリ診断 v3 fetch追跡</div>' +
-            rows.map(([k, v]) => '<div><strong>' + escapeHtml(k) + '：</strong><code>' + escapeHtml(v) + '</code></div>').join("") +
-            '<hr style="border:none;border-top:1px solid #fed7aa;margin:8px 0;">' +
-            '<div><strong>fetch trace</strong></div>' + traceHtml;
-    } catch (e) {}
-}
-
-function showAlwaysVisiblePwaDebugPanel() {
-    try {
-        const existing = document.getElementById("pwaDebugFixedPanel");
-        if (existing) existing.remove();
-        const panel = document.createElement("div");
-        panel.id = "pwaDebugFixedPanel";
-        panel.className = "pwa-debug-fixed-panel";
-        document.body.appendChild(panel);
-        updateAlwaysVisiblePwaDebugPanel();
-    } catch (e) {
-        alert("PWA診断表示エラー: " + (e && e.message ? e.message : String(e)));
-    }
-}
-setTimeout(showAlwaysVisiblePwaDebugPanel, 700);
 
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
