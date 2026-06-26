@@ -1665,6 +1665,33 @@ body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en *
         grid-template-columns: 1fr 1fr;
     }
 }
+
+
+/* ===== Temporary PWA library diagnostics ===== */
+.pwa-debug-panel {
+    margin-top: 12px;
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    border-radius: 12px;
+    padding: 12px;
+    color: #111827;
+    font-size: .78rem;
+    line-height: 1.55;
+    text-align: left;
+    word-break: break-all;
+}
+.pwa-debug-panel-title {
+    font-weight: 900;
+    color: #9a3412;
+    margin-bottom: 6px;
+}
+.pwa-debug-panel code {
+    background: rgba(255,255,255,.75);
+    border: 1px solid #fed7aa;
+    border-radius: 6px;
+    padding: 1px 4px;
+}
+
 </style>
 </head>
 <body>
@@ -2060,7 +2087,6 @@ function safeRelativeFileUrl(file) {
 
 const LIBRARY_FILE_STORAGE_KEY = "rat-library-file";
 const LIBRARY_NAME_STORAGE_KEY = "rat-library-name";
-
 function getUrlLibraryName() {
     try {
         const params = new URLSearchParams(window.location.search || "");
@@ -2084,6 +2110,36 @@ function rememberLibraryName(name) {
     } catch (e) {}
 }
 
+function getLibraryDebugInfoHtml() {
+    let storedName = "";
+    let storedFile = "";
+    let storageError = "";
+    try {
+        storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
+        storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+    } catch (e) {
+        storageError = e && e.message ? e.message : String(e);
+    }
+
+    const currentFile = getCurrentLibraryFile();
+    const rows = [
+        ["location.href", window.location.href],
+        ["location.search", window.location.search || "（なし）"],
+        ["URLのlib", getUrlLibraryName() || "（なし）"],
+        ["localStorage名", storedName || "（なし）"],
+        ["localStorageファイル", storedFile || "（なし）"],
+        ["getCurrentLibraryFile", currentFile || "（なし）"],
+        ["standalone", window.navigator.standalone === true ? "true" : "false"],
+        ["display-mode standalone", window.matchMedia && window.matchMedia("(display-mode: standalone)").matches ? "true" : "false"],
+        ["storage error", storageError || "（なし）"]
+    ];
+
+    return `<div class="pwa-debug-panel">
+        <div class="pwa-debug-panel-title">PWAライブラリ診断</div>
+        ${rows.map(([k, v]) => `<div><strong>${escapeHtml(k)}：</strong><code>${escapeHtml(v)}</code></div>`).join("")}
+    </div>`;
+}
+
 function getCurrentLibraryFile() {
     const urlLib = getUrlLibraryName();
     if (urlLib) {
@@ -2096,6 +2152,7 @@ function getCurrentLibraryFile() {
         const storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
         if (storedName) return libraryFileFromName(storedName);
     } catch (e) {}
+
     return "";
 }
 
@@ -2231,6 +2288,7 @@ function renderLibraryHome() {
                 <div class="library-actions centered">
                     <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
                 </div>
+                ${getLibraryDebugInfoHtml()}
             </div>
             ${errorHtml}
         </div>`;
@@ -2270,6 +2328,7 @@ function renderLibraryHome() {
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
             </div>
+            ${getLibraryDebugInfoHtml()}
         </div>
         ${categoryHtml}
     </div>`;
