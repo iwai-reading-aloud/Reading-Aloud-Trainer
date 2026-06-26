@@ -2294,16 +2294,19 @@ function showExitHelp() {
     toast.innerHTML = `
         <div class="exit-help-toast-title">アプリの終了方法</div>
         <div class="exit-help-toast-body">${escapeHtml(getExitHelpMessage())}</div>
-        <div class="exit-help-toast-note">この案内はしばらくすると自動的に消えます。</div>
+        <div class="exit-help-toast-note">画面をタッチすると閉じます。</div>
     `;
 
     toast.style.display = "block";
 
-    if (exitHelpTimer) clearTimeout(exitHelpTimer);
-    exitHelpTimer = setTimeout(() => {
-        const currentToast = document.getElementById("exitHelpToast");
-        if (currentToast) currentToast.style.display = "none";
-    }, 12000);
+    if (exitHelpTimer) {
+        clearTimeout(exitHelpTimer);
+        exitHelpTimer = null;
+    }
+
+    toast.onclick = () => {
+        toast.style.display = "none";
+    };
 }
 
 function renderLibraryChooser() {
