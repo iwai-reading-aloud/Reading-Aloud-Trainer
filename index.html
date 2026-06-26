@@ -921,6 +921,51 @@ button, select { min-height: 44px; }
     flex-wrap: wrap;
     margin-top: 12px;
 }
+.library-exit-help-btn {
+    background: #dc2626;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 10px 18px;
+    min-height: 44px;
+    font-weight: 900;
+    box-shadow: 0 3px 10px rgba(220,38,38,0.18);
+}
+.library-exit-help-btn:hover {
+    background: #b91c1c;
+}
+.exit-help-toast {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(420px, calc(100vw - 32px));
+    background: #ffffff;
+    color: var(--text);
+    border: 2px solid #fecaca;
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 18px 42px rgba(15,23,42,0.22);
+    z-index: 10000;
+    line-height: 1.75;
+    text-align: left;
+    font-size: 0.95rem;
+}
+.exit-help-toast-title {
+    font-weight: 900;
+    color: #b91c1c;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1.08rem;
+}
+.exit-help-toast-body {
+    white-space: pre-line;
+}
+.exit-help-toast-note {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.84rem;
+    text-align: center;
+}
 .library-back-btn {
     background: #ffffff;
     color: var(--primary-dark);
@@ -2218,6 +2263,49 @@ function getVisibleLibraryCategories() {
         .filter(entry => entry.directItems.length > 0 || entry.sections.length > 0);
 }
 
+let exitHelpTimer = null;
+
+function getExitHelpMessage() {
+    if (isIOSDevice()) {
+        return "iPhoneでアプリを終了させたい場合：\n\n1. 画面下から上にスワイプして、途中で指を止めます。\n2. アプリスイッチャーが表示されたら、Reading-Aloud Trainerの画面を上にスワイプしてください。";
+    }
+
+    const ua = navigator.userAgent || "";
+    const isAndroid = /Android/i.test(ua);
+
+    if (isAndroid) {
+        return "Androidでアプリを終了させたい場合：\n\n1. 画面下の四角いボタン、または「最近使ったアプリ」ボタンを押します。\n2. アプリ一覧が表示されたら、Reading-Aloud Trainerを左右または上にスワイプしてください。\n\n※ジェスチャー操作の場合は、画面下から上にスワイプして途中で指を止めると、アプリ一覧が表示されます。";
+    }
+
+    return "アプリを終了させたい場合：\n\nブラウザまたはPWAのアプリ一覧から、Reading-Aloud Trainerの画面を閉じてください。";
+}
+
+function showExitHelp() {
+    stopAll();
+
+    let toast = document.getElementById("exitHelpToast");
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "exitHelpToast";
+        toast.className = "exit-help-toast";
+        document.body.appendChild(toast);
+    }
+
+    toast.innerHTML = `
+        <div class="exit-help-toast-title">アプリの終了方法</div>
+        <div class="exit-help-toast-body">${escapeHtml(getExitHelpMessage())}</div>
+        <div class="exit-help-toast-note">この案内はしばらくすると自動的に消えます。</div>
+    `;
+
+    toast.style.display = "block";
+
+    if (exitHelpTimer) clearTimeout(exitHelpTimer);
+    exitHelpTimer = setTimeout(() => {
+        const currentToast = document.getElementById("exitHelpToast");
+        if (currentToast) currentToast.style.display = "none";
+    }, 12000);
+}
+
 function renderLibraryChooser() {
     return `<div class="library-home clean-start">
         <div class="library-hero big-start">
@@ -2246,6 +2334,7 @@ function renderLibraryHome() {
                 <div class="library-hero-sub">クラス別URLの教材ライブラリを表示します。</div>
                 <div class="library-actions centered">
                     <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+                    <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
                 </div>
             </div>
             ${errorHtml}
@@ -2285,6 +2374,7 @@ function renderLibraryHome() {
             <div class="library-hero-sub">教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+                <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
             </div>
         </div>
         ${categoryHtml}
