@@ -2059,6 +2059,7 @@ function safeRelativeFileUrl(file) {
 }
 
 const LIBRARY_FILE_STORAGE_KEY = "rat-library-file";
+const LIBRARY_NAME_STORAGE_KEY = "rat-library-name";
 
 function getUrlLibraryName() {
     try {
@@ -2069,20 +2070,41 @@ function getUrlLibraryName() {
     }
 }
 
+function libraryFileFromName(name) {
+    const cleanName = String(name || "").trim();
+    return cleanName ? `library/${cleanName}.json` : "";
+}
+
+function rememberLibraryName(name) {
+    const cleanName = String(name || "").trim();
+    if (!cleanName) return;
+    try {
+        localStorage.setItem(LIBRARY_NAME_STORAGE_KEY, cleanName);
+        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, libraryFileFromName(cleanName));
+    } catch (e) {}
+}
+
 function getCurrentLibraryFile() {
     const urlLib = getUrlLibraryName();
-    if (urlLib) return `library/${urlLib}.json`;
-    try {
-        return localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
-    } catch (e) {
-        return "";
+    if (urlLib) {
+        rememberLibraryName(urlLib);
+        return libraryFileFromName(urlLib);
     }
+    try {
+        const storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+        if (storedFile) return storedFile;
+        const storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
+        if (storedName) return libraryFileFromName(storedName);
+    } catch (e) {}
+    return "";
 }
 
 function setCurrentLibraryFile(filePath) {
     if (!filePath) return;
     try {
         localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath);
+        const m = String(filePath).match(/^library\/(.+)\.json$/);
+        if (m) localStorage.setItem(LIBRARY_NAME_STORAGE_KEY, decodeURIComponent(m[1]));
     } catch (e) {}
 }
 
