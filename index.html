@@ -9,7 +9,23 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Reading-Aloud Trainer">
-<link rel="manifest" href="manifest.json">
+<script>
+(function () {
+    // iPhone/iPadではホーム画面追加時にmanifestのstart_urlが優先され、
+    // index.html?lib=TOEIC のようなクラス指定が落ちることがある。
+    // そのためiOSではmanifestを読ませず、現在開いているURLをそのままホーム画面追加の起点にする。
+    // Android/PCでは従来どおりmanifestを動的に追加し、PWAインストールを維持する。
+    const ua = navigator.userAgent || "";
+    const platform = navigator.platform || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (!isIOS) {
+        const manifestLink = document.createElement("link");
+        manifestLink.rel = "manifest";
+        manifestLink.href = "manifest.json";
+        document.head.appendChild(manifestLink);
+    }
+})();
+</script>
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/favicon.ico">
 <style>
