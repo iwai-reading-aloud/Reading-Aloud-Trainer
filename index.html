@@ -3414,7 +3414,14 @@ function updateSplitPause(value) {
 function updateSplitHideLines(checked) {
     splitSettings.hideLines = Boolean(checked);
     setSplitSetting("hide-lines", checked ? "1" : "0");
+
+    // 一括ON/OFFを押した時点で、個別ON/OFFの記憶とDOM上の強制表示/非表示クラスを完全に消す。
+    // これにより、一括操作と個別操作が排他的に動作する。
     splitForceVisibility = {};
+    document.querySelectorAll(".mobile-split-row").forEach(row => {
+        row.classList.remove("split-line-force-show", "split-line-force-hide");
+    });
+
     updateSplitModeClasses();
     updateAllSplitLineToggleButtons();
 }
