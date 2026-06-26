@@ -2615,6 +2615,41 @@ function loadVoices() {
 
     if (preferred) voiceSelect.value = String(voices.indexOf(preferred.voice));
 }
+function isIOSDevice() {
+    const ua = navigator.userAgent || "";
+    const platform = navigator.platform || "";
+    return /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+let samanthaWarningShown = false;
+
+function findSamanthaVoice() {
+    const currentVoices = voices.length ? voices : speechSynthesis.getVoices();
+    const samanthaVoices = currentVoices.filter(v => {
+        const name = String(v.name || "").toLowerCase();
+        const lang = String(v.lang || "").toLowerCase().replace("_", "-");
+        return name.includes("samantha") && lang.startsWith("en");
+    });
+
+    if (!samanthaVoices.length) return null;
+
+    const usSamantha = samanthaVoices.find(v =>
+        String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")
+    );
+    return usSamantha || samanthaVoices[0];
+}
+
+function showSamanthaRequiredMessage() {
+    if (samanthaWarningShown) return;
+    samanthaWarningShown = true;
+    alert(
+        "iPhoneでは英語音声「Samantha」が必要です。\n\n" +
+        "設定 → アクセシビリティ → 読み上げコンテンツ → 声 → 英語 → 英語（アメリカ）で、\n" +
+        "Samanthaをダウンロードしてください。\n\n" +
+        "Samanthaが見つからないため、音声再生を停止しました。"
+    );
+}
+
 function getSelectedVoice() {
     const idx = Number(voiceSelect.value);
     const selected = voices[idx];
@@ -2623,6 +2658,13 @@ function getSelectedVoice() {
 }
 
 function getUsEnglishVoiceOrNull() {
+    if (isIOSDevice()) {
+        const samantha = findSamanthaVoice();
+        if (samantha) return samantha;
+        showSamanthaRequiredMessage();
+        return null;
+    }
+
     const selected = getSelectedVoice();
     if (selected && String(selected.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) return selected;
     const usVoice = voices.find(v => String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us"));
@@ -2675,9 +2717,15 @@ function speakLine(index, continueMode = false, wrapAtEnd = false) {
     markCurrent(index);
     refreshClasses();
 
+    const selectedVoice = getUsEnglishVoiceOrNull();
+    if (!selectedVoice && isIOSDevice()) {
+        currentIndex = -1;
+        clearCurrent();
+        return;
+    }
+
     const utterance = new SpeechSynthesisUtterance(plainLine(lessonData[index].english));
     // Android Chromeでは音声リストに en_AU だけが返ることがあるため、読み上げ要求は必ず en-US に固定する。
-    const selectedVoice = getUsEnglishVoiceOrNull();
     if (selectedVoice) utterance.voice = selectedVoice;
     utterance.lang = "en-US";
     utterance.rate = Number(speedSlider.value);
@@ -3353,8 +3401,15 @@ function playOneSplitLine(index) {
     splitStopped = true;
     splitLoopMode = false;
 
-    const utterance = new SpeechSynthesisUtterance(text);
     const selectedVoice = getUsEnglishVoiceOrNull();
+    if (!selectedVoice && isIOSDevice()) {
+        splitStopped = true;
+        splitLoopMode = false;
+        updateSplitModeClasses();
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
     if (selectedVoice) utterance.voice = selectedVoice;
     utterance.lang = "en-US";
     utterance.rate = Number(splitSettings.speed || 0.9);
@@ -3413,8 +3468,15 @@ function speakSplitLineAt(index) {
     markCurrentSplitLine(index);
     speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(splitLines[index]);
     const selectedVoice = getUsEnglishVoiceOrNull();
+    if (!selectedVoice && isIOSDevice()) {
+        splitStopped = true;
+        splitLoopMode = false;
+        updateSplitModeClasses();
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(splitLines[index]);
     if (selectedVoice) utterance.voice = selectedVoice;
     utterance.lang = "en-US";
     utterance.rate = Number(splitSettings.speed || 0.9);
