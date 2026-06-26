@@ -1692,6 +1692,49 @@ body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en *
     padding: 1px 4px;
 }
 
+
+/* ===== Temporary always-visible PWA diagnostics v2 ===== */
+.pwa-debug-fixed-panel {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+    z-index: 99999;
+    max-height: 42dvh;
+    overflow: auto;
+    background: #fff7ed;
+    border: 2px solid #f97316;
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: #111827;
+    font-size: 12px;
+    line-height: 1.45;
+    text-align: left;
+    word-break: break-all;
+    box-shadow: 0 8px 28px rgba(15,23,42,.22);
+}
+.pwa-debug-fixed-panel-title {
+    font-weight: 900;
+    color: #9a3412;
+    margin-bottom: 4px;
+}
+.pwa-debug-fixed-panel code {
+    background: rgba(255,255,255,.8);
+    border: 1px solid #fed7aa;
+    border-radius: 5px;
+    padding: 1px 4px;
+}
+.pwa-debug-fixed-close {
+    float: right;
+    min-height: 26px;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 999px;
+    background: #9a3412;
+    color: #fff;
+}
+body { padding-top: 0; }
+
 </style>
 </head>
 <body>
@@ -3663,6 +3706,45 @@ document.addEventListener("touchend", function(e) {
         closeSplitPractice();
     }
 }, { passive: true });
+
+
+function showAlwaysVisiblePwaDebugPanel() {
+    try {
+        const existing = document.getElementById("pwaDebugFixedPanel");
+        if (existing) existing.remove();
+        let storedName = "";
+        let storedFile = "";
+        let storageError = "";
+        try {
+            storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
+            storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+        } catch (e) {
+            storageError = e && e.message ? e.message : String(e);
+        }
+        const rows = [
+            ["診断版", "2026-06-26 v2 常時表示"],
+            ["location.href", window.location.href],
+            ["location.search", window.location.search || "（なし）"],
+            ["URLのlib", getUrlLibraryName() || "（なし）"],
+            ["localStorage名", storedName || "（なし）"],
+            ["localStorageファイル", storedFile || "（なし）"],
+            ["getCurrentLibraryFile", getCurrentLibraryFile() || "（なし）"],
+            ["standalone", window.navigator.standalone === true ? "true" : "false"],
+            ["display-mode standalone", window.matchMedia && window.matchMedia("(display-mode: standalone)").matches ? "true" : "false"],
+            ["storage error", storageError || "（なし）"]
+        ];
+        const panel = document.createElement("div");
+        panel.id = "pwaDebugFixedPanel";
+        panel.className = "pwa-debug-fixed-panel";
+        panel.innerHTML = '<button class="pwa-debug-fixed-close" onclick="document.getElementById(\'pwaDebugFixedPanel\').remove()">閉じる</button>' +
+            '<div class="pwa-debug-fixed-panel-title">PWAライブラリ診断 v2</div>' +
+            rows.map(([k, v]) => '<div><strong>' + escapeHtml(k) + '：</strong><code>' + escapeHtml(v) + '</code></div>').join("");
+        document.body.appendChild(panel);
+    } catch (e) {
+        alert("PWA診断表示エラー: " + (e && e.message ? e.message : String(e)));
+    }
+}
+setTimeout(showAlwaysVisiblePwaDebugPanel, 700);
 
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
