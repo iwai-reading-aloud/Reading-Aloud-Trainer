@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <title>Reading-Aloud Trainer 学生版 スマホプロトタイプ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Reading-Aloud Trainer">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/favicon.ico">
 <style>
     :root {
         --primary: #2563eb;
@@ -2063,7 +2071,7 @@ function getUrlLibraryName() {
 
 function getCurrentLibraryFile() {
     const urlLib = getUrlLibraryName();
-    if (urlLib) return `libraries/${urlLib}.json`;
+    if (urlLib) return `library/${urlLib}.json`;
     try {
         return localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
     } catch (e) {
@@ -2073,7 +2081,6 @@ function getCurrentLibraryFile() {
 
 function setCurrentLibraryFile(filePath) {
     if (!filePath) return;
-    if (getUrlLibraryName()) return;
     try {
         localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath);
     } catch (e) {}
@@ -3587,6 +3594,15 @@ try {
 } catch (e) {
     updateDisplay();
 }
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {
+            // Service Worker登録に失敗しても、通常のWebアプリとして動作します。
+        });
+    });
+}
+
 </script>
 </body>
 </html>
