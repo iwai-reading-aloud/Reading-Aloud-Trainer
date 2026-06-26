@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Reading-Aloud Trainer 学生版 スマホプロトタイプ</title>
+<title>Reading-Aloud Trainer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Reading-Aloud Trainer">
+<meta name="application-name" content="Reading-Aloud Trainer">
 <script>
 (function () {
     // iPhone/iPadではホーム画面追加時にmanifestのstart_urlが優先され、
@@ -2524,11 +2525,9 @@ function renderLibraryHome() {
         }).join("")
         : `<div class="library-empty">現在表示できる教材がありません。</div>`;
 
-    const libraryTitle = libraryData && libraryData.name ? String(libraryData.name) : "教材ライブラリ";
-
     return `<div class="library-home has-library">
         <div class="library-hero">
-            <div class="library-hero-title">${escapeHtml(libraryTitle)}</div>
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
             <div class="library-hero-sub">教材カテゴリを選び、教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
