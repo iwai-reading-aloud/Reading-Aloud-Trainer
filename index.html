@@ -1726,6 +1726,143 @@ body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en *
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* ===== Tap/hover color cleanup: gray feedback only for sentence navigation ===== */
+:root {
+    --tap-gray: #d1d5db;
+    --tap-gray-dark: #c4c8cf;
+    --tap-gray-border: #9ca3af;
+}
+
+button,
+button * {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+button:focus-visible {
+    outline: none;
+}
+
+.mobile-nav-btn:hover,
+.mobile-nav-btn:focus,
+.mobile-nav-btn:focus-visible,
+.mobile-jump-btn:hover,
+.mobile-jump-btn:focus,
+.mobile-jump-btn:focus-visible,
+.mobile-split-jump-btn:hover,
+.mobile-split-jump-btn:focus,
+.mobile-split-jump-btn:focus-visible,
+.sentence-sheet-close:hover,
+.sentence-sheet-close:focus,
+.sentence-sheet-close:focus-visible {
+    background: var(--tap-gray) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+}
+
+.mobile-nav-btn:active,
+.mobile-jump-btn:active,
+.mobile-split-jump-btn:active,
+.sentence-sheet-close:active {
+    background: var(--tap-gray-dark) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.sentence-sheet-item:hover,
+.sentence-sheet-item:focus,
+.sentence-sheet-item:focus-visible,
+.main-jump-item:hover,
+.main-jump-item:focus,
+.main-jump-item:focus-visible {
+    background: var(--tap-gray) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.sentence-sheet-item:active,
+.main-jump-item:active {
+    background: var(--tap-gray-dark) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.mobile-nav-btn.clicked-feedback,
+.mobile-jump-btn.clicked-feedback,
+.mobile-split-jump-btn.clicked-feedback,
+.sentence-sheet-item.clicked-feedback,
+.main-jump-item.clicked-feedback,
+.sentence-sheet-close.clicked-feedback {
+    background: var(--tap-gray-dark) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.sentence-sheet-item.current {
+    border-color: var(--border) !important;
+    background: #f3f4f6 !important;
+}
+
+.mobile-nav-btn.end-reached:hover,
+.mobile-nav-btn.end-reached:focus,
+.mobile-nav-btn.end-reached:focus-visible,
+.mobile-nav-btn.end-reached:active {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .mobile-nav-btn:hover,
+    .mobile-nav-btn:focus,
+    .mobile-nav-btn:focus-visible,
+    .mobile-jump-btn:hover,
+    .mobile-jump-btn:focus,
+    .mobile-jump-btn:focus-visible,
+    .mobile-split-jump-btn:hover,
+    .mobile-split-jump-btn:focus,
+    .mobile-split-jump-btn:focus-visible {
+        background: var(--soft) !important;
+        color: var(--text) !important;
+        border-color: var(--border) !important;
+    }
+
+    .mobile-jump-btn:hover,
+    .mobile-jump-btn:focus,
+    .mobile-jump-btn:focus-visible,
+    .mobile-split-jump-btn:hover,
+    .mobile-split-jump-btn:focus,
+    .mobile-split-jump-btn:focus-visible {
+        background: #ffffff !important;
+    }
+
+    .sentence-sheet-item:hover,
+    .sentence-sheet-item:focus,
+    .sentence-sheet-item:focus-visible {
+        background: #ffffff !important;
+        color: var(--text) !important;
+        border-color: var(--border) !important;
+    }
+
+    .mobile-nav-btn.clicked-feedback,
+    .mobile-jump-btn.clicked-feedback,
+    .mobile-split-jump-btn.clicked-feedback,
+    .sentence-sheet-item.clicked-feedback,
+    .sentence-sheet-close.clicked-feedback {
+        background: var(--tap-gray-dark) !important;
+        color: var(--text) !important;
+        border-color: var(--tap-gray-border) !important;
+    }
+
+    .mobile-nav-btn.end-reached:hover,
+    .mobile-nav-btn.end-reached:focus,
+    .mobile-nav-btn.end-reached:focus-visible,
+    .mobile-nav-btn.end-reached.clicked-feedback {
+        background: #111111 !important;
+        color: #ffffff !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -3677,14 +3814,40 @@ function toggleSplitLineVisibility(index) {
     updateSplitLineToggleButton(index);
 }
 
+function releaseButtonVisualState(btn) {
+    if (!btn || typeof btn.blur !== "function") return;
+    // iPhone Safari/PWAではタップ後に :hover/:focus が残ることがあるため、
+    // 操作直後にフォーカスを外して、変色が継続しないようにする。
+    setTimeout(() => {
+        try { btn.blur(); } catch (e) {}
+        if (document.activeElement && document.activeElement !== document.body && document.activeElement.blur) {
+            try { document.activeElement.blur(); } catch (e) {}
+        }
+    }, 0);
+}
+
+document.addEventListener("pointerup", (e) => {
+    const btn = e.target.closest && e.target.closest("button");
+    if (btn) releaseButtonVisualState(btn);
+}, true);
+
+document.addEventListener("touchend", (e) => {
+    const btn = e.target.closest && e.target.closest("button");
+    if (btn) releaseButtonVisualState(btn);
+}, true);
+
 document.addEventListener("click", (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
+    releaseButtonVisualState(btn);
     if (btn.classList.contains("loop-on") || btn.classList.contains("loop-active")) return;
     btn.classList.remove("clicked-feedback");
     void btn.offsetWidth;
     btn.classList.add("clicked-feedback");
-    setTimeout(() => btn.classList.remove("clicked-feedback"), 240);
+    setTimeout(() => {
+        btn.classList.remove("clicked-feedback");
+        releaseButtonVisualState(btn);
+    }, 240);
 });
 
 speedSlider.addEventListener("input", e => {
