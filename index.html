@@ -1885,30 +1885,11 @@ button:focus-visible {
 
 
 
-<style id="buildTimestampPanelStyle">
-#buildTimestampPanel {
-    position: fixed;
-    top: 8px;
-    right: 8px;
-    z-index: 999999;
-    background: #111827;
-    color: #ffffff;
-    border: 2px solid #f59e0b;
-    border-radius: 10px;
-    padding: 7px 10px;
-    font-size: 12px;
-    font-weight: 900;
-    line-height: 1.3;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    pointer-events: none;
-}
-</style>
 
 </head>
 <body>
 
 
-<div id="buildTimestampPanel">これは3回目</div>
 <input type="file" id="lesson-file-input" accept=".json,application/json" style="display:none;">
 <div id="mainFloatTooltip" class="main-float-tooltip"></div>
 
@@ -2313,12 +2294,13 @@ function getUrlLibraryName() {
 function normalizeLibraryName(name) {
     const cleanName = String(name || "").trim();
 
+    if (cleanName === "\u5168\u30af\u30e9\u30b9" || cleanName === "ALL") return "";
+
     // 旧名称で端末に記憶されている場合でも、新しいライブラリへ誘導する。
     const aliases = {
         "2年生": "英語3T・4T",
         "TOEIC": "TOEIC 1・2",
         "時事英語": "外国語演習Ⅰ",
-        "ALL": "全クラス"
     };
 
     if (Object.prototype.hasOwnProperty.call(aliases, cleanName)) {
@@ -2345,12 +2327,14 @@ function rememberLibraryName(name) {
 function getCurrentLibraryFile() {
     const urlLib = getUrlLibraryName();
     if (urlLib) {
-        rememberLibraryName(urlLib);
-        return libraryFileFromName(urlLib);
+        const normalizedUrlLib = normalizeLibraryName(urlLib);
+        if (!normalizedUrlLib) return "";
+        rememberLibraryName(normalizedUrlLib);
+        return libraryFileFromName(normalizedUrlLib);
     }
     try {
         const storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
-        if (storedFile) return storedFile;
+        if (storedFile && !/\/\u5168\u30af\u30e9\u30b9\.json$/.test(storedFile)) return storedFile;
         const storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
         if (storedName) return libraryFileFromName(storedName);
     } catch (e) {}
@@ -2761,7 +2745,7 @@ function renderLibraryChooser() {
         <div class="library-hero big-start">
             <div class="library-hero-title">Reading-Aloud Trainer</div>
             <div class="library-hero-sub">クラス別URLで教材ライブラリを開きます。</div>
-            <div class="library-note">例：index.html?lib=英語3T・4T / index.html?lib=TOEIC1-2 / index.html?lib=外国語演習I / index.html?lib=カルチャー英語1-2 / index.html?lib=全クラス</div>
+            <div class="library-note">例：index.html?lib=英語3T・4T / index.html?lib=TOEIC1-2 / index.html?lib=外国語演習I / index.html?lib=カルチャー英語1-2</div>
             <div class="library-actions centered">
                 ${libraryData ? `<button class="secondary action-flash" onclick="closeLibraryChooser()">戻る</button>` : ""}
             </div>
