@@ -2376,7 +2376,7 @@ async function loadLibraryFromServer(showAlert = false, filePath = null) {
         if (!data || !Array.isArray(data.categories)) {
             throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
         }
-        await expandLinkedLibraries(data);
+        await expandLinkedLibraries(data, new Set(), libraryFile);
         libraryData = data;
         showingLibraryChooser = false;
         setCurrentLibraryFile(libraryFile);
@@ -2473,11 +2473,29 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
     else if (Array.isArray(node.sections)) node.sections = node.sections.concat(categories);
 }
 
-async function expandLinkedLibraries(node, seen = new Set()) {
+function resolveLibraryFilePath(linkedFile, baseFile = "") {
+    const raw = String(linkedFile || "").trim();
+    if (!raw) return "";
+    if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("/")) return raw;
+
+    // すでに library/ から始まる旧形式は、そのままアプリルート基準で読む。
+    if (raw.startsWith("library/")) return raw;
+
+    // 全クラス.jsonのようなライブラリファイルから見た相対パスを解決する。
+    // 例: baseFile = library/全クラス.json, linkedFile = 英語3T・4T.json
+    //     => library/英語3T・4T.json
+    const base = String(baseFile || "").split("?")[0];
+    const slashIndex = base.lastIndexOf("/");
+    const baseDir = slashIndex >= 0 ? base.slice(0, slashIndex + 1) : "";
+    return baseDir + raw;
+}
+
+async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
     if (!node || typeof node !== "object") return;
 
-    const linkedFile = getLinkedLibraryFile(node);
-    if (linkedFile) {
+    const linkedFileRaw = getLinkedLibraryFile(node);
+    if (linkedFileRaw) {
+        const linkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
         const key = String(linkedFile);
         if (!seen.has(key)) {
             seen.add(key);
@@ -2488,7 +2506,7 @@ async function expandLinkedLibraries(node, seen = new Set()) {
                 if (!linkedData || !Array.isArray(linkedData.categories)) {
                     throw new Error(`${linkedFile}の形式が不正です。categories配列が必要です。`);
                 }
-                await expandLinkedLibraries(linkedData, seen);
+                await expandLinkedLibraries(linkedData, seen, linkedFile);
                 mergeLinkedLibraryIntoNode(node, linkedData);
             } catch (e) {
                 node._libraryLoadError = e && e.message ? e.message : String(e);
@@ -2508,7 +2526,7 @@ async function expandLinkedLibraries(node, seen = new Set()) {
     const folderChildren = getLibraryChildFolders(node);
     const children = categoryChildren.concat(folderChildren);
     for (const child of children) {
-        await expandLinkedLibraries(child, seen);
+        await expandLinkedLibraries(child, seen, baseFile);
     }
 }
 
