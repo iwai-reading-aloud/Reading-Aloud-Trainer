@@ -2550,7 +2550,7 @@ function renderLibraryHome() {
     const categoryHtml = visibleCategories.length
         ? visibleCategories.map(({ cat, ci, directItems, sections }) => {
             const hasSections = sections.length > 0;
-            const shouldTreatDirectItemsAsFolder = !hasSections && directItems.length > 0 && libraryDisplayName && cat.name && cat.name !== libraryDisplayName;
+            const shouldTreatDirectItemsAsFolder = !hasSections && libraryDisplayName && cat.name && cat.name !== libraryDisplayName;
             const categoryTitle = shouldTreatDirectItemsAsFolder ? libraryDisplayName : (cat.name || libraryDisplayName || "未分類");
 
             const directHtml = (!shouldTreatDirectItemsAsFolder ? directItems : []).map(item => {
@@ -2559,10 +2559,12 @@ function renderLibraryHome() {
             }).join("");
 
             const directFolderHtml = shouldTreatDirectItemsAsFolder ? (() => {
-                const itemsHtml = directItems.map(item => {
-                    const originalIndex = Array.isArray(cat.items) ? cat.items.indexOf(item) : -1;
-                    return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, null, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
-                }).join("");
+                const itemsHtml = directItems.length
+                    ? directItems.map(item => {
+                        const originalIndex = Array.isArray(cat.items) ? cat.items.indexOf(item) : -1;
+                        return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, null, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+                    }).join("")
+                    : `<div class="library-empty">現在、教材はありません。</div>`;
                 const folderId = `lib-folder-${ci}-direct`;
                 return `<div class="library-subcategory">
                     <button type="button" class="library-folder-btn action-flash" onclick="toggleLibraryFolder('${folderId}', this)">${escapeHtml(cat.name || "未分類")}</button>
