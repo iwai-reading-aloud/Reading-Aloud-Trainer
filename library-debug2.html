@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>Library Debug</title></head><body>
+<h2>Library Debug</h2><div id="out">Loading...</div>
+<script>
+const libs=["library/全クラス.json","library/英語3T・4T.json","library/TOEIC 1・2.json","library/外国語演習Ⅰ.json","library/カルチャー英語1・2.json"];
+const out=document.getElementById("out");
+function walk(n,p,a){if(n.name)a.push(p+n.name);(n.categories||[]).forEach(x=>walk(x,p+n.name+"/",a));(n.sections||[]).forEach(x=>walk(x,p+n.name+"/",a));(n.items||[]).forEach(i=>a.push(p+n.name+"/"+i.title));}
+(async()=>{let s="";for(const f of libs){try{const r=await fetch(f+"?t="+Date.now());s+="<h3>"+f+"</h3>";if(!r.ok){s+="HTTP "+r.status;continue;}const j=await r.json();let a=[];(j.categories||[]).forEach(c=>walk(c,"",a));s+="<pre>"+a.join("\n")+"</pre>";}catch(e){s+="<pre>"+e+"</pre>";}}out.innerHTML=s;})();
+</script></body></html>
