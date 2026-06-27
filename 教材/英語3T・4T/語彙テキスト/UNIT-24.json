@@ -1,0 +1,152 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-06T16:56:03.285Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEIC TEST 単語　頻度順徹底マスター",
+    "section": "UNIT-24"
+  },
+  "data": [
+    {
+      "english": "The f^ood cr^itic was impr^essed with the r^estaurant’s cuis^ine.",
+      "vocab": "・food critic「料理批評家」\n・be impressed with「～に感銘を受ける」\n・restaurant「レストラン」\n・cuisine「料理」 /ｸィｽﾞ^ィｰﾇ/",
+      "jp": "その料理批評家はそのレストランの料理に感銘を受けた。",
+      "split": "The food critic\nwas impressed\nwith the restaurant’s cuisine.",
+      "splitJp": "その料理批評家は\n感銘を受けた\nそのレストランの料理に"
+    },
+    {
+      "english": "W^e’ve been prod^ucing v^ehicles with attr^active des^igns for d^ecades.",
+      "vocab": "・produce「製造する」\n・vehicle「車」\n・attractive「人の目を引き付ける」\n・design「デザイン」\n・for decades「数十年間」",
+      "jp": "当社は人の目を引き付けるデザインの車を数十年間製造してきた。",
+      "split": "We’ve been producing vehicles\nwith attractive designs\nfor decades.",
+      "splitJp": "当社は車を製造してきた\n人の目を引き付けるデザインの\n数十年間"
+    },
+    {
+      "english": "L^aura’s id^eal vac^ation destin^ation is Haw^aii.",
+      "vocab": "・ideal「理想の」\n・vacation「休暇」\n・destination「行き先」\n・Hawaii「ハワイ」",
+      "jp": "ローラの理想の休暇の行き先はハワイだ。",
+      "split": "Laura’s ideal\nvacation destination\nis Hawaii.",
+      "splitJp": "ローラの理想の\n暇の行き先は\nハワイだ"
+    },
+    {
+      "english": "As f^ounder of the f^irm, he has ^always tr^ied to dev^elop comp^etitive pr^oducts.",
+      "vocab": "・founder「創設者」\n・firm「会社」\n・try to《不定詞》「《不定詞》しようとする」\n・develop「開発する」\n・competitive「他社に負けない」\n・product「製品」",
+      "jp": "その会社の創設者として、彼は常に他社に負けない製品を開発しようとしてきた。",
+      "split": "As founder\nof the firm,\nhe has always tried\nto develop\ncompetitive products.",
+      "splitJp": "創設者として\nその会社の\n彼は常にしようとしてきた\n開発することを\n他社に負けない製品を"
+    },
+    {
+      "english": "The employ^ees’ resp^onses to the f^ood prep^ared by the c^aterer were p^ositive.",
+      "vocab": "・employee「従業員」\n・response「反応」◆response to ～「～への反応」\n・food「料理」\n・prepare「準備する」◆ここでは過去分詞形で後からfoodを修飾して「準備された料理」となる。\n・caterer「ケータリング業者」\n・positive「好意的な」",
+      "jp": "そのケータリング業者が準備した料理への従業員たちの反応は好意的だった。",
+      "split": "The employees’ responses\nto the food\nprepared by the caterer\nwere positive.",
+      "splitJp": "従業員たちの反応は\nその料理への\nそのケータリング業者が準備した\n好意的だった"
+    },
+    {
+      "english": "^Emily expr^essed appreci^ation to the attend^ees of the f^und-r^aising ev^ent.",
+      "vocab": "・Emily「エミリー」◆女性名\n・express「表現する」\n・appreciation「感謝」\n・attendee「出席者」\n・fund-raising event「資金集めのイベント」",
+      "jp": "エミリーは資金集めのイベントの出席者に感謝を表現した。",
+      "split": "Emily expressed\nappreciation\nto the attendees\nof the fund-raising event.",
+      "splitJp": "エミリーは表現した\n感謝を\n出席者に\n資金集めのイベントの"
+    },
+    {
+      "english": "The adm^inistrative d^uties that J^im had taken ^over were ch^allenging.",
+      "vocab": "・administrative「管理の」\n・duty「職務」\n・Jim「ジム」◆男性名James「ジェイムズ」の愛称。\n・take over「引き継ぐ」\n・challenging「大変だがやりがいがある」",
+      "jp": "ジムが引き継いだ管理職務は大変だがやりがいがあった。",
+      "split": "The administrative duties\nthat Jim had taken over\nwere challenging.",
+      "splitJp": "その管理職務は\nジムが引き継いだ\n大変だがやりがいがあった"
+    },
+    {
+      "english": "M^ike del^ayed the t^ime of dep^arture d^ue to his d^ental app^ointment.",
+      "vocab": "・Mike「マイク」◆男性名Michael「マイケル」の愛称。\n・delay「～を遅らせる」\n・time of departure「出発時間」\n・due to「～のために」\n・dental appointment「歯科の予約」",
+      "jp": "マイクは歯科の予約のために出発時間を遅らせた。",
+      "split": "Mike delayed\nthe time of departure\ndue to\nhis dental appointment.",
+      "splitJp": "マイクは遅らせた\n出発時間を\nために\n彼の歯科の予約（の）"
+    },
+    {
+      "english": "The h^ome renov^ation c^ontractor ^uses d^urable b^uilding mat^erials.",
+      "vocab": "・home renovation「家屋リフォーム」\n・contractor「工事請負業者」\n・durable「耐久性のある」\n・building material「建材」",
+      "jp": "その家屋リフォーム工事請負業者は耐久性のある建材を使っている。",
+      "split": "The home renovation contractor\nuses\ndurable building materials.",
+      "splitJp": "その家屋リフォーム工事請負業者は\n使っている\n耐久性のある建材を"
+    },
+    {
+      "english": "The c^ompany is l^ooking for s^enior t^echnical personn^el.",
+      "vocab": "・look for「～を探す」\n・senior「上級の」\n・technical「技術の」\n・personnel「スタッフ」",
+      "jp": "その会社は上級技術スタッフを探している。",
+      "split": "The company\nis looking\nfor senior technical personnel.",
+      "splitJp": "その会社は\n探している\n上級技術スタッフを"
+    },
+    {
+      "english": "F^acing str^ong compet^ition, the c^ompany dec^ided to ^offer red^uced pr^ices.",
+      "vocab": "・face「～に直面する」\n・strong competition「激しい競争」\n・decide to《不定詞》「《不定詞》することを決める」\n・offer「提供する」\n・reduced price「割引料金」",
+      "jp": "激しい競争に直面して、その会社は割引料金を提供することを決めた。",
+      "split": "Facing strong competition,\nthe company decided\nto offer reduced prices.",
+      "splitJp": "激しい競争に直面して、\nその会社は決めた\n割引料金を提供することを"
+    },
+    {
+      "english": "Your b^illing st^atement can be v^iewed on our w^ebsite.",
+      "vocab": "・billing statement「請求明細書」\n・view「～を見る」◆ここでは、can be viewed「見ることができる」\n・website「ウェブサイト」",
+      "jp": "お客さまの請求明細書は当社のウェブサイトでご覧いただけます。",
+      "split": "Your billing statement\ncan be viewed\non our website.",
+      "splitJp": "お客さまの請求明細書は\nご覧いただけます\n当社のウェブサイトで"
+    },
+    {
+      "english": "The c^ity is ^eager to attr^act t^ourists to its hist^oric d^istrict.",
+      "vocab": "・be eager to《不定詞》「《不定詞》することに熱心だ」\n・attract「～を呼び込む」◆attract《人》to ～「《人》を～に呼び込む」\n・tourist「観光客」\n・historic district「史跡地区」",
+      "jp": "その市は観光客を市の史跡地区に呼び込むことに熱心だ。",
+      "split": "The city is eager\nto attract tourists\nto its historic district.",
+      "splitJp": "その市は熱心だ\n観光客を呼び込むことに\n市の史跡地区に"
+    },
+    {
+      "english": "The prosp^ective m^ayor m^ade a comm^itment to reb^uild the c^ity.",
+      "vocab": "・prospective「候補の」◆「見込みのある」という訳語もある。\n・mayor「市長」\n・make a commitment「約束をする」\n・rebuild「再建する」",
+      "jp": "その市長候補は市を再建する約束をした。",
+      "split": "The prospective mayor\nmade a commitment\nto rebuild the city",
+      "splitJp": "その市長候補は\n約束をした\n市を再建することを"
+    },
+    {
+      "english": "The t^enant s^igned an ext^ended c^ontract with the ^owner.",
+      "vocab": "・tenant「賃借人」\n・sign「～に署名する」\n・extended contract「延長契約書」\n・owner「所有者」",
+      "jp": "その賃借人は所有者との延長契約書に署名をした。",
+      "split": "The tenant signed\nan extended contract\nwith the owner.",
+      "splitJp": "その賃借人は署名をした\n延長契約書に\n所有者との"
+    },
+    {
+      "english": "The c^ompany sp^okesperson s^aid that its w^ebsite was sec^ure from any p^ossible c^yber-att^acks.",
+      "vocab": "・company spokesperson「会社の広報担当者」\n・website「ウェブサイト」\n・be secure「安全である」◆be secure from ～「～から安全である」\n・possible「起こりうる」\n・cyber-attack「サイバー攻撃」",
+      "jp": "その会社の広報担当者は当社のウェブサイトは起こりうるいかなるサイバー攻撃からも安全だと言った。",
+      "split": "The company spokesperson said\nthat\nits website was secure\nfrom any possible\ncyber-attacks.",
+      "splitJp": "その会社の広報担当者は言った\nということを\nその（当社の）ウェブサイトは安全だ\n起こりうるいかなる\nサイバー攻撃（からも）"
+    },
+    {
+      "english": "J^ames’ in^itial resp^onse to the g^uest’s ^inquiry was j^udged to be appr^opriate.",
+      "vocab": "・James「ジェイムズ」◆男性名\n・initial response「初動対応」◆initial「最初の」◆response「対応」\n・guest「宿泊客」\n・inquiry「問い合わせ」 /^インクォリィ/\n・be judged to be ～「～だと評価される」\n・appropriate「適切な」",
+      "jp": "宿泊客からの問い合わせへのジェイムズの初動対応は適切だと評価された。",
+      "split": "James’ initial response\nto the guest’s inquiry\nwas judged\nto be appropriate",
+      "splitJp": "ジェイムズの初動対応は\n宿泊客からの問い合わせへの\n評価された\n適切だと"
+    },
+    {
+      "english": "^Anne was c^onfident that she had dev^eloped an eff^ective n^ew medic^ation.",
+      "vocab": "・Anne「アン」◆女性名\n・be confident that【節】「【節】という自信がある」\n・develop「～を開発する」\n・effective「効果的な」\n・medication「薬剤」",
+      "jp": "アンは効果的な新しい薬剤開発をしたという自信があった。",
+      "split": "Anne was confident\nthat\nshe had developed\nan effective new medication.",
+      "splitJp": "アンは自信があった\nという\n彼女は開発した\n効果的な新しい薬剤を"
+    },
+    {
+      "english": "Ky^oto is a s^uitable v^enue for an intern^ational c^onference.",
+      "vocab": "・Kyoto「京都」 /ｷ^ﾖﾄｳ/\n・suitable「ふさわしい」\n・venue「開催場所」\n・international conference「国際会議」",
+      "jp": "京都は国際会議にふさわしい開催場所だ。",
+      "split": "Kyoto is\na suitable venue\nfor an international conference.",
+      "splitJp": "京都は\nふさわしい開催場所（だ）\n国際会議に"
+    },
+    {
+      "english": "The m^arketing ex^ecutive prop^osed l^aunching a n^ew h^igh-qu^ality f^ood br^and.",
+      "vocab": "・marketing executive「市場戦略担当の重役」\n・propose「～を提案する」\n・launch「立ち上げる」\n・high-quality「高級な」\n・food brand「食品ブランド」",
+      "jp": "市場戦略担当の重役は新しい高級食品ブランドを立ち上げることを提案した。",
+      "split": "The marketing executive\nproposed\nlaunching\na new high-quality\nfood brand.",
+      "splitJp": "市場戦略担当の重役は\n提案した\n立ち上げることを\n新しい高級な\n食品ブランドを"
+    }
+  ]
+}

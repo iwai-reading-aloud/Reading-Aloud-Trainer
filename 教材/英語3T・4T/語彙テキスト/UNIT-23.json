@@ -1,0 +1,152 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-06T16:42:58.801Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEIC TEST 単語　頻度順徹底マスター",
+    "section": "UNIT-23"
+  },
+  "data": [
+    {
+      "english": "Our s^upermarket prov^ides a w^ide sel^ection of qu^ality f^ood.",
+      "vocab": "・supermarket「スーパーマーケット」\n・provide「～を提供する」\n・a wide selection of ～「幅広い品揃えの～」◆selection「品揃え」「選択」という訳もあり。\n・quality「良質の」◆ここでは形容詞。名詞なら「品質」\n・food「食品」",
+      "jp": "わたくしどものスーパーマーケットは良質の食品を幅広い品揃えで提供しております。",
+      "split": "Our supermarket\nprovides\na wide selection\nof quality food.",
+      "splitJp": "私たちのスーパーマーケットは\n提供している\n幅広い品揃えを\n良質の食品の"
+    },
+    {
+      "english": "N^ancy was impr^essed with the ch^ildren’s m^usical perf^ormance.",
+      "vocab": "・Nancy「ナンシー」◆女性名\n・be impressed with ～「～に感銘を受ける」\n・musical performance「音楽パフォーマンス」◆「音楽演奏」と訳してもよい。",
+      "jp": "ナンシーは子どもたちの音楽パフォーマンスに感銘を受けた。",
+      "split": "Nancy was impressed\nwith the children’s\nmusical performance.",
+      "splitJp": "ナンシーは感銘を受けた\n子供たちの→\n音楽演奏（に）"
+    },
+    {
+      "english": "We n^eed to f^ind a s^uitable repl^acement for our pr^evious s^erver.",
+      "vocab": "・need to《不定詞》「《不定詞》する必要がある」\n・suitable「適切な」\n・replacement「代わりの人」◆replacement for ～「～の代わりの人」\n・previous「前の」\n・server「給仕係」",
+      "jp": "われわれは前の給仕係の適切な代わりの人を見つける必要がある。",
+      "split": "We need to find\na suitable replacement\nfor our previous server.",
+      "splitJp": "私たちは見つける必要がある\n適切な代わりの人を\n前の給仕係の"
+    },
+    {
+      "english": "G^eorge f^inished a dr^aft of his sp^eech for the f^und-r^aising ev^ent.",
+      "vocab": "・George「ジョージ」◆男性名\n・finish「（文書などを）書き終える」\n・draft「下書き」\n・speech「スピーチ」\n・fund-raising event「資金集めのイベント」◆fund「資金」◆fund-raising「資金集め」",
+      "jp": "ジョージは資金集めのイベントで行うスピーチの下書きを終えた。",
+      "split": "George finished\na draft\nof his speech\nfor the fund-raising event.",
+      "splitJp": "ジョージは書き終えた\n下書きを\n彼のスピーチの\n資金集めのイベントのための"
+    },
+    {
+      "english": "The fin^ancial st^atus of the d^ental cl^inic is impr^oving.",
+      "vocab": "・financial「財政の」 /ﾌｧｲ^ﾅﾝｼｬﾙ/\n・status「状況」 /ｽ^ﾀﾀｽ/\n・dental clinic「歯科医院」\n・improve「良くなる」",
+      "jp": "その歯科医院の財政状況は良くなってきている。",
+      "split": "The financial status「財政状況は」\nof the dental clinic「その歯科医院の」\nis improving.「良くなってきている」\n\n【音読】\nThe financial status\nof the dental clinic\nis improving.",
+      "splitJp": ""
+    },
+    {
+      "english": "M^ary was prom^oted to a s^enior r^ole in the div^ision.",
+      "vocab": "・Mary「メアリー」◆女性名\n・be promoted to《役職》「《役職》に昇進する」\n・senior role「上位の役職」\n・division「部門」◆一般にはdepartment「部署」の上位の組織単位。",
+      "jp": "メアリーはその部門で上位の役職に昇進した。",
+      "split": "Mary was promoted\nto a senior role\nin the division.",
+      "splitJp": "メアリーは昇進した\n上位の役職に\nその部門で"
+    },
+    {
+      "english": "The d^urable f^abric bec^ame v^ery p^opular and b^oosted the c^ompany’s r^evenues.",
+      "vocab": "・durable「耐久性のある」\n・fabric「布地」\n・become (very) popular「（大変）人気になる」\n・boost「～を押し上げる」\n・revenues「収益」◆会社の収益の場合は複数形で単数扱い。",
+      "jp": "その耐久性のある布地が大変人気になり、その会社の収益を押し上げた。",
+      "split": "The durable fabric\nbecame very popular\nand\nboosted\nthe company’s revenues.",
+      "splitJp": "その耐久性のある布地は\n大変人気になった\nそして\n押し上げた\nその会社の収益を"
+    },
+    {
+      "english": "The electr^icity c^ompany ^offers comp^etitive s^alaries and b^enefits.",
+      "vocab": "・electricity company「電力会社」\n・offer「～を提供する」\n・competitive「他に負けない」◆「競争力のある」と訳すこともある。\n・salaries < salary「給与」\n・benefits「手当」◆複数形が多い。会社が提供する「手当」は、例えば、交通費手当、住宅手当、家族手当、退職金などの金銭や、健康保険、有給休暇、育児休暇、社員割引などの制度を指す。",
+      "jp": "その電力会社は他に負けない給与と手当を提供している。",
+      "split": "The electricity company\noffers\ncompetitive salaries\nand benefits.",
+      "splitJp": "その電力会社は\n提供している\n他に負けない給与を\nそして（他に負けない）手当を"
+    },
+    {
+      "english": "The id^eal v^enue for the perf^ormance is a b^ig st^adium.",
+      "vocab": "・ideal「理想的な」\n・venue「開催場所」\n・performance「演奏・演技」「（会社の）業績」「（会社での個人の）仕事ぶり」など。この例文では「コンサート（での演奏）」と訳してある。\n・stadium「スタジアム」/ｽ^ﾃｲﾃﾞｨｱﾑ/",
+      "jp": "そのコンサートの理想的な開催場所は大きなスタジアムです。",
+      "split": "The ideal venue\nfor the performance\nis a big stadium.",
+      "splitJp": "理想的な開催場所は\nそのコンサート（演奏）の\n大きなスタジアムだ"
+    },
+    {
+      "english": "The pr^ice of the c^ompany’s ^auto ins^urance is attr^active.",
+      "vocab": "・price「価格」\n・auto insurance「自動車保険」◆insurance /ｲﾝ^ｼｭｱﾗﾝｽ/\n・attractive「魅力的な」",
+      "jp": "その会社の自動車保険の価格は魅力的だ。",
+      "split": "The price\nof the company’s\nauto insurance\nis attractive.",
+      "splitJp": "価格は\nその会社の→\n自動車保険（の）\n魅力的だ"
+    },
+    {
+      "english": "Id^entifying the s^ource of the inform^ation is a ch^allenging t^ask.",
+      "vocab": "・identify「～を特定する」◆identify《X》「《X》を特定する」という場合、《X》は情報源・原因・問題・人・場所など。\n・source「出どころ」◆source of information「情報の出どころ」\n・challenging「大変だがやりがいがある」\n・task「任務」◆taskは「仕事」と訳されることもあるが、やるべき具体的な「任務」を意味する。他の「仕事」と訳される言葉が含んでいる意味は、job「職業」、work「作業全般」、assignment「割り当てられた任務」（taskに近いが「割り当て」という面が強調される）。",
+      "jp": "情報の出どころを特定することは大変だがやりがいのある任務だ。",
+      "split": "Identifying\nthe source\nof the information\nis a challenging task.",
+      "splitJp": "特定することは\n出どころを\nその情報の\n大変だがやりがいのある任務だ"
+    },
+    {
+      "english": "T^om was c^onfident that the pr^oject would g^et appr^oval.",
+      "vocab": "・Tom「トム」◆男性名Thomasの愛称。\n・be confident that《節》「《節》に自信がある」\n・project「プロジェクト」\n・get approval「承認を得る」",
+      "jp": "トムはそのプロジェクトが承認を得ることに自信があった。",
+      "split": "Tom was confident\nthat\nthe project\nwould get approval.",
+      "splitJp": "トムは自信があった\nということに\nそのプロジェクトは\n承認を得るだろう"
+    },
+    {
+      "english": "^Jane was ^eager to coll^ect d^ata to h^elp with the m^arket an^alysis.",
+      "vocab": "・Jane「ジェイン」◆女性名\n・be eager to《不定詞》「《不定詞》するのに熱心である」\n・collect「～を集める」\n・data「データ」◆発音は、/^ﾃﾞｲﾀ/ もしくは /^ﾀﾞｰﾀ/\n・help with ～「～の助けになる」\n・market analysis「市場分析」",
+      "jp": "ジェインは市場分析の助けになるデータを集めることに熱心だった。",
+      "split": "Jane was eager\nto collect data\nto help\nwith the market analysis.",
+      "splitJp": "ジェインは熱心だった\nデータを集めるのに\n助けになるような\n市場分析の"
+    },
+    {
+      "english": "We n^eed to attr^act prosp^ective c^ustomers with m^ore ^in-st^ore prom^otions.",
+      "vocab": "・need to《不定詞》「《不定詞》する必要がある」\n・attract「～を引き付ける」\n・prospective「見込みのある」\n・customer「顧客」\n・with ～「～で」◆ここでは手段を示している。\n・in-store「店舗での」◆直訳すると「店内での」\n・promotion「販売促進活動」◆ここでは「昇進」という意味ではない。",
+      "jp": "われわれは店舗でのより多くの販売促進活動で見込み客を引き付ける必要がある。",
+      "split": "We need\nto attract\nprospective customers\nwith more\nin-store promotions.",
+      "splitJp": "われわれは必要とする\n引き付けることを\n見込み客を\nより多くの\n店舗での販売促進活動（で）"
+    },
+    {
+      "english": "The m^anagement’s resp^onse to the pr^oject s^ummary was p^ositive.",
+      "vocab": "・management「経営陣」◆「管理」「経営」と訳すこともある。\n・response to ～「～への反応」\n・project「プロジェクト」\n・summary「概要」◆「要約」と訳すこともある。\n・positive「好意的な」◆「積極的な」と訳すこともある。",
+      "jp": "そのプロジェクトの概要への経営陣の反応は好意的だった。",
+      "split": "The management’s\nresponse\nto the project summary\nwas positive.",
+      "splitJp": "経営陣の\n反応は\nそのプロジェクトの概要への\n好意的だった"
+    },
+    {
+      "english": "S^usie p^urchased the ext^ended w^arranty for her n^ew w^ashing mach^ine.",
+      "vocab": "・Susie「スージー」◆女性名Susan, Susannaの愛称。\n・purchase「～を購入する」\n・extended warranty「期間延長保証」◆extended「延長された」。warranty「（商品の）保証」\n・washing machine「洗濯機」",
+      "jp": "スージーは新しい洗濯機の期間延長保証を購入した。",
+      "split": "Susie purchased\nthe extended warranty\nfor her new washing machine.",
+      "splitJp": "スージーは購入した\n期間延長保証を\n彼女の新しい洗濯機の"
+    },
+    {
+      "english": "The cons^ultant pres^ented a s^ecure w^ay to m^anage c^ompany d^ata.",
+      "vocab": "・consultant「コンサルタント」\n・present「～を提示する」\n・secure「安全な」\n・way「方法」\n・manage「～を管理する」\n・company data「会社のデータ」",
+      "jp": "そのコンサルタントは会社のデータを管理する安全な方法を提示した。",
+      "split": "The consultant\npresented\na secure way\nto manage\ncompany data",
+      "splitJp": "そのコンサルタントは\n提示した\n安全な方法を\n管理するための\n会社のデータを"
+    },
+    {
+      "english": "C^athy was h^ighly qu^alified for the adm^inistrative pos^ition.",
+      "vocab": "・Cathy「キャシー」◆Catherine「キャサリン」の愛称。\n・highly「大変（に）」\n・be qualified for ～「～に適任である」\n・administrative position「管理職」◆ /ｱﾄﾞ^ﾐﾆｽﾄﾚｲﾃｨｳﾞ/",
+      "jp": "キャシーはその管理職に大変適任だった。",
+      "split": "Cathy was\nhighly qualified\nfor the administrative position.",
+      "splitJp": "キャシーは→\n大変適任（だ）\nその管理職に"
+    },
+    {
+      "english": "H^ere are some t^ips for m^aking your in^itial inv^estment in st^ocks.",
+      "vocab": "・Here are ～「これが～だ」\n・tip for ～「～の秘訣」\n・make (an) investment in ～「～に投資をする」\n・initial「最初の」\n・stock「株」",
+      "jp": "これが最初の株式投資をする際の秘訣です。",
+      "split": "Here are\nsome tips\nfor making\nyour initial investment\nin stocks.",
+      "splitJp": "これが→\nいくつかの秘訣（だ）\nする際の\nあなたの最初の投資を\n株式への"
+    },
+    {
+      "english": "We ^offered a red^uced pr^ice when we l^aunched the n^ew pr^oduct.",
+      "vocab": "・offer「～を提供する」\n・reduced price「割引価格」\n・launch「～を販売する」◆「（事業などを）始める」「（ロケットなどを）発射する」の意味もある。\n・product「製品」",
+      "jp": "われわれがその新製品を発売したときは割引価格を提供した。",
+      "split": "We offered\na reduced price\nwhen\nwe launched\n the new product.",
+      "splitJp": "私たちは提供した\n割引価格を\nときに\n私たちが販売した\nその新製品を"
+    }
+  ]
+}

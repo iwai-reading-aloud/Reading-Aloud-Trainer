@@ -1,0 +1,172 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-08T18:28:03.700Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEIC TEST 単語　頻度順徹底マスター",
+    "section": "UNIT-26"
+  },
+  "data": [
+    {
+      "english": "Ray has the necessary expertise to review computer products.",
+      "accent": "R^ay has the n^ecessary expert^ise to rev^iew comp^uter pr^oducts.",
+      "vocab": "・necessary「必要な」\n・expertise「専門知識」\n・review「批評する」\n・computer product「コンピュータ製品」",
+      "jp": "レイにはコンピュータ製品を批評するのに必要な専門知識がある。",
+      "split": "Ray has\nthe necessary expertise\nto review computer products.",
+      "splitJp": "レイにはある\n必要な専門知識が\nコンピュータ製品を批評するための。"
+    },
+    {
+      "english": "They had to conduct a full review of the proposal budget.",
+      "accent": "They h^ad to cond^uct a f^ull rev^iew of the prop^osal b^udget.",
+      "vocab": "・conduct「行う」\n・full review「全面的な見直し」\n・proposal budget「予算案」",
+      "jp": "彼らは予算案の全面的な見直しをしなければならなかった。",
+      "split": "They had to conduct\na full review\nof the proposal budget.",
+      "splitJp": "彼らは行わなければならなかった\n全面的な見直しを\n予算案の。"
+    },
+    {
+      "english": "Mary’s evaluation of her subordinates is currently in progress.",
+      "accent": "M^ary’s evalu^ation of her sub^ordinates is c^urrently in pr^ogress.",
+      "vocab": "・evaluation「評価」\n・subordinate「部下」\n・currently「現在」\n・in progress「進行中で」",
+      "jp": "メアリによる部下の評価は現在進行中だ。",
+      "split": "Mary’s evaluation\nof her subordinates\nis currently in progress.",
+      "splitJp": "メアリによる評価は\n彼女の部下の\n現在進行中だ。"
+    },
+    {
+      "english": "The event organizers raised money for some charities.",
+      "accent": "The ev^ent ^organizers r^aised m^oney for some ch^arities.",
+      "vocab": "・event organizer「イベントの主催者」\n・raise money「お金を集める」\n・charity「慈善団体」",
+      "jp": "イベントの主催者たちは慈善団体のためにお金を集めた。",
+      "split": "The event organizers\nraised money\nfor some charities.",
+      "splitJp": "イベントの主催者たちは\nお金を集めた\nいくつかの慈善団体のために。"
+    },
+    {
+      "english": "The number of responses to the questionnaire exceeded 10,000.",
+      "accent": "The n^umber of resp^onses to the questionn^aire exc^eeded t^en th^ousand.",
+      "vocab": "・the number of～「～の数」\n・response「回答」\n・questionnaire「アンケート」\n・exceed「超える」",
+      "jp": "そのアンケートへの回答数は1万を超えた。",
+      "split": "The number of responses\nto the questionnaire\nexceeded 10,000.",
+      "splitJp": "回答数は\nそのアンケートへの\n1万を超えた。"
+    },
+    {
+      "english": "The company’s clothing line reflects the preferences of young people.",
+      "accent": "The c^ompany’s cl^othing l^ine refl^ects the pr^eferences of y^oung p^eople.",
+      "vocab": "・clothing line「衣料品」\n・reflect「反映する」\n・preference「好み」\n・young people「若者」",
+      "jp": "その会社の衣料品は若者の好みを反映している。",
+      "split": "The company’s clothing line\nreflects\nthe preferences of young people.",
+      "splitJp": "その会社の衣料品は\n反映している\n若者の好みを。"
+    },
+    {
+      "english": "The grocery retailer is operating in a temporary store.",
+      "accent": "The gr^ocery r^etailer is ^operating in a t^emporary st^ore.",
+      "vocab": "・grocery retailer「食料雑貨小売業者」\n・operate「営業する」\n・temporary store「仮店舗」",
+      "jp": "その食料雑貨小売業者は仮店舗で営業中だ。",
+      "split": "The grocery retailer\nis operating\nin a temporary store.",
+      "splitJp": "その食料雑貨小売業者は\n営業中だ\n仮店舗で。"
+    },
+    {
+      "english": "They found more defects in the machine than predicted.",
+      "accent": "They f^ound more d^efects in the mach^ine than pred^icted.",
+      "vocab": "・defect「欠陥」\n・machine「機械」\n・predict「予測する」",
+      "jp": "彼らは予測されていたよりも多くその機械の欠陥を見つけた。",
+      "split": "They found\nmore defects in the machine\nthan predicted.",
+      "splitJp": "彼らは見つけた\nその機械のより多くの欠陥を\n予測されていたよりも。"
+    },
+    {
+      "english": "The city’s subway fares were raised significantly.",
+      "accent": "The c^ity’s s^ubway f^ares were r^aised sign^ificantly.",
+      "vocab": "・subway fare「地下鉄の運賃」\n・raise「値上げする」\n・significantly「大幅に」",
+      "jp": "その市の地下鉄の運賃が大幅に値上げされた。",
+      "split": "The city’s subway fares\nwere raised\nsignificantly.",
+      "splitJp": "その市の地下鉄の運賃が\n値上げされた\n大幅に。"
+    },
+    {
+      "english": "The prescription for the medicine was no longer valid.",
+      "accent": "The prescr^iption for the m^edicine was no l^onger v^alid.",
+      "vocab": "・prescription「処方箋」\n・medicine「薬」\n・no longer「もはや～ない」\n・valid「有効な」",
+      "jp": "その薬の処方箋はもう期限が切れていた。",
+      "split": "The prescription\nfor the medicine\nwas no longer valid.",
+      "splitJp": "その処方箋は\nその薬の\nもはや有効ではなかった。"
+    },
+    {
+      "english": "Cathy was recognized for her thirty-year service as a receptionist at the company.",
+      "accent": "C^athy was r^ecognized for her th^irty-y^ear s^ervice as a rec^eptionist at the c^ompany.",
+      "vocab": "・recognize「表彰する」\n・thirty-year service「30年の勤続」\n・receptionist「受付係」",
+      "jp": "キャシーは受付係として会社勤続30年で表彰された。",
+      "split": "Cathy was recognized\nfor her thirty-year service\nas a receptionist\nat the company.",
+      "splitJp": "キャシーは表彰された\n彼女の30年の勤続に対して\n受付係として\nその会社で。"
+    },
+    {
+      "english": "In the statement, the CEO emphasized the project’s importance.",
+      "accent": "In the st^atement, the CEO (S^ee ^Ee ^Ou) ^emphasized the pr^oject’s imp^ortance.",
+      "vocab": "・statement「声明」\n・CEO「最高経営責任者」\n・emphasize「強調する」\n・importance「重要性」",
+      "jp": "声明の中で、最高経営責任者はそのプロジェクトの重要性を強調した。",
+      "split": "In the statement,\nthe CEO emphasized\nthe project’s importance.",
+      "splitJp": "声明の中で、\n最高経営責任者は強調した\nそのプロジェクトの重要性を。"
+    },
+    {
+      "english": "What is the top priority in this business deal?",
+      "accent": "Wh^at is the t^op pri^ority in this b^usiness d^eal?",
+      "vocab": "・top priority「最優先事項」\n・business deal「商取引」",
+      "jp": "今回の商取引において最優先事項はどのようなことですか。",
+      "split": "What is\nthe top priority\nin this business deal?",
+      "splitJp": "何ですか\n最優先事項は\n今回の商取引において。"
+    },
+    {
+      "english": "Jane can refuse to transfer under her terms of employment.",
+      "accent": "J^ane can ref^use to tr^ansfer under her t^erms of empl^oyment.",
+      "vocab": "・refuse「拒否する」\n・transfer「転勤する」\n・terms of employment「雇用条件」",
+      "jp": "ジェインは彼女の雇用条件の下では転勤を拒否することが可能だ。",
+      "split": "Jane can refuse\nto transfer\nunder her terms of employment.",
+      "splitJp": "ジェインは拒否できる\n転勤することを\n彼女の雇用条件の下では。"
+    },
+    {
+      "english": "I’ve enclosed a directory of those people who donated money.",
+      "accent": "I’ve encl^osed a dir^ectory of those p^eople who d^onated m^oney.",
+      "vocab": "・enclose「同封する」\n・directory「名簿」\n・donate money「寄付する」",
+      "jp": "お金を寄付していただいた方々の名簿を同封しております。",
+      "split": "I’ve enclosed\na directory\nof those people\nwho donated money.",
+      "splitJp": "私は同封しております\n名簿を\nそれらの人々の\nお金を寄付してくださった。"
+    },
+    {
+      "english": "Jim forwarded the details of the deal to his supervisor.",
+      "accent": "J^im f^orwarded the det^ails of the d^eal to his s^upervisor.",
+      "vocab": "・forward「転送する」\n・detail「詳細」\n・deal「取引」\n・supervisor「上司」",
+      "jp": "ジムは取引の詳細を上司に転送した。",
+      "split": "Jim forwarded\nthe details of the deal\nto his supervisor.",
+      "splitJp": "ジムは転送した\n取引の詳細を\n上司に。"
+    },
+    {
+      "english": "Susie was promoted to chief system administrator.",
+      "accent": "S^usie was prom^oted to ch^ief s^ystem adm^inistrator.",
+      "vocab": "・promote「昇進させる」\n・chief「主任の」\n・system administrator「システム管理者」",
+      "jp": "スージーは主任システム管理者に昇進した。",
+      "split": "Susie was promoted\nto chief system administrator.",
+      "splitJp": "スージーは昇進した\n主任システム管理者に。"
+    },
+    {
+      "english": "Tom operated the cameras monitoring sculptures in the exhibition room.",
+      "accent": "T^om ^operated the c^ameras m^onitoring sc^ulptures in the exhibit^ion r^oom.",
+      "vocab": "・operate「操作する」\n・camera「カメラ」\n・monitor「監視する」\n・sculpture「彫像」\n・exhibition room「展示室」",
+      "jp": "トムは展示室の彫像を監視するカメラを操作した。",
+      "split": "Tom operated\nthe cameras\nmonitoring sculptures\nin the exhibition room.",
+      "splitJp": "トムは操作した\nそのカメラを\n彫像を監視する\n展示室の。"
+    },
+    {
+      "english": "Kate deserves a reward for her efforts in developing the new software.",
+      "accent": "K^ate des^erves a rew^ard for her ^efforts in dev^eloping the n^ew s^oftware.",
+      "vocab": "・deserve「～に値する」\n・reward「報酬」\n・effort「努力」\n・develop「開発する」\n・software「ソフトウェア」",
+      "jp": "新しいソフトウェアを開発するケイトの努力は報酬に値する。",
+      "split": "Kate deserves a reward\nfor her efforts\nin developing the new software.",
+      "splitJp": "ケイトは報酬に値する\n彼女の努力によって\n新しいソフトウェアを開発する。"
+    },
+    {
+      "english": "The city council decided to restore the landmark to its original state.",
+      "accent": "The c^ity c^ouncil dec^ided to rest^ore the l^andmark to its or^iginal st^ate.",
+      "vocab": "・city council「市議会」\n・decide to do「～することに決める」\n・restore「修復する」\n・landmark「名所旧跡」\n・original state「元の状態」",
+      "jp": "市議会はその名所旧跡を元の状態に修復することに決めた。",
+      "split": "The city council decided\nto restore the landmark\nto its original state.",
+      "splitJp": "市議会は決めた\nその名所旧跡を修復することを\n元の状態に。"
+    }
+  ]
+}
