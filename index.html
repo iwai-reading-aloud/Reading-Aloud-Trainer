@@ -3401,6 +3401,25 @@ function isIOSDevice() {
     return /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
 
+function isAndroidDevice() {
+    return /Android/i.test(navigator.userAgent || "");
+}
+
+function getAutoNextDelayMs() {
+    if (isIOSDevice()) return 1000;
+    if (isAndroidDevice()) return 600;
+    return 0;
+}
+
+function runAfterAutoNextDelay(callback) {
+    const delay = getAutoNextDelayMs();
+    if (delay > 0) {
+        setTimeout(callback, delay);
+    } else {
+        callback();
+    }
+}
+
 let samanthaWarningShown = false;
 
 function findSamanthaVoice() {
@@ -3520,9 +3539,9 @@ function speakLine(index, continueMode = false, wrapAtEnd = false) {
         }
 
         if (playbackAutoNext && index + 1 < lessonData.length) {
-            speakLine(index + 1, true, playbackWrapAtEnd);
+            runAfterAutoNextDelay(() => speakLine(index + 1, true, playbackWrapAtEnd));
         } else if (playbackAutoNext && playbackWrapAtEnd && lessonData.length > 0) {
-            speakLine(0, true, true);
+            runAfterAutoNextDelay(() => speakLine(0, true, true));
         } else {
             currentIndex = -1;
             const shouldReturnToFirst = returnToFirstAfterSequence;
