@@ -1075,6 +1075,20 @@ body.library-mode .stats {
     display: grid;
     gap: 8px;
 }
+.library-folder-panel-subblock {
+    display: grid;
+    gap: 8px;
+}
+.library-folder-btn-nested {
+    margin-left: 8px;
+    width: calc(100% - 8px);
+    font-size: 0.98rem;
+    background: #f8fafc;
+}
+.library-folder-panel-nested {
+    margin-left: 16px;
+    padding-left: 8px;
+}
 
 
 
@@ -2275,6 +2289,8 @@ function normalizeLibraryName(name) {
     // 旧名称で端末に記憶されている場合でも、新しいライブラリへ誘導する。
     const aliases = {
         "2年生": "英語3T・4T",
+        "TOEIC": "TOEIC 1・2",
+        "時事英語": "外国語演習Ⅰ",
         "ALL": ""
     };
 
@@ -2400,17 +2416,33 @@ function resetLibrarySelection() {
 
 function getVisibleLibraryCategories() {
     const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+
+    function validItems(items) {
+        return Array.isArray(items) ? items.filter(item => item && item.file) : [];
+    }
+
+    function validFolders(folders) {
+        if (!Array.isArray(folders)) return [];
+        return folders
+            .map((folder, fi) => ({
+                folder,
+                fi,
+                items: validItems(folder.items)
+            }))
+            .filter(entry => entry.items.length > 0);
+    }
+
     return categories
         .map((cat, ci) => {
-            const directItems = Array.isArray(cat.items) ? cat.items.filter(item => item && item.file) : [];
+            const directItems = validItems(cat.items);
             const sections = Array.isArray(cat.sections)
                 ? cat.sections
-                    .map((sec, si) => ({
-                        sec,
-                        si,
-                        items: Array.isArray(sec.items) ? sec.items.filter(item => item && item.file) : []
-                    }))
-                    .filter(entry => entry.items.length > 0)
+                    .map((sec, si) => {
+                        const items = validItems(sec.items);
+                        const folders = validFolders(sec.sections || sec.subsections || sec.folders);
+                        return { sec, si, items, folders };
+                    })
+                    .filter(entry => entry.items.length > 0 || entry.folders.length > 0)
                 : [];
             return { cat, ci, directItems, sections };
         })
@@ -2541,15 +2573,31 @@ function renderLibraryHome() {
                 </div>`;
             })() : "";
 
-            const sectionHtml = sections.map(({ sec, si, items }) => {
-                const itemsHtml = items.map(item => {
+            const sectionHtml = sections.map(({ sec, si, items, folders }) => {
+                const directSectionItemsHtml = items.map(item => {
                     const originalIndex = Array.isArray(sec.items) ? sec.items.indexOf(item) : -1;
                     return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${si}, ${originalIndex})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
                 }).join("");
+
+                const nestedFoldersHtml = (folders || []).map(({ folder, fi, items: nestedItems }) => {
+                    const nestedItemsHtml = nestedItems.map(item => {
+                        const originalIndex = Array.isArray(folder.items) ? folder.items.indexOf(item) : -1;
+                        return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibrary(${ci}, ${si}, ${originalIndex}, ${fi})">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+                    }).join("");
+                    const nestedFolderId = `lib-folder-${ci}-${si}-${fi}`;
+                    return `<div class="library-folder-panel-subblock">
+                        <button type="button" class="library-folder-btn library-folder-btn-nested action-flash" onclick="toggleLibraryFolder('${nestedFolderId}', this)">${escapeHtml(folder.name || "未分類")}</button>
+                        <div class="library-folder-panel library-folder-panel-nested" id="${nestedFolderId}">${nestedItemsHtml}</div>
+                    </div>`;
+                }).join("");
+
                 const folderId = `lib-folder-${ci}-${si}`;
                 return `<div class="library-subcategory">
                     <button type="button" class="library-folder-btn action-flash" onclick="toggleLibraryFolder('${folderId}', this)">${escapeHtml(sec.name || "未分類")}</button>
-                    <div class="library-folder-panel" id="${folderId}">${itemsHtml}</div>
+                    <div class="library-folder-panel" id="${folderId}">
+                        ${directSectionItemsHtml}
+                        ${nestedFoldersHtml}
+                    </div>
                 </div>`;
             }).join("");
 
@@ -2582,7 +2630,7 @@ function toggleLibraryFolder(panelId, buttonEl) {
     if (buttonEl) buttonEl.classList.toggle("open", isOpen);
 }
 
-async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex) {
+async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex, folderIndex = null) {
     try {
         const category = libraryData && libraryData.categories ? libraryData.categories[categoryIndex] : null;
         let item = null;
@@ -2590,7 +2638,13 @@ async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex) {
             item = category && Array.isArray(category.items) ? category.items[itemIndex] : null;
         } else {
             const section = category && Array.isArray(category.sections) ? category.sections[sectionIndex] : null;
-            item = section && Array.isArray(section.items) ? section.items[itemIndex] : null;
+            if (folderIndex === null || folderIndex === undefined) {
+                item = section && Array.isArray(section.items) ? section.items[itemIndex] : null;
+            } else {
+                const folders = section ? (section.sections || section.subsections || section.folders || []) : [];
+                const folder = Array.isArray(folders) ? folders[folderIndex] : null;
+                item = folder && Array.isArray(folder.items) ? folder.items[itemIndex] : null;
+            }
         }
         if (!item || !item.file) throw new Error("教材ファイル名が見つかりません。");
 
