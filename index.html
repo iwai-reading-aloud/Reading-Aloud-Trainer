@@ -2056,6 +2056,8 @@ let libraryLoadError = "";
 let libraryCatalogData = null;
 let libraryCatalogError = "";
 let showingLibraryChooser = false;
+let libraryOpenFolderIds = new Set();
+let libraryLastOpenedFolderIds = [];
 
 let splitMode = false;
 let splitIndex = 0;
@@ -2962,6 +2964,25 @@ function toggleLibraryFolder(panelId, buttonEl) {
     if (!panel) return;
     const isOpen = panel.classList.toggle("open");
     if (buttonEl) buttonEl.classList.toggle("open", isOpen);
+
+    if (isOpen) {
+        libraryOpenFolderIds.add(panelId);
+    } else {
+        libraryOpenFolderIds.delete(panelId);
+    }
+}
+
+function restoreLibraryOpenFolders() {
+    if (!libraryLastOpenedFolderIds || !libraryLastOpenedFolderIds.length) return;
+
+    libraryLastOpenedFolderIds.forEach(panelId => {
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+        panel.classList.add("open");
+
+        const btn = document.querySelector(`button[onclick*="${panelId}"]`);
+        if (btn) btn.classList.add("open");
+    });
 }
 
 function getLibraryNodeByPath(categoryIndex, folderIndexes) {
@@ -3012,6 +3033,8 @@ async function loadLessonFromLibraryPath(encodedPath) {
         const node = getLibraryNodeByPath(categoryIndex, folderIndexes);
         const item = node && Array.isArray(node.items) ? node.items[itemIndex] : null;
         if (!item || !item.file) throw new Error("教材ファイル名が見つかりません。");
+
+        libraryLastOpenedFolderIds = Array.from(libraryOpenFolderIds);
 
         stopAll();
         const fileUrl = safeRelativeFileUrl(item.file) + "?ts=" + Date.now();
@@ -3165,6 +3188,7 @@ function updateDisplay() {
         document.body.classList.add("library-mode");
         document.body.classList.remove("lesson-mode");
         displayArea.innerHTML = renderLibraryHome();
+        if (libraryData) requestAnimationFrame(restoreLibraryOpenFolders);
         stats.textContent = libraryData ? "教材ライブラリ" : "0文";
         refreshClasses();
         return;
