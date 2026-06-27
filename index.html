@@ -2965,10 +2965,36 @@ function toggleLibraryFolder(panelId, buttonEl) {
 }
 
 function getLibraryNodeByPath(categoryIndex, folderIndexes) {
-    const category = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories[categoryIndex] : null;
-    if (!category) return null;
-    let node = category;
+    const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
     const indexes = Array.isArray(folderIndexes) ? folderIndexes : [];
+    const libraryDisplayName = getLibraryDisplayName();
+
+    // renderLibraryHome()では、授業名を見出しとして独立表示するために、
+    // 実際のcategoriesを仮想rootNode.sectionsとして描画している。
+    // そのため、画面上の第1階層フォルダ番号 folderIndexes[0] は、
+    // 英語3T・4T / カルチャー英語1・2のようなJSONでは実categoriesの番号として解決する。
+    if (indexes.length > 0 && categories[indexes[0]]) {
+        const possibleCategory = categories[indexes[0]];
+        const possibleCategoryName = String(possibleCategory && possibleCategory.name || "").trim();
+
+        if (possibleCategoryName && possibleCategoryName !== libraryDisplayName) {
+            let node = possibleCategory;
+            for (const index of indexes.slice(1)) {
+                const folders = getLibraryChildFolders(node);
+                node = folders[index];
+                if (!node) return null;
+            }
+            return node;
+        }
+    }
+
+    // TOEIC 1・2 / 外国語演習Ⅰのように、
+    // categories[0].name がライブラリ名と同じ場合は、その中身を授業名直下に描画している。
+    // この場合は従来どおり categoryIndex から入り、folderIndexesをたどる。
+    const category = categories[categoryIndex];
+    if (!category) return null;
+
+    let node = category;
     for (const index of indexes) {
         const folders = getLibraryChildFolders(node);
         node = folders[index];
