@@ -1963,12 +1963,16 @@ button.library-exit-help-btn:hover,
 }
 
 
-/* Align exit button with bottom of blue button */
+
+/* Align exit button with bottom of blue button while keeping library action row left-aligned */
 .library-actions{
     display:flex !important;
-    justify-content:center;
+    justify-content:flex-start !important;
     align-items:flex-end !important;
     gap:10px;
+}
+.library-actions.centered{
+    justify-content:center !important;
 }
 .library-actions .library-exit-help-btn,
 button.library-exit-help-btn,
