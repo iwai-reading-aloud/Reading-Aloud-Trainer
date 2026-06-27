@@ -2428,8 +2428,7 @@ function getVisibleLibraryCategories() {
                 folder,
                 fi,
                 items: validItems(folder.items)
-            }))
-            .filter(entry => entry.items.length > 0);
+            }));
     }
 
     return categories
@@ -2442,11 +2441,9 @@ function getVisibleLibraryCategories() {
                         const folders = validFolders(sec.sections || sec.subsections || sec.folders);
                         return { sec, si, items, folders };
                     })
-                    .filter(entry => entry.items.length > 0 || entry.folders.length > 0)
                 : [];
             return { cat, ci, directItems, sections };
-        })
-        .filter(entry => entry.directItems.length > 0 || entry.sections.length > 0);
+        });
 }
 
 let exitHelpTimer = null;
