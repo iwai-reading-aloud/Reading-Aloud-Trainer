@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "name": "外国語演習Ⅰ",
+  "categories": [
+    {
+      "name": "外国語演習Ⅰ",
+      "sections": [
+        {
+          "name": "TOEIC公式問題集00",
+          "items": [
+            {
+              "title": "公式00 TEST-1 Part-4 86-88《本文》",
+              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】86-88《本文》.json"
+            },
+            {
+              "title": "公式00 TEST-1 Part-4 86-88《設問・選択肢》",
+              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】86-88《設問・選択肢》.json"
+            },
+            {
+              "title": "公式00 TEST-1 Part-4 89-91《本文》",
+              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】89-91《本文》.json"
+            },
+            {
+              "title": "公式00 TEST-1 Part-4 89-91《設問・選択肢》",
+              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】89-91《設問・選択肢》.json"
+            }
+          ]
+        },
+        {
+          "name": "Newspaper Article",
+          "sections": [
+            {
+              "name": "New York Times",
+              "items": [
+                {
+                  "title": "US-Iran Talk 01 - Could Iran still build nuclear weapon",
+                  "file": "教材/外国語演習Ⅰ/Newspaper Article/New York Times/(2026-0623) US-Iran Talk_01 - Could Iran still build nuclear weapon.json"
+                },
+                {
+                  "title": "US-Iran Talk 02 - Strait of Hormuz & Iran's financial interests",
+                  "file": "教材/外国語演習Ⅰ/Newspaper Article/New York Times/(2026-0623) US-Iran Talk_02 - Strait of Hormuz & Iran's financial interests.json"
+                }
+              ]
+            },
+            {
+              "name": "Japan Times",
+              "items": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
