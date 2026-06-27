@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Reading-Aloud Trainer">
+<meta name="apple-mobile-web-app-title" content="R-A Trainer">
 <meta name="application-name" content="Reading-Aloud Trainer">
 <script>
 (function () {
@@ -4383,8 +4383,13 @@ document.addEventListener("touchend", function(e) {
     const dy = e.changedTouches[0].clientY - lessonTouchStartY;
 
     if (document.body.classList.contains("lesson-mode") && dx > 80 && Math.abs(dy) < 60) {
+        // 1文練習画面：右方向スワイプで分割練習へ
         openSplitPractice(getActiveIndex());
+    } else if (document.body.classList.contains("lesson-mode") && dx < -80 && Math.abs(dy) < 60) {
+        // 1文練習画面：左方向スワイプで教材一覧へ
+        showLibraryHome();
     } else if (document.body.classList.contains("split-mode") && dx < -80 && Math.abs(dy) < 60) {
+        // 分割練習画面：左方向スワイプで1文練習へ
         closeSplitPractice();
     }
 }, { passive: true });
