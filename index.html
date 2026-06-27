@@ -2800,10 +2800,8 @@ function renderLibraryHome() {
             const categoryTitle = cat.name || libraryDisplayName || "未分類";
             const bodyHtml = renderLibraryFolderNode(cat, ci, [], 0);
             return `<section class="library-category">
-                <button type="button" class="library-folder-btn action-flash" onclick="toggleLibraryFolder('lib-top-${ci}', this)">${escapeHtml(categoryTitle)}</button>
-                <div class="library-folder-panel" id="lib-top-${ci}">
-                    <div class="library-items">${bodyHtml}</div>
-                </div>
+                <div class="library-category-title">${escapeHtml(categoryTitle)}</div>
+                <div class="library-items">${bodyHtml}</div>
             </section>`;
         }).join("")
         : `<div class="library-empty">現在表示できる教材がありません。</div>`;
