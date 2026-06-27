@@ -2440,9 +2440,83 @@ function getLibraryItems(node) {
     return node.items.filter(item => item && item.file);
 }
 
+function getLinkedLibraryFiles(node) {
+    if (!node || typeof node !== "object") return [];
+    const values = [];
+    [node.libraryFiles, node.libraryFile, node.library, node.libraryPath, node.fileLibrary].forEach(value => {
+        if (Array.isArray(value)) {
+            value.forEach(v => {
+                const clean = String(v || "").trim();
+                if (clean && !values.includes(clean)) values.push(clean);
+            });
+        } else {
+            const clean = String(value || "").trim();
+            if (clean && !values.includes(clean)) values.push(clean);
+        }
+    });
+    return values;
+}
+
 function getLinkedLibraryFile(node) {
-    if (!node || typeof node !== "object") return "";
-    return node.libraryFile || node.library || node.libraryPath || node.fileLibrary || "";
+    const files = getLinkedLibraryFiles(node);
+    return files.length ? files[0] : "";
+}
+
+function mergeLibraryItems(existingItems, incomingItems) {
+    const result = Array.isArray(existingItems) ? existingItems.slice() : [];
+    const seen = new Set(result.map(item => String((item && (item.file || item.title)) || "")));
+    (Array.isArray(incomingItems) ? incomingItems : []).forEach(item => {
+        if (!item || typeof item !== "object") return;
+        const key = String(item.file || item.title || "");
+        if (key && seen.has(key)) return;
+        result.push(item);
+        if (key) seen.add(key);
+    });
+    return result;
+}
+
+function mergeLibraryFolders(existingFolders, incomingFolders) {
+    const result = Array.isArray(existingFolders) ? existingFolders.slice() : [];
+
+    (Array.isArray(incomingFolders) ? incomingFolders : []).forEach(incoming => {
+        if (!incoming || typeof incoming !== "object") return;
+        const incomingName = String(incoming.name || "").trim();
+        const same = incomingName
+            ? result.find(folder => folder && typeof folder === "object" && String(folder.name || "").trim() === incomingName)
+            : null;
+
+        if (same) {
+            mergeLibraryNodeContent(same, incoming);
+        } else {
+            result.push(incoming);
+        }
+    });
+
+    return result;
+}
+
+function mergeLibraryNodeContent(target, source) {
+    if (!target || !source) return;
+
+    const sourceItems = Array.isArray(source.items) ? source.items : [];
+    if (sourceItems.length || Array.isArray(target.items)) {
+        target.items = mergeLibraryItems(target.items, sourceItems);
+    }
+
+    const sourceSections = Array.isArray(source.sections) ? source.sections : [];
+    if (sourceSections.length || Array.isArray(target.sections)) {
+        target.sections = mergeLibraryFolders(target.sections, sourceSections);
+    }
+
+    const sourceSubsections = Array.isArray(source.subsections) ? source.subsections : [];
+    if (sourceSubsections.length || Array.isArray(target.subsections)) {
+        target.subsections = mergeLibraryFolders(target.subsections, sourceSubsections);
+    }
+
+    const sourceFolders = Array.isArray(source.folders) ? source.folders : [];
+    if (sourceFolders.length || Array.isArray(target.folders)) {
+        target.folders = mergeLibraryFolders(target.folders, sourceFolders);
+    }
 }
 
 function mergeLinkedLibraryIntoNode(node, linkedData) {
@@ -2453,6 +2527,7 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
     const categories = linkedData.categories.filter(cat => cat && typeof cat === "object");
     const replaceExisting = node.linkMode === "replace" || node.replaceWithLinkedLibrary === true;
 
+    delete node.libraryFiles;
     delete node.libraryFile;
     delete node.library;
     delete node.libraryPath;
@@ -2471,16 +2546,14 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
         const only = categories[0];
         const onlyName = String(only.name || "").trim();
         if (onlyName && (onlyName === nodeName || onlyName === linkedName)) {
-            if (!node.items && Array.isArray(only.items)) node.items = only.items;
-            if (!node.sections && Array.isArray(only.sections)) node.sections = only.sections;
-            if (!node.subsections && Array.isArray(only.subsections)) node.subsections = only.subsections;
-            if (!node.folders && Array.isArray(only.folders)) node.folders = only.folders;
+            mergeLibraryNodeContent(node, only);
             return;
         }
     }
 
-    if (!node.sections) node.sections = categories;
-    else if (Array.isArray(node.sections)) node.sections = node.sections.concat(categories);
+    // 通常は、参照先ライブラリのcategoriesを、このノードの下位フォルダとして合成する。
+    // 既に同名の空カテゴリがある場合は、その中へitems/sectionsを統合する。
+    node.sections = mergeLibraryFolders(node.sections, categories);
 }
 
 function resolveLibraryFilePath(linkedFile, baseFile = "") {
@@ -2533,11 +2606,15 @@ async function fetchLibraryJsonWithFallback(linkedFile, baseFile = "") {
 async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
     if (!node || typeof node !== "object") return;
 
-    const linkedFileRaw = getLinkedLibraryFile(node);
-    if (linkedFileRaw) {
-        const primaryLinkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
-        const key = String(primaryLinkedFile || linkedFileRaw);
-        if (!seen.has(key)) {
+    const linkedFileCandidates = getLinkedLibraryFiles(node);
+    if (linkedFileCandidates.length) {
+        let loaded = false;
+        let lastError = null;
+
+        for (const linkedFileRaw of linkedFileCandidates) {
+            const primaryLinkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
+            const key = String(primaryLinkedFile || linkedFileRaw);
+            if (seen.has(key)) continue;
             seen.add(key);
             try {
                 const result = await fetchLibraryJsonWithFallback(linkedFileRaw, baseFile);
@@ -2548,15 +2625,22 @@ async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
                 }
                 await expandLinkedLibraries(linkedData, seen, linkedFile);
                 mergeLinkedLibraryIntoNode(node, linkedData);
+                loaded = true;
+                seen.delete(key);
+                break;
             } catch (e) {
-                node._libraryLoadError = e && e.message ? e.message : String(e);
-                delete node.libraryFile;
-                delete node.library;
-                delete node.libraryPath;
-                delete node.fileLibrary;
-            } finally {
+                lastError = e;
                 seen.delete(key);
             }
+        }
+
+        if (!loaded) {
+            node._libraryLoadError = lastError && lastError.message ? lastError.message : String(lastError || "ライブラリを読み込めませんでした。");
+            delete node.libraryFiles;
+            delete node.libraryFile;
+            delete node.library;
+            delete node.libraryPath;
+            delete node.fileLibrary;
         }
     }
 
