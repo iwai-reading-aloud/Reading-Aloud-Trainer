@@ -33,6 +33,7 @@
 const RAT_APP_ID = "english34";
 const RAT_APP_NAME = "英語3T・4T";
 const RAT_DEFAULT_LIBRARY = "英語3T・4T";
+const RAT_BASE_PATH = "../";
 const RAT_THEME_COLOR = "#2563eb";
 const RAT_THEME_DARK = "#1d4ed8";
 </script>
@@ -2385,9 +2386,22 @@ function readLessonMetaFromObject(obj) {
 }
 
 function safeRelativeFileUrl(file) {
-    return String(file || "")
+    let path = String(file || "").trim();
+
+    if (
+        typeof RAT_BASE_PATH !== "undefined" &&
+        RAT_BASE_PATH &&
+        !/^(https?:)?\/\//i.test(path) &&
+        !path.startsWith("/") &&
+        !path.startsWith("../") &&
+        (path.startsWith("教材/") || path.startsWith("library/"))
+    ) {
+        path = RAT_BASE_PATH + path;
+    }
+
+    return path
         .split("/")
-        .map(part => encodeURIComponent(part))
+        .map(part => part === ".." ? ".." : encodeURIComponent(part))
         .join("/");
 }
 
@@ -2425,7 +2439,7 @@ function normalizeLibraryName(name) {
 
 function libraryFileFromName(name) {
     const cleanName = normalizeLibraryName(name);
-    return cleanName ? `library/${cleanName}.json` : "";
+    return cleanName ? `${RAT_BASE_PATH}library/${cleanName}.json` : "";
 }
 
 function rememberLibraryName(name) {
@@ -2458,7 +2472,7 @@ function setCurrentLibraryFile(filePath) {
     if (!filePath) return;
     try {
         localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath);
-        const m = String(filePath).match(/^library\/(.+)\.json$/);
+        const m = String(filePath).match(/^(?:\.\.\/)?library\/(.+)\.json$/);
         if (m) localStorage.setItem(LIBRARY_NAME_STORAGE_KEY, decodeURIComponent(m[1]));
     } catch (e) {}
 }
@@ -2877,7 +2891,7 @@ function getLibraryDisplayName() {
         const storedName = normalizeLibraryName(localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "");
         if (storedName) return storedName;
         const storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
-        const m = String(storedFile).match(/^library\/(.+)\.json$/);
+        const m = String(storedFile).match(/^(?:\.\.\/)?library\/(.+)\.json$/);
         if (m) return decodeURIComponent(m[1]);
     } catch (e) {}
 
