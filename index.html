@@ -910,15 +910,8 @@ button, select { min-height: 44px; }
 
 
 
-.library-folder-btn::before{
-  content:"◆ ";
-  color:#6b21a8;
-  font-weight:900;
-  font-size:1.08em;
-}
-.library-folder-panel .library-folder-btn::before{
-  color:#8b5cf6;
-}
+
+.library-folder-panel 
 
 
 .library-item-btn {
@@ -1904,6 +1897,32 @@ button:focus-visible {
         background: #111111 !important;
         color: #ffffff !important;
     }
+}
+
+
+/* Force category/subcategory names to left align */
+.library-folder-btn,
+.library-folder-btn-nested,
+.library-category-title,
+.library-category-title.no-blue-line {
+    text-align: left !important;
+    justify-content: flex-start !important;
+}
+.library-folder-btn {
+    position: relative;
+}
+.library-folder-btn::before {
+    content: "◆ ";
+    color: #6b21a8;
+    font-weight: 900;
+    font-size: 1.08em;
+    flex: 0 0 auto;
+}
+.library-folder-panel .library-folder-btn::before {
+    color: #8b5cf6;
+}
+.library-folder-btn::after {
+    margin-left: auto;
 }
 
 </style>
