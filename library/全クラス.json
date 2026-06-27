@@ -1,0 +1,45 @@
+{
+  "name": "全クラス",
+  "categories": [
+    {
+      "name": "英語3T・4T",
+      "sections": [
+        {
+          "name": "語彙小テスト",
+          "items": []
+        },
+        {
+          "name": "Successful Keys 3",
+          "items": []
+        }
+      ]
+    },
+    {
+      "name": "TOEIC 1・2",
+      "sections": []
+    },
+    {
+      "name": "外国語演習Ⅰ",
+      "sections": [
+        {
+          "name": "Newspaper Article",
+          "sections": [
+            {
+              "name": "New York Times",
+              "items": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "カルチャー英語1・2",
+      "sections": [
+        {
+          "name": "Adventures in Architecture",
+          "items": []
+        }
+      ]
+    }
+  ]
+}
