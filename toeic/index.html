@@ -1,0 +1,4446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>TOEIC 1・2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f97316">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="TOEIC 1・2">
+<meta name="application-name" content="TOEIC 1・2">
+<script>
+(function () {
+    // iPhone/iPadではホーム画面追加時にmanifestのstart_urlが優先され、
+    // index.html?lib=TOEIC のようなクラス指定が落ちることがある。
+    // そのためiOSではmanifestを読ませず、現在開いているURLをそのままホーム画面追加の起点にする。
+    // Android/PCでは従来どおりmanifestを動的に追加し、PWAインストールを維持する。
+    const ua = navigator.userAgent || "";
+    const platform = navigator.platform || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (!isIOS) {
+        const manifestLink = document.createElement("link");
+        manifestLink.rel = "manifest";
+        manifestLink.href = "manifest.json";
+        document.head.appendChild(manifestLink);
+    }
+})();
+</script>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/favicon.ico">
+<script>
+const RAT_APP_ID = "toeic";
+const RAT_APP_NAME = "TOEIC 1・2";
+const RAT_DEFAULT_LIBRARY = "TOEIC 1・2";
+const RAT_THEME_COLOR = "#f97316";
+const RAT_THEME_DARK = "#ea580c";
+</script>
+<style>
+    :root {
+        --primary: #f97316;
+        --primary-dark: #ea580c;
+        --accent: #111827;
+        --bg: #f3f4f6;
+        --card: #ffffff;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #d1d5db;
+        --soft: #e5e7eb;
+        --danger: #dc2626;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --purple: #7c3aed;
+        --purple-dark: #6d28d9;
+        --jp-bg: #eef6ff;
+        --vocab-bg: #fff7ed;
+        --shadow: 0 8px 24px rgba(15,23,42,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", "Yu Gothic UI", "Meiryo", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        padding: 16px 18px;
+        z-index: 10;
+        position: sticky;
+        top: 0;
+    }
+
+    .title-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .student-title-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        position: relative;
+    }
+
+    .student-title-main {
+        grid-column: 1;
+    }
+
+    .student-load-area {
+        grid-column: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .student-lesson-info-area {
+        grid-column: 3;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 0;
+    }
+
+    h1 {
+        font-size: 2.15rem;
+        margin: 0;
+        letter-spacing: 0.01em;
+        line-height: 1.15;
+        color: #0f2e63;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-shadow: 0 1px 2px rgba(15,46,99,0.18);
+    }
+
+    h1::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 2.15em;
+        background: var(--primary);
+        border-radius: 2px;
+        flex: 0 0 auto;
+    }
+
+    .hint {
+        display: none;
+    }
+
+    .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+        align-items: center;
+    }
+
+    button, select {
+        border: none;
+        border-radius: 10px;
+        padding: 9px 14px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 0.92rem;
+    }
+
+    button {
+        background: var(--primary);
+        color: #fff;
+        position: relative;
+        transform: translateY(0);
+    }
+
+    button:hover { background: var(--primary-dark); }
+
+    button:active {
+        transform: translateY(2px) scale(0.97);
+        opacity: 0.72;
+        filter: brightness(0.92);
+    }
+
+    button.clicked-feedback {
+        animation: buttonPop 0.22s ease-out;
+    }
+
+    @keyframes buttonPop {
+        0% { transform: scale(1); filter: brightness(1); }
+        35% { transform: scale(0.94); filter: brightness(1.18); }
+        70% { transform: scale(1.04); }
+        100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    button.secondary {
+        background: var(--soft);
+        color: var(--text);
+    }
+
+    button.secondary:hover { background: #d1d5db; }
+
+
+    button.folder-settings-btn {
+        background: #fff;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 5px 9px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        box-shadow: none;
+    }
+
+    button.folder-settings-btn:hover {
+        background: #f9fafb;
+        color: var(--text);
+    }
+
+    button.danger { background: var(--danger); }
+    button.success { background: var(--success); }
+
+    button.warning {
+        background: var(--warning);
+        color: #111827;
+    }
+
+    button.purple {
+        background: var(--purple);
+        color: #fff;
+    }
+
+    button.purple:hover { background: var(--purple-dark); }
+
+    button.loop-active {
+        background: var(--success);
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(22,163,74,0.25), 0 0 16px rgba(22,163,74,0.75);
+        animation: loopPulse 1.45s ease-in-out infinite;
+    }
+
+    select {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text);
+    }
+
+    .voice-fixed-display {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: #1d4ed8;
+        border-radius: 10px;
+        padding: 9px 14px;
+        font-weight: 900;
+        font-size: 0.92rem;
+        white-space: nowrap;
+    }
+
+    .slider-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 260px;
+        flex: 1;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .toggle-group {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    label.toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.88rem;
+        color: var(--text);
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 7px 10px;
+        border-radius: 999px;
+        user-select: none;
+    }
+
+    main {
+        flex: 1;
+        overflow: auto;
+        padding: 18px;
+    }
+
+    .stats {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+
+    .sentence-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: start;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+        margin-bottom: 12px;
+        scroll-margin-top: 90px;
+        box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    }
+
+    .sentence-row.current {
+        border-left: 8px solid var(--primary);
+        background: #eff6ff;
+    }
+
+    .sentence-row.current .english {
+        background: #fef3c7;
+        color: #1d4ed8;
+        font-weight: 900;
+        border-radius: 8px;
+        padding: 4px 8px;
+        box-shadow: 0 0 0 2px rgba(245,158,11,0.22);
+    }
+
+    .sentence-row.current .mini-btn {
+        box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+    }
+
+    .line-num {
+        width: 2.55rem;
+        height: 2.55rem;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 2.5px solid #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-weight: 900;
+        font-size: 1.05rem;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+
+    .line-num.long-num {
+        font-size: 0.78rem;
+        letter-spacing: -0.06em;
+    }
+
+    .line-num.choice-num {
+        background: #000000;
+        color: #ffffff;
+        border-color: #000000;
+    }
+
+
+    .sentence-main {
+        min-width: 0;
+    }
+
+    .english {
+        font-size: 1.38rem;
+        line-height: 1.85;
+        cursor: pointer;
+        word-break: normal;
+        margin-bottom: 10px;
+    }
+
+    .english.hidden-text {
+        color: transparent;
+        text-shadow: 0 0 10px rgba(17,24,39,0.35);
+    }
+
+    .plain-version {
+        margin: -4px 0 10px;
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.5;
+        display: block;
+    }
+
+    .plain-version.hidden-text {
+        color: transparent;
+        text-shadow: 0 0 10px rgba(17,24,39,0.35);
+    }
+
+    .sentence-row.current .english.hidden-text,
+    .sentence-row.current .plain-version.hidden-text,
+    .hidden-text,
+    .hidden-text * {
+        color: transparent !important;
+        text-shadow: 0 0 10px rgba(17,24,39,0.35) !important;
+    }
+
+    .hidden-text .accent-highlight,
+    .plain-version.hidden-text .accent-highlight {
+        background: transparent !important;
+        color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .accent-highlight {
+        background: var(--accent);
+        color: #fff;
+        border-radius: 5px;
+        padding: 2px 5px;
+        font-weight: 900;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+    }
+
+    .lesson-block {
+        display: grid;
+        gap: 8px;
+    }
+
+    .vocab, .jp {
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        white-space: pre-wrap;
+    }
+
+    .vocab {
+        background: var(--vocab-bg);
+        border: 1px solid #fed7aa;
+    }
+
+    .jp {
+        background: var(--jp-bg);
+        border: 1px solid #bfdbfe;
+    }
+
+    .lesson-title {
+        font-weight: 800;
+        margin-bottom: 4px;
+    }
+
+    .hide-vocab .vocab { display: none; }
+    .hide-jp .jp { display: none; }
+
+    .row-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 92px;
+    }
+
+    .mini-btn {
+        font-size: 0.78rem;
+        padding: 7px 9px;
+        border-radius: 8px;
+    }
+
+    .next-play {
+        background: #60a5fa;
+        color: #fff;
+        line-height: 1.25;
+        white-space: normal;
+    }
+
+    .next-play:hover {
+        background: #3b82f6;
+    }
+
+    .jump-box {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .jump-select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 7px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        background: #fff;
+        color: var(--text);
+    }
+
+    .main-jump-wrap {
+        position: relative;
+        width: 100%;
+    }
+
+    .main-jump-button {
+        color: var(--text);
+        text-align: center;
+        box-shadow: none;
+        line-height: 1.2;
+    }
+
+    .main-jump-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 0;
+        width: 66px;
+        /* 10件程度を一度に見せ、残りはメニュー内スクロールにする */
+        max-height: min(304px, calc(100vh - 28px));
+        overflow: auto;
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 10px 24px rgba(15,23,42,0.18);
+        z-index: 1200;
+    }
+
+    .main-jump-menu.open {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .main-jump-item {
+        background: #ffffff;
+        color: #111827;
+        border: 1px solid transparent;
+        border-radius: 7px;
+        padding: 4px 6px;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        font-weight: 500;
+        text-align: center;
+        box-shadow: none;
+    }
+
+    .main-jump-item:hover {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+
+    .main-float-tooltip {
+        display: none;
+        position: fixed;
+        z-index: 5000;
+        max-width: min(560px, calc(100vw - 28px));
+        background: #ffffff;
+        color: #111827;
+        border: 1px solid #d1d5db;
+        border-radius: 7px;
+        padding: 6px 8px;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        font-weight: 500;
+        box-shadow: 0 6px 16px rgba(15,23,42,0.18);
+        pointer-events: none;
+        white-space: normal;
+    }
+
+    .loop-on {
+        background: var(--success) !important;
+        color: #fff !important;
+        box-shadow: 0 0 0 3px rgba(22,163,74,0.25), 0 0 16px rgba(22,163,74,0.75) !important;
+        animation: loopPulse 1.45s ease-in-out infinite;
+    }
+
+    @keyframes loopPulse {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        50% {
+            opacity: 0.58;
+            transform: scale(1.03);
+            filter: brightness(1.16);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            filter: brightness(1);
+        }
+    }
+
+
+    .lesson-info {
+        display: none;
+        background: #ffffff;
+        border: 2px solid var(--purple);
+        border-radius: 10px;
+        padding: 7px 12px;
+        color: var(--text);
+        font-size: 0.88rem;
+        line-height: 1.45;
+        width: fit-content;
+        max-width: min(620px, 100%);
+        min-width: 0;
+        box-shadow: 0 2px 8px rgba(124,58,237,0.10);
+        text-align: left;
+    }
+
+    .lesson-info.visible {
+        display: block;
+    }
+
+    .lesson-info-title {
+        font-weight: 900;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+        scrollbar-width: thin;
+    }
+
+    .lesson-info-section {
+        color: var(--purple-dark);
+        font-weight: 900;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+        scrollbar-width: thin;
+    }
+
+    .empty-message {
+        background: #fff;
+        border: 1px dashed var(--border);
+        border-radius: 14px;
+        padding: 28px;
+        color: var(--muted);
+        line-height: 1.8;
+    }
+
+    @media (max-width: 760px) {
+        .sentence-row { grid-template-columns: 1fr; }
+        .line-num {
+            width: auto;
+            border-radius: 8px;
+        }
+        .row-actions {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .english { font-size: 1.12rem; }
+        h1 { font-size: 1.62rem; }
+        h1::before { height: 2.0em; }
+        .student-title-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .student-title-main,
+        .student-load-area,
+        .student-lesson-info-area {
+            grid-column: 1;
+        }
+        .student-lesson-info-area {
+            justify-content: flex-start;
+        }
+        .lesson-info {
+            max-width: 100%;
+        }
+    }
+
+
+/* ===== Smartphone prototype additions: keep all PC functions, optimize layout for phones ===== */
+html { -webkit-text-size-adjust: 100%; }
+body { min-height: 100dvh; }
+button, select, input { touch-action: manipulation; }
+button, select { min-height: 44px; }
+
+.mobile-note {
+    display: none;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: .78rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+    body { height: 100dvh; }
+    header {
+        padding: max(10px, env(safe-area-inset-top)) 10px 10px;
+        max-height: 58dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    main { padding: 10px; }
+    .title-row { margin-bottom: 8px; }
+    .student-title-row { grid-template-columns: 1fr; gap: 8px; }
+    .student-title-main, .student-load-area, .student-lesson-info-area { grid-column: 1; }
+    h1 { font-size: 1.34rem; gap: 8px; }
+    h1::before { width: 6px; height: 1.75em; }
+    .student-load-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        gap: 8px;
+    }
+    .student-load-area button { width: 100%; padding: 10px 8px; font-size: .86rem; }
+    button.folder-settings-btn { font-size: .76rem; padding: 8px 6px; }
+    .student-lesson-info-area { justify-content: stretch; width: 100%; }
+    .lesson-info {
+        width: 100%;
+        max-width: 100%;
+        font-size: .78rem;
+        padding: 6px 8px;
+    }
+    .controls {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        align-items: stretch;
+        margin-top: 8px;
+    }
+    .controls > button { width: 100%; padding: 10px 6px; font-size: .82rem; }
+    .slider-box {
+        grid-column: 1 / -1;
+        min-width: 0;
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 10px;
+    }
+    #voice-select { display: none; }
+    .voice-fixed-display {
+        grid-column: 1 / -1;
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 10px;
+        font-size: .82rem;
+        font-weight: 900;
+        color: #1d4ed8;
+        text-align: center;
+    }
+    .toggle-group {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+    label.toggle {
+        width: 100%;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 8px 6px;
+        font-size: .78rem;
+        line-height: 1.2;
+        text-align: center;
+    }
+    .stats { margin: 4px 2px 8px; font-size: .78rem; }
+    .empty-message { padding: 18px; font-size: .92rem; }
+    .sentence-row {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 8px;
+        padding: 10px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        scroll-margin-top: 56dvh;
+    }
+    .line-num {
+        width: 2.28rem;
+        height: 2.28rem;
+        border-radius: 50%;
+        font-size: .92rem;
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .sentence-main { grid-column: 2; grid-row: 1; }
+    .english {
+        font-size: 1.04rem;
+        line-height: 1.75;
+        margin-bottom: 6px;
+    }
+    .plain-version { font-size: .82rem; line-height: 1.45; margin-bottom: 6px; }
+    .lesson-block { gap: 6px; }
+    .vocab, .jp { font-size: .86rem; line-height: 1.55; padding: 8px 9px; }
+    .row-actions {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        min-width: 0;
+        width: 100%;
+        margin-top: 2px;
+    }
+    .mini-btn { min-height: 42px; font-size: .76rem; padding: 7px 5px; border-radius: 9px; }
+    .jump-box {
+        grid-column: 1 / -1;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+    .main-jump-menu {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        top: auto;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        width: auto;
+        max-height: 52dvh;
+        display: none;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 5px;
+        padding: 8px;
+    }
+    .main-jump-menu.open { display: grid; }
+    .main-jump-item { min-height: 38px; font-size: .8rem; }
+    .main-float-tooltip { display: none !important; }
+}
+
+@media (max-width: 380px) {
+    .controls { grid-template-columns: 1fr; }
+    .toggle-group { grid-template-columns: 1fr; }
+    .student-load-area { grid-template-columns: 1fr; }
+    .row-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+
+/* ===== Library prototype ===== */
+.library-home {
+    display: grid;
+    gap: 14px;
+}
+.library-hero {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.06);
+}
+.library-hero-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #0f2e63;
+    margin-bottom: 6px;
+}
+.library-hero-sub {
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: .95rem;
+}
+.library-category {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.05);
+}
+.library-category-title {
+    font-size: 1.08rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #111827;
+    border-left: 6px solid var(--primary);
+    padding-left: 10px;
+}
+.library-items {
+    display: grid;
+    gap: 8px;
+}
+
+.library-subcategory {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+.library-subcategory-title {
+    font-weight: 900;
+    color: var(--purple-dark);
+    margin: 0 0 8px;
+    font-size: 1.02rem;
+}
+
+.library-subcategory-toggle {
+    width: 100%;
+    list-style: none;
+    cursor: pointer;
+    font-weight: 900;
+    color: var(--purple-dark);
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 1.02rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.library-subcategory-toggle::-webkit-details-marker { display: none; }
+.library-subcategory-toggle::after {
+    content: "▶";
+    color: var(--muted);
+    font-size: .9rem;
+    transition: transform .16s ease;
+}
+.library-subcategory[open] .library-subcategory-toggle::after {
+    transform: rotate(90deg);
+}
+.library-subcategory .library-items {
+    margin-top: 8px;
+}
+
+.library-class-name-under-title {
+    margin: 10px auto 8px auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 9px 24px;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #ffffff;
+    background: #16a34a;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(22,163,74,0.22);
+}
+.library-category-title.no-blue-line {
+    border-left: none;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+.library-folder-panel 
+
+
+.library-item-btn {
+    width: 100%;
+    text-align: left;
+    background: #f8fafc;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    line-height: 1.45;
+    box-shadow: none;
+}
+.library-item-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+}
+.library-empty {
+    color: var(--muted);
+    background: #f9fafb;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 12px;
+}
+.library-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+.library-exit-help-btn {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid #111111;
+    border-radius: 999px;
+    padding: 5px 10px;
+    min-height: 28px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: none;
+}
+.library-exit-help-btn:hover {
+    background: #f3f4f6;
+    color: #111111;
+}
+.exit-help-toast {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(420px, calc(100vw - 32px));
+    background: #ffffff;
+    color: var(--text);
+    border: 2px solid #fecaca;
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 18px 42px rgba(15,23,42,0.22);
+    z-index: 10000;
+    line-height: 1.75;
+    text-align: left;
+    font-size: 0.95rem;
+}
+.exit-help-toast-title {
+    font-weight: 900;
+    color: #b91c1c;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1.08rem;
+}
+.exit-help-toast-body {
+    white-space: pre-line;
+}
+.exit-help-toast-note {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.84rem;
+    text-align: center;
+}
+.library-back-btn {
+    background: #ffffff;
+    color: var(--primary-dark);
+    border: 1px solid #bfdbfe;
+}
+@media (max-width: 760px) {
+    .library-hero { padding: 14px; }
+    .library-hero-title { font-size: 1.12rem; }
+    .library-category { padding: 12px; }
+    .library-item-btn { min-height: 50px; font-size: .98rem; }
+}
+
+
+/* ===== Library start screen refinement ===== */
+body.library-mode header {
+    display: none;
+}
+body.library-mode main {
+    padding: 18px;
+}
+body.library-mode .stats {
+    display: none;
+}
+.library-home.clean-start {
+    max-width: 720px;
+    margin: 0 auto;
+    min-height: calc(100dvh - 36px);
+    align-content: center;
+}
+.library-home.has-library {
+    max-width: 860px;
+    margin: 0 auto;
+}
+.library-hero.big-start {
+    text-align: center;
+    padding: 30px 20px;
+}
+.library-hero.big-start .library-hero-title {
+    font-size: 1.9rem;
+    margin-bottom: 14px;
+}
+.library-primary-btn {
+    width: 100%;
+    max-width: 360px;
+    min-height: 52px;
+    font-size: 1.02rem;
+    border-radius: 14px;
+}
+.library-actions.centered {
+    justify-content: center;
+}
+.library-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+@media (max-width: 760px) {
+    body.library-mode main { padding: 14px; }
+    .library-home.clean-start { min-height: calc(100dvh - 28px); }
+    .library-hero.big-start { padding: 24px 16px; }
+    .library-hero.big-start .library-hero-title { font-size: 1.55rem; }
+    .library-primary-btn { max-width: none; }
+}
+
+
+/* Library folder drill-down: simple arrow-only style */
+.library-folder-btn {
+    width: 100%;
+    text-align: left;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 14px;
+    font-size: 1.04rem;
+    line-height: 1.35;
+    font-weight: 500;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.library-folder-btn:hover,
+.library-folder-btn.open {
+    background: #ffffff;
+    color: var(--text);
+    border-color: var(--border);
+}
+.library-folder-btn::after {
+    content: "▶";
+    color: var(--muted);
+    font-size: .9rem;
+}
+.library-folder-btn.open::after {
+    content: "▼";
+}
+.library-folder-panel {
+    display: none;
+    margin-top: 8px;
+    padding-left: 8px;
+    border-left: 3px solid var(--border);
+}
+.library-folder-panel.open {
+    display: grid;
+    gap: 8px;
+}
+.library-folder-panel-subblock {
+    display: grid;
+    gap: 8px;
+}
+.library-folder-btn-nested {
+    margin-left: 8px;
+    width: calc(100% - 8px);
+    font-size: 0.98rem;
+    background: #f8fafc;
+}
+.library-folder-panel-nested {
+    margin-left: 16px;
+    padding-left: 8px;
+}
+
+
+
+/* ===== Smartphone reading screen v1: compact practice UI ===== */
+body.lesson-mode header {
+    padding: 6px 8px;
+}
+body.lesson-mode .title-row,
+body.lesson-mode .student-title-row,
+body.lesson-mode .student-title-main,
+body.lesson-mode .student-load-area,
+body.lesson-mode .student-lesson-info-area,
+body.lesson-mode .voice-fixed-display,
+body.lesson-mode #voice-select {
+    display: none !important;
+}
+body.lesson-mode main {
+    padding: 8px;
+    padding-bottom: 74px;
+    overflow: auto;
+}
+body.lesson-mode .stats {
+    display: none;
+}
+body.lesson-mode .controls {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    margin: 0;
+    align-items: stretch;
+}
+body.lesson-mode .controls > button {
+    width: 100%;
+    min-height: 36px;
+    padding: 6px 3px;
+    font-size: 0.70rem;
+    line-height: 1.15;
+    border-radius: 8px;
+    white-space: normal;
+}
+body.lesson-mode .controls .toggle-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+body.lesson-mode label.toggle {
+    justify-content: center;
+    min-height: 34px;
+    padding: 5px 3px;
+    font-size: 0.66rem;
+    line-height: 1.1;
+    border-radius: 8px;
+    text-align: center;
+}
+body.lesson-mode .auto-next-toggle {
+    display: none !important;
+}
+body.lesson-mode .slider-box {
+    grid-column: 1 / -1;
+    min-width: 0;
+    width: 100%;
+    flex: none;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 5px 8px;
+}
+.mobile-lesson-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.mobile-current-card {
+    position: sticky;
+    top: 118px;
+    z-index: 5;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--primary);
+    border-radius: 12px;
+    padding: 9px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.10);
+}
+.mobile-current-top {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.mobile-back-btn,
+.mobile-nav-btn {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: .72rem;
+    box-shadow: none;
+}
+.mobile-back-btn { white-space: nowrap; }
+.mobile-current-count {
+    color: var(--muted);
+    font-weight: 800;
+    font-size: .74rem;
+    text-align: right;
+}
+.mobile-current-card .line-num {
+    width: 2.1rem;
+    height: 2.1rem;
+    font-size: .9rem;
+}
+.mobile-current-english {
+    font-size: 1.12rem;
+    line-height: 1.55;
+    font-weight: 900;
+    color: #1d4ed8;
+    background: #fef3c7;
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    word-break: normal;
+}
+.mobile-current-accent {
+    font-size: .92rem;
+    line-height: 1.45;
+    color: var(--muted);
+}
+.mobile-detail-scroll {
+    display: grid;
+    gap: 8px;
+}
+.mobile-detail-scroll .vocab,
+.mobile-detail-scroll .jp {
+    font-size: .92rem;
+    line-height: 1.55;
+    padding: 9px 10px;
+}
+.mobile-bottom-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.96);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 14px rgba(15,23,42,0.12);
+}
+.mobile-bottom-actions button {
+    min-height: 42px;
+    padding: 7px 4px;
+    border-radius: 10px;
+    font-size: .76rem;
+    line-height: 1.1;
+}
+body.hide-vocab .mobile-detail-scroll .vocab { display: none; }
+body.hide-jp .mobile-detail-scroll .jp { display: none; }
+body.lesson-mode .mobile-current-english.hidden-text,
+body.lesson-mode .mobile-current-accent.hidden-text,
+body.lesson-mode .mobile-current-accent.hidden-text * {
+    color: transparent !important;
+    text-shadow: 0 0 10px rgba(17,24,39,0.35) !important;
+}
+body.lesson-mode .mobile-current-accent.hidden-text .accent-highlight {
+    background: transparent !important;
+    color: transparent !important;
+    box-shadow: none !important;
+}
+@media (min-width: 761px) {
+    body.lesson-mode .controls > button { font-size: .82rem; }
+    .mobile-current-card { top: 132px; }
+    .mobile-current-english { font-size: 1.35rem; }
+    .mobile-current-accent { font-size: 1.05rem; }
+}
+
+
+/* ===== Smartphone reading screen v2: fixed current sentence + independent detail scroll ===== */
+body.lesson-mode main {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+body.lesson-mode #display-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-lesson-shell {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.mobile-return-row {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.mobile-list-btn {
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: .72rem;
+    line-height: 1.1;
+    box-shadow: none;
+}
+.mobile-current-card {
+    position: static !important;
+    top: auto !important;
+    flex: 0 0 auto;
+    z-index: 1;
+}
+.mobile-current-top {
+    display: block !important;
+}
+.mobile-current-count { display: none !important; }
+.mobile-sentence-nav {
+    display: grid;
+    grid-template-columns: minmax(92px, 1fr) minmax(130px, 1.2fr) minmax(92px, 1fr);
+    gap: 8px;
+    align-items: stretch;
+}
+.mobile-nav-btn,
+.mobile-jump-btn {
+    min-height: 42px !important;
+    padding: 0 10px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.1;
+    box-shadow: none;
+}
+.mobile-nav-btn {
+    width: 100% !important;
+    min-width: 64px !important;
+}
+.mobile-nav-btn.end-reached {
+    background: #111111 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.mobile-jump-btn {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+    flex-direction: column;
+    gap: 2px;
+}
+.mobile-jump-num {
+    font-size: 1.05rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-jump-label {
+    font-size: .68rem;
+    line-height: 1;
+    color: var(--muted);
+    font-weight: 800;
+}
+.sentence-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.35);
+    z-index: 9000;
+    display: none;
+}
+.sentence-sheet-backdrop.open { display: block; }
+.sentence-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 78dvh;
+    background: #ffffff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -12px 30px rgba(15,23,42,.22);
+    z-index: 9001;
+    transform: translateY(105%);
+    transition: transform .22s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sentence-sheet.open { transform: translateY(0); }
+.sentence-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 900;
+}
+.sentence-sheet-close {
+    background: var(--soft);
+    color: var(--text);
+    border-radius: 999px;
+    min-width: 40px;
+    padding: 7px 10px;
+    box-shadow: none;
+}
+.sentence-sheet-list {
+    overflow-y: auto;
+    padding: 8px 10px 18px;
+}
+.sentence-sheet-item {
+    width: 100%;
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    margin-bottom: 7px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.45;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 8px;
+    box-shadow: none;
+}
+.sentence-sheet-item.current {
+    border-color: var(--primary);
+    background: #eff6ff;
+}
+.sentence-sheet-num {
+    color: var(--muted);
+    font-weight: 900;
+}
+.sentence-sheet-text {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mobile-detail-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 8px;
+    overscroll-behavior: contain;
+}
+
+
+
+/* ===== Smartphone split screen v3: same-page practice screen ===== */
+body.split-mode header {
+    display: none !important;
+}
+body.split-mode main {
+    padding: 0;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+body.split-mode #display-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-split-shell {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+.mobile-split-top {
+    flex: 0 0 auto;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 3px 12px rgba(15,23,42,0.08);
+    padding: max(7px, env(safe-area-inset-top)) 8px 7px;
+    display: grid;
+    gap: 6px;
+}
+.mobile-split-settings {
+    display: grid;
+    grid-template-columns: 58px minmax(0,1fr) 74px;
+    gap: 6px;
+    align-items: center;
+}
+.mobile-split-speed-label {
+    font-weight: 900;
+    font-size: .82rem;
+    text-align: right;
+}
+.mobile-split-pause {
+    width: 100%;
+    min-height: 36px;
+    padding: 5px 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-weight: 800;
+    background: #fff;
+    color: var(--text);
+    font-size: .76rem;
+}
+.mobile-split-toggle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-height: 36px;
+    padding: 5px 4px;
+    font-size: .72rem;
+    font-weight: 800;
+    background: #fff;
+    white-space: nowrap;
+}
+.mobile-split-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+}
+.mobile-split-actions button {
+    min-height: 40px;
+    padding: 6px 4px;
+    border-radius: 9px;
+    font-size: .78rem;
+}
+.mobile-split-nav {
+    display: grid;
+    grid-template-columns: minmax(76px, 1fr) minmax(122px, 1.25fr) minmax(76px, 1fr);
+    gap: 6px;
+}
+.mobile-split-nav button {
+    min-height: 40px;
+    padding: 5px 6px;
+    border-radius: 9px;
+    font-size: .86rem;
+}
+.mobile-split-nav .mobile-split-jump-btn {
+    background: #ffffff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-split-num {
+    font-size: 1rem;
+    line-height: 1;
+}
+.mobile-split-label {
+    font-size: .66rem;
+    line-height: 1;
+    color: var(--muted);
+}
+.mobile-split-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 8px;
+    overscroll-behavior: contain;
+}
+.mobile-split-global-toggle-row {
+    display: block;
+    margin: 0 0 7px 0;
+}
+.mobile-split-global-toggle-row .mobile-split-toggle-btn {
+    width: 100%;
+    min-height: 38px;
+    border-radius: 9px;
+    padding: 6px 6px;
+    font-size: .72rem;
+    line-height: 1;
+}
+.mobile-split-rows {
+    display: grid;
+    gap: 8px;
+}
+.mobile-split-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    align-items: stretch;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--primary);
+    border-radius: 14px;
+    padding: 7px 8px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+}
+.mobile-split-cell {
+    min-width: 0;
+    min-height: 0;
+    border-radius: 9px;
+    padding: 8px 10px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    display: flex;
+    align-items: flex-start;
+}
+.mobile-split-en {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    font-family: "Arial Black", "Segoe UI Black", "Yu Gothic UI", "Meiryo", Arial, sans-serif;
+    font-size: 1.38rem;
+    font-weight: 900;
+    letter-spacing: 0.012em;
+    color: #1d4ed8;
+    text-shadow: 0.35px 0 0 currentColor;
+    -webkit-font-smoothing: antialiased;
+}
+.mobile-split-jp {
+    background: var(--jp-bg);
+    border: 1px solid #bfdbfe;
+    font-size: 0.94rem;
+    font-weight: 500;
+}
+.mobile-split-play-cell {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-top: 0;
+}
+.mobile-split-line-play,
+.mobile-split-line-toggle {
+    min-height: 34px;
+    border-radius: 9px;
+    padding: 5px 6px;
+    font-size: .72rem;
+    line-height: 1;
+    font-weight: 900;
+}
+.mobile-split-line-play {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border: 1.5px solid var(--primary);
+}
+.mobile-split-line-play:hover {
+    background: var(--primary-dark) !important;
+    color: #ffffff !important;
+}
+.mobile-split-line-toggle {
+    background: #ffffff;
+    color: #1e3a8a;
+    border: 1.5px solid #1e3a8a;
+}
+.mobile-split-line-toggle:hover {
+    background: #ffffff;
+    color: #1e3a8a;
+}
+.mobile-split-line-toggle.split-off {
+    background: #1e3a8a;
+    color: #ffffff;
+    border: 1.5px solid #1e3a8a;
+}
+.mobile-split-line-toggle.split-off:hover {
+    background: #1e3a8a;
+    color: #ffffff;
+}
+.mobile-split-toggle-btn {
+    min-height: 34px;
+    border-radius: 10px;
+    padding: 5px 8px;
+    font-size: .70rem;
+    line-height: 1.1;
+    font-weight: 900;
+    background: #ffffff;
+    color: #1e3a8a;
+    border: 1.5px solid #1e3a8a;
+}
+.mobile-split-toggle-btn.split-off {
+    background: #1e3a8a;
+    color: #ffffff;
+    border: 1.5px solid #1e3a8a;
+}
+.mobile-split-toggle-btn:hover {
+    background: #ffffff;
+    color: #1e3a8a;
+}
+.mobile-split-toggle-btn.split-off:hover {
+    background: #1e3a8a;
+    color: #ffffff;
+}
+.mobile-split-row.current-split .mobile-split-en {
+    background: #fef3c7;
+    color: #1d4ed8;
+    font-weight: 900;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245,158,11,0.22);
+}
+body.split-hide-lines .mobile-split-en,
+body.split-hide-lines .mobile-split-row.current-split .mobile-split-en {
+    color: transparent !important;
+    text-shadow: none !important;
+    background: #ffffff !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: none !important;
+}
+body.split-hide-lines .mobile-split-en *,
+body.split-hide-lines .mobile-split-row.current-split .mobile-split-en * {
+    color: transparent !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en,
+body.split-hide-lines .mobile-split-row.current-split.split-line-force-show .mobile-split-en {
+    color: var(--text) !important;
+    text-shadow: none !important;
+    background: #f8fafc !important;
+}
+body.split-hide-lines .mobile-split-row.split-line-force-show .mobile-split-en * {
+    color: inherit !important;
+    text-shadow: none !important;
+}
+.mobile-split-row.split-line-force-hide .mobile-split-en,
+.mobile-split-row.current-split.split-line-force-hide .mobile-split-en {
+    color: transparent !important;
+    text-shadow: none !important;
+    background: #ffffff !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: none !important;
+}
+.mobile-split-row.split-line-force-hide .mobile-split-en * {
+    color: transparent !important;
+    background: transparent !important;
+    text-shadow: none !important;
+}
+@media (max-width: 430px) {
+    .mobile-split-row {
+        grid-template-columns: 1fr;
+    }
+    .mobile-split-play-cell {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== Tap/hover color cleanup: gray feedback only for sentence navigation ===== */
+:root {
+    --tap-gray: #d1d5db;
+    --tap-gray-dark: #c4c8cf;
+    --tap-gray-border: #9ca3af;
+}
+
+button,
+button * {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+button:focus-visible {
+    outline: none;
+}
+
+.mobile-nav-btn:hover,
+.mobile-nav-btn:focus,
+.mobile-nav-btn:focus-visible,
+.mobile-jump-btn:hover,
+.mobile-jump-btn:focus,
+.mobile-jump-btn:focus-visible,
+.mobile-split-jump-btn:hover,
+.mobile-split-jump-btn:focus,
+.mobile-split-jump-btn:focus-visible,
+.sentence-sheet-close:hover,
+.sentence-sheet-close:focus,
+.sentence-sheet-close:focus-visible {
+    background: var(--tap-gray) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+}
+
+.mobile-nav-btn:active,
+.mobile-jump-btn:active,
+.mobile-split-jump-btn:active,
+.sentence-sheet-close:active {
+    background: var(--tap-gray-dark) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.sentence-sheet-item:hover,
+.sentence-sheet-item:focus,
+.sentence-sheet-item:focus-visible,
+.main-jump-item:hover,
+.main-jump-item:focus,
+.main-jump-item:focus-visible {
+    background: var(--tap-gray) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.sentence-sheet-item:active,
+.main-jump-item:active {
+    background: var(--tap-gray-dark) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.mobile-nav-btn.clicked-feedback,
+.mobile-jump-btn.clicked-feedback,
+.mobile-split-jump-btn.clicked-feedback,
+.sentence-sheet-item.clicked-feedback,
+.main-jump-item.clicked-feedback,
+.sentence-sheet-close.clicked-feedback {
+    background: var(--tap-gray-dark) !important;
+    color: var(--text) !important;
+    border-color: var(--tap-gray-border) !important;
+}
+
+.sentence-sheet-item.current {
+    border-color: var(--border) !important;
+    background: #f3f4f6 !important;
+}
+
+.mobile-nav-btn.end-reached:hover,
+.mobile-nav-btn.end-reached:focus,
+.mobile-nav-btn.end-reached:focus-visible,
+.mobile-nav-btn.end-reached:active {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .mobile-nav-btn:hover,
+    .mobile-nav-btn:focus,
+    .mobile-nav-btn:focus-visible,
+    .mobile-jump-btn:hover,
+    .mobile-jump-btn:focus,
+    .mobile-jump-btn:focus-visible,
+    .mobile-split-jump-btn:hover,
+    .mobile-split-jump-btn:focus,
+    .mobile-split-jump-btn:focus-visible {
+        background: var(--soft) !important;
+        color: var(--text) !important;
+        border-color: var(--border) !important;
+    }
+
+    .mobile-jump-btn:hover,
+    .mobile-jump-btn:focus,
+    .mobile-jump-btn:focus-visible,
+    .mobile-split-jump-btn:hover,
+    .mobile-split-jump-btn:focus,
+    .mobile-split-jump-btn:focus-visible {
+        background: #ffffff !important;
+    }
+
+    .sentence-sheet-item:hover,
+    .sentence-sheet-item:focus,
+    .sentence-sheet-item:focus-visible {
+        background: #ffffff !important;
+        color: var(--text) !important;
+        border-color: var(--border) !important;
+    }
+
+    .mobile-nav-btn.clicked-feedback,
+    .mobile-jump-btn.clicked-feedback,
+    .mobile-split-jump-btn.clicked-feedback,
+    .sentence-sheet-item.clicked-feedback,
+    .sentence-sheet-close.clicked-feedback {
+        background: var(--tap-gray-dark) !important;
+        color: var(--text) !important;
+        border-color: var(--tap-gray-border) !important;
+    }
+
+    .mobile-nav-btn.end-reached:hover,
+    .mobile-nav-btn.end-reached:focus,
+    .mobile-nav-btn.end-reached:focus-visible,
+    .mobile-nav-btn.end-reached.clicked-feedback {
+        background: #111111 !important;
+        color: #ffffff !important;
+    }
+}
+
+
+/* Force category/subcategory names to left align */
+.library-folder-btn,
+.library-folder-btn-nested,
+.library-category-title,
+.library-category-title.no-blue-line {
+    text-align: left !important;
+    justify-content: flex-start !important;
+}
+.library-folder-btn {
+    position: relative;
+}
+.library-folder-btn::before {
+    content: "◆ ";
+    color: #6b21a8;
+    font-weight: 900;
+    font-size: 1.08em;
+    flex: 0 0 auto;
+}
+.library-folder-panel .library-folder-btn::before {
+    color: #8b5cf6;
+}
+.library-folder-btn::after {
+    margin-left: auto;
+}
+
+
+
+/* Final override: compact rectangular Exit Help button */
+.library-actions .library-exit-help-btn,
+button.library-exit-help-btn,
+.library-exit-help-btn{
+    background:#ffffff !important;
+    color:#111111 !important;
+    border:1px solid #111111 !important;
+    border-radius:3px !important;
+    padding:2px 8px !important;
+    min-height:18px !important;
+    height:18px !important;
+    line-height:14px !important;
+    font-size:0.68rem !important;
+    font-weight:700 !important;
+    width:auto !important;
+    box-shadow:none !important;
+}
+.library-actions .library-exit-help-btn:hover,
+button.library-exit-help-btn:hover,
+.library-exit-help-btn:hover{
+    background:#f5f5f5 !important;
+}
+
+
+
+/* Align exit button with bottom of blue button while keeping library action row left-aligned */
+.library-actions{
+    display:flex !important;
+    justify-content:flex-start !important;
+    align-items:flex-end !important;
+    gap:10px;
+}
+.library-actions.centered{
+    justify-content:center !important;
+}
+.library-actions .library-exit-help-btn,
+button.library-exit-help-btn,
+.library-exit-help-btn{
+    align-self:flex-end !important;
+    margin-bottom:0 !important;
+}
+
+</style>
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<input type="file" id="lesson-file-input" accept=".json,application/json" style="display:none;">
+<div id="mainFloatTooltip" class="main-float-tooltip"></div>
+
+<header>
+    <div class="title-row student-title-row">
+        <div class="student-title-main">
+            <h1>Reading-Aloud Trainer</h1>
+            <div class="hint">教材ファイルを読み込んで、英文・語彙・和訳を見ながら音読練習します。</div>
+        </div>
+        <div class="student-load-area"></div>
+        <div class="student-lesson-info-area">
+            <div id="lesson-info" class="lesson-info" aria-live="polite"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="secondary action-flash" onclick="showLibraryHome()">←教材一覧</button>
+        <button class="action-flash" onclick="playSequenceFrom(0)">自動再生</button>
+        <button id="whole-loop-btn" class="success action-flash" onclick="toggleWholeLoop()">全体LOOP</button>
+        <button id="pause-btn" class="warning action-flash" onclick="pauseResume()">一時停止</button>
+        <button class="danger action-flash" onclick="stopAll()">STOP</button>
+
+        <div class="slider-box">
+            <strong id="speed-val">0.90x</strong>
+            <input type="range" id="speed-slider" min="0.25" max="2.0" step="0.05" value="0.9">
+        </div>
+
+        <select id="voice-select" title="音声" aria-hidden="true" tabindex="-1">
+            <option value="">アメリカ英語・女性（端末標準）</option>
+        </select>
+        <div class="voice-fixed-display" aria-label="音声">音声：アメリカ英語・女性（端末標準）</div>
+
+        <div class="toggle-group">
+            <label class="toggle"><input type="checkbox" id="hide-english"> 英文ぼかし</label>
+            <label class="toggle"><input type="checkbox" id="hide-vocab-toggle"> 語彙OFF</label>
+            <label class="toggle"><input type="checkbox" id="hide-jp-toggle"> 和訳OFF</label>
+            <label class="toggle auto-next-toggle"><input type="checkbox" id="auto-next" checked> 自動で次へ</label>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="stats" id="stats">0文</div>
+    <div id="display-area"></div>
+</main>
+
+<script>
+let lessonData = [];
+let loopSettings = [];
+let currentIndex = -1;
+let selectedIndex = 0;
+let isPaused = false;
+let voices = [];
+let wholeLoop = false;
+let playbackAutoNext = false;
+let playbackWrapAtEnd = false;
+let returnToFirstAfterSequence = false;
+let lessonMeta = { material: "", section: "" };
+let libraryData = null;
+let libraryLoadError = "";
+let libraryCatalogData = null;
+let libraryCatalogError = "";
+let showingLibraryChooser = false;
+let libraryOpenFolderIds = new Set();
+let libraryLastOpenedFolderIds = [];
+
+let splitMode = false;
+let splitIndex = 0;
+let splitLoopMode = false;
+let splitStopped = true;
+let splitCurrentLineIndex = 0;
+let splitPauseTimer = null;
+let splitForceVisibility = {};
+let splitSettings = {
+    speed: "0.9",
+    pause: "0",
+    hideLines: false
+};
+
+const displayArea = document.getElementById("display-area");
+const stats = document.getElementById("stats");
+const speedSlider = document.getElementById("speed-slider");
+const speedVal = document.getElementById("speed-val");
+const voiceSelect = document.getElementById("voice-select");
+const hideVocabToggle = document.getElementById("hide-vocab-toggle");
+const hideJpToggle = document.getElementById("hide-jp-toggle");
+const hideEnglish = document.getElementById("hide-english");
+const autoNext = document.getElementById("auto-next");
+const wholeLoopBtn = document.getElementById("whole-loop-btn");
+const pauseBtn = document.getElementById("pause-btn");
+const lessonFileInput = document.getElementById("lesson-file-input");
+const lessonInfo = document.getElementById("lesson-info");
+
+function escapeHtml(str) {
+    return String(str || "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    }[ch]));
+}
+
+function bookTitleHtmlFromEscaped(escaped) {
+    return String(escaped || "").replace(/_([^_\n]+)_/g, '<em>$1</em>');
+}
+
+function markedTextHtml(line) {
+    return bookTitleHtmlFromEscaped(escapeHtml(line));
+}
+
+function markedPlainHtml(line) {
+    // 表示用: ^ は消すが、_..._ は斜体変換のために残してから処理する。
+    return markedTextHtml(String(line || "").replace(/\^/g, ""));
+}
+
+function accentHtml(line) {
+    const highlighted = escapeHtml(line).replace(/\^(\p{L})/gu, '<span class="accent-highlight">$1</span>');
+    return bookTitleHtmlFromEscaped(highlighted);
+}
+
+function plainLine(line) {
+    return String(line || "")
+        .replace(/\^/g, "")
+        .replace(/_([^_\n]+)_/g, "$1")
+        .replace(/_/g, "");
+}
+
+function getRawVocabText(item) {
+    if (!item) return "";
+    return item.vocab || item.vocabulary || item["語彙"] || "";
+}
+
+function findLeakedVocabStart(text) {
+    const s = String(text || "");
+    const labelMatch = s.match(/【語彙(?:\d{2})?】/);
+    if (labelMatch && typeof labelMatch.index === "number") return labelMatch.index;
+
+    // 【アクセント】欄に語彙の箇条書きが混入した場合の保険。
+    // 例: "... delivered. ・Mr. Awetimbi「アウェティンビ氏」..."
+    const bulletMatch = s.match(/[\s　]+(?=・[^\n]{0,80}「)/);
+    if (bulletMatch && typeof bulletMatch.index === "number") {
+        return bulletMatch.index + bulletMatch[0].length;
+    }
+    return -1;
+}
+
+function normalizeAccentAndVocab(item) {
+    if (!item) return item;
+
+    const rawVocab = getRawVocabText(item);
+    const rawAccent = item.accent || item.accentText || item["アクセント"] || item.english || "";
+
+    item.accent = rawAccent;
+    item.vocab = rawVocab;
+
+    if (!item.vocab && item.accent) {
+        const leakStart = findLeakedVocabStart(item.accent);
+        if (leakStart > 0) {
+            const leaked = item.accent.slice(leakStart)
+                .replace(/^【語彙(?:\d{2})?】\s*/, "")
+                .trim();
+            item.accent = item.accent.slice(0, leakStart).trim();
+            item.vocab = leaked;
+        }
+    }
+
+    return item;
+}
+
+function getVocabText(item) {
+    if (!item) return "";
+    normalizeAccentAndVocab(item);
+    return item.vocab || "";
+}
+
+function getAccentText(item) {
+    if (!item) return "";
+    normalizeAccentAndVocab(item);
+    return item.accent || item.english || "";
+}
+
+function hasRealSplitData(item) {
+    function meaningful(value) {
+        const s = String(value || "")
+            .replace(/\s+/g, "")
+            .replace(/[。．.]/g, "")
+            .trim();
+        if (!s) return false;
+        return !["なし", "無し", "無", "none", "NONE", "なしです"].includes(s);
+    }
+    return meaningful(item.split) || meaningful(item.splitJp);
+}
+
+
+function parseLessonLabelInfo(rawLabel) {
+    const s = String(rawLabel || "")
+        .replace(/[【】]/g, "")
+        .trim();
+
+    let m = s.match(/^設問(\d{1,3})$/);
+    if (m) {
+        return {
+            sourceLabel: `設問${m[1]}`,
+            labelType: "question",
+            labelNumber: m[1],
+            displayLabel: m[1]
+        };
+    }
+
+    m = s.match(/^選択肢(\d{1,3})([A-Da-d])$/);
+    if (m) {
+        return {
+            sourceLabel: `選択肢${m[1]}${m[2].toUpperCase()}`,
+            labelType: "choice",
+            labelNumber: `${m[1]}${m[2].toUpperCase()}`,
+            displayLabel: m[2].toUpperCase()
+        };
+    }
+
+    m = s.match(/^英文(\d+)$/);
+    if (m) {
+        return {
+            sourceLabel: `英文${m[1]}`,
+            labelType: "english",
+            labelNumber: m[1],
+            displayLabel: String(Number.parseInt(m[1], 10))
+        };
+    }
+
+    m = s.match(/^英文$/);
+    if (m) {
+        return {
+            sourceLabel: "",
+            labelType: "english",
+            labelNumber: "",
+            displayLabel: ""
+        };
+    }
+
+    return null;
+}
+
+function normalizeLessonItemLabel(item, fallbackIndex) {
+    if (!item) return item;
+
+    const candidates = [
+        item.sourceLabel,
+        item.originalLabel,
+        item.label,
+        item.tag,
+        item.id
+    ];
+
+    let info = null;
+    for (const candidate of candidates) {
+        info = parseLessonLabelInfo(candidate);
+        if (info) break;
+    }
+
+    if (!info) {
+        if (item.labelType === "question" && item.labelNumber) {
+            info = parseLessonLabelInfo(`設問${item.labelNumber}`);
+        } else if (item.labelType === "choice" && item.labelNumber) {
+            info = parseLessonLabelInfo(`選択肢${item.labelNumber}`);
+        } else if (item.labelNumber !== undefined && item.labelNumber !== null && String(item.labelNumber).trim() !== "") {
+            info = parseLessonLabelInfo(`英文${String(item.labelNumber).trim()}`);
+        } else if (item.number !== undefined && item.number !== null && String(item.number).trim() !== "") {
+            item.displayLabel = String(item.number).trim();
+            item.labelType = item.labelType || "english";
+            return item;
+        }
+    }
+
+    if (!info) {
+        const displayNumber = fallbackIndex + 1;
+        info = {
+            sourceLabel: `英文${String(displayNumber).padStart(2, "0")}`,
+            labelType: "english",
+            labelNumber: String(displayNumber).padStart(2, "0"),
+            displayLabel: String(displayNumber)
+        };
+    }
+
+    item.sourceLabel = item.sourceLabel || info.sourceLabel;
+    item.labelType = item.labelType || info.labelType;
+    item.labelNumber = item.labelNumber || info.labelNumber;
+    item.displayLabel = item.displayLabel || info.displayLabel;
+
+    return item;
+}
+
+function getCircleNumber(item, fallbackIndex) {
+    normalizeLessonItemLabel(item, fallbackIndex);
+    if (item && item.displayLabel !== undefined && item.displayLabel !== null && String(item.displayLabel).trim() !== "") {
+        return String(item.displayLabel).trim();
+    }
+    if (item && item.number !== undefined && item.number !== null && String(item.number).trim() !== "") {
+        return String(item.number).trim();
+    }
+    return String(fallbackIndex + 1);
+}
+
+function getCircleNumberClass(item, fallbackIndex) {
+    normalizeLessonItemLabel(item, fallbackIndex);
+    const label = getCircleNumber(item, fallbackIndex);
+    const classes = [];
+    if (String(label).length >= 3) classes.push("long-num");
+    if (item && item.labelType === "choice") classes.push("choice-num");
+    return classes.join(" ");
+}
+
+function getFullItemLabel(item, fallbackIndex) {
+    normalizeLessonItemLabel(item, fallbackIndex);
+    if (item && item.sourceLabel) return String(item.sourceLabel);
+    const raw = item && item.labelNumber ? String(item.labelNumber) : String(fallbackIndex + 1).padStart(2, "0");
+    if (/^\d+$/.test(raw)) return `英文${raw.padStart(2, "0")}`;
+    return `英文${String(fallbackIndex + 1).padStart(2, "0")}`;
+}
+
+function getPaddedLabelNumber(item, fallbackIndex) {
+    const label = getFullItemLabel(item, fallbackIndex);
+    const english = label.match(/^英文(\d+)$/);
+    if (english) return english[1].padStart(2, "0");
+    return label;
+}
+
+function sentenceTooltipText(item) {
+    return plainLine((item && (item.english || getAccentText(item))) || "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+
+
+function cleanLessonMetaText(value) {
+    return String(value || "")
+        .split(/\n/)
+        .map(line => line.trim())
+        .filter(line => line && !/^■{3,}$/.test(line))
+        .join(" ")
+        .trim();
+}
+
+function setLessonMeta(material = "", section = "") {
+    lessonMeta = {
+        material: cleanLessonMetaText(material),
+        section: cleanLessonMetaText(section)
+    };
+    updateLessonInfo();
+}
+
+function updateLessonInfo() {
+    if (!lessonInfo) return;
+
+    const material = lessonMeta.material || "";
+    const section = lessonMeta.section || "";
+
+    if (!material && !section) {
+        lessonInfo.classList.remove("visible");
+        lessonInfo.innerHTML = "";
+        return;
+    }
+
+    const materialHtml = material
+        ? `<div class="lesson-info-title">${escapeHtml(material)}</div>`
+        : "";
+    const sectionHtml = section
+        ? `<div class="lesson-info-section">${escapeHtml(section)}</div>`
+        : "";
+
+    lessonInfo.innerHTML = [materialHtml, sectionHtml].filter(Boolean).join("");
+    lessonInfo.classList.add("visible");
+}
+
+function readLessonMetaFromObject(obj) {
+    if (!obj || Array.isArray(obj)) return { material: "", section: "" };
+    const meta = obj.lessonMeta || obj.meta || {};
+    return {
+        material: meta.material || obj.material || obj["教材"] || obj.lessonTitle || obj.lessonName || "",
+        section: meta.section || obj.section || obj["セクション"] || ""
+    };
+}
+
+function safeRelativeFileUrl(file) {
+    return String(file || "")
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+}
+
+const LIBRARY_FILE_STORAGE_KEY = "rat-library-file-toeic";
+const LIBRARY_NAME_STORAGE_KEY = "rat-library-name-toeic";
+
+function getUrlLibraryName() {
+    try {
+        const params = new URLSearchParams(window.location.search || "");
+        const urlLib = (params.get("lib") || "").trim();
+        return urlLib || (typeof RAT_DEFAULT_LIBRARY !== "undefined" ? RAT_DEFAULT_LIBRARY : "");
+    } catch (e) {
+        return (typeof RAT_DEFAULT_LIBRARY !== "undefined" ? RAT_DEFAULT_LIBRARY : "");
+    }
+}
+
+function normalizeLibraryName(name) {
+    const cleanName = String(name || "").trim();
+
+    if (cleanName === "\u5168\u30af\u30e9\u30b9" || cleanName === "ALL") return "";
+
+    // 旧名称で端末に記憶されている場合でも、新しいライブラリへ誘導する。
+    const aliases = {
+        "2年生": "英語3T・4T",
+        "TOEIC": "TOEIC 1・2",
+        "時事英語": "外国語演習Ⅰ",
+    };
+
+    if (Object.prototype.hasOwnProperty.call(aliases, cleanName)) {
+        return aliases[cleanName];
+    }
+
+    return cleanName;
+}
+
+function libraryFileFromName(name) {
+    const cleanName = normalizeLibraryName(name);
+    return cleanName ? `library/${cleanName}.json` : "";
+}
+
+function rememberLibraryName(name) {
+    const cleanName = normalizeLibraryName(name);
+    if (!cleanName) return;
+    try {
+        localStorage.setItem(LIBRARY_NAME_STORAGE_KEY, cleanName);
+        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, libraryFileFromName(cleanName));
+    } catch (e) {}
+}
+
+function getCurrentLibraryFile() {
+    const urlLib = getUrlLibraryName();
+    if (urlLib) {
+        const normalizedUrlLib = normalizeLibraryName(urlLib);
+        if (!normalizedUrlLib) return "";
+        rememberLibraryName(normalizedUrlLib);
+        return libraryFileFromName(normalizedUrlLib);
+    }
+    try {
+        const storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+        if (storedFile && !/\/\u5168\u30af\u30e9\u30b9\.json$/.test(storedFile)) return storedFile;
+        const storedName = localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "";
+        if (storedName) return libraryFileFromName(storedName);
+    } catch (e) {}
+    return "";
+}
+
+function setCurrentLibraryFile(filePath) {
+    if (!filePath) return;
+    try {
+        localStorage.setItem(LIBRARY_FILE_STORAGE_KEY, filePath);
+        const m = String(filePath).match(/^library\/(.+)\.json$/);
+        if (m) localStorage.setItem(LIBRARY_NAME_STORAGE_KEY, decodeURIComponent(m[1]));
+    } catch (e) {}
+}
+
+function normalizeLibraryCatalog(data) {
+    return [];
+}
+
+async function loadLibraryCatalog() {
+    libraryCatalogData = null;
+    libraryCatalogError = "";
+}
+
+async function showLibraryChooser() {
+    showingLibraryChooser = true;
+    lessonData = [];
+    selectedIndex = 0;
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+function closeLibraryChooser() {
+    showingLibraryChooser = false;
+    updateDisplay();
+}
+
+async function loadLibraryFromServer(showAlert = false, filePath = null) {
+    libraryLoadError = "";
+    const libraryFile = filePath || getCurrentLibraryFile();
+    if (!libraryFile) {
+        await showLibraryChooser();
+        if (showAlert) alert("教材ライブラリを選択してください。");
+        return;
+    }
+    try {
+        const res = await fetch(safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
+        const data = await res.json();
+        if (!data || !Array.isArray(data.categories)) {
+            throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
+        }
+        await expandLinkedLibraries(data, new Set(), libraryFile);
+        libraryData = data;
+        showingLibraryChooser = false;
+        setCurrentLibraryFile(libraryFile);
+        try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
+        lessonData = [];
+        setLessonMeta("", "");
+        updateDisplay();
+        if (showAlert) alert("教材ライブラリを読み込みました。");
+    } catch (e) {
+        libraryLoadError = e && e.message ? e.message : String(e);
+        libraryData = null;
+        showingLibraryChooser = false;
+        updateDisplay();
+        if (showAlert) alert("教材ライブラリの読み込みに失敗しました。\n" + libraryLoadError);
+    }
+}
+
+async function selectLibraryFromCatalog(index) {
+    const libraries = libraryCatalogData && Array.isArray(libraryCatalogData.libraries) ? libraryCatalogData.libraries : [];
+    const entry = libraries[index];
+    if (!entry || !entry.file) return;
+    await loadLibraryFromServer(true, entry.file);
+}
+
+function resetLibrarySelection() {
+    if (!confirm("現在の教材ライブラリの記憶をリセットしますか？")) return;
+    try {
+        localStorage.removeItem("rat-library-autoload");
+        localStorage.removeItem(LIBRARY_FILE_STORAGE_KEY);
+    } catch (e) {}
+    libraryData = null;
+    libraryLoadError = "";
+    showingLibraryChooser = false;
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+function getVisibleLibraryCategories() {
+    const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+    return categories
+        .filter(cat => cat && typeof cat === "object")
+        .map((cat, ci) => ({ cat, ci }));
+}
+
+function getLibraryChildFolders(node) {
+    if (!node || typeof node !== "object") return [];
+    const folders = [];
+    [node.sections, node.subsections, node.folders].forEach(group => {
+        if (Array.isArray(group)) {
+            group.forEach(folder => {
+                if (folder && typeof folder === "object") folders.push(folder);
+            });
+        }
+    });
+    return folders;
+}
+
+function getLibraryItems(node) {
+    if (!node || !Array.isArray(node.items)) return [];
+    return node.items.filter(item => item && item.file);
+}
+
+function getLinkedLibraryFiles(node) {
+    if (!node || typeof node !== "object") return [];
+    const values = [];
+    [node.libraryFiles, node.libraryFile, node.library, node.libraryPath, node.fileLibrary].forEach(value => {
+        if (Array.isArray(value)) {
+            value.forEach(v => {
+                const clean = String(v || "").trim();
+                if (clean && !values.includes(clean)) values.push(clean);
+            });
+        } else {
+            const clean = String(value || "").trim();
+            if (clean && !values.includes(clean)) values.push(clean);
+        }
+    });
+    return values;
+}
+
+function removeLinkedLibraryMarkers(node) {
+    if (!node || typeof node !== "object") return;
+    delete node.libraryFiles;
+    delete node.libraryFile;
+    delete node.library;
+    delete node.libraryPath;
+    delete node.fileLibrary;
+    delete node.linkMode;
+    delete node.replaceWithLinkedLibrary;
+}
+
+function mergeLibraryItems(existingItems, incomingItems) {
+    const result = Array.isArray(existingItems) ? existingItems.slice() : [];
+    const seen = new Set(result.map(item => String((item && (item.file || item.title)) || "")));
+    (Array.isArray(incomingItems) ? incomingItems : []).forEach(item => {
+        if (!item || typeof item !== "object") return;
+        const key = String(item.file || item.title || "");
+        if (key && seen.has(key)) return;
+        result.push(item);
+        if (key) seen.add(key);
+    });
+    return result;
+}
+
+function mergeLibraryFolders(existingFolders, incomingFolders) {
+    const result = Array.isArray(existingFolders) ? existingFolders.slice() : [];
+
+    (Array.isArray(incomingFolders) ? incomingFolders : []).forEach(incoming => {
+        if (!incoming || typeof incoming !== "object") return;
+        const incomingName = String(incoming.name || "").trim();
+        const same = incomingName
+            ? result.find(folder => folder && typeof folder === "object" && String(folder.name || "").trim() === incomingName)
+            : null;
+
+        if (same) {
+            mergeLibraryNodeContent(same, incoming);
+        } else {
+            result.push(incoming);
+        }
+    });
+
+    return result;
+}
+
+function mergeLibraryNodeContent(target, source) {
+    if (!target || !source) return;
+
+    if (Array.isArray(source.items) || Array.isArray(target.items)) {
+        target.items = mergeLibraryItems(target.items, source.items || []);
+    }
+
+    if (Array.isArray(source.sections) || Array.isArray(target.sections)) {
+        target.sections = mergeLibraryFolders(target.sections, source.sections || []);
+    }
+
+    if (Array.isArray(source.subsections) || Array.isArray(target.subsections)) {
+        target.subsections = mergeLibraryFolders(target.subsections, source.subsections || []);
+    }
+
+    if (Array.isArray(source.folders) || Array.isArray(target.folders)) {
+        target.folders = mergeLibraryFolders(target.folders, source.folders || []);
+    }
+}
+
+function mergeLinkedLibraryIntoNode(node, linkedData) {
+    if (!node || !linkedData || !Array.isArray(linkedData.categories)) return;
+
+    const nodeName = String(node.name || "").trim();
+    const linkedName = String(linkedData.name || linkedData.title || linkedData.libraryName || "").trim();
+    const categories = linkedData.categories.filter(cat => cat && typeof cat === "object");
+    const replaceExisting = node.linkMode === "replace" || node.replaceWithLinkedLibrary === true;
+
+    removeLinkedLibraryMarkers(node);
+
+    if (replaceExisting) {
+        delete node.items;
+        delete node.sections;
+        delete node.subsections;
+        delete node.folders;
+    }
+
+    // 参照先JSONが自分自身を最上位カテゴリとして持つ場合は、その中身だけをこのノードへ合成する。
+    // 例: 外国語演習Ⅰ.json: name="外国語演習Ⅰ", categories[0].name="外国語演習Ⅰ"
+    if (categories.length === 1) {
+        const only = categories[0];
+        const onlyName = String(only.name || "").trim();
+        if (onlyName && (onlyName === nodeName || onlyName === linkedName)) {
+            mergeLibraryNodeContent(node, only);
+            return;
+        }
+    }
+
+    // 参照先JSONが教材カテゴリだけを持つ場合は、そのカテゴリ群をこのノードの下位フォルダとして置く。
+    // 例: カルチャー英語1・2.json: Adventures in Architecture
+    node.sections = mergeLibraryFolders(node.sections, categories);
+}
+
+function resolveLibraryFilePath(linkedFile, baseFile = "") {
+    const raw = String(linkedFile || "").trim();
+    if (!raw) return "";
+    if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("/")) return raw;
+    if (raw.startsWith("library/")) return raw;
+
+    const base = String(baseFile || "").split("?")[0];
+    const slashIndex = base.lastIndexOf("/");
+    const baseDir = slashIndex >= 0 ? base.slice(0, slashIndex + 1) : "";
+    return baseDir + raw;
+}
+
+async function fetchLibraryJsonWithFallback(linkedFile, baseFile = "") {
+    const candidates = [];
+    function addCandidate(path) {
+        const clean = String(path || "").trim();
+        if (clean && !candidates.includes(clean)) candidates.push(clean);
+    }
+
+    addCandidate(resolveLibraryFilePath(linkedFile, baseFile));
+
+    const raw = String(linkedFile || "").trim();
+    if (raw && !/^(https?:)?\/\//i.test(raw) && !raw.startsWith("/")) {
+        addCandidate(raw);
+        if (!raw.startsWith("library/")) addCandidate("library/" + raw);
+    }
+
+    let lastError = null;
+    for (const candidate of candidates) {
+        try {
+            const res = await fetch(safeRelativeFileUrl(candidate) + "?ts=" + Date.now(), { cache: "no-store" });
+            if (!res.ok) throw new Error(`${candidate}を読み込めませんでした。HTTP ${res.status}`);
+            const data = await res.json();
+            return { data, file: candidate };
+        } catch (e) {
+            lastError = e;
+        }
+    }
+
+    throw lastError || new Error(`${linkedFile}を読み込めませんでした。`);
+}
+
+async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
+    if (!node || typeof node !== "object") return;
+
+    const linkedFileCandidates = getLinkedLibraryFiles(node);
+    if (linkedFileCandidates.length) {
+        const loadErrors = [];
+
+        for (const linkedFileRaw of linkedFileCandidates) {
+            const primaryLinkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
+            const key = String(primaryLinkedFile || linkedFileRaw);
+            if (seen.has(key)) continue;
+
+            seen.add(key);
+            try {
+                const result = await fetchLibraryJsonWithFallback(linkedFileRaw, baseFile);
+                const linkedData = result.data;
+                const linkedFile = result.file;
+                if (!linkedData || !Array.isArray(linkedData.categories)) {
+                    throw new Error(`${linkedFile}の形式が不正です。categories配列が必要です。`);
+                }
+                await expandLinkedLibraries(linkedData, seen, linkedFile);
+                mergeLinkedLibraryIntoNode(node, linkedData);
+            } catch (e) {
+                loadErrors.push(e && e.message ? e.message : String(e));
+            } finally {
+                seen.delete(key);
+            }
+        }
+
+        if (getLinkedLibraryFiles(node).length) removeLinkedLibraryMarkers(node);
+        if (loadErrors.length) node._libraryLoadError = loadErrors.join("\n");
+    }
+
+    const categoryChildren = Array.isArray(node.categories)
+        ? node.categories.filter(child => child && typeof child === "object")
+        : [];
+    const folderChildren = getLibraryChildFolders(node);
+    const children = categoryChildren.concat(folderChildren);
+    for (const child of children) {
+        await expandLinkedLibraries(child, seen, baseFile);
+    }
+}
+
+function makeLibraryPath(categoryIndex, folderIndexes, itemIndex) {
+    return encodeURIComponent(JSON.stringify({
+        categoryIndex: categoryIndex,
+        folderIndexes: Array.isArray(folderIndexes) ? folderIndexes : [],
+        itemIndex: itemIndex
+    }));
+}
+
+function renderLibraryFolderNode(node, categoryIndex, folderIndexes, level) {
+    const items = getLibraryItems(node);
+    const folders = getLibraryChildFolders(node);
+
+    const itemsHtml = items.map(item => {
+        const originalIndex = Array.isArray(node.items) ? node.items.indexOf(item) : -1;
+        const encodedPath = makeLibraryPath(categoryIndex, folderIndexes, originalIndex);
+        return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibraryPath('${encodedPath}')">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+    }).join("");
+
+    const foldersHtml = folders.map((folder, fi) => {
+        const nextFolderIndexes = folderIndexes.concat(fi);
+        const folderId = `lib-folder-${categoryIndex}-${nextFolderIndexes.join("-")}`;
+        const nestedClass = level > 0 ? " library-folder-btn-nested" : "";
+        const nestedPanelClass = level > 0 ? " library-folder-panel-nested" : "";
+        const innerHtml = renderLibraryFolderNode(folder, categoryIndex, nextFolderIndexes, level + 1);
+        return `<div class="library-folder-panel-subblock">
+            <button type="button" class="library-folder-btn${nestedClass} action-flash" onclick="toggleLibraryFolder('${folderId}', this)">${escapeHtml(folder.name || "未分類")}</button>
+            <div class="library-folder-panel${nestedPanelClass}" id="${folderId}">${innerHtml}</div>
+        </div>`;
+    }).join("");
+
+    if (!itemsHtml && !foldersHtml) {
+        if (node && node._libraryLoadError) {
+            return `<div class="library-empty">ライブラリを読み込めませんでした。<br>${escapeHtml(node._libraryLoadError).replace(/\n/g, "<br>")}</div>`;
+        }
+        return `<div class="library-empty">現在、教材はありません。</div>`;
+    }
+
+    const errorHtml = node && node._libraryLoadError
+        ? `<div class="library-empty">一部のライブラリを読み込めませんでした。<br>${escapeHtml(node._libraryLoadError).replace(/\n/g, "<br>")}</div>`
+        : "";
+
+    return `${errorHtml}${itemsHtml}${foldersHtml}`;
+}
+
+let exitHelpTimer = null;
+
+function getExitHelpMessage() {
+    if (isIOSDevice()) {
+        return "iPhoneでアプリを終了させたい場合：\n\n1. 画面下から上にスワイプして、途中で指を止めます。\n2. アプリスイッチャーが表示されたら、Reading-Aloud Trainerの画面を上にスワイプしてください。";
+    }
+
+    const ua = navigator.userAgent || "";
+    const isAndroid = /Android/i.test(ua);
+
+    if (isAndroid) {
+        return "Androidでアプリを終了させたい場合：\n\n1. 画面下の四角いボタン、または「最近使ったアプリ」ボタンを押します。\n2. アプリ一覧が表示されたら、Reading-Aloud Trainerを左右または上にスワイプしてください。\n\n※ジェスチャー操作の場合は、画面下から上にスワイプして途中で指を止めると、アプリ一覧が表示されます。";
+    }
+
+    return "アプリを終了させたい場合：\n\nブラウザまたはPWAのアプリ一覧から、Reading-Aloud Trainerの画面を閉じてください。";
+}
+
+function showExitHelp() {
+    stopAll();
+
+    let toast = document.getElementById("exitHelpToast");
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "exitHelpToast";
+        toast.className = "exit-help-toast";
+        document.body.appendChild(toast);
+    }
+
+    toast.innerHTML = `
+        <div class="exit-help-toast-title">アプリの終了方法</div>
+        <div class="exit-help-toast-body">${escapeHtml(getExitHelpMessage())}</div>
+        <div class="exit-help-toast-note">画面をタッチすると閉じます。</div>
+    `;
+
+    toast.style.display = "block";
+
+    if (exitHelpTimer) {
+        clearTimeout(exitHelpTimer);
+        exitHelpTimer = null;
+    }
+
+    toast.onclick = () => {
+        toast.style.display = "none";
+    };
+}
+
+function renderLibraryChooser() {
+    return `<div class="library-home clean-start">
+        <div class="library-hero big-start">
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-hero-sub">この授業用の教材ライブラリを開きます。</div>
+            <div class="library-note">このアプリは「TOEIC 1・2」用です。</div>
+            <div class="library-actions centered">
+                ${libraryData ? `<button class="secondary action-flash" onclick="closeLibraryChooser()">戻る</button>` : ""}
+            </div>
+        </div>
+    </div>`;
+}
+
+function getLibraryDisplayName() {
+    const fromData = libraryData && (libraryData.name || libraryData.title || libraryData.libraryName);
+    if (fromData) return String(fromData).trim();
+
+    const fromUrl = normalizeLibraryName(getUrlLibraryName());
+    if (fromUrl) return fromUrl;
+
+    try {
+        const storedName = normalizeLibraryName(localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || "");
+        if (storedName) return storedName;
+        const storedFile = localStorage.getItem(LIBRARY_FILE_STORAGE_KEY) || "";
+        const m = String(storedFile).match(/^library\/(.+)\.json$/);
+        if (m) return decodeURIComponent(m[1]);
+    } catch (e) {}
+
+    return "教材ライブラリ";
+}
+
+function renderLibraryHome() {
+    if (showingLibraryChooser) return renderLibraryChooser();
+    const visibleCategories = getVisibleLibraryCategories();
+
+    if (!libraryData) {
+        const errorHtml = libraryLoadError
+            ? `<div class="library-empty">教材ライブラリの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
+            : "";
+
+        return `<div class="library-home clean-start">
+            <div class="library-hero big-start">
+                <div class="library-hero-title">Reading-Aloud Trainer</div>
+                <div class="library-hero-sub">この授業用の教材ライブラリを表示します。</div>
+                <div class="library-actions centered">
+                    <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+                    <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
+                </div>
+            </div>
+            ${errorHtml}
+        </div>`;
+    }
+
+    const libraryDisplayName = getLibraryDisplayName();
+
+    let categoryHtml = "";
+
+    if (visibleCategories.length) {
+        const rootSections = [];
+
+        visibleCategories.forEach(({ cat }) => {
+            if (!cat || typeof cat !== "object") return;
+
+            const catName = String(cat.name || "").trim();
+
+            // TOEIC 1・2 / 外国語演習Ⅰのように、JSON内の最上位カテゴリ名が
+            // ライブラリ名と同じ場合は、そのカテゴリ名をもう一段表示せず、中身だけを授業名直下へ置く。
+            if (catName && catName === libraryDisplayName && (Array.isArray(cat.sections) || Array.isArray(cat.items))) {
+                if (Array.isArray(cat.sections)) {
+                    cat.sections.forEach(section => {
+                        if (section && typeof section === "object") rootSections.push(section);
+                    });
+                }
+                if (Array.isArray(cat.items) && cat.items.length) {
+                    rootSections.push({
+                        name: catName,
+                        items: cat.items
+                    });
+                }
+                return;
+            }
+
+            // 英語3T・4T / カルチャー英語1・2のように、カテゴリ自体が教材カテゴリの場合は、
+            // そのまま授業名直下のプルダウンとして扱う。
+            rootSections.push(cat);
+        });
+
+        const rootNode = {
+            name: libraryDisplayName,
+            sections: rootSections
+        };
+        const bodyHtml = renderLibraryFolderNode(rootNode, 0, [], 0);
+
+        categoryHtml = `<section class="library-category">
+            <div class="library-items">${bodyHtml}</div>
+        </section>`;
+    } else {
+        categoryHtml = `<div class="library-empty">現在表示できる教材がありません。</div>`;
+    }
+
+    return `<div class="library-home has-library">
+        <div class="library-hero">
+            <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-class-name-under-title">${escapeHtml(libraryDisplayName)}</div>
+            <div class="library-hero-sub">教材名をタップしてください。</div>
+            <div class="library-actions">
+                <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+                <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
+            </div>
+        </div>
+        ${categoryHtml}
+    </div>`;
+}
+
+function toggleLibraryFolder(panelId, buttonEl) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const isOpen = panel.classList.toggle("open");
+    if (buttonEl) buttonEl.classList.toggle("open", isOpen);
+
+    if (isOpen) {
+        libraryOpenFolderIds.add(panelId);
+    } else {
+        libraryOpenFolderIds.delete(panelId);
+    }
+}
+
+function restoreLibraryOpenFolders() {
+    if (!libraryLastOpenedFolderIds || !libraryLastOpenedFolderIds.length) return;
+
+    libraryLastOpenedFolderIds.forEach(panelId => {
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+        panel.classList.add("open");
+
+        const btn = document.querySelector(`button[onclick*="${panelId}"]`);
+        if (btn) btn.classList.add("open");
+    });
+}
+
+function getLibraryNodeByPath(categoryIndex, folderIndexes) {
+    const categories = libraryData && Array.isArray(libraryData.categories) ? libraryData.categories : [];
+    const indexes = Array.isArray(folderIndexes) ? folderIndexes : [];
+    const libraryDisplayName = getLibraryDisplayName();
+
+    // renderLibraryHome()では、授業名を見出しとして独立表示するために、
+    // 実際のcategoriesを仮想rootNode.sectionsとして描画している。
+    // そのため、画面上の第1階層フォルダ番号 folderIndexes[0] は、
+    // 英語3T・4T / カルチャー英語1・2のようなJSONでは実categoriesの番号として解決する。
+    if (indexes.length > 0 && categories[indexes[0]]) {
+        const possibleCategory = categories[indexes[0]];
+        const possibleCategoryName = String(possibleCategory && possibleCategory.name || "").trim();
+
+        if (possibleCategoryName && possibleCategoryName !== libraryDisplayName) {
+            let node = possibleCategory;
+            for (const index of indexes.slice(1)) {
+                const folders = getLibraryChildFolders(node);
+                node = folders[index];
+                if (!node) return null;
+            }
+            return node;
+        }
+    }
+
+    // TOEIC 1・2 / 外国語演習Ⅰのように、
+    // categories[0].name がライブラリ名と同じ場合は、その中身を授業名直下に描画している。
+    // この場合は従来どおり categoryIndex から入り、folderIndexesをたどる。
+    const category = categories[categoryIndex];
+    if (!category) return null;
+
+    let node = category;
+    for (const index of indexes) {
+        const folders = getLibraryChildFolders(node);
+        node = folders[index];
+        if (!node) return null;
+    }
+    return node;
+}
+
+async function loadLessonFromLibraryPath(encodedPath) {
+    try {
+        const path = typeof encodedPath === "string" ? JSON.parse(decodeURIComponent(encodedPath)) : encodedPath;
+        const categoryIndex = Number(path.categoryIndex);
+        const itemIndex = Number(path.itemIndex);
+        const folderIndexes = Array.isArray(path.folderIndexes) ? path.folderIndexes.map(Number) : [];
+        const node = getLibraryNodeByPath(categoryIndex, folderIndexes);
+        const item = node && Array.isArray(node.items) ? node.items[itemIndex] : null;
+        if (!item || !item.file) throw new Error("教材ファイル名が見つかりません。");
+
+        libraryLastOpenedFolderIds = Array.from(libraryOpenFolderIds);
+
+        stopAll();
+        const fileUrl = safeRelativeFileUrl(item.file) + "?ts=" + Date.now();
+        const res = await fetch(fileUrl, { cache: "no-store" });
+        if (!res.ok) throw new Error(`${item.file}を読み込めませんでした。HTTP ${res.status}`);
+        const obj = await res.json();
+        loadLessonObject(obj);
+    } catch (e) {
+        alert("教材の読み込みに失敗しました。\n" + (e && e.message ? e.message : String(e)));
+    }
+}
+
+async function loadLessonFromLibrary(categoryIndex, sectionIndex, itemIndex, folderIndex = null) {
+    const folderIndexes = [];
+    if (sectionIndex !== null && sectionIndex !== undefined) folderIndexes.push(Number(sectionIndex));
+    if (folderIndex !== null && folderIndex !== undefined) folderIndexes.push(Number(folderIndex));
+    const encodedPath = makeLibraryPath(Number(categoryIndex), folderIndexes, Number(itemIndex));
+    return loadLessonFromLibraryPath(encodedPath);
+}
+
+function showLibraryHome() {
+    splitMode = false;
+    closeSentenceSheet();
+    stopAll();
+    lessonData = [];
+    setLessonMeta("", "");
+    updateDisplay();
+}
+
+
+function getActiveIndex() {
+    if (!lessonData.length) return 0;
+    const idx = currentIndex >= 0 ? currentIndex : selectedIndex;
+    if (!Number.isInteger(idx) || idx < 0 || idx >= lessonData.length) return 0;
+    return idx;
+}
+
+function renderMobilePracticeScreen() {
+    const idx = getActiveIndex();
+    return `<div class="mobile-lesson-shell">
+        <div id="mobile-current-card" class="mobile-current-card"></div>
+        <div id="mobile-detail-scroll" class="mobile-detail-scroll"></div>
+        <div class="mobile-bottom-actions">
+            <button class="action-flash" onclick="playFrom(getActiveIndex())">PLAY</button>
+            <button id="mobile-loop-btn" class="success action-flash" onclick="toggleLoop(getActiveIndex())">LOOP</button>
+            <button class="danger action-flash" onclick="stopAll()">STOP</button>
+            <button id="mobile-split-btn" class="purple action-flash" onclick="openSplitPractice(getActiveIndex())">分割練習▶</button>
+        </div>
+        <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
+        <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
+            <div class="sentence-sheet-header">
+                <span>文を移動</span>
+                <button type="button" class="sentence-sheet-close" onclick="closeSentenceSheet()">×</button>
+            </div>
+            <div id="sentenceSheetList" class="sentence-sheet-list"></div>
+        </div>
+    </div>`;
+}
+
+function updateMobilePracticeView() {
+    if (!lessonData.length) return;
+    const idx = getActiveIndex();
+    const item = lessonData[idx];
+    if (!item) return;
+    const card = document.getElementById("mobile-current-card");
+    const details = document.getElementById("mobile-detail-scroll");
+    if (card) {
+        const canPrev = idx > 0;
+        const canNext = idx < lessonData.length - 1;
+        const prevIndex = canPrev ? idx - 1 : lessonData.length - 1;
+        const nextIndex = canNext ? idx + 1 : 0;
+        card.innerHTML = `
+            <div class="mobile-current-top">
+                <div class="mobile-sentence-nav">
+                    <button class="mobile-nav-btn action-flash" onclick="jumpToSentence(${prevIndex})">◀</button>
+                    <button type="button" class="mobile-jump-btn action-flash" onclick="openSentenceSheet()">
+                        <span class="mobile-jump-num">${escapeHtml(getCircleNumber(item, idx))}</span>
+                        <span class="mobile-jump-label">文を移動</span>
+                    </button>
+                    <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" onclick="jumpToSentence(${nextIndex})">▶</button>
+                </div>
+            </div>
+            <div class="mobile-current-english ${hideEnglish.checked ? "hidden-text" : ""}" onclick="playFrom(${idx})">${markedPlainHtml(item.english)}</div>
+            <div class="mobile-current-accent ${hideEnglish.checked ? "hidden-text" : ""}">${accentHtml(getAccentText(item))}</div>`;
+    }
+    if (details) {
+        details.innerHTML = `
+            <div class="vocab"><div class="lesson-title">【語彙】</div>${markedTextHtml(getVocabText(item))}</div>
+            <div class="jp"><div class="lesson-title">【和訳】</div>${escapeHtml(item.jp || "")}</div>`;
+    }
+    const loopBtn = document.getElementById("mobile-loop-btn");
+    if (loopBtn) {
+        loopBtn.classList.toggle("loop-on", Boolean(loopSettings[idx]));
+        loopBtn.textContent = loopSettings[idx] ? "🔁 LOOP ON" : "LOOP";
+    }
+    const splitBtn = document.getElementById("mobile-split-btn");
+    if (splitBtn) {
+        splitBtn.style.display = hasRealSplitData(item) ? "" : "none";
+    }
+}
+
+function openSentenceSheet() {
+    if (!lessonData.length) return;
+    const sheet = document.getElementById("sentenceSheet");
+    const backdrop = document.getElementById("sentenceSheetBackdrop");
+    const list = document.getElementById("sentenceSheetList");
+    if (!sheet || !backdrop || !list) return;
+    const active = splitMode ? splitIndex : getActiveIndex();
+    list.innerHTML = lessonData.map((it, i) => {
+        const text = sentenceTooltipText(it) || plainLine((it && it.english) || "");
+        const label = getCircleNumber(it, i);
+        const current = i === active ? " current" : "";
+        const action = splitMode ? `switchSplitSentence(${i}); closeSentenceSheet();` : `jumpToSentence(${i}); closeSentenceSheet();`;
+        return `<button type="button" class="sentence-sheet-item${current}" onclick="${action}">
+            <span class="sentence-sheet-num">${escapeHtml(label)}</span>
+            <span class="sentence-sheet-text">${escapeHtml(text)}</span>
+        </button>`;
+    }).join("");
+    backdrop.classList.add("open");
+    sheet.classList.add("open");
+    requestAnimationFrame(() => {
+        const currentBtn = list.querySelector(".sentence-sheet-item.current");
+        if (currentBtn) currentBtn.scrollIntoView({ block: "center" });
+    });
+}
+
+function closeSentenceSheet() {
+    const sheet = document.getElementById("sentenceSheet");
+    const backdrop = document.getElementById("sentenceSheetBackdrop");
+    if (sheet) sheet.classList.remove("open");
+    if (backdrop) backdrop.classList.remove("open");
+}
+
+function refreshClasses() {
+    document.body.classList.toggle("hide-vocab", hideVocabToggle.checked);
+    document.body.classList.toggle("hide-jp", hideJpToggle.checked);
+    document.querySelectorAll(".english, .plain-version").forEach(el => {
+        el.classList.toggle("hidden-text", hideEnglish.checked);
+    });
+    wholeLoopBtn.textContent = wholeLoop ? "🔁 全体LOOP ON" : "全体LOOP";
+    wholeLoopBtn.classList.toggle("loop-active", wholeLoop);
+    pauseBtn.textContent = isPaused ? "再開" : "一時停止";
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
+}
+
+function updateDisplay() {
+    loopSettings = lessonData.map((_, i) => loopSettings[i] || false);
+    updateLessonInfo();
+
+    if (!lessonData.length) {
+        document.body.classList.add("library-mode");
+        document.body.classList.remove("lesson-mode");
+        displayArea.innerHTML = renderLibraryHome();
+        if (libraryData) requestAnimationFrame(restoreLibraryOpenFolders);
+        stats.textContent = libraryData ? "教材ライブラリ" : "0文";
+        refreshClasses();
+        return;
+    }
+
+    document.body.classList.remove("library-mode");
+
+    if (splitMode) {
+        document.body.classList.remove("lesson-mode");
+        document.body.classList.add("split-mode");
+        if (splitIndex < 0 || splitIndex >= lessonData.length) splitIndex = getActiveIndex();
+        displayArea.innerHTML = renderMobileSplitScreen();
+        stats.textContent = `${lessonData.length}文`;
+        updateSplitModeClasses();
+        return;
+    }
+
+    document.body.classList.remove("split-mode", "split-hide-lines");
+    document.body.classList.add("lesson-mode");
+    if (selectedIndex < 0 || selectedIndex >= lessonData.length) selectedIndex = 0;
+    displayArea.innerHTML = renderMobilePracticeScreen();
+    stats.textContent = `${lessonData.length}文`;
+    updateMobilePracticeView();
+    refreshClasses();
+    return;
+
+    displayArea.innerHTML = lessonData.map((item, i) => `
+        <div class="sentence-row" id="row-${i}">
+            <div class="line-num ${getCircleNumberClass(item, i)}">${escapeHtml(getCircleNumber(item, i))}</div>
+            <div class="sentence-main">
+                <div class="english" onclick="playFrom(${i})">${markedPlainHtml(item.english)}</div>
+                <div class="plain-version">${accentHtml(getAccentText(item))}</div>
+                <div class="lesson-block">
+                    <div class="vocab"><div class="lesson-title">【語彙】</div>${markedTextHtml(getVocabText(item))}</div>
+                    <div class="jp"><div class="lesson-title">【和訳】</div>${escapeHtml(item.jp || "")}</div>
+                </div>
+            </div>
+            <div class="row-actions">
+                <button class="mini-btn action-flash" onclick="playFrom(${i})">PLAY</button>
+                <button class="mini-btn next-play action-flash" onclick="playThenNext(${i})">自動で<br>次へ</button>
+                <button class="mini-btn danger action-flash" onclick="stopAll()">STOP</button>
+                <button class="mini-btn success action-flash ${loopSettings[i] ? "loop-on" : ""}" id="loop-${i}" onclick="toggleLoop(${i})">${loopSettings[i] ? "🔁 LOOP ON" : "LOOP"}</button>
+                ${hasRealSplitData(item) ? `<button class="mini-btn purple action-flash" onclick="openSplitPractice(${i})">分割練習▶</button>` : ""}
+                <div class="jump-box">
+                    <div class="main-jump-wrap" id="main-jump-${i}">
+                        <button type="button" class="jump-select main-jump-button" onclick="toggleMainJumpMenu(${i})">文を移動 ▼</button>
+                        <div class="main-jump-menu" id="main-jump-menu-${i}">
+                            ${lessonData.map((it, j) => `<button type="button" class="main-jump-item" data-tooltip="${escapeHtml(sentenceTooltipText(it))}" onmouseenter="showMainTooltip(event, this)" onmousemove="showMainTooltip(event, this)" onmouseleave="hideMainTooltip()" onclick="jumpToSentence(${j}); closeAllMainJumpMenus();">${escapeHtml(getCircleNumber(it, j))}</button>`).join("")}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join("");
+
+    stats.textContent = `${lessonData.length}文`;
+    refreshClasses();
+}
+
+function loadVoices() {
+    voices = speechSynthesis.getVoices();
+    if (voiceSelect) {
+        voiceSelect.innerHTML = `<option value="">アメリカ英語・女性（端末標準）</option>`;
+        voiceSelect.value = "";
+    }
+    const englishVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("en"));
+
+    if (!englishVoices.length) {
+        voiceSelect.innerHTML = `<option value="">英語音声が見つかりません</option>`;
+        return;
+    }
+
+    const ua = navigator.userAgent || "";
+    const isEdge = /Edg\//.test(ua);
+
+    function voiceText(v) {
+        return `${v.name || ""} ${v.lang || ""}`.toLowerCase();
+    }
+
+    function isGoogleVoice(v) {
+        return /google/i.test(v.name || "");
+    }
+
+    function countryMatches(v, code, keywords) {
+        const lang = (v.lang || "").toLowerCase();
+        const text = voiceText(v);
+        if (lang === code || lang.startsWith(code + "-")) return true;
+        return keywords.some(k => text.includes(k));
+    }
+
+    const preferredNames = {
+        "us-female": ["google us english", "aria", "jenny", "ava", "emma", "michelle", "sara", "zira", "samantha", "victoria"],
+        "us-male": ["guy", "roger", "brian", "andrew", "christopher", "eric", "david", "mark"],
+        "gb-female": ["google uk english female", "sonia", "libby", "maisie", "serena", "emma"],
+        "gb-male": ["google uk english male", "ryan", "george", "thomas", "daniel"],
+        "ca-female": ["clara", "linda"],
+        "ca-male": ["liam", "claude"],
+        "au-female": ["natasha", "catherine"],
+        "au-male": ["william", "james"],
+        "nz-female": ["molly"],
+        "nz-male": ["mitchell"]
+    };
+
+    const femaleHints = /(female|woman|aria|jenny|ava|emma|michelle|sara|zira|samantha|victoria|sonia|libby|maisie|serena|clara|linda|natasha|catherine|molly)/i;
+    const maleHints = /(male|man|guy|roger|brian|andrew|christopher|eric|david|mark|ryan|george|thomas|daniel|liam|claude|william|james|mitchell)/i;
+
+    function genderMatches(v, gender, key) {
+        const name = v.name || "";
+        const text = voiceText(v);
+        const names = preferredNames[key] || [];
+        if (names.some(n => text.includes(n))) return true;
+        if (gender === "female") return femaleHints.test(name) && !maleHints.test(name);
+        if (gender === "male") return maleHints.test(name) && !femaleHints.test(name);
+        return false;
+    }
+
+    function rankVoice(v, key) {
+        const text = voiceText(v);
+        const names = preferredNames[key] || [];
+        const nameRank = names.findIndex(n => text.includes(n));
+        const localBonus = v.localService ? -3 : 0;
+        const naturalBonus = /natural|online/.test(text) ? -2 : 0;
+        const googleBonus = isGoogleVoice(v) ? -2 : 0;
+        return (nameRank >= 0 ? nameRank : 100) + localBonus + naturalBonus + googleBonus;
+    }
+
+    const categories = [
+        { key: "us-female", label: "アメリカ英語・女性", code: "en-us", keywords: ["united states", "us english", "american"], gender: "female" },
+        { key: "us-male", label: "アメリカ英語・男性", code: "en-us", keywords: ["united states", "us english", "american"], gender: "male" },
+        { key: "gb-female", label: "イギリス英語・女性", code: "en-gb", keywords: ["united kingdom", "uk english", "british", "great britain"], gender: "female" },
+        { key: "gb-male", label: "イギリス英語・男性", code: "en-gb", keywords: ["united kingdom", "uk english", "british", "great britain"], gender: "male" },
+        { key: "ca-female", label: "カナダ英語・女性", code: "en-ca", keywords: ["canada", "canadian"], gender: "female" },
+        { key: "ca-male", label: "カナダ英語・男性", code: "en-ca", keywords: ["canada", "canadian"], gender: "male" },
+        { key: "au-female", label: "オーストラリア英語・女性", code: "en-au", keywords: ["australia", "australian"], gender: "female" },
+        { key: "au-male", label: "オーストラリア英語・男性", code: "en-au", keywords: ["australia", "australian"], gender: "male" },
+        { key: "nz-female", label: "ニュージーランド英語・女性", code: "en-nz", keywords: ["new zealand"], gender: "female" },
+        { key: "nz-male", label: "ニュージーランド英語・男性", code: "en-nz", keywords: ["new zealand"], gender: "male" }
+    ];
+
+    function pickCategoryVoice(category, pool) {
+        const candidates = pool.filter(v =>
+            countryMatches(v, category.code, category.keywords) &&
+            genderMatches(v, category.gender, category.key)
+        );
+        if (!candidates.length) return null;
+        return [...candidates].sort((a, b) => {
+            const diff = rankVoice(a, category.key) - rankVoice(b, category.key);
+            if (diff !== 0) return diff;
+            return (a.name || "").localeCompare(b.name || "");
+        })[0];
+    }
+
+    let target = [];
+
+    if (!isEdge) {
+        // Chromeでは従来どおりGoogle系の英語音声だけを表示する。
+        const googleOrder = [
+            { key: "us-female", label: "アメリカ英語・女性", match: /google us english/i },
+            { key: "gb-female", label: "イギリス英語・女性", match: /google uk english female/i },
+            { key: "gb-male", label: "イギリス英語・男性", match: /google uk english male/i }
+        ];
+
+        target = googleOrder
+            .map(item => {
+                const voice = englishVoices.find(v => item.match.test(v.name || ""));
+                return voice ? { voice, label: item.label } : null;
+            })
+            .filter(Boolean);
+
+        // Google系が見つからない環境では、国別カテゴリ方式に戻す。
+        if (!target.length) {
+            target = categories
+                .map(category => {
+                    const voice = pickCategoryVoice(category, englishVoices);
+                    return voice ? { voice, label: category.label } : null;
+                })
+                .filter(Boolean);
+        }
+    } else {
+        // Edgeでは大量に列挙される音声を、TOEIC想定の国別・男女別カテゴリに絞る。
+        target = categories
+            .map(category => {
+                const voice = pickCategoryVoice(category, englishVoices);
+                return voice ? { voice, label: category.label } : null;
+            })
+            .filter(Boolean);
+    }
+
+    if (!target.length) {
+        target = englishVoices.slice(0, 1).map(v => ({ voice: v, label: "英語音声" }));
+    }
+
+    voiceSelect.innerHTML = target.map(entry => {
+        const globalIndex = voices.indexOf(entry.voice);
+        const label = escapeHtml(entry.label);
+        const name = escapeHtml(entry.voice.name);
+        const lang = escapeHtml(entry.voice.lang);
+        return `<option value="${globalIndex}">${label} - ${name} / ${lang}</option>`;
+    }).join("");
+
+    const preferred =
+        target.find(entry => entry.label === "アメリカ英語・女性") ||
+        target[0];
+
+    if (preferred) voiceSelect.value = String(voices.indexOf(preferred.voice));
+}
+function isIOSDevice() {
+    const ua = navigator.userAgent || "";
+    const platform = navigator.platform || "";
+    return /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function isAndroidDevice() {
+    return /Android/i.test(navigator.userAgent || "");
+}
+
+function getAutoNextDelayMs() {
+    if (isIOSDevice()) return 1500;
+    if (isAndroidDevice()) return 900;
+    return 0;
+}
+
+function runAfterAutoNextDelay(callback) {
+    const delay = getAutoNextDelayMs();
+    if (delay > 0) {
+        setTimeout(callback, delay);
+    } else {
+        callback();
+    }
+}
+
+let samanthaWarningShown = false;
+
+function findSamanthaVoice() {
+    const currentVoices = voices.length ? voices : speechSynthesis.getVoices();
+    const samanthaVoices = currentVoices.filter(v => {
+        const name = String(v.name || "").toLowerCase();
+        const lang = String(v.lang || "").toLowerCase().replace("_", "-");
+        return name.includes("samantha") && lang.startsWith("en");
+    });
+
+    if (!samanthaVoices.length) return null;
+
+    const usSamantha = samanthaVoices.find(v =>
+        String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")
+    );
+    return usSamantha || samanthaVoices[0];
+}
+
+function showSamanthaRequiredMessage() {
+    if (samanthaWarningShown) return;
+    samanthaWarningShown = true;
+    alert(
+        "iPhoneでは英語音声「Samantha」が必要です。\n\n" +
+        "設定 → アクセシビリティ → 読み上げコンテンツ → 声 → 英語 → 英語（アメリカ）で、\n" +
+        "Samanthaをダウンロードしてください。\n\n" +
+        "Samanthaが見つからないため、音声再生を停止しました。"
+    );
+}
+
+function getSelectedVoice() {
+    const idx = Number(voiceSelect.value);
+    const selected = voices[idx];
+    if (selected && selected.lang && selected.lang.toLowerCase().startsWith("en")) return selected;
+    return voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en")) || null;
+}
+
+function getUsEnglishVoiceOrNull() {
+    if (isIOSDevice()) {
+        const samantha = findSamanthaVoice();
+        if (samantha) return samantha;
+        showSamanthaRequiredMessage();
+        return null;
+    }
+
+    const selected = getSelectedVoice();
+    if (selected && String(selected.lang || "").toLowerCase().replace("_", "-").startsWith("en-us")) return selected;
+    const usVoice = voices.find(v => String(v.lang || "").toLowerCase().replace("_", "-").startsWith("en-us"));
+    return usVoice || null;
+}
+
+function clearCurrent() {
+    document.querySelectorAll(".sentence-row").forEach(el => el.classList.remove("current"));
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
+}
+
+function markCurrent(index) {
+    if (Number.isInteger(index) && index >= 0 && index < lessonData.length) selectedIndex = index;
+    clearCurrent();
+    if (document.body.classList.contains("lesson-mode")) {
+        updateMobilePracticeView();
+        return;
+    }
+    const row = document.getElementById(`row-${index}`);
+    if (row) {
+        row.classList.add("current");
+        row.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+
+function returnViewToFirstSentence() {
+    selectedIndex = 0;
+    clearCurrent();
+    if (document.body.classList.contains("lesson-mode")) {
+        updateMobilePracticeView();
+        return;
+    }
+    const firstRow = document.getElementById("row-0");
+    if (firstRow) {
+        firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (displayArea) {
+        displayArea.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+function speakLine(index, continueMode = false, wrapAtEnd = false) {
+    if (index < 0 || index >= lessonData.length) return;
+
+    playbackAutoNext = continueMode;
+    playbackWrapAtEnd = continueMode ? wrapAtEnd : false;
+    currentIndex = index;
+    isPaused = false;
+    speechSynthesis.cancel();
+    markCurrent(index);
+    refreshClasses();
+
+    const selectedVoice = getUsEnglishVoiceOrNull();
+    if (!selectedVoice && isIOSDevice()) {
+        currentIndex = -1;
+        clearCurrent();
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(plainLine(lessonData[index].english));
+    // Android Chromeでは音声リストに en_AU だけが返ることがあるため、読み上げ要求は必ず en-US に固定する。
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = "en-US";
+    utterance.rate = Number(speedSlider.value);
+    utterance.pitch = 1.0;
+
+    utterance.onend = () => {
+        if (isPaused) return;
+
+        if (loopSettings[index]) {
+            speakLine(index, playbackAutoNext, playbackWrapAtEnd);
+            return;
+        }
+
+        if (playbackAutoNext && index + 1 < lessonData.length) {
+            runAfterAutoNextDelay(() => speakLine(index + 1, true, playbackWrapAtEnd));
+        } else if (playbackAutoNext && playbackWrapAtEnd && lessonData.length > 0) {
+            runAfterAutoNextDelay(() => speakLine(0, true, true));
+        } else {
+            currentIndex = -1;
+            const shouldReturnToFirst = returnToFirstAfterSequence;
+            returnToFirstAfterSequence = false;
+            if (shouldReturnToFirst) {
+                returnViewToFirstSentence();
+            } else {
+                clearCurrent();
+            }
+        }
+    };
+
+    speechSynthesis.speak(utterance);
+}
+
+function jumpToSentence(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= lessonData.length) return;
+
+    speechSynthesis.cancel();
+    isPaused = false;
+    currentIndex = index;
+    selectedIndex = index;
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    refreshLoopButtons();
+    refreshClasses();
+    markCurrent(index);
+}
+
+function closeAllMainJumpMenus() {
+    document.querySelectorAll(".main-jump-menu.open").forEach(menu => menu.classList.remove("open"));
+    hideMainTooltip();
+}
+
+function toggleMainJumpMenu(index) {
+    const menu = document.getElementById(`main-jump-menu-${index}`);
+    if (!menu) return;
+    const willOpen = !menu.classList.contains("open");
+    closeAllMainJumpMenus();
+    if (willOpen) {
+        menu.classList.add("open");
+        requestAnimationFrame(() => {
+            menu.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+    }
+}
+
+function showMainTooltip(event, target) {
+    const tip = document.getElementById("mainFloatTooltip");
+    if (!tip || !target) return;
+    const text = target.getAttribute("data-tooltip") || "";
+    if (!text) return;
+    tip.textContent = text;
+    tip.style.display = "block";
+
+    const margin = 10;
+    const rect = tip.getBoundingClientRect();
+    let left = event.clientX - rect.width / 2;
+    left = Math.max(margin, Math.min(left, window.innerWidth - rect.width - margin));
+    let top = event.clientY - rect.height - 12;
+    if (top < margin) top = event.clientY + 16;
+
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+}
+
+function hideMainTooltip() {
+    const tip = document.getElementById("mainFloatTooltip");
+    if (tip) tip.style.display = "none";
+}
+
+document.addEventListener("click", (e) => {
+    const jump = e.target.closest(".main-jump-wrap");
+    if (!jump) closeAllMainJumpMenus();
+});
+
+window.addEventListener("scroll", hideMainTooltip, true);
+window.addEventListener("resize", hideMainTooltip);
+
+function clearLoopStateForManualPlayback() {
+    // 行ごとのPLAY/自動で次へを押したときは、現在のLOOP状態を解除して通常再生に戻す。
+    const hadLoop = wholeLoop || loopSettings.some(Boolean);
+    if (!hadLoop) return;
+
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    isPaused = false;
+    refreshLoopButtons();
+    refreshClasses();
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
+}
+
+function playFrom(index) {
+    // 行ごとのPLAYは、LOOP中でもLOOPを解除して、その文だけを1回再生する。
+    clearLoopStateForManualPlayback();
+    returnToFirstAfterSequence = false;
+    speakLine(index, false, false);
+}
+
+function playThenNext(index) {
+    // 行ごとの「自動で次へ」は、LOOP中でもLOOPを解除して、この文から連続再生する。
+    clearLoopStateForManualPlayback();
+    returnToFirstAfterSequence = false;
+    autoNext.checked = true;
+    refreshClasses();
+    speakLine(index, true, true);
+}
+
+function playSequenceFrom(index) {
+    // 「最初から再生」は1回だけ全体を再生し、最後に先頭へ戻って終了する。
+    returnToFirstAfterSequence = index === 0;
+    autoNext.checked = true;
+    refreshClasses();
+    speakLine(index, true, false);
+}
+
+function toggleWholeLoop() {
+    wholeLoop = !wholeLoop;
+
+    if (wholeLoop) {
+        // 全体LOOPは常に①から開始する。文LOOP中でも、その文LOOPを解除して全体LOOPへ切り替える。
+        speechSynthesis.cancel();
+        isPaused = false;
+        currentIndex = -1;
+        selectedIndex = 0;
+        playbackAutoNext = true;
+        playbackWrapAtEnd = true;
+        returnToFirstAfterSequence = false;
+        loopSettings = loopSettings.map(() => false);
+        autoNext.checked = true;
+        refreshLoopButtons();
+        refreshClasses();
+        if (lessonData.length > 0) {
+            speakLine(0, true, true);
+        }
+        return;
+    }
+
+    stopAll();
+    refreshClasses();
+}
+
+function pauseResume() {
+    if (isPaused) {
+        isPaused = false;
+        refreshClasses();
+        if (currentIndex >= 0) {
+            speakLine(currentIndex, playbackAutoNext, playbackWrapAtEnd);
+        } else if (lessonData.length > 0) {
+            speakLine(0, false, false);
+        }
+        return;
+    }
+
+    if (speechSynthesis.speaking || currentIndex >= 0) {
+        isPaused = true;
+        speechSynthesis.cancel();
+        refreshClasses();
+        return;
+    }
+
+    if (lessonData.length > 0) {
+        speakLine(0, false, false);
+    }
+}
+
+function refreshLoopButtons() {
+    loopSettings.forEach((isOn, i) => {
+        const btn = document.getElementById(`loop-${i}`);
+        if (btn) {
+            btn.classList.toggle("loop-on", isOn);
+            btn.textContent = isOn ? "🔁 LOOP ON" : "LOOP";
+        }
+    });
+    if (document.body.classList.contains("lesson-mode")) updateMobilePracticeView();
+}
+
+function stopAll() {
+    closeSentenceSheet();
+    speechSynthesis.cancel();
+    isPaused = false;
+    currentIndex = -1;
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    clearCurrent();
+    refreshLoopButtons();
+    refreshClasses();
+}
+
+function toggleLoop(i) {
+    const nextState = !loopSettings[i];
+    loopSettings = loopSettings.map(() => false);
+    loopSettings[i] = nextState;
+    wholeLoop = false;
+    returnToFirstAfterSequence = false;
+    refreshLoopButtons();
+    refreshClasses();
+
+    if (nextState) {
+        speakLine(i, false);
+    } else if (currentIndex === i || speechSynthesis.speaking) {
+        stopAll();
+    }
+}
+
+function loadLessonObject(obj) {
+    splitMode = false;
+    let loadedData;
+    const loadedMeta = readLessonMetaFromObject(obj);
+
+    if (Array.isArray(obj)) {
+        loadedData = obj;
+    } else if (obj && Array.isArray(obj.data)) {
+        loadedData = obj.data;
+    } else {
+        throw new Error("教材データ配列が見つかりません。");
+    }
+
+    loadedData.forEach((item, i) => {
+        if (!item.english || typeof item.english !== "string") {
+            throw new Error(`${i + 1}番目のenglishが不正です。`);
+        }
+        item.vocab = getVocabText(item);
+        item.jp = item.jp || item.translation || "";
+        item.accent = item.accent || item.accentText || item["アクセント"] || item.english || "";
+        normalizeAccentAndVocab(item);
+        item.split = item.split || "";
+        item.splitJp = item.splitJp || item.splitTranslation || "";
+        normalizeLessonItemLabel(item, i);
+    });
+
+    stopAll();
+    setLessonMeta(loadedMeta.material, loadedMeta.section);
+    lessonData = loadedData;
+    loopSettings = [];
+    currentIndex = -1;
+    selectedIndex = 0;
+    updateDisplay();
+}
+
+
+const LESSON_FOLDER_DB_NAME = "readingAloudTrainerSettings";
+const LESSON_FOLDER_STORE_NAME = "handles";
+const LESSON_FOLDER_KEY = "lessonFolderHandle";
+
+function openLessonFolderDb() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(LESSON_FOLDER_DB_NAME, 1);
+        request.onupgradeneeded = () => {
+            const db = request.result;
+            if (!db.objectStoreNames.contains(LESSON_FOLDER_STORE_NAME)) {
+                db.createObjectStore(LESSON_FOLDER_STORE_NAME);
+            }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function saveLessonFolderHandle(handle) {
+    const db = await openLessonFolderDb();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(LESSON_FOLDER_STORE_NAME, "readwrite");
+        tx.objectStore(LESSON_FOLDER_STORE_NAME).put(handle, LESSON_FOLDER_KEY);
+        tx.oncomplete = () => {
+            db.close();
+            resolve();
+        };
+        tx.onerror = () => {
+            db.close();
+            reject(tx.error);
+        };
+    });
+}
+
+async function getLessonFolderHandle() {
+    const db = await openLessonFolderDb();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(LESSON_FOLDER_STORE_NAME, "readonly");
+        const request = tx.objectStore(LESSON_FOLDER_STORE_NAME).get(LESSON_FOLDER_KEY);
+        request.onsuccess = () => resolve(request.result || null);
+        request.onerror = () => reject(request.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+
+async function setLessonFolder() {
+    if (!window.showDirectoryPicker) {
+        alert("このブラウザでは教材フォルダ設定に対応していません。ChromeまたはEdgeで使用してください。");
+        return;
+    }
+
+    try {
+        const handle = await window.showDirectoryPicker({
+            id: "reading-aloud-trainer-folder",
+            mode: "read"
+        });
+        await saveLessonFolderHandle(handle);
+        alert("教材フォルダを設定しました。\n\n" + handle.name + "\n\n次回以降の教材ファイル読み込みでは、このフォルダを起点に開きます。");
+    } catch (e) {
+        if (e && e.name === "AbortError") return;
+        alert("教材フォルダの設定に失敗しました。\n" + e.message);
+    }
+}
+
+async function buildLessonOpenOptions() {
+    const options = {
+        id: "reading-aloud-trainer",
+        types: [{
+            description: "教材JSONファイル",
+            accept: { "application/json": [".json"] }
+        }],
+        multiple: false
+    };
+
+    try {
+        const folderHandle = await getLessonFolderHandle();
+        if (folderHandle) {
+            options.startIn = folderHandle;
+        }
+    } catch (e) {
+        // 保存済みフォルダ情報が読めない場合は、通常のファイル選択に戻します。
+    }
+
+    return options;
+}
+
+async function loadLessonFromFile() {
+    if (window.showOpenFilePicker) {
+        try {
+            let options = await buildLessonOpenOptions();
+            let handle;
+
+            try {
+                [handle] = await window.showOpenFilePicker(options);
+            } catch (e) {
+                if (e && e.name === "AbortError") return;
+                // 保存済みフォルダを起点にできない場合は、通常のファイル選択で再試行します。
+                if (options.startIn) {
+                    delete options.startIn;
+                    [handle] = await window.showOpenFilePicker(options);
+                } else {
+                    throw e;
+                }
+            }
+
+            const file = await handle.getFile();
+            const text = await file.text();
+            loadLessonObject(JSON.parse(text));
+            return;
+        } catch (e) {
+            if (e && e.name === "AbortError") return;
+            alert("読み込みに失敗しました。\n" + e.message);
+            return;
+        }
+    }
+
+    lessonFileInput.click();
+}
+
+if (lessonFileInput) {
+    lessonFileInput.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        try {
+            const text = await file.text();
+            loadLessonObject(JSON.parse(text));
+        } catch (err) {
+            alert("読み込みに失敗しました。\n" + err.message);
+        } finally {
+            lessonFileInput.value = "";
+        }
+    });
+}
+
+
+function getSplitLines(item) {
+    return String((item && item.split) || "")
+        .split(/\n+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+}
+
+function getSplitJpLines(item) {
+    return String((item && item.splitJp) || "")
+        .split(/\n+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+}
+
+function getSplitSetting(key, fallback) {
+    try {
+        const value = localStorage.getItem("rat-split-" + key);
+        return value === null || value === undefined || value === "" ? fallback : value;
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function setSplitSetting(key, value) {
+    splitSettings[key] = value;
+    try {
+        localStorage.setItem("rat-split-" + key, String(value));
+    } catch (e) {}
+}
+
+function loadSplitSettings() {
+    splitSettings.speed = getSplitSetting("speed", String(speedSlider.value || "0.9"));
+    splitSettings.pause = getSplitSetting("pause", "0");
+    splitSettings.hideLines = getSplitSetting("hide-lines", "0") === "1";
+}
+
+function stopReadingPlaybackOnly() {
+    speechSynthesis.cancel();
+    isPaused = false;
+    currentIndex = -1;
+    playbackAutoNext = false;
+    playbackWrapAtEnd = false;
+    returnToFirstAfterSequence = false;
+    wholeLoop = false;
+    loopSettings = loopSettings.map(() => false);
+    refreshLoopButtons();
+}
+
+function clearSplitPauseTimer() {
+    if (splitPauseTimer) {
+        clearTimeout(splitPauseTimer);
+        splitPauseTimer = null;
+    }
+}
+
+function clearCurrentSplitLine() {
+    document.querySelectorAll(".mobile-split-row").forEach(row => row.classList.remove("current-split"));
+}
+
+function markCurrentSplitLine(index) {
+    clearCurrentSplitLine();
+    const row = document.getElementById("mobile-split-row-" + index);
+    if (row) {
+        row.classList.add("current-split");
+        row.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+}
+
+function stopSplitPlayback() {
+    splitStopped = true;
+    splitLoopMode = false;
+    splitCurrentLineIndex = 0;
+    clearSplitPauseTimer();
+    clearCurrentSplitLine();
+    speechSynthesis.cancel();
+
+    const loopBtn = document.getElementById("mobile-split-loop-btn");
+    if (loopBtn) {
+        loopBtn.classList.remove("loop-on");
+        loopBtn.textContent = "LOOP";
+    }
+}
+
+function closeSplitPractice() {
+    stopSplitPlayback();
+    splitMode = false;
+    document.body.classList.remove("split-mode", "split-hide-lines");
+    updateDisplay();
+}
+
+function openSplitPractice(index) {
+    if (!lessonData.length) return;
+    const safeIndex = Number.isInteger(index) && index >= 0 && index < lessonData.length ? index : getActiveIndex();
+    const item = lessonData[safeIndex];
+    if (!item || !hasRealSplitData(item)) return;
+
+    stopReadingPlaybackOnly();
+    closeSentenceSheet();
+    selectedIndex = safeIndex;
+    splitIndex = safeIndex;
+    splitMode = true;
+    splitStopped = true;
+    splitLoopMode = false;
+    splitCurrentLineIndex = 0;
+    splitForceVisibility = {};
+    loadSplitSettings();
+    updateDisplay();
+}
+
+function renderMobileSplitScreen() {
+    const idx = splitIndex >= 0 && splitIndex < lessonData.length ? splitIndex : getActiveIndex();
+    splitIndex = idx;
+    selectedIndex = idx;
+
+    const item = lessonData[idx];
+    const splitLinesRaw = getSplitLines(item);
+    const splitJpLinesRaw = getSplitJpLines(item);
+    const maxRows = Math.max(splitLinesRaw.length, splitJpLinesRaw.length);
+    const canPrev = idx > 0;
+    const canNext = idx < lessonData.length - 1;
+    const prevIndex = canPrev ? idx - 1 : lessonData.length - 1;
+    const nextIndex = canNext ? idx + 1 : 0;
+
+    const rowsHtml = Array.from({ length: maxRows }, (_, i) => {
+        const en = splitLinesRaw[i] ? accentHtml(splitLinesRaw[i]) : "";
+        const jpLine = splitJpLinesRaw[i] ? escapeHtml(splitJpLinesRaw[i]) : "";
+        const forceClass = splitForceVisibility[i] === "show"
+            ? " split-line-force-show"
+            : splitForceVisibility[i] === "hide"
+                ? " split-line-force-hide"
+                : "";
+        const lineIsOn = splitSettings.hideLines
+            ? splitForceVisibility[i] === "show"
+            : splitForceVisibility[i] !== "hide";
+        const toggleLabel = lineIsOn ? "分割OFF" : "分割ON";
+        const toggleClass = lineIsOn ? "" : " split-off";
+        const currentClass = i === splitCurrentLineIndex ? " current-split" : "";
+        return `<div class="mobile-split-row${currentClass}${forceClass}" id="mobile-split-row-${i}">
+            <div class="mobile-split-cell mobile-split-en">${en}</div>
+            <div class="mobile-split-cell mobile-split-jp">${jpLine}</div>
+            <div class="mobile-split-play-cell">
+                <button class="mobile-split-line-play action-flash" onclick="playOneSplitLine(${i})">PLAY</button>
+                <button id="mobile-split-line-toggle-${i}" class="mobile-split-line-toggle${toggleClass} action-flash" onclick="toggleSplitLineVisibility(${i})">${toggleLabel}</button>
+            </div>
+        </div>`;
+    }).join("");
+
+    return `<div class="mobile-split-shell">
+        <div class="mobile-split-top">
+            <div class="mobile-split-settings">
+                <span id="mobileSplitSpeedVal" class="mobile-split-speed-label">${Number(splitSettings.speed || 0.9).toFixed(2)}x</span>
+                <input type="range" id="mobileSplitSpeed" min="0.25" max="2.0" step="0.05" value="${escapeHtml(splitSettings.speed || "0.9")}" oninput="updateSplitSpeed(this.value)">
+                <select id="mobileSplitPause" class="mobile-split-pause" onchange="updateSplitPause(this.value)">
+                    <option value="1000" ${splitSettings.pause === "1000" ? "selected" : ""}>1.00秒</option>
+                    <option value="750" ${splitSettings.pause === "750" ? "selected" : ""}>0.75秒</option>
+                    <option value="500" ${splitSettings.pause === "500" ? "selected" : ""}>0.50秒</option>
+                    <option value="250" ${splitSettings.pause === "250" ? "selected" : ""}>0.25秒</option>
+                    <option value="0" ${splitSettings.pause === "0" ? "selected" : ""}>0秒</option>
+                </select>
+            </div>
+            <div class="mobile-split-actions">
+                <button class="purple action-flash" onclick="closeSplitPractice()">◀1文練習</button>
+                <button class="action-flash" onclick="playSplit()">PLAY</button>
+                <button class="danger action-flash" onclick="stopSplitPlayback()">STOP</button>
+                <button id="mobile-split-loop-btn" class="success action-flash ${splitLoopMode ? "loop-on" : ""}" onclick="toggleSplitLoop()">${splitLoopMode ? "🔁 LOOP ON" : "LOOP"}</button>
+            </div>
+            <div class="mobile-split-nav">
+                <button class="mobile-nav-btn action-flash" onclick="switchSplitSentence(${prevIndex})">◀</button>
+                <button type="button" class="mobile-split-jump-btn action-flash" onclick="openSentenceSheet()">
+                    <span class="mobile-split-num">${escapeHtml(getCircleNumber(item, idx))}</span>
+                    <span class="mobile-split-label">文を移動</span>
+                </button>
+                <button class="mobile-nav-btn action-flash ${canNext ? "" : "end-reached"}" onclick="switchSplitSentence(${nextIndex})">${canNext ? "▶" : "▷"}</button>
+            </div>
+        </div>
+        <div class="mobile-split-body">
+            <div class="mobile-split-global-toggle-row">
+                <button type="button" id="mobileSplitHideLinesBtn" class="mobile-split-toggle-btn${splitSettings.hideLines ? " split-off" : ""} action-flash" onclick="toggleSplitHideLines()">${splitSettings.hideLines ? "分割を一括でOFF" : "分割を一括でON"}</button>
+            </div>
+            <div class="mobile-split-rows">
+                ${rowsHtml || `<div class="library-empty">分割データがありません。</div>`}
+            </div>
+        </div>
+        <div id="sentenceSheetBackdrop" class="sentence-sheet-backdrop" onclick="closeSentenceSheet()"></div>
+        <div id="sentenceSheet" class="sentence-sheet" role="dialog" aria-modal="true" aria-label="文を移動">
+            <div class="sentence-sheet-header">
+                <span>文を移動</span>
+                <button type="button" class="sentence-sheet-close" onclick="closeSentenceSheet()">×</button>
+            </div>
+            <div id="sentenceSheetList" class="sentence-sheet-list"></div>
+        </div>
+    </div>`;
+}
+
+function updateSplitModeClasses() {
+    document.body.classList.toggle("split-hide-lines", Boolean(splitSettings.hideLines));
+    const loopBtn = document.getElementById("mobile-split-loop-btn");
+    if (loopBtn) {
+        loopBtn.classList.toggle("loop-on", splitLoopMode);
+        loopBtn.textContent = splitLoopMode ? "🔁 LOOP ON" : "LOOP";
+    }
+    const hideLinesBtn = document.getElementById("mobileSplitHideLinesBtn");
+    if (hideLinesBtn) {
+        hideLinesBtn.textContent = splitSettings.hideLines ? "分割を一括でON" : "分割を一括でOFF";
+        hideLinesBtn.classList.toggle("split-off", Boolean(splitSettings.hideLines));
+    }
+}
+
+function isSplitLineOn(index) {
+    if (splitSettings.hideLines) return splitForceVisibility[index] === "show";
+    return splitForceVisibility[index] !== "hide";
+}
+
+function updateSplitLineToggleButton(index) {
+    const btn = document.getElementById("mobile-split-line-toggle-" + index);
+    if (!btn) return;
+    const isOn = isSplitLineOn(index);
+    btn.textContent = isOn ? "分割OFF" : "分割ON";
+    btn.classList.toggle("split-off", !isOn);
+}
+
+function updateAllSplitLineToggleButtons() {
+    document.querySelectorAll(".mobile-split-line-toggle").forEach((btn) => {
+        const m = String(btn.id || "").match(/mobile-split-line-toggle-(\d+)/);
+        if (m) updateSplitLineToggleButton(Number(m[1]));
+    });
+}
+
+function updateSplitSpeed(value) {
+    setSplitSetting("speed", String(value));
+    const label = document.getElementById("mobileSplitSpeedVal");
+    if (label) label.textContent = Number(value).toFixed(2) + "x";
+}
+
+function updateSplitPause(value) {
+    setSplitSetting("pause", String(value));
+}
+
+function updateSplitHideLines(checked) {
+    splitSettings.hideLines = Boolean(checked);
+    setSplitSetting("hide-lines", checked ? "1" : "0");
+
+    // 一括ON/OFFを押した時点で、個別ON/OFFの記憶とDOM上の強制表示/非表示クラスを完全に消す。
+    // これにより、一括操作と個別操作が排他的に動作する。
+    splitForceVisibility = {};
+    document.querySelectorAll(".mobile-split-row").forEach(row => {
+        row.classList.remove("split-line-force-show", "split-line-force-hide");
+    });
+
+    updateSplitModeClasses();
+    updateAllSplitLineToggleButtons();
+}
+
+function toggleSplitHideLines() {
+    updateSplitHideLines(!splitSettings.hideLines);
+}
+
+function switchSplitSentence(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= lessonData.length) return;
+    stopSplitPlayback();
+    splitIndex = index;
+    selectedIndex = index;
+    splitForceVisibility = {};
+    updateDisplay();
+}
+
+function getSplitPlainLinesForCurrent() {
+    const item = lessonData[splitIndex];
+    return getSplitLines(item).map(line => plainLine(line)).filter(Boolean);
+}
+
+function playOneSplitLine(index) {
+    const splitLines = getSplitPlainLinesForCurrent();
+    const text = splitLines[index];
+    if (!text) return;
+
+    stopSplitPlayback();
+    splitStopped = true;
+    splitLoopMode = false;
+
+    const selectedVoice = getUsEnglishVoiceOrNull();
+    if (!selectedVoice && isIOSDevice()) {
+        splitStopped = true;
+        splitLoopMode = false;
+        updateSplitModeClasses();
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = "en-US";
+    utterance.rate = Number(splitSettings.speed || 0.9);
+    utterance.pitch = 1.0;
+
+    markCurrentSplitLine(index);
+    utterance.onend = () => {
+        // 各分割のPLAYでは、音声終了後も最後に練習した分割のハイライトを残す。
+        // これにより、学生が現在の練習位置を見失いにくくなる。
+        splitCurrentLineIndex = index;
+        markCurrentSplitLine(index);
+    };
+    speechSynthesis.speak(utterance);
+}
+
+function speakSplitLineAt(index) {
+    const splitLines = getSplitPlainLinesForCurrent();
+    clearSplitPauseTimer();
+
+    if (splitStopped) return;
+
+    if (index >= splitLines.length) {
+        if (splitLoopMode) {
+            splitPauseTimer = setTimeout(() => {
+                splitCurrentLineIndex = 0;
+                speakSplitLineAt(0);
+                // LOOPで先頭分割へ戻るときは、先頭分割そのものではなく、
+                // その1行上の一括ON/OFFボタン行が見える位置まで戻す。
+                requestAnimationFrame(() => {
+                    const globalToggleRow = document.querySelector(".mobile-split-global-toggle-row");
+                    const firstRow = document.getElementById("mobile-split-row-0");
+                    const scrollTarget = globalToggleRow || firstRow;
+                    if (scrollTarget) {
+                        scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                });
+            }, Number(splitSettings.pause || "0"));
+        } else {
+            splitStopped = true;
+            splitCurrentLineIndex = 0;
+            updateSplitModeClasses();
+            // 上部PLAYで全分割の再生が終わったら、一括ON/OFFボタン行が見える位置まで戻し、
+            // 先頭分割をハイライトしたまま停止する。
+            markCurrentSplitLine(0);
+            const globalToggleRow = document.querySelector(".mobile-split-global-toggle-row");
+            const firstRow = document.getElementById("mobile-split-row-0");
+            const scrollTarget = globalToggleRow || firstRow;
+            if (scrollTarget) {
+                scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+        return;
+    }
+
+    splitCurrentLineIndex = index;
+    markCurrentSplitLine(index);
+    speechSynthesis.cancel();
+
+    const selectedVoice = getUsEnglishVoiceOrNull();
+    if (!selectedVoice && isIOSDevice()) {
+        splitStopped = true;
+        splitLoopMode = false;
+        updateSplitModeClasses();
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(splitLines[index]);
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = "en-US";
+    utterance.rate = Number(splitSettings.speed || 0.9);
+    utterance.pitch = 1.0;
+
+    utterance.onend = () => {
+        if (splitStopped) return;
+        splitPauseTimer = setTimeout(() => {
+            speakSplitLineAt(index + 1);
+        }, Number(splitSettings.pause || "0"));
+    };
+
+    speechSynthesis.speak(utterance);
+}
+
+function playSplit() {
+    const splitLines = getSplitPlainLinesForCurrent();
+    if (!splitLines.length) return;
+    splitStopped = false;
+    splitLoopMode = false;
+    splitCurrentLineIndex = 0;
+    updateSplitModeClasses();
+    speakSplitLineAt(0);
+}
+
+function toggleSplitLoop() {
+    splitLoopMode = !splitLoopMode;
+    updateSplitModeClasses();
+
+    if (splitLoopMode) {
+        splitStopped = false;
+        splitCurrentLineIndex = 0;
+        speakSplitLineAt(0);
+    } else {
+        stopSplitPlayback();
+    }
+}
+
+function toggleSplitLineVisibility(index) {
+    const current = splitForceVisibility[index] || "";
+    if (splitSettings.hideLines) {
+        splitForceVisibility[index] = current === "show" ? "" : "show";
+    } else {
+        splitForceVisibility[index] = current === "hide" ? "" : "hide";
+    }
+
+    const row = document.getElementById("mobile-split-row-" + index);
+    if (row) {
+        row.classList.remove("split-line-force-show", "split-line-force-hide");
+        if (splitForceVisibility[index] === "show") row.classList.add("split-line-force-show");
+        if (splitForceVisibility[index] === "hide") row.classList.add("split-line-force-hide");
+    }
+    updateSplitLineToggleButton(index);
+}
+
+function releaseButtonVisualState(btn) {
+    if (!btn || typeof btn.blur !== "function") return;
+    // iPhone Safari/PWAではタップ後に :hover/:focus が残ることがあるため、
+    // 操作直後にフォーカスを外して、変色が継続しないようにする。
+    setTimeout(() => {
+        try { btn.blur(); } catch (e) {}
+        if (document.activeElement && document.activeElement !== document.body && document.activeElement.blur) {
+            try { document.activeElement.blur(); } catch (e) {}
+        }
+    }, 0);
+}
+
+document.addEventListener("pointerup", (e) => {
+    const btn = e.target.closest && e.target.closest("button");
+    if (btn) releaseButtonVisualState(btn);
+}, true);
+
+document.addEventListener("touchend", (e) => {
+    const btn = e.target.closest && e.target.closest("button");
+    if (btn) releaseButtonVisualState(btn);
+}, true);
+
+document.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    releaseButtonVisualState(btn);
+    if (btn.classList.contains("loop-on") || btn.classList.contains("loop-active")) return;
+    btn.classList.remove("clicked-feedback");
+    void btn.offsetWidth;
+    btn.classList.add("clicked-feedback");
+    setTimeout(() => {
+        btn.classList.remove("clicked-feedback");
+        releaseButtonVisualState(btn);
+    }, 240);
+});
+
+speedSlider.addEventListener("input", e => {
+    speedVal.textContent = Number(e.target.value).toFixed(2) + "x";
+});
+
+[hideVocabToggle, hideJpToggle, hideEnglish].forEach(el => el.addEventListener("change", refreshClasses));
+
+
+let lessonTouchStartX = 0;
+let lessonTouchStartY = 0;
+
+document.addEventListener("touchstart", function(e) {
+    if (!document.body.classList.contains("lesson-mode") && !document.body.classList.contains("split-mode")) return;
+    if (!e.touches || !e.touches.length) return;
+    const target = e.target;
+    if (target && target.closest && target.closest("button, input, select, .sentence-sheet, .sentence-sheet-backdrop")) return;
+    lessonTouchStartX = e.touches[0].clientX;
+    lessonTouchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener("touchend", function(e) {
+    if (!document.body.classList.contains("lesson-mode") && !document.body.classList.contains("split-mode")) return;
+    if (!e.changedTouches || !e.changedTouches.length) return;
+    const target = e.target;
+    if (target && target.closest && target.closest("button, input, select, .sentence-sheet, .sentence-sheet-backdrop")) return;
+    const dx = e.changedTouches[0].clientX - lessonTouchStartX;
+    const dy = e.changedTouches[0].clientY - lessonTouchStartY;
+
+    if (document.body.classList.contains("lesson-mode") && dx > 80 && Math.abs(dy) < 60) {
+        // 1文練習画面：右方向スワイプで分割練習へ
+        openSplitPractice(getActiveIndex());
+    } else if (document.body.classList.contains("lesson-mode") && dx < -80 && Math.abs(dy) < 60) {
+        // 1文練習画面：左方向スワイプで教材一覧へ
+        showLibraryHome();
+    } else if (document.body.classList.contains("split-mode") && dx < -80 && Math.abs(dy) < 60) {
+        // 分割練習画面：左方向スワイプで1文練習へ
+        closeSplitPractice();
+    }
+}, { passive: true });
+
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+try {
+    if (getCurrentLibraryFile()) {
+        loadLibraryFromServer(false);
+    } else {
+        updateDisplay();
+    }
+} catch (e) {
+    updateDisplay();
+}
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {
+            // Service Worker登録に失敗しても、通常のWebアプリとして動作します。
+        });
+    });
+}
+
+</script>
+</body>
+</html>
