@@ -1,4 +1,5 @@
 {
+  "id": "/english3t4t/",
   "name": "英語3T・4T",
   "short_name": "英語3T・4T",
   "description": "英語3T・4T用 Reading-Aloud Trainer",
@@ -8,7 +9,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f3f4f6",
-  "theme_color": "#2563eb",
+  "theme_color": "#dc2626",
   "icons": [
     {
       "src": "icons/icon-192.png",
