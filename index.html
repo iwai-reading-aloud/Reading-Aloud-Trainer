@@ -2795,16 +2795,34 @@ function renderLibraryHome() {
 
     const libraryDisplayName = getLibraryDisplayName();
 
-    const categoryHtml = visibleCategories.length
-        ? visibleCategories.map(({ cat, ci }) => {
-            const categoryTitle = cat.name || libraryDisplayName || "未分類";
-            const bodyHtml = renderLibraryFolderNode(cat, ci, [], 0);
-            return `<section class="library-category">
-                <div class="library-category-title">${escapeHtml(categoryTitle)}</div>
+    let categoryHtml = "";
+
+    if (visibleCategories.length) {
+        const hasLibraryName = Boolean(libraryData && (libraryData.name || libraryData.title || libraryData.libraryName));
+
+        if (hasLibraryName) {
+            const rootNode = {
+                name: libraryDisplayName,
+                sections: visibleCategories.map(({ cat }) => cat)
+            };
+            const bodyHtml = renderLibraryFolderNode(rootNode, 0, [], 0);
+            categoryHtml = `<section class="library-category">
+                <div class="library-category-title">${escapeHtml(libraryDisplayName)}</div>
                 <div class="library-items">${bodyHtml}</div>
             </section>`;
-        }).join("")
-        : `<div class="library-empty">現在表示できる教材がありません。</div>`;
+        } else {
+            categoryHtml = visibleCategories.map(({ cat, ci }) => {
+                const categoryTitle = cat.name || libraryDisplayName || "未分類";
+                const bodyHtml = renderLibraryFolderNode(cat, ci, [], 0);
+                return `<section class="library-category">
+                    <div class="library-category-title">${escapeHtml(categoryTitle)}</div>
+                    <div class="library-items">${bodyHtml}</div>
+                </section>`;
+            }).join("");
+        }
+    } else {
+        categoryHtml = `<div class="library-empty">現在表示できる教材がありません。</div>`;
+    }
 
     return `<div class="library-home has-library">
         <div class="library-hero">
