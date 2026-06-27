@@ -2457,9 +2457,15 @@ function getLinkedLibraryFiles(node) {
     return values;
 }
 
-function getLinkedLibraryFile(node) {
-    const files = getLinkedLibraryFiles(node);
-    return files.length ? files[0] : "";
+function removeLinkedLibraryMarkers(node) {
+    if (!node || typeof node !== "object") return;
+    delete node.libraryFiles;
+    delete node.libraryFile;
+    delete node.library;
+    delete node.libraryPath;
+    delete node.fileLibrary;
+    delete node.linkMode;
+    delete node.replaceWithLinkedLibrary;
 }
 
 function mergeLibraryItems(existingItems, incomingItems) {
@@ -2498,24 +2504,20 @@ function mergeLibraryFolders(existingFolders, incomingFolders) {
 function mergeLibraryNodeContent(target, source) {
     if (!target || !source) return;
 
-    const sourceItems = Array.isArray(source.items) ? source.items : [];
-    if (sourceItems.length || Array.isArray(target.items)) {
-        target.items = mergeLibraryItems(target.items, sourceItems);
+    if (Array.isArray(source.items) || Array.isArray(target.items)) {
+        target.items = mergeLibraryItems(target.items, source.items || []);
     }
 
-    const sourceSections = Array.isArray(source.sections) ? source.sections : [];
-    if (sourceSections.length || Array.isArray(target.sections)) {
-        target.sections = mergeLibraryFolders(target.sections, sourceSections);
+    if (Array.isArray(source.sections) || Array.isArray(target.sections)) {
+        target.sections = mergeLibraryFolders(target.sections, source.sections || []);
     }
 
-    const sourceSubsections = Array.isArray(source.subsections) ? source.subsections : [];
-    if (sourceSubsections.length || Array.isArray(target.subsections)) {
-        target.subsections = mergeLibraryFolders(target.subsections, sourceSubsections);
+    if (Array.isArray(source.subsections) || Array.isArray(target.subsections)) {
+        target.subsections = mergeLibraryFolders(target.subsections, source.subsections || []);
     }
 
-    const sourceFolders = Array.isArray(source.folders) ? source.folders : [];
-    if (sourceFolders.length || Array.isArray(target.folders)) {
-        target.folders = mergeLibraryFolders(target.folders, sourceFolders);
+    if (Array.isArray(source.folders) || Array.isArray(target.folders)) {
+        target.folders = mergeLibraryFolders(target.folders, source.folders || []);
     }
 }
 
@@ -2527,13 +2529,7 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
     const categories = linkedData.categories.filter(cat => cat && typeof cat === "object");
     const replaceExisting = node.linkMode === "replace" || node.replaceWithLinkedLibrary === true;
 
-    delete node.libraryFiles;
-    delete node.libraryFile;
-    delete node.library;
-    delete node.libraryPath;
-    delete node.fileLibrary;
-    delete node.linkMode;
-    delete node.replaceWithLinkedLibrary;
+    removeLinkedLibraryMarkers(node);
 
     if (replaceExisting) {
         delete node.items;
@@ -2542,6 +2538,8 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
         delete node.folders;
     }
 
+    // 参照先JSONが自分自身を最上位カテゴリとして持つ場合は、その中身だけをこのノードへ合成する。
+    // 例: 外国語演習Ⅰ.json: name="外国語演習Ⅰ", categories[0].name="外国語演習Ⅰ"
     if (categories.length === 1) {
         const only = categories[0];
         const onlyName = String(only.name || "").trim();
@@ -2551,8 +2549,8 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
         }
     }
 
-    // 通常は、参照先ライブラリのcategoriesを、このノードの下位フォルダとして合成する。
-    // 既に同名の空カテゴリがある場合は、その中へitems/sectionsを統合する。
+    // 参照先JSONが教材カテゴリだけを持つ場合は、そのカテゴリ群をこのノードの下位フォルダとして置く。
+    // 例: カルチャー英語1・2.json: Adventures in Architecture
     node.sections = mergeLibraryFolders(node.sections, categories);
 }
 
@@ -2560,13 +2558,8 @@ function resolveLibraryFilePath(linkedFile, baseFile = "") {
     const raw = String(linkedFile || "").trim();
     if (!raw) return "";
     if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("/")) return raw;
-
-    // すでに library/ から始まる旧形式は、そのままアプリルート基準で読む。
     if (raw.startsWith("library/")) return raw;
 
-    // 全クラス.jsonのようなライブラリファイルから見た相対パスを解決する。
-    // 例: baseFile = library/全クラス.json, linkedFile = 英語3T・4T.json
-    //     => library/英語3T・4T.json
     const base = String(baseFile || "").split("?")[0];
     const slashIndex = base.lastIndexOf("/");
     const baseDir = slashIndex >= 0 ? base.slice(0, slashIndex + 1) : "";
@@ -2608,13 +2601,13 @@ async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
 
     const linkedFileCandidates = getLinkedLibraryFiles(node);
     if (linkedFileCandidates.length) {
-        let loaded = false;
-        let lastError = null;
+        const loadErrors = [];
 
         for (const linkedFileRaw of linkedFileCandidates) {
             const primaryLinkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
             const key = String(primaryLinkedFile || linkedFileRaw);
             if (seen.has(key)) continue;
+
             seen.add(key);
             try {
                 const result = await fetchLibraryJsonWithFallback(linkedFileRaw, baseFile);
@@ -2625,23 +2618,15 @@ async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
                 }
                 await expandLinkedLibraries(linkedData, seen, linkedFile);
                 mergeLinkedLibraryIntoNode(node, linkedData);
-                loaded = true;
-                seen.delete(key);
-                break;
             } catch (e) {
-                lastError = e;
+                loadErrors.push(e && e.message ? e.message : String(e));
+            } finally {
                 seen.delete(key);
             }
         }
 
-        if (!loaded) {
-            node._libraryLoadError = lastError && lastError.message ? lastError.message : String(lastError || "ライブラリを読み込めませんでした。");
-            delete node.libraryFiles;
-            delete node.libraryFile;
-            delete node.library;
-            delete node.libraryPath;
-            delete node.fileLibrary;
-        }
+        if (getLinkedLibraryFiles(node).length) removeLinkedLibraryMarkers(node);
+        if (loadErrors.length) node._libraryLoadError = loadErrors.join("\n");
     }
 
     const categoryChildren = Array.isArray(node.categories)
@@ -2686,12 +2671,16 @@ function renderLibraryFolderNode(node, categoryIndex, folderIndexes, level) {
 
     if (!itemsHtml && !foldersHtml) {
         if (node && node._libraryLoadError) {
-            return `<div class="library-empty">ライブラリを読み込めませんでした。<br>${escapeHtml(node._libraryLoadError)}</div>`;
+            return `<div class="library-empty">ライブラリを読み込めませんでした。<br>${escapeHtml(node._libraryLoadError).replace(/\n/g, "<br>")}</div>`;
         }
         return `<div class="library-empty">現在、教材はありません。</div>`;
     }
 
-    return `${itemsHtml}${foldersHtml}`;
+    const errorHtml = node && node._libraryLoadError
+        ? `<div class="library-empty">一部のライブラリを読み込めませんでした。<br>${escapeHtml(node._libraryLoadError).replace(/\n/g, "<br>")}</div>`
+        : "";
+
+    return `${errorHtml}${itemsHtml}${foldersHtml}`;
 }
 
 let exitHelpTimer = null;
