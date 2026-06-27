@@ -2451,11 +2451,21 @@ function mergeLinkedLibraryIntoNode(node, linkedData) {
     const nodeName = String(node.name || "").trim();
     const linkedName = String(linkedData.name || linkedData.title || linkedData.libraryName || "").trim();
     const categories = linkedData.categories.filter(cat => cat && typeof cat === "object");
+    const replaceExisting = node.linkMode === "replace" || node.replaceWithLinkedLibrary === true;
 
     delete node.libraryFile;
     delete node.library;
     delete node.libraryPath;
     delete node.fileLibrary;
+    delete node.linkMode;
+    delete node.replaceWithLinkedLibrary;
+
+    if (replaceExisting) {
+        delete node.items;
+        delete node.sections;
+        delete node.subsections;
+        delete node.folders;
+    }
 
     if (categories.length === 1) {
         const only = categories[0];
@@ -2490,19 +2500,49 @@ function resolveLibraryFilePath(linkedFile, baseFile = "") {
     return baseDir + raw;
 }
 
+async function fetchLibraryJsonWithFallback(linkedFile, baseFile = "") {
+    const candidates = [];
+    function addCandidate(path) {
+        const clean = String(path || "").trim();
+        if (clean && !candidates.includes(clean)) candidates.push(clean);
+    }
+
+    addCandidate(resolveLibraryFilePath(linkedFile, baseFile));
+
+    const raw = String(linkedFile || "").trim();
+    if (raw && !/^(https?:)?\/\//i.test(raw) && !raw.startsWith("/")) {
+        addCandidate(raw);
+        if (!raw.startsWith("library/")) addCandidate("library/" + raw);
+    }
+
+    let lastError = null;
+    for (const candidate of candidates) {
+        try {
+            const res = await fetch(safeRelativeFileUrl(candidate) + "?ts=" + Date.now(), { cache: "no-store" });
+            if (!res.ok) throw new Error(`${candidate}を読み込めませんでした。HTTP ${res.status}`);
+            const data = await res.json();
+            return { data, file: candidate };
+        } catch (e) {
+            lastError = e;
+        }
+    }
+
+    throw lastError || new Error(`${linkedFile}を読み込めませんでした。`);
+}
+
 async function expandLinkedLibraries(node, seen = new Set(), baseFile = "") {
     if (!node || typeof node !== "object") return;
 
     const linkedFileRaw = getLinkedLibraryFile(node);
     if (linkedFileRaw) {
-        const linkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
-        const key = String(linkedFile);
+        const primaryLinkedFile = resolveLibraryFilePath(linkedFileRaw, baseFile);
+        const key = String(primaryLinkedFile || linkedFileRaw);
         if (!seen.has(key)) {
             seen.add(key);
             try {
-                const res = await fetch(safeRelativeFileUrl(linkedFile) + "?ts=" + Date.now(), { cache: "no-store" });
-                if (!res.ok) throw new Error(`${linkedFile}を読み込めませんでした。HTTP ${res.status}`);
-                const linkedData = await res.json();
+                const result = await fetchLibraryJsonWithFallback(linkedFileRaw, baseFile);
+                const linkedData = result.data;
+                const linkedFile = result.file;
                 if (!linkedData || !Array.isArray(linkedData.categories)) {
                     throw new Error(`${linkedFile}の形式が不正です。categories配列が必要です。`);
                 }
