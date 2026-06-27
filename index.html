@@ -2798,37 +2798,45 @@ function renderLibraryHome() {
     let categoryHtml = "";
 
     if (visibleCategories.length) {
-        const hasLibraryName = Boolean(libraryData && (
-            libraryData.name ||
-            libraryData.title ||
-            libraryData.libraryName ||
-            normalizeLibraryName(getUrlLibraryName()) ||
-            (() => {
-                try { return normalizeLibraryName(localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || ""); }
-                catch (e) { return ""; }
-            })()
-        ));
+        const rootSections = [];
 
-        if (hasLibraryName) {
-            const rootNode = {
-                name: libraryDisplayName,
-                sections: visibleCategories.map(({ cat }) => cat)
-            };
-            const bodyHtml = renderLibraryFolderNode(rootNode, 0, [], 0);
-            categoryHtml = `<section class="library-category">
-                <div class="library-category-title">${escapeHtml(libraryDisplayName)}</div>
-                <div class="library-items">${bodyHtml}</div>
-            </section>`;
-        } else {
-            categoryHtml = visibleCategories.map(({ cat, ci }) => {
-                const categoryTitle = cat.name || libraryDisplayName || "未分類";
-                const bodyHtml = renderLibraryFolderNode(cat, ci, [], 0);
-                return `<section class="library-category">
-                    <div class="library-category-title">${escapeHtml(categoryTitle)}</div>
-                    <div class="library-items">${bodyHtml}</div>
-                </section>`;
-            }).join("");
-        }
+        visibleCategories.forEach(({ cat }) => {
+            if (!cat || typeof cat !== "object") return;
+
+            const catName = String(cat.name || "").trim();
+
+            // TOEIC 1・2 / 外国語演習Ⅰのように、JSON内の最上位カテゴリ名が
+            // ライブラリ名と同じ場合は、そのカテゴリ名をもう一段表示せず、中身だけを授業名直下へ置く。
+            if (catName && catName === libraryDisplayName && (Array.isArray(cat.sections) || Array.isArray(cat.items))) {
+                if (Array.isArray(cat.sections)) {
+                    cat.sections.forEach(section => {
+                        if (section && typeof section === "object") rootSections.push(section);
+                    });
+                }
+                if (Array.isArray(cat.items) && cat.items.length) {
+                    rootSections.push({
+                        name: catName,
+                        items: cat.items
+                    });
+                }
+                return;
+            }
+
+            // 英語3T・4T / カルチャー英語1・2のように、カテゴリ自体が教材カテゴリの場合は、
+            // そのまま授業名直下のプルダウンとして扱う。
+            rootSections.push(cat);
+        });
+
+        const rootNode = {
+            name: libraryDisplayName,
+            sections: rootSections
+        };
+        const bodyHtml = renderLibraryFolderNode(rootNode, 0, [], 0);
+
+        categoryHtml = `<section class="library-category">
+            <div class="library-category-title">${escapeHtml(libraryDisplayName)}</div>
+            <div class="library-items">${bodyHtml}</div>
+        </section>`;
     } else {
         categoryHtml = `<div class="library-empty">現在表示できる教材がありません。</div>`;
     }
