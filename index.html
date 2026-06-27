@@ -1937,6 +1937,46 @@ button:focus-visible {
     margin-left: auto;
 }
 
+
+
+/* Final override: compact rectangular Exit Help button */
+.library-actions .library-exit-help-btn,
+button.library-exit-help-btn,
+.library-exit-help-btn{
+    background:#ffffff !important;
+    color:#111111 !important;
+    border:1px solid #111111 !important;
+    border-radius:3px !important;
+    padding:2px 8px !important;
+    min-height:18px !important;
+    height:18px !important;
+    line-height:14px !important;
+    font-size:0.68rem !important;
+    font-weight:700 !important;
+    width:auto !important;
+    box-shadow:none !important;
+}
+.library-actions .library-exit-help-btn:hover,
+button.library-exit-help-btn:hover,
+.library-exit-help-btn:hover{
+    background:#f5f5f5 !important;
+}
+
+
+/* Align exit button with bottom of blue button */
+.library-actions{
+    display:flex !important;
+    justify-content:center;
+    align-items:flex-end !important;
+    gap:10px;
+}
+.library-actions .library-exit-help-btn,
+button.library-exit-help-btn,
+.library-exit-help-btn{
+    align-self:flex-end !important;
+    margin-bottom:0 !important;
+}
+
 </style>
 
 
