@@ -2798,7 +2798,16 @@ function renderLibraryHome() {
     let categoryHtml = "";
 
     if (visibleCategories.length) {
-        const hasLibraryName = Boolean(libraryData && (libraryData.name || libraryData.title || libraryData.libraryName));
+        const hasLibraryName = Boolean(libraryData && (
+            libraryData.name ||
+            libraryData.title ||
+            libraryData.libraryName ||
+            normalizeLibraryName(getUrlLibraryName()) ||
+            (() => {
+                try { return normalizeLibraryName(localStorage.getItem(LIBRARY_NAME_STORAGE_KEY) || ""); }
+                catch (e) { return ""; }
+            })()
+        ));
 
         if (hasLibraryName) {
             const rootNode = {
