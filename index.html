@@ -893,6 +893,25 @@ button, select { min-height: 44px; }
 .library-subcategory .library-items {
     margin-top: 8px;
 }
+
+.library-class-name-under-title {
+    margin-top: 8px;
+    font-size: 1.18rem;
+    font-weight: 900;
+    color: #0f2e63;
+    text-align: center;
+}
+.library-category-title.no-blue-line {
+    border-left: none;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+.library-item-btn::before {
+    content: "◆ ";
+    color: #0f2e63;
+    font-weight: 900;
+}
+
 .library-item-btn {
     width: 100%;
     text-align: left;
@@ -2834,7 +2853,7 @@ function renderLibraryHome() {
         const bodyHtml = renderLibraryFolderNode(rootNode, 0, [], 0);
 
         categoryHtml = `<section class="library-category">
-            <div class="library-category-title">${escapeHtml(libraryDisplayName)}</div>
+            <div class="library-category-title no-blue-line">${escapeHtml(libraryDisplayName)}</div>
             <div class="library-items">${bodyHtml}</div>
         </section>`;
     } else {
@@ -2844,6 +2863,7 @@ function renderLibraryHome() {
     return `<div class="library-home has-library">
         <div class="library-hero">
             <div class="library-hero-title">Reading-Aloud Trainer</div>
+            <div class="library-class-name-under-title">${escapeHtml(libraryDisplayName)}</div>
             <div class="library-hero-sub">教材名をタップしてください。</div>
             <div class="library-actions">
                 <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
