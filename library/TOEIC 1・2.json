@@ -1,35 +1,15 @@
 {
-  "version": 1,
-  "categories": [
+  "course": "TOEIC 1・2",
+  "courseId": "toeic12",
+  "materials": [
     {
-      "name": "TOEIC 1・2",
-      "sections": [
-        {
-          "name": "TOEIC公式問題集09",
-          "items": [
-            {
-              "title": "公式09 TEST-1 Part-3 56-58《本文》",
-              "file": "教材/TOEIC 1・2/TOEIC公式問題集09/公式09_TEST-1_【Part-3】56-58《本文》.json"
-            },
-            {
-              "title": "公式09 TEST-1 Part-3 56-58《設問・選択肢》",
-              "file": "教材/TOEIC 1・2/TOEIC公式問題集09/公式09_TEST-1_【Part-3】56-58《設問・選択肢》.json"
-            },
-            {
-              "title": "公式09 TEST-1 Part-5 101-110",
-              "file": "教材/TOEIC 1・2/TOEIC公式問題集09/公式09_TEST-1_【Part-5】101-110.json"
-            },
-            {
-              "title": "公式09 TEST-1 Part-5 111-120",
-              "file": "教材/TOEIC 1・2/TOEIC公式問題集09/公式09_TEST-1_【Part-5】111-120.json"
-            },
-            {
-              "title": "公式09 TEST-1 Part-5 121-130",
-              "file": "教材/TOEIC 1・2/TOEIC公式問題集09/公式09_TEST-1_【Part-5】121-130.json"
-            }
-          ]
-        }
-      ]
+      "title": "公式 TOEIC Listening & Reading 問題集 09",
+      "section": "TEST-1【Part-4】71-73《設問・選択肢》",
+      "file": "公式09_TEST-1【Part-4】71-73《設問・選択肢》.json",
+      "path": "materials/公式09_TEST-1【Part-4】71-73《設問・選択肢》.json",
+      "course": "TOEIC 1・2",
+      "courseId": "toeic12",
+      "addedAt": "2026-06-28T12:40:38.740Z"
     }
   ]
 }
