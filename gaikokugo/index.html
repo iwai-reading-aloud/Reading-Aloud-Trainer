@@ -1987,6 +1987,40 @@ button.library-exit-help-btn,
     margin-bottom:0 !important;
 }
 
+
+
+/* ===== Fix: hide sentence count and allow Android split-screen scrolling ===== */
+body.lesson-mode .stats,
+body.split-mode .stats {
+    display: none !important;
+}
+body.split-mode {
+    height: 100dvh;
+    overflow: hidden;
+}
+body.split-mode main {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden !important;
+}
+body.split-mode #display-area {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+body.split-mode .mobile-split-shell {
+    height: 100%;
+    min-height: 0;
+}
+body.split-mode .mobile-split-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior-y: auto;
+}
+
 </style>
 
 
@@ -3209,7 +3243,7 @@ function updateDisplay() {
         document.body.classList.remove("lesson-mode");
         displayArea.innerHTML = renderLibraryHome();
         if (libraryData) requestAnimationFrame(restoreLibraryOpenFolders);
-        stats.textContent = libraryData ? "教材ライブラリ" : "0文";
+        stats.textContent = libraryData ? "教材ライブラリ" : "";
         refreshClasses();
         return;
     }
@@ -3221,7 +3255,7 @@ function updateDisplay() {
         document.body.classList.add("split-mode");
         if (splitIndex < 0 || splitIndex >= lessonData.length) splitIndex = getActiveIndex();
         displayArea.innerHTML = renderMobileSplitScreen();
-        stats.textContent = `${lessonData.length}文`;
+        stats.textContent = "";
         updateSplitModeClasses();
         return;
     }
@@ -3230,7 +3264,7 @@ function updateDisplay() {
     document.body.classList.add("lesson-mode");
     if (selectedIndex < 0 || selectedIndex >= lessonData.length) selectedIndex = 0;
     displayArea.innerHTML = renderMobilePracticeScreen();
-    stats.textContent = `${lessonData.length}文`;
+    stats.textContent = "";
     updateMobilePracticeView();
     refreshClasses();
     return;
@@ -3264,7 +3298,7 @@ function updateDisplay() {
         </div>
     `).join("");
 
-    stats.textContent = `${lessonData.length}文`;
+    stats.textContent = "";
     refreshClasses();
 }
 
