@@ -1,0 +1,132 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-25T20:58:38.609Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "公式 TOEIC Listening & Reading 問題集 09",
+    "section": "【Part-5】121-130"
+  },
+  "data": [
+    {
+      "english": "The Shelville City Council acted wisely when it decided to convert an unused railway to a multipurpose trail.",
+      "accent": "The Sh^elville C^ity C^ouncil ^acted w^isely when it dec^ided to conv^ert an un^used r^ailway to a multip^urpose tr^ail.",
+      "vocab": "・Shelville City「シェルヴィル市」◆市名。\n・city council「市議会」\n・act wisely「賢明に行動する」\n・decide to do「〜することを決定する」\n・convert A to B「AをBに転換する」\n・unused「使われていない」\n・railway「鉄道」\n・multipurpose trail「多目的遊歩道」◆歩行者、ジョギング利用者、自転車利用者などが共用できる道のこと。trailの原義は「（人や動物が通ってできた）道」",
+      "jp": "シェルビル市議会は、使われなくなった鉄道を多目的遊歩道に転換することを決定した際、賢明な行動をとった。",
+      "split": "The Shelville City Council\nacted wisely\nwhen it decided\nto convert\nan unused railway\nto a multipurpose trail.",
+      "splitJp": "シェルビル市議会は\n賢明に行動した\nそれが決定したとき\n転換することを\n使われていない鉄道を\n多目的遊歩道に",
+      "labelNumber": "21",
+      "sourceLabel": "英文21",
+      "labelType": "english",
+      "displayLabel": "21"
+    },
+    {
+      "english": "Overall employment of museum archivists and curators is expected to grow steadily over the next ten years.",
+      "accent": "Ov^erall empl^oyment of mus^eum ^archivists and cur^ators is exp^ected to gr^ow st^eadily over the n^ext t^en y^ears.",
+      "vocab": "・overall「全体的な」\n・employment「雇用」\n・museum「博物館」\n・archivist「文書保管専門職」\n・curator「学芸員」\n・be expected to do「〜すると予想される」\n・grow steadily「着実に増加する」\n・over the next ten years「今後10年間にわたって」",
+      "jp": "博物館の文書局員と学芸員の全般的な雇用は、今後10年間で着実に増加すると予想されている。",
+      "split": "Overall employment\nof museum archivists\nand curators\nis expected\nto grow steadily\nover the next ten years.",
+      "splitJp": "全体的な雇用は\n博物館の文書局員の\nそして学芸員の\n予想されている\n着実に増加することが\n今後10年間で",
+      "labelNumber": "22",
+      "sourceLabel": "英文22",
+      "labelType": "english",
+      "displayLabel": "22"
+    },
+    {
+      "english": "With her vast experience in graphic design, Ms. Abebe appears to be a suitable candidate for the book designer position.",
+      "accent": "With her v^ast exper^ience in gr^aphic des^ign, Ms. Ab^ebe app^ears to be a s^uitable c^andidate for the b^ook des^igner pos^ition.",
+      "vocab": "・Ms. Abebe「アビーブさん」◆Abebeという名前はエチオピア系として知られ日本でもアベベ選手（有名なマラソン選手）は有名。ただし、ここではGoogle US音声に合わせて /ｱ^ﾋﾞｰﾌﾞ/ と発音する。\n・vast experience「豊富な経験」\n・graphic design「グラフィックデザイン」\n・appear to do「〜のように見える」\n・suitable「適任の」\n・candidate「候補者」\n・position「職」",
+      "jp": "グラフィックデザインの豊富な経験を持つアビーブ氏は、ブックデザイナー職の適任の候補者であるように思われる。",
+      "split": "With her vast experience\nin graphic design,\nMs. Abebe\nappears\nto be a suitable candidate\nfor the book designer position.",
+      "splitJp": "彼女の豊富な経験を持って\nグラフィックデザインの\nアビーブさんは\n思われる\n適任の候補者であると\nブックデザイナー職の",
+      "labelNumber": "23",
+      "sourceLabel": "英文23",
+      "labelType": "english",
+      "displayLabel": "23"
+    },
+    {
+      "english": "If a Boskin electrical product is modified by the customer, the warranty is no longer valid.",
+      "accent": "If a B^oskin el^ectrical pr^oduct is m^odified by the c^ustomer, the w^arranty is n^o l^onger v^alid.",
+      "vocab": "・Boskin「ボスキン社」◆会社名\n・electrical product「電気製品」\n・modified < modifyの過去分詞。「〜を改造する」\n・customer「顧客」\n・warranty「保証」\n・no longer「もはや〜ない」\n・valid「有効な」",
+      "jp": "ボスキン社の電気製品が顧客によって改造された場合、その保証は無効となる。",
+      "split": "If\na Boskin electrical product\nis modified\nby the customer,\nthe warranty\nis no longer valid.",
+      "splitJp": "もし\nボスキン社の電気製品が\n改造される（なら）\n顧客によって\nその保証は\nもはや有効ではない",
+      "labelNumber": "24",
+      "sourceLabel": "英文24",
+      "labelType": "english",
+      "displayLabel": "24"
+    },
+    {
+      "english": "Retail sales of Kent Menswear collared dress shirts increase dramatically every October, due to the brand's autumn sale.",
+      "accent": "R^etail s^ales of K^ent M^enswear c^ollared dr^ess sh^irts incr^ease dram^atically every Oct^ober, d^ue to the br^and's ^autumn s^ale.",
+      "vocab": "・retail sales「小売りの売上」\n・Kent Menswear「ケントメンズウェア社」◆会社名\n・collared dress shirt「えり付きドレスシャツ」\n・increase dramatically「著しく増加する」\n・every October「毎年10月に」\n・due to ～「〜のため」「～のせいで」◆良い意味でも悪い意味でも原因を示す。because ofに比べるとやや堅い表現。\n・brand「ブランド」\n・autumn sale「秋のセール」",
+      "jp": "ケント・メンズウェア社のえり付きドレスシャツの小売りの売上は、同ブランドの秋のセールのため、毎年10月に著しく増加する。",
+      "split": "Retail sales\nof Kent Menswear\ncollared dress shirts\nincrease dramatically\nevery October,\ndue to\nthe brand's autumn sale.",
+      "splitJp": "小売売上は\nケント・メンズウェア社の\nえり付きドレスシャツの\n大幅に増加する\n毎年10月に\nため\nそのブランドの秋のセールの",
+      "labelNumber": "25",
+      "sourceLabel": "英文25",
+      "labelType": "english",
+      "displayLabel": "25"
+    },
+    {
+      "english": "For security purposes, only authorized personnel of Jeffers Mines Ltd. may proceed beyond this checkpoint.",
+      "accent": "For sec^urity p^urposes, ^only ^authorized personn^el of J^effers M^ines L^imited may proc^eed bey^ond this ch^eckpoint.",
+      "vocab": "・for security purposes「安全上の理由で」\n・authorized「許可された」◆authorize「（人）に許可する」\n・personnel「職員」\n・Jeffers Mines Ltd.「ジェファーズ鉱山社」◆Ltd. = Limited。イギリス英語で会社名の後につける。\n・proceed「進む」\n・beyond「〜を越えて」\n・checkpoint「検問所」",
+      "jp": "安全上の理由により、ジェファーズ・マインズ社の許可された職員のみがこの検問所を越えて進むことができる。",
+      "split": "For security purposes,\nonly authorized personnel\nof Jeffers Mines Ltd.\nmay proceed\nbeyond this checkpoint.",
+      "splitJp": "安全上の理由により\n許可された職員だけが\nジェファーズ鉱山社の\n進むことができる\nこの検問所を越えて",
+      "labelNumber": "26",
+      "sourceLabel": "英文26",
+      "labelType": "english",
+      "displayLabel": "26"
+    },
+    {
+      "english": "Heron Stationers will be ordering new business cards by the end of the week.",
+      "accent": "H^eron St^ationers will be ^ordering n^ew bus^iness c^ards by the ^end of the w^eek.",
+      "vocab": "・Heron Stationers「ヘロン文房具店」◆staitioner「文房具販売店」\n・order「〜を注文する」\n・business card「名刺」\n・by the end of ～「〜の終わりまでに」",
+      "jp": "ヘロン文房具店は週末までに新しい名刺を注文する予定である。",
+      "split": "Heron Stationers\nwill be ordering\nnew business cards\nby the end of the week.",
+      "splitJp": "ヘロン文房具店は\n注文する予定である\n新しい名刺を\n今週末までに",
+      "labelNumber": "27",
+      "sourceLabel": "英文27",
+      "labelType": "english",
+      "displayLabel": "27"
+    },
+    {
+      "english": "At Key Beach Fashions, customers can check the status of their orders online.",
+      "accent": "At K^ey B^each F^ashions, c^ustomers can ch^eck the st^atus of their ^orders ^onl^ine.",
+      "vocab": "・Key Beach Fashions「キー・ビーチ・ファッションズ社」◆会社名\n・customer「顧客」\n・check「〜を確認する」\n・status「状況」\n・order「注文」\n・online「オンラインで」",
+      "jp": "キー・ビーチ・ファッションズ社では、顧客は注文状況をオンラインで確認できる。",
+      "split": "At Key Beach Fashions,\ncustomers can check\nthe status\nof their orders\nonline.",
+      "splitJp": "キー・ビーチ・ファッションズでは\n顧客は確認できる\n状況を\n彼らの注文の\nオンラインで",
+      "labelNumber": "28",
+      "sourceLabel": "英文28",
+      "labelType": "english",
+      "displayLabel": "28"
+    },
+    {
+      "english": "A prize will be awarded to whoever sells the most raffle tickets for the annual charity fund-raiser.",
+      "accent": "A pr^ize will be aw^arded to who^ever s^ells the m^ost r^affle t^ickets for the ^annual ch^arity f^und-r^aiser.",
+      "vocab": "・prize「賞」\n・award A to B「AをBに授与する」\n・whoever「〜する人は誰でも」\n・sell「〜を売る」\n・raffle ticket「慈善くじ券」\n・annual「毎年恒例の」\n・charity fund-raiser「慈善募金イベント」",
+      "jp": "毎年恒例の慈善募金イベント向けの慈善くじ券を、最も多く販売した人に賞が授与される。",
+      "split": "A prize\nwill be awarded\nto whoever sells\nthe most raffle tickets\nfor the annual\ncharity fund-raiser.",
+      "splitJp": "賞が\n授与される\n販売した人に\n最も多くの慈善くじ券を\n毎年恒例の\n慈善募金イベント（向けの）",
+      "labelNumber": "29",
+      "sourceLabel": "英文29",
+      "labelType": "english",
+      "displayLabel": "29"
+    },
+    {
+      "english": "The greenhouse temperature must remain within the specified range for plants to grow properly.",
+      "accent": "The gr^eenhouse t^emperature must rem^ain with^in the sp^ecified r^ange for pl^ants to gr^ow pr^operly.",
+      "vocab": "・greenhouse「温室」\n・temperature「温度」\n・remain「（〜の状態に）保たれる」\n・within「〜の範囲内で」\n・specified「特定の」\n・range「範囲」\n・grow「成長する」\n・properly「適切に」",
+      "jp": "植物が適切に成長するためには、温室の温度は特定の範囲内に保たれなければならない。",
+      "split": "The greenhouse temperature\nmust remain\nwithin the specified range\nfor plants\nto grow properly.",
+      "splitJp": "温室の温度は\n保たれなければならない\n特定の範囲内に\n植物が\n適切に成長するために",
+      "labelNumber": "30",
+      "sourceLabel": "英文30",
+      "labelType": "english",
+      "displayLabel": "30"
+    }
+  ]
+}
