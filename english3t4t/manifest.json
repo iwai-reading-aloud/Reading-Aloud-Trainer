@@ -1,8 +1,8 @@
 {
-  "id": "/culture/",
-  "name": "カルチャー英語1・2",
-  "short_name": "カルチャー英語",
-  "description": "カルチャー英語1・2用 Reading-Aloud Trainer",
+  "id": "/english3t4t/",
+  "name": "英語3T・4T",
+  "short_name": "英語3T・4T",
+  "description": "英語3T・4T用 Reading-Aloud Trainer",
   "lang": "ja",
   "scope": "./",
   "start_url": "./index.html",
