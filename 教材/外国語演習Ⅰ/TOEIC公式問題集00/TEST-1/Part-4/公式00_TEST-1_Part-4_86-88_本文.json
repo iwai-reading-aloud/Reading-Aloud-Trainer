@@ -1,0 +1,84 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-09T17:32:27.126Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1【Part-4】86-88《本文》"
+  },
+  "data": [
+    {
+      "english": "Questions 86 through 88 refer to the following telephone message.",
+      "accent": "Qu^estions 86 (^eighty s^ix) through 88 (^eighty ^eight) ref^er to the f^ollowing t^elephone m^essage.",
+      "vocab": "・refer to「～に関するものである」\n・following「次の」\n・telephone message「留守番電話のメッセージ」",
+      "jp": "問題86-88は次の留守番電話のメッセージに関するものです。",
+      "split": "Questions 86 through 88\nrefer\nto the following\ntelephone message.",
+      "splitJp": "問題86-88は\n関するものである\n次の\n留守番電話のメッセージに",
+      "labelNumber": "00"
+    },
+    {
+      "english": "Anwei! Thank you so much for helping set up for the party after last night's theater performance.",
+      "accent": "^Anwei! Th^ank you so m^uch for h^elping set ^up for the p^arty after l^ast n^ight's th^eater perf^ormance.",
+      "vocab": "・Anwei「アンウェイ」◆おそらく中国系の人名。性別不詳。\n・thank you (so much) for ～ing「～してくれて（本当に）ありがとう」\n・help do「doする手伝いをする」\n・set up「～の準備をする」\n・party「パーティ」\n・theater performance「劇場公演」",
+      "jp": "アンウェイさん！　昨夜の劇場公演後のパーティの準備を手伝ってくれて、本当にありがとう。",
+      "split": "Anwei!\nThank you so much\nfor helping\nset up\nfor the party\nafter\nlast night's\ntheater performance.",
+      "splitJp": "アンウェイさん！\n本当にありがとう\n手伝ってくれて\n準備をすることを\nそのパーティの\n後で\n昨夜の\n劇場公演の",
+      "labelNumber": "01"
+    },
+    {
+      "english": "I couldn't have done it without you, and the spicy dish you brought was delicious!",
+      "accent": "I c^ouldn't have d^one it with^out you, and the sp^icy d^ish you br^ought was del^icious!",
+      "vocab": "・couldn't have done it「それをすることはできなかった」\n・without～「～がいなければ」\n・spicy「スパイスの効いた」\n・dish「料理」\n・brought < bringの過去形。bring～「～を持ってくる」\n・delicious「おいしい」",
+      "jp": "あなたがいなければ準備はできなかったでしょう。また、あなたが持ってきてくれたスパイスの効いた料理はおいしかったです。",
+      "split": "I couldn't have done it\nwithout you,\nand\nthe spicy dish\nyou brought\nwas delicious!",
+      "splitJp": "私はそれをできなかっただろう\nあなたがいなければ\nそして\nそのスパイスの効いた料理は\nあなたが持ってきてくれた\nおいしかった",
+      "labelNumber": "02"
+    },
+    {
+      "english": "You have got to tell me where you found the recipe!",
+      "accent": "You have g^ot to t^ell me wh^ere you f^ound the r^ecipe!",
+      "vocab": "・have got to do「doしなければならない」\n・tell「～に教える」\n・where + 節「どこで～かということ」◆「節」は文中の主語＋動詞のある部分。ここでのwhereは接続詞で（that節を導くthatの仲間）、接続詞が導く節を「従属節」と呼ぶ。\n・find「～を見つける」\n・recipe「レシピ」",
+      "jp": "あなたはどこでレシピを見つけたのか私に教えてくれないと。",
+      "split": "You have got to tell me\nwhere\nyou found\nthe recipe!",
+      "splitJp": "あなたは私に言わなければならない\nどこで\nあなたが見つけたのか\nそのレシピを",
+      "labelNumber": "03"
+    },
+    {
+      "english": "Everyone really liked it, and it didn't look complicated.",
+      "accent": "^Everyone r^eally l^iked it, and it d^idn't l^ook c^omplicated.",
+      "vocab": "・everyone「みんな」\n・really「本当に」\n・like「～を気に入る」\n・look「～のように見える」\n・complicated「複雑な」◆動詞complicate「～を複雑にする」の過去分詞形で、形容詞に変化している。",
+      "jp": "みんなその料理を本当に気に入っていましたし、それほど作るのは複雑そうではありませんでした。",
+      "split": "Everyone\nreally liked it,\nand\nit didn't look\ncomplicated.",
+      "splitJp": "みんな\nそれを本当に気に入っていた\nそして\nそれは見えなかった\n複雑には",
+      "labelNumber": "04"
+    },
+    {
+      "english": "Anyway, I guess I'll see you Monday.",
+      "accent": "^Anyway, I g^uess I'll s^ee you M^onday.",
+      "vocab": "・anyway「とにかく」\n・guess「～だと思う」◆guessの後にthat節を導くthatが省略されている。\n・see「～に会う」",
+      "jp": "とにかく、あなたには月曜日に会えると思います。",
+      "split": "Anyway,\nI guess\nI'll see you\nMonday.",
+      "splitJp": "とにかく\n私は思う\n私はあなたに会うということを\n月曜日に",
+      "labelNumber": "05"
+    },
+    {
+      "english": "I think we have rehearsal together for Elia Grande's new play.",
+      "accent": "I th^ink we have reh^earsal tog^ether for ^Elia Gr^ande's new pl^ay.",
+      "vocab": "・have rehearsal「リハーサルをおこなう」\n・together「一緒に」\n・Elia Grande「イーリア・グランデ」◆女性名であることが多い\n・play「芝居」",
+      "jp": "私たちはイーリア・グランデの新しい芝居のリハーサルを一緒にすることと思います。",
+      "split": "I think\nwe have rehearsal\ntogether\nfor Elia Grande's\nnew play.",
+      "splitJp": "私は思う\n私たちはリハーサルをする\n一緒に\nイーリア・グランデの\n新しい芝居の",
+      "labelNumber": "06"
+    },
+    {
+      "english": "I'm really excited to get started.",
+      "accent": "I'm r^eally exc^ited to get st^arted.",
+      "vocab": "・be excited「楽しみにする」\n・get started「始める」",
+      "jp": "（新しい芝居を）始めるのをとても楽しみにしています。",
+      "split": "I'm really excited\nto get started.",
+      "splitJp": "私はとても楽しみにしている\n始めることを",
+      "labelNumber": "07"
+    }
+  ]
+}
