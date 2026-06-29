@@ -3,6 +3,10 @@
   "name": "英語3T・4T",
   "categories": [
     {
+      "name": "SUCCESSFUL 3",
+      "items": []
+    },
+    {
       "name": "語彙テキスト",
       "items": [
         {
@@ -50,10 +54,6 @@
           "file": "教材/英語3T・4T/語彙テキスト/UNIT-26.json"
         }
       ]
-    },
-    {
-      "name": "SUCCESSFUL 3",
-      "items": []
     }
   ]
 }

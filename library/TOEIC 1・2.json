@@ -29,23 +29,6 @@
                   ]
                 },
                 {
-                  "name": "Part-5",
-                  "items": [
-                    {
-                      "title": "101-110",
-                      "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-5/公式09_TEST-1_Part-5_101-110.json"
-                    },
-                    {
-                      "title": "111-120",
-                      "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-5/公式09_TEST-1_Part-5_111-120.json"
-                    },
-                    {
-                      "title": "121-130",
-                      "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-5/公式09_TEST-1_Part-5_121-130.json"
-                    }
-                  ]
-                },
-                {
                   "name": "Part-4",
                   "sections": [
                     {
@@ -60,6 +43,23 @@
                           "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-4/公式09_TEST-1_Part-4_71-73_設問・選択肢.json"
                         }
                       ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Part-5",
+                  "items": [
+                    {
+                      "title": "101-110",
+                      "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-5/公式09_TEST-1_Part-5_101-110.json"
+                    },
+                    {
+                      "title": "111-120",
+                      "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-5/公式09_TEST-1_Part-5_111-120.json"
+                    },
+                    {
+                      "title": "121-130",
+                      "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-5/公式09_TEST-1_Part-5_121-130.json"
                     }
                   ]
                 }
