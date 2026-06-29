@@ -1,0 +1,192 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-28T10:38:25.155Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "公式 TOEIC Listening & Reading 問題集 09",
+    "section": "TEST-1【Part-4】71-73《設問・選択肢》"
+  },
+  "data": [
+    {
+      "english": "What kind of event was held at the store last Saturday?",
+      "accent": "Wh^at k^ind of ev^ent was h^eld at the st^ore l^ast S^aturday?",
+      "vocab": "・What kid of ～?「どのような種類の～？」\n・hold an event「催しを開催する」◆ここでは受動態。",
+      "jp": "先週の土曜日に、どのような種類の催しが店で開かれましたか。",
+      "split": "What kind of event\nwas held\nat the store\nlast Saturday?",
+      "splitJp": "どのような種類の催しが\n開かれたか\n店で\n先週の土曜日に？",
+      "labelNumber": "71",
+      "sourceLabel": "設問71",
+      "labelType": "question",
+      "displayLabel": "71"
+    },
+    {
+      "english": "An end-of-season sale",
+      "accent": "An ^end-of-s^eason s^ale",
+      "vocab": "・end-of-season sale「シーズン末の特売」",
+      "jp": "シーズン末の特売",
+      "split": "An end-of-season sale",
+      "splitJp": "シーズン末の特売",
+      "labelNumber": "71A",
+      "sourceLabel": "選択肢71A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "A grand opening",
+      "accent": "A gr^and ^opening",
+      "vocab": "・grand opening「オープン記念イベント」◆grandは「盛大な」「華々しい」という意味だが、grand openingでお店などの「オープン記念イベント」と訳せばよい。",
+      "jp": "オープン記念イベント",
+      "split": "A grand opening",
+      "splitJp": "オープン記念イベント",
+      "labelNumber": "71B",
+      "sourceLabel": "選択肢71B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "A facility tour",
+      "accent": "A fac^ility t^our",
+      "vocab": "・facility tour「施設の見学」◆facility「施設」◆tour「見学」。tourは「（観光などの）旅行」という意味でもよく使う。",
+      "jp": "施設の見学",
+      "split": "A facility tour",
+      "splitJp": "施設の見学",
+      "labelNumber": "71C",
+      "sourceLabel": "選択肢71C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "A customer appreciation day",
+      "accent": "A c^ustomer appreci^ation d^ay",
+      "vocab": "・customer「顧客」\n・appreciation「感謝」",
+      "jp": "顧客感謝デー",
+      "split": "A customer appreciation day",
+      "splitJp": "顧客感謝デー",
+      "labelNumber": "71D",
+      "sourceLabel": "選択肢71D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What does the store sell?",
+      "accent": "Wh^at does the st^ore s^ell?",
+      "vocab": "",
+      "jp": "店は何を販売していますか。",
+      "split": "What\ndoes the store\nsell?",
+      "splitJp": "何を\n店は\n販売しているか？",
+      "labelNumber": "72",
+      "sourceLabel": "設問72",
+      "labelType": "question",
+      "displayLabel": "72"
+    },
+    {
+      "english": "Plants",
+      "accent": "Pl^ants",
+      "vocab": "・plant「植物」",
+      "jp": "植物",
+      "split": "Plants",
+      "splitJp": "植物",
+      "labelNumber": "72A",
+      "sourceLabel": "選択肢72A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Clothing",
+      "accent": "Cl^othing",
+      "vocab": "・clothing「衣料品」",
+      "jp": "衣料品",
+      "split": "Clothing",
+      "splitJp": "衣料品",
+      "labelNumber": "72B",
+      "sourceLabel": "選択肢72B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Tea",
+      "accent": "T^ea",
+      "vocab": "",
+      "jp": "お茶",
+      "split": "Tea",
+      "splitJp": "お茶",
+      "labelNumber": "72C",
+      "sourceLabel": "選択肢72C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Art supplies",
+      "accent": "^Art suppl^ies",
+      "vocab": "・art supplies「美術用品」◆画材や彫刻の材料・道具など。",
+      "jp": "美術用品",
+      "split": "Art supplies",
+      "splitJp": "美術用品",
+      "labelNumber": "72D",
+      "sourceLabel": "選択肢72D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What will the listeners receive?",
+      "accent": "Wh^at will the l^isteners rec^eive?",
+      "vocab": "",
+      "jp": "聞き手は何を受け取る予定ですか。",
+      "split": "What\nwill the listeners\nreceive?",
+      "splitJp": "何を\n聞き手は\n受け取る（予定か）？",
+      "labelNumber": "73",
+      "sourceLabel": "設問73",
+      "labelType": "question",
+      "displayLabel": "73"
+    },
+    {
+      "english": "A day off",
+      "accent": "A d^ay ^off",
+      "vocab": "・a day off「1日分の休暇」",
+      "jp": "1日分の休暇",
+      "split": "A day off",
+      "splitJp": "1日分の休暇",
+      "labelNumber": "73A",
+      "sourceLabel": "選択肢73A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "A bonus",
+      "accent": "A b^onus",
+      "vocab": "・bonus「ボーナス」（賞与）",
+      "jp": "ボーナス（賞与）",
+      "split": "A bonus",
+      "splitJp": "ボーナス（賞与）",
+      "labelNumber": "73B",
+      "sourceLabel": "選択肢73B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Free merchandise",
+      "accent": "Fr^ee m^erchandise",
+      "vocab": "・free「無料の」\n・merchandise「商品」",
+      "jp": "無料の商品",
+      "split": "Free merchandise",
+      "splitJp": "無料の商品",
+      "labelNumber": "73C",
+      "sourceLabel": "選択肢73C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Store discounts",
+      "accent": "St^ore d^iscounts",
+      "vocab": "・store discount「店内割引」◆公式問題集ではこの訳だが、従業員に対してこの言葉を使うときには「従業員割引」という意味もある。こちらの方がわかりやすいかもしれない。「店内割引」というと、「お店で使える割引」なので、お客も対象になる。",
+      "jp": "店内割引（従業員割引）",
+      "split": "Store discounts",
+      "splitJp": "店内割引（従業員割引）",
+      "labelNumber": "73D",
+      "sourceLabel": "選択肢73D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    }
+  ]
+}

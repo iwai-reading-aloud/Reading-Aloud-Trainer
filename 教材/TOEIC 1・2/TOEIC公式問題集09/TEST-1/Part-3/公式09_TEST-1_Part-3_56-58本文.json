@@ -1,0 +1,192 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-06-20T10:33:42.481Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "公式 TOEIC Listening & Reading 問題集 09",
+    "section": "TEST-1【Part-3】56-58《本文》"
+  },
+  "data": [
+    {
+      "english": "Questions 56 through 58 refer to the following conversation.",
+      "accent": "Q^uestions 56 thr^ough 58 ref^er to the f^ollowing convers^ation.",
+      "vocab": "・Questions 56 through 58「問題56から58まで」\n・refer to ～「～に関するものである」\n・following「次の」\n・conversation「会話」",
+      "jp": "問題56から58は次の会話に関するものです。",
+      "split": "Questions 56 through 58\nrefer\nto the following conversation.",
+      "splitJp": "問題56から58までは\n関するものである\n次の会話に",
+      "labelNumber": "00",
+      "sourceLabel": "英文00",
+      "labelType": "english",
+      "displayLabel": "0"
+    },
+    {
+      "english": "Sorry I'm late.",
+      "accent": "S^orry I'm l^ate.",
+      "vocab": "・Sorry「すみません」\n・be late「遅れる」",
+      "jp": "遅れてすみません。",
+      "split": "Sorry\nI'm late.",
+      "splitJp": "すみません\n私は遅れた",
+      "labelNumber": "01",
+      "sourceLabel": "英文01",
+      "labelType": "english",
+      "displayLabel": "1"
+    },
+    {
+      "english": "They're restoring the monument at Bennington Circle.",
+      "accent": "They're rest^oring the m^onument at B^ennington C^ircle.",
+      "vocab": "・restore ～「～を修復する」\n・monument「記念碑」\n・Bennington Circle「ベニントン円形広場」◆circle「円形広場」",
+      "jp": "ベニントン円形広場にある記念碑の修復作業が行われているところでして。",
+      "split": "They're restoring\nthe monument\nat Bennington Circle.",
+      "splitJp": "彼らは修復している\nその記念碑を\nベニントン円形広場にある",
+      "labelNumber": "02",
+      "sourceLabel": "英文02",
+      "labelType": "english",
+      "displayLabel": "2"
+    },
+    {
+      "english": "All the workers and equipment are blocking a lane of Palmer Road.",
+      "accent": "^All the w^orkers and equ^ipment are bl^ocking a l^ane of P^almer R^oad.",
+      "vocab": "・equipment「機器」\n・block ～「～をふさぐ」\n・lane「車線」\n・Palmer Road「パーマー通り」◆通り名",
+      "jp": "すべての作業員たちや機器が、パーマー通りの1車線をふさいでいるのです。",
+      "split": "All the workers\nand equipment\nare blocking\na lane\nof Palmer Road.",
+      "splitJp": "すべての作業員たちが\nそして機器が\nふさいでいる\n1車線を\nパーマー通りの",
+      "labelNumber": "03",
+      "sourceLabel": "英文03",
+      "labelType": "english",
+      "displayLabel": "3"
+    },
+    {
+      "english": "I know, the traffic's been horrible during the restoration.",
+      "accent": "I kn^ow, the tr^affic's been h^orrible d^uring the restor^ation.",
+      "vocab": "・traffic「交通渋滞、交通量」\n・horrible「ひどい」\n・restoration「修復」",
+      "jp": "知っています。修復作業期間中ずっと交通渋滞がひどいですよね。",
+      "split": "I know,\nthe traffic's been horrible\nduring the restoration.",
+      "splitJp": "私は知っている\n交通渋滞がずっとひどい\n修復作業期間中",
+      "labelNumber": "04",
+      "sourceLabel": "英文04",
+      "labelType": "english",
+      "displayLabel": "4"
+    },
+    {
+      "english": "I decided to take the train in to the office.",
+      "accent": "I dec^ided to t^ake the tr^ain ^in to the ^office.",
+      "vocab": "・decide to do「～することに決める」\n・take the train「電車を利用する」\n・in「（目的地に向かって）」《副詞》◆このinは「目的地に向かって」という方向性を文に与える副詞。訳さなくてよい。\n・office「会社」",
+      "jp": "私は通勤に電車を利用することにしました。",
+      "split": "I decided\nto take the train\nin\nto the office.",
+      "splitJp": "私は決めた\n電車を利用することに\n（目的地に向かって）\n会社へ",
+      "labelNumber": "05",
+      "sourceLabel": "英文05",
+      "labelType": "english",
+      "displayLabel": "5"
+    },
+    {
+      "english": "Well, now that you're here, let's get started.",
+      "accent": "W^ell, n^ow that you're h^ere, l^et's get st^arted.",
+      "vocab": "・now that ～「今や～なので」\n・get started「始める」",
+      "jp": "さて、あなたが到着したからには、始めましょう。",
+      "split": "Well,\nnow that you're here,\nlet's get started.",
+      "splitJp": "さて\nあなたが到着したからには\n始めよう",
+      "labelNumber": "06",
+      "sourceLabel": "英文06",
+      "labelType": "english",
+      "displayLabel": "6"
+    },
+    {
+      "english": "Did you get a chance to write the performance reviews for your team members?",
+      "accent": "Did you g^et a ch^ance to wr^ite the perf^ormance rev^iews for your t^eam m^embers?",
+      "vocab": "・get a chance to do「～する機会がある」\n・performance review「業績評価」\n・team member「チームメンバー」",
+      "jp": "あなたは、ご自分のチームメンバーの業績評価を書く機会はありましたか。",
+      "split": "Did you get a chance\nto write\nthe performance reviews\nfor your team members?",
+      "splitJp": "あなたは機会があったか\n書くための\n業績評価を\nあなたのチームメンバーの",
+      "labelNumber": "07",
+      "sourceLabel": "英文07",
+      "labelType": "english",
+      "displayLabel": "7"
+    },
+    {
+      "english": "I did.",
+      "accent": "I d^id.",
+      "vocab": "",
+      "jp": "ありました。",
+      "split": "I did.",
+      "splitJp": "ありました",
+      "labelNumber": "08",
+      "sourceLabel": "英文08",
+      "labelType": "english",
+      "displayLabel": "8"
+    },
+    {
+      "english": "I wrote feedback on everyone's strengths and weaknesses.",
+      "accent": "I wr^ote f^eedback on ^everyone's str^engths and w^eaknesses.",
+      "vocab": "・feedback「評価情報」◆お客からのfeedbackは「意見」\n・strength「強み」◆「長所」という訳もあり。\n・weakness「弱み」◆「短所」という訳もあり。",
+      "jp": "私は、皆の強みと弱みについての評価情報を書きました。",
+      "split": "I wrote feedback\non everyone's strengths\nand weaknesses.",
+      "splitJp": "私は評価情報を書いた\n皆の強みについて\nそして弱みについて",
+      "labelNumber": "09",
+      "sourceLabel": "英文09",
+      "labelType": "english",
+      "displayLabel": "9"
+    },
+    {
+      "english": "When I tried to access their individual sales results though, I kept getting an error message.",
+      "accent": "When I tr^ied to ^access their indiv^idual s^ales res^ults th^ough, I k^ept g^etting an ^error m^essage.",
+      "vocab": "・try to do「～しようと試みる」\n・access「アクセスする」\n・individual「個々の」\n・sales result「営業成績」\n・though「しかし」\n・keep doing「繰り返し～する」\n・get an error message「エラーメッセージが出る」",
+      "jp": "しかし、個々の営業成績にアクセスを試みると、繰り返しエラーメッセージが出ました。",
+      "split": "When I tried\nto access\ntheir individual\nsales results\nthough,\nI kept getting\nan error message.",
+      "splitJp": "私が試みたとき\nアクセスすることを\n彼らの個々の\n営業成績に\nしかし\n繰り返し出た\nエラーメッセージが",
+      "labelNumber": "10",
+      "sourceLabel": "英文10",
+      "labelType": "english",
+      "displayLabel": "10"
+    },
+    {
+      "english": "I was going to call the IT department.",
+      "accent": "I was g^oing to c^all the ^I ^T dep^artment.",
+      "vocab": "・IT department「IT部門」（「情報技術部」）◆IT = Information Technology",
+      "jp": "私はIT部門に電話しようと思っていたのです。",
+      "split": "I was going\nto call\nthe IT department.",
+      "splitJp": "私はしようと思っていた\n電話を\nIT部門に",
+      "labelNumber": "11",
+      "sourceLabel": "英文11",
+      "labelType": "english",
+      "displayLabel": "11"
+    },
+    {
+      "english": "No need.",
+      "accent": "N^o n^eed.",
+      "vocab": "",
+      "jp": "その必要はありません。",
+      "split": "No need.",
+      "splitJp": "その必要はありません",
+      "labelNumber": "12",
+      "sourceLabel": "英文12",
+      "labelType": "english",
+      "displayLabel": "12"
+    },
+    {
+      "english": "I've had this same problem before.",
+      "accent": "I've h^ad this s^ame pr^oblem bef^ore.",
+      "vocab": "・have (this same) problem「（これと同じ）問題を経験する」\n・before「以前に」",
+      "jp": "私も以前に、これと同じ問題を経験したことがあります。",
+      "split": "I've had\nthis same problem\nbefore.",
+      "splitJp": "私は経験したことがある\nこれと同じ問題を\n以前に",
+      "labelNumber": "13",
+      "sourceLabel": "英文13",
+      "labelType": "english",
+      "displayLabel": "13"
+    },
+    {
+      "english": "May I see your computer?",
+      "accent": "May ^I s^ee your comp^uter?",
+      "vocab": "・May I do?「～してもいいですか？」",
+      "jp": "あなたのコンピューターを見てもいいですか。",
+      "split": "May I see\nyour computer?",
+      "splitJp": "見てもいいですか\nあなたのコンピューターを",
+      "labelNumber": "14",
+      "sourceLabel": "英文14",
+      "labelType": "english",
+      "displayLabel": "14"
+    }
+  ]
+}
