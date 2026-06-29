@@ -1,4 +1,5 @@
-const CACHE_NAME = "rat-toeic-v3";
+const CACHE_NAME = "rat-toeic-v4";
+const CACHE_PREFIX = "rat-toeic-";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -20,7 +21,7 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(key => key.startsWith("rat-") && key !== CACHE_NAME).map(key => caches.delete(key)))
+      Promise.all(keys.filter(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME).map(key => caches.delete(key)))
     )
   );
   self.clients.claim();
