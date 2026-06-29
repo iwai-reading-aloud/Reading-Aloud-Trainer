@@ -1,11 +1,11 @@
 {
-  "id": "/culture/",
+  "id": "./",
   "name": "カルチャー英語1・2",
   "short_name": "カルチャー英語",
   "description": "カルチャー英語1・2用 Reading-Aloud Trainer",
   "lang": "ja",
   "scope": "./",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f3f4f6",

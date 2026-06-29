@@ -1,11 +1,11 @@
 {
-  "id": "/toeic/",
+  "id": "./",
   "name": "TOEIC 1・2",
   "short_name": "TOEIC",
   "description": "TOEIC 1・2用 Reading-Aloud Trainer",
   "lang": "ja",
   "scope": "./",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f3f4f6",
