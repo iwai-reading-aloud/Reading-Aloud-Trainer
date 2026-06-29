@@ -2569,7 +2569,6 @@ async function loadLibraryFromServer(showAlert = false, filePath = null) {
         lessonData = [];
         setLessonMeta("", "");
         updateDisplay();
-        if (showAlert) alert("教材ライブラリを読み込みました。");
     } catch (e) {
         libraryLoadError = e && e.message ? e.message : String(e);
         libraryData = null;
