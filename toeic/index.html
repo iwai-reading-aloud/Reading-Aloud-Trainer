@@ -941,6 +941,21 @@ button, select { min-height: 44px; }
     line-height: 1.45;
     box-shadow: none;
 }
+
+/* TOEIC設問・選択肢教材名: 長いタイトルだけ1行に収める */
+.library-item-btn.library-fit-one-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    line-height: 1.2;
+}
+.library-item-btn.library-fit-one-line .library-item-label {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: visible;
+}
+
 .library-item-btn:hover {
     background: #eff6ff;
     border-color: #93c5fd;
@@ -2824,7 +2839,9 @@ function renderLibraryFolderNode(node, categoryIndex, folderIndexes, level) {
     const itemsHtml = items.map(item => {
         const originalIndex = Array.isArray(node.items) ? node.items.indexOf(item) : -1;
         const encodedPath = makeLibraryPath(categoryIndex, folderIndexes, originalIndex);
-        return `<button class="library-item-btn action-flash" onclick="loadLessonFromLibraryPath('${encodedPath}')">${escapeHtml(item.title || item.file || "無題の教材")}</button>`;
+        const itemTitle = String(item.title || item.file || "無題の教材");
+        const fitClass = itemTitle.includes("《設問・選択肢》") ? " library-fit-one-line" : "";
+        return `<button class="library-item-btn${fitClass} action-flash" onclick="loadLessonFromLibraryPath('${encodedPath}')"><span class="library-item-label">${escapeHtml(itemTitle)}</span></button>`;
     }).join("");
 
     const foldersHtml = folders.map((folder, fi) => {
@@ -3013,6 +3030,38 @@ function renderLibraryHome() {
     </div>`;
 }
 
+
+function fitOneLineLibraryItemButtons() {
+    const buttons = Array.from(document.querySelectorAll(".library-item-btn.library-fit-one-line"));
+    buttons.forEach(btn => {
+        const label = btn.querySelector(".library-item-label") || btn;
+        label.style.fontSize = "";
+        btn.style.fontSize = "";
+
+        const maxSize = 16;
+        const minSize = 12;
+        let size = maxSize;
+        label.style.fontSize = size + "px";
+        btn.style.fontSize = size + "px";
+
+        const available = btn.clientWidth - 28;
+        if (!available || available <= 0) return;
+
+        while (size > minSize && label.scrollWidth > available) {
+            size -= 0.5;
+            label.style.fontSize = size + "px";
+            btn.style.fontSize = size + "px";
+        }
+    });
+}
+
+function scheduleLibraryItemTitleFit() {
+    requestAnimationFrame(() => {
+        fitOneLineLibraryItemButtons();
+        setTimeout(fitOneLineLibraryItemButtons, 80);
+    });
+}
+
 function toggleLibraryFolder(panelId, buttonEl) {
     const panel = document.getElementById(panelId);
     if (!panel) return;
@@ -3021,6 +3070,7 @@ function toggleLibraryFolder(panelId, buttonEl) {
 
     if (isOpen) {
         libraryOpenFolderIds.add(panelId);
+        scheduleLibraryItemTitleFit();
     } else {
         libraryOpenFolderIds.delete(panelId);
     }
@@ -3242,7 +3292,10 @@ function updateDisplay() {
         document.body.classList.add("library-mode");
         document.body.classList.remove("lesson-mode");
         displayArea.innerHTML = renderLibraryHome();
-        if (libraryData) requestAnimationFrame(restoreLibraryOpenFolders);
+        if (libraryData) requestAnimationFrame(() => {
+            restoreLibraryOpenFolders();
+            scheduleLibraryItemTitleFit();
+        });
         stats.textContent = libraryData ? "教材ライブラリ" : "";
         refreshClasses();
         return;
