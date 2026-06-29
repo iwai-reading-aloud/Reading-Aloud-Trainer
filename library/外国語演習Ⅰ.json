@@ -7,22 +7,42 @@
       "sections": [
         {
           "name": "TOEIC公式問題集00",
-          "items": [
+          "sections": [
             {
-              "title": "公式00 TEST-1 Part-4 86-88《本文》",
-              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】86-88《本文》.json"
-            },
-            {
-              "title": "公式00 TEST-1 Part-4 86-88《設問・選択肢》",
-              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】86-88《設問・選択肢》.json"
-            },
-            {
-              "title": "公式00 TEST-1 Part-4 89-91《本文》",
-              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】89-91《本文》.json"
-            },
-            {
-              "title": "公式00 TEST-1 Part-4 89-91《設問・選択肢》",
-              "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/公式00_TEST-1【Part-4】89-91《設問・選択肢》.json"
+              "name": "TEST-1",
+              "sections": [
+                {
+                  "name": "Part-4",
+                  "sections": [
+                    {
+                      "name": "86-88",
+                      "items": [
+                        {
+                          "title": "本文",
+                          "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_86-88_本文.json"
+                        },
+                        {
+                          "title": "設問・選択肢",
+                          "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_86-88_設問・選択肢.json"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "89-91",
+                      "items": [
+                        {
+                          "title": "本文",
+                          "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_89-91_本文.json"
+                        },
+                        {
+                          "title": "設問・選択肢",
+                          "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_89-91_設問・選択肢.json"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
