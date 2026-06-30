@@ -900,17 +900,20 @@ button, select { min-height: 44px; }
     margin-top: 8px;
 }
 
+
 .library-class-name-under-title {
     margin: 10px auto 8px auto;
-    display: block;
-    width: 100%;
-    padding: 0;
-    font-size: 1.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 9px 24px;
+    font-size: 1.35rem;
     font-weight: 900;
-    color: #16a34a;
-    background: transparent;
+    color: #ffffff;
+    background: #16a34a;
     border: none;
-    border-radius: 0;
+    border-radius: 10px;
     text-align: center;
     box-shadow: none;
     text-shadow: none;
@@ -2002,7 +2005,10 @@ button.library-exit-help-btn,
 }
 
 
-/* Course name: centered plain-color display */
+/* Course name: centered color button display */
+.library-hero{
+    text-align:center !important;
+}
 .library-class-block{
     display:grid;
     grid-template-columns:1fr;
@@ -2015,26 +2021,34 @@ button.library-exit-help-btn,
     text-align:center;
 }
 .library-class-block .library-class-name-under-title{
-    margin:0 !important;
+    margin:0 auto !important;
 }
 .library-class-block .library-exit-help-btn{
     align-self:center !important;
-    margin:0 !important;
+    margin:0 auto !important;
 }
 .library-class-name-under-title.course-color-blue{
-    color:#2563eb !important;
+    background:#2563eb !important;
+    color:#ffffff !important;
 }
 .library-class-name-under-title.course-color-orange{
-    color:#f97316 !important;
+    background:#f97316 !important;
+    color:#ffffff !important;
 }
 .library-class-name-under-title.course-color-green{
-    color:#16a34a !important;
+    background:#16a34a !important;
+    color:#ffffff !important;
 }
 .library-class-name-under-title.course-color-purple{
-    color:#7c3aed !important;
+    background:#7c3aed !important;
+    color:#ffffff !important;
 }
 
 
+.library-hero-title,
+.library-hero-sub{
+    text-align:center !important;
+}
 .library-added-notice{
     width:min(760px, calc(100% - 28px));
     margin:14px auto 12px auto;
