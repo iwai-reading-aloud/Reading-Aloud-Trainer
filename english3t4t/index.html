@@ -902,19 +902,18 @@ button, select { min-height: 44px; }
 
 .library-class-name-under-title {
     margin: 10px auto 8px auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    padding: 9px 24px;
-    font-size: 1.35rem;
+    display: block;
+    width: 100%;
+    padding: 0;
+    font-size: 1.45rem;
     font-weight: 900;
-    color: #ffffff;
-    background: #16a34a;
+    color: #16a34a;
+    background: transparent;
     border: none;
-    border-radius: 10px;
+    border-radius: 0;
     text-align: center;
-    box-shadow: 0 3px 10px rgba(22,163,74,0.22);
+    box-shadow: none;
+    text-shadow: none;
 }
 .library-category-title.no-blue-line {
     border-left: none;
@@ -2003,48 +2002,63 @@ button.library-exit-help-btn,
 }
 
 
-/* Course name color and exit-help placement after removing the refresh button */
+/* Course name: centered plain-color display */
 .library-class-block{
-    display:inline-grid;
-    grid-template-columns:auto auto;
-    align-items:end;
-    justify-content:center;
-    column-gap:8px;
-    width:fit-content;
+    display:grid;
+    grid-template-columns:1fr;
+    justify-items:center;
+    align-items:center;
+    row-gap:8px;
+    width:100%;
     max-width:100%;
-    margin:10px auto 8px auto;
+    margin:10px auto 10px auto;
+    text-align:center;
 }
 .library-class-block .library-class-name-under-title{
     margin:0 !important;
 }
 .library-class-block .library-exit-help-btn{
-    align-self:end !important;
-    margin-bottom:1px !important;
+    align-self:center !important;
+    margin:0 !important;
 }
 .library-class-name-under-title.course-color-blue{
-    background:#1976D2 !important;
-    box-shadow:0 3px 10px rgba(25,118,210,0.22) !important;
+    color:#2563eb !important;
 }
 .library-class-name-under-title.course-color-orange{
-    background:#F57C00 !important;
-    box-shadow:0 3px 10px rgba(245,124,0,0.22) !important;
+    color:#f97316 !important;
 }
 .library-class-name-under-title.course-color-green{
-    background:#2E7D32 !important;
-    box-shadow:0 3px 10px rgba(46,125,50,0.22) !important;
+    color:#16a34a !important;
 }
 .library-class-name-under-title.course-color-purple{
-    background:#7B1FA2 !important;
-    box-shadow:0 3px 10px rgba(123,31,162,0.22) !important;
-}
-@media (max-width: 480px){
-    .library-class-block{
-        grid-template-columns:auto;
-        justify-items:center;
-        row-gap:6px;
-    }
+    color:#7c3aed !important;
 }
 
+
+.library-added-notice{
+    width:min(760px, calc(100% - 28px));
+    margin:14px auto 12px auto;
+    padding:12px 14px;
+    border:1px solid #f2c36b;
+    background:#fff8e6;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    color:#4a3210;
+    text-align:left;
+}
+.library-added-notice-title{
+    font-weight:800;
+    margin-bottom:6px;
+    text-align:center;
+}
+.library-added-notice ul{
+    margin:0;
+    padding-left:1.4em;
+}
+.library-added-notice li{
+    margin:4px 0;
+    line-height:1.45;
+}
 
 
 /* ===== Fix: hide sentence count and allow Android split-screen scrolling ===== */
@@ -2156,6 +2170,7 @@ let libraryCatalogError = "";
 let showingLibraryChooser = false;
 let libraryOpenFolderIds = new Set();
 let libraryLastOpenedFolderIds = [];
+let libraryAddedTitles = [];
 
 let splitMode = false;
 let splitIndex = 0;
@@ -2496,6 +2511,7 @@ function safeRelativeFileUrl(file) {
 }
 
 const LIBRARY_FILE_STORAGE_KEY = "rat-library-file-english3t4t";
+const LIBRARY_ITEMS_STORAGE_KEY = LIBRARY_FILE_STORAGE_KEY + "-items";
 const LIBRARY_NAME_STORAGE_KEY = "rat-library-name-english3t4t";
 
 function getUrlLibraryName() {
@@ -2606,6 +2622,7 @@ async function loadLibraryFromServer(showAlert = false, filePath = null) {
         }
         await expandLinkedLibraries(data, new Set(), libraryFile);
         libraryData = data;
+        updateLibraryAdditionNotice(data);
         showingLibraryChooser = false;
         setCurrentLibraryFile(libraryFile);
         try { localStorage.setItem("rat-library-autoload", "1"); } catch (e) {}
@@ -2640,6 +2657,72 @@ function resetLibrarySelection() {
     lessonData = [];
     setLessonMeta("", "");
     updateDisplay();
+}
+
+
+function collectLibraryItemSnapshots(node, result = []) {
+    if (!node || typeof node !== "object") return result;
+
+    if (Array.isArray(node.items)) {
+        node.items.forEach(item => {
+            if (!item || typeof item !== "object") return;
+            const file = String(item.file || "").trim();
+            const title = String(item.title || item.name || item.file || "無題の教材").trim();
+            const key = file || title;
+            if (!key) return;
+            result.push({ key, title: title || key });
+        });
+    }
+
+    if (Array.isArray(node.categories)) {
+        node.categories.forEach(child => collectLibraryItemSnapshots(child, result));
+    }
+
+    getLibraryChildFolders(node).forEach(child => collectLibraryItemSnapshots(child, result));
+    return result;
+}
+
+function updateLibraryAdditionNotice(data) {
+    libraryAddedTitles = [];
+    const currentItems = collectLibraryItemSnapshots(data, []);
+
+    try {
+        const rawPrevious = localStorage.getItem(LIBRARY_ITEMS_STORAGE_KEY) || "[]";
+        const previousItems = JSON.parse(rawPrevious);
+        const previousKeys = new Set(
+            (Array.isArray(previousItems) ? previousItems : [])
+                .map(item => String((item && item.key) || item || "").trim())
+                .filter(Boolean)
+        );
+
+        if (previousKeys.size > 0) {
+            const seenTitles = new Set();
+            libraryAddedTitles = currentItems
+                .filter(item => item && item.key && !previousKeys.has(item.key))
+                .map(item => item.title || item.key)
+                .filter(title => {
+                    const clean = String(title || "").trim();
+                    if (!clean || seenTitles.has(clean)) return false;
+                    seenTitles.add(clean);
+                    return true;
+                });
+        }
+
+        localStorage.setItem(LIBRARY_ITEMS_STORAGE_KEY, JSON.stringify(currentItems));
+    } catch (e) {
+        try { localStorage.setItem(LIBRARY_ITEMS_STORAGE_KEY, JSON.stringify(currentItems)); } catch (ignore) {}
+    }
+}
+
+function renderLibraryAdditionNotice() {
+    if (!Array.isArray(libraryAddedTitles) || !libraryAddedTitles.length) return "";
+    const itemsHtml = libraryAddedTitles
+        .map(title => `<li>${escapeHtml(title)}が追加されました。</li>`)
+        .join("");
+    return `<div class="library-added-notice" role="status" aria-live="polite">
+        <div class="library-added-notice-title">新しい教材があります</div>
+        <ul>${itemsHtml}</ul>
+    </div>`;
 }
 
 function getVisibleLibraryCategories() {
@@ -2959,11 +3042,16 @@ function showExitHelp() {
 }
 
 function renderLibraryChooser() {
+    const libraryDisplayName = getLibraryDisplayName();
+    const courseColorClass = getLibraryCourseColorClass(libraryDisplayName);
     return `<div class="library-home clean-start">
         <div class="library-hero big-start">
             <div class="library-hero-title">Reading-Aloud Trainer</div>
-            <div class="library-hero-sub">この授業用の教材ライブラリを開きます。</div>
-            <div class="library-note">このアプリは「英語3T・4T」用です。</div>
+            <div class="library-class-block">
+                <div class="library-class-name-under-title ${courseColorClass}">${escapeHtml(libraryDisplayName)}</div>
+                <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
+            </div>
+            <div class="library-hero-sub">教材を選んでください。</div>
             <div class="library-actions centered">
                 ${libraryData ? `<button class="secondary action-flash" onclick="closeLibraryChooser()">戻る</button>` : ""}
             </div>
@@ -3007,13 +3095,17 @@ function renderLibraryHome() {
             ? `<div class="library-empty">教材ライブラリの読み込みに失敗しました。<br>${escapeHtml(libraryLoadError)}</div>`
             : "";
 
+        const libraryDisplayName = getLibraryDisplayName();
+        const courseColorClass = getLibraryCourseColorClass(libraryDisplayName);
+
         return `<div class="library-home clean-start">
             <div class="library-hero big-start">
                 <div class="library-hero-title">Reading-Aloud Trainer</div>
-                <div class="library-hero-sub">この授業用の教材ライブラリを表示します。</div>
-                <div class="library-actions centered">
+                <div class="library-class-block">
+                    <div class="library-class-name-under-title ${courseColorClass}">${escapeHtml(libraryDisplayName)}</div>
                     <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
                 </div>
+                <div class="library-hero-sub">教材を選んでください。</div>
             </div>
             ${errorHtml}
         </div>`;
@@ -3074,8 +3166,9 @@ function renderLibraryHome() {
                 <div class="library-class-name-under-title ${courseColorClass}">${escapeHtml(libraryDisplayName)}</div>
                 <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
             </div>
-            <div class="library-hero-sub">教材名をタップしてください。</div>
+            <div class="library-hero-sub">教材を選んでください。</div>
         </div>
+        ${renderLibraryAdditionNotice()}
         ${categoryHtml}
     </div>`;
 }
