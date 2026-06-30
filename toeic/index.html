@@ -2003,6 +2003,49 @@ button.library-exit-help-btn,
 }
 
 
+/* Course name color and exit-help placement after removing the refresh button */
+.library-class-block{
+    display:inline-grid;
+    grid-template-columns:auto auto;
+    align-items:end;
+    justify-content:center;
+    column-gap:8px;
+    width:fit-content;
+    max-width:100%;
+    margin:10px auto 8px auto;
+}
+.library-class-block .library-class-name-under-title{
+    margin:0 !important;
+}
+.library-class-block .library-exit-help-btn{
+    align-self:end !important;
+    margin-bottom:1px !important;
+}
+.library-class-name-under-title.course-color-blue{
+    background:#1976D2 !important;
+    box-shadow:0 3px 10px rgba(25,118,210,0.22) !important;
+}
+.library-class-name-under-title.course-color-orange{
+    background:#F57C00 !important;
+    box-shadow:0 3px 10px rgba(245,124,0,0.22) !important;
+}
+.library-class-name-under-title.course-color-green{
+    background:#2E7D32 !important;
+    box-shadow:0 3px 10px rgba(46,125,50,0.22) !important;
+}
+.library-class-name-under-title.course-color-purple{
+    background:#7B1FA2 !important;
+    box-shadow:0 3px 10px rgba(123,31,162,0.22) !important;
+}
+@media (max-width: 480px){
+    .library-class-block{
+        grid-template-columns:auto;
+        justify-items:center;
+        row-gap:6px;
+    }
+}
+
+
 
 /* ===== Fix: hide sentence count and allow Android split-screen scrolling ===== */
 body.lesson-mode .stats,
@@ -2946,6 +2989,15 @@ function getLibraryDisplayName() {
     return "教材ライブラリ";
 }
 
+function getLibraryCourseColorClass(name) {
+    const cleanName = normalizeLibraryName(name);
+    if (cleanName === "英語3T・4T") return "course-color-blue";
+    if (cleanName === "TOEIC 1・2") return "course-color-orange";
+    if (cleanName === "外国語演習Ⅰ") return "course-color-green";
+    if (cleanName === "カルチャー英語1・2") return "course-color-purple";
+    return "course-color-green";
+}
+
 function renderLibraryHome() {
     if (showingLibraryChooser) return renderLibraryChooser();
     const visibleCategories = getVisibleLibraryCategories();
@@ -2960,7 +3012,6 @@ function renderLibraryHome() {
                 <div class="library-hero-title">Reading-Aloud Trainer</div>
                 <div class="library-hero-sub">この授業用の教材ライブラリを表示します。</div>
                 <div class="library-actions centered">
-                    <button class="library-primary-btn action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
                     <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
                 </div>
             </div>
@@ -2969,6 +3020,7 @@ function renderLibraryHome() {
     }
 
     const libraryDisplayName = getLibraryDisplayName();
+    const courseColorClass = getLibraryCourseColorClass(libraryDisplayName);
 
     let categoryHtml = "";
 
@@ -3018,12 +3070,11 @@ function renderLibraryHome() {
     return `<div class="library-home has-library">
         <div class="library-hero">
             <div class="library-hero-title">Reading-Aloud Trainer</div>
-            <div class="library-class-name-under-title">${escapeHtml(libraryDisplayName)}</div>
-            <div class="library-hero-sub">教材名をタップしてください。</div>
-            <div class="library-actions">
-                <button class="action-flash" onclick="loadLibraryFromServer(true)">教材ライブラリを更新</button>
+            <div class="library-class-block">
+                <div class="library-class-name-under-title ${courseColorClass}">${escapeHtml(libraryDisplayName)}</div>
                 <button class="library-exit-help-btn action-flash" onclick="showExitHelp()">終了方法</button>
             </div>
+            <div class="library-hero-sub">教材名をタップしてください。</div>
         </div>
         ${categoryHtml}
     </div>`;
@@ -4522,11 +4573,7 @@ document.addEventListener("touchend", function(e) {
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 try {
-    if (getCurrentLibraryFile()) {
-        loadLibraryFromServer(false);
-    } else {
-        updateDisplay();
-    }
+    loadLibraryFromServer(false);
 } catch (e) {
     updateDisplay();
 }
