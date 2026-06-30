@@ -1,4 +1,4 @@
-const CACHE_NAME = "rat-toeic-v4";
+const CACHE_NAME = "rat-toeic-v5";
 const CACHE_PREFIX = "rat-toeic-";
 const CORE_ASSETS = [
   "./",
@@ -8,6 +8,15 @@ const CORE_ASSETS = [
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",
   "./icons/apple-touch-icon.png",
+  "./icons/splash-1290x2796.png",
+  "./icons/splash-1179x2556.png",
+  "./icons/splash-1170x2532.png",
+  "./icons/splash-1284x2778.png",
+  "./icons/splash-828x1792.png",
+  "./icons/splash-1242x2688.png",
+  "./icons/splash-1125x2436.png",
+  "./icons/splash-750x1334.png",
+  "./icons/splash-640x1136.png",
   "./icons/favicon.ico"
 ];
 
