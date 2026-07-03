@@ -48,12 +48,12 @@
                       "name": "74-76",
                       "items": [
                         {
-                          "title": "設問・選択肢",
-                          "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-4/公式09_TEST-1_Part-4_74-76_設問・選択肢.json"
-                        },
-                        {
                           "title": "本文",
                           "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-4/公式09_TEST-1_Part-4_74-76_本文.json"
+                        },
+                        {
+                          "title": "設問・選択肢",
+                          "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-4/公式09_TEST-1_Part-4_74-76_設問・選択肢.json"
                         }
                       ]
                     }
@@ -71,10 +71,6 @@
               ]
             }
           ]
-        },
-        {
-          "name": "74-76",
-          "items": []
         }
       ]
     }
