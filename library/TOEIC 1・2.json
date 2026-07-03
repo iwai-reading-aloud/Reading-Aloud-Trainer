@@ -56,15 +56,6 @@
                           "file": "教材/TOEIC 1・2/TOEIC公式問題集09/TEST-1/Part-4/公式09_TEST-1_Part-4_74-76_設問・選択肢.json"
                         }
                       ]
-                    },
-                    {
-                      "name": "更新通知テスト",
-                      "items": [
-                        {
-                          "title": "表示確認用ダミー教材",
-                          "file": "教材/TOEIC 1・2/test_dummy.json"
-                        }
-                      ]
                     }
                   ]
                 },
