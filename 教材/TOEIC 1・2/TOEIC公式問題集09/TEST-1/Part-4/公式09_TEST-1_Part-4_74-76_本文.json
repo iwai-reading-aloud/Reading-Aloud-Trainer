@@ -1,0 +1,108 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-03T16:11:45.965Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "公式 TOEIC Listening & Reading 問題集 09",
+    "section": "TEST-1_Part-474-76_本文"
+  },
+  "data": [
+    {
+      "english": "Questions 74 through 76 refer to the following telephone message.",
+      "accent": "Q^uestions s^eventy f^our thr^ough s^eventy s^ix ref^er to the f^ollowing telephone message.",
+      "vocab": "・A through B「AからB（まで）」\n・refer to ～「～に関するものである」\n・telephone message「留守電メッセージ」◆直訳すると「電話のメッセージ」だが、TOEICでは「留守電メッセージ」と訳した方が適切。",
+      "jp": "問題74から76は次の留守電メッセージ関するものです。",
+      "split": "Questions 74 through 76\nrefer\nto the following\ntelephone message",
+      "splitJp": "問題74から76は\n関するものである\n次の\n留守電メッセージ（に）",
+      "labelNumber": "00",
+      "sourceLabel": "英文00",
+      "labelType": "english",
+      "displayLabel": "0"
+    },
+    {
+      "english": "Hi, this is Jung Soo Kim.",
+      "accent": "H^i, th^is is J^ung S^oo K^im.",
+      "vocab": "・this is ～「こちらは～です」\n・Jung Soo Kim「ジョン・スー・キム」◆男性名（韓国系）。",
+      "jp": "こんにちは。こちらはジョン・スー・キムです。",
+      "split": "Hi,\nthis is Jung Soo Kim.",
+      "splitJp": "こんにちは\nこちらはジョン・スー・キムです",
+      "labelNumber": "01",
+      "sourceLabel": "英文01",
+      "labelType": "english",
+      "displayLabel": "1"
+    },
+    {
+      "english": "I've finished my inspection of the house, and it's in good shape, but I noticed something.",
+      "accent": "I've f^inished my insp^ection of the h^ouse, and it's in g^ood sh^ape, but I n^oticed s^omething.",
+      "vocab": "・finish「～を終える」\n・inspection「点検」\n・in good shape「良好な状態で」\n・notice「～に気付く」",
+      "jp": "私は例の住宅の点検を終え、それは良好な状態ですが、気付いた点があります。",
+      "split": "I've finished\nmy inspection\nof the house,\nand it's in good shape,\nbut I noticed something.",
+      "splitJp": "私は終えた\n点検を\n例の住宅の\nそしてそれは良好な状態だ\nしかし、私は気付いた点がある",
+      "labelNumber": "02",
+      "sourceLabel": "英文02",
+      "labelType": "english",
+      "displayLabel": "2"
+    },
+    {
+      "english": "The rainwater's not draining properly.",
+      "accent": "The r^ainwater's not dr^aining pr^operly.",
+      "vocab": "・rainwater「雨水」\n・drain「排水される」\n・properly「適切に」",
+      "jp": "雨水が適切に排水されていないのです。",
+      "split": "The rainwater's\nnot draining\nproperly.",
+      "splitJp": "雨水が\n排水されていない\n適切に",
+      "labelNumber": "03",
+      "sourceLabel": "英文03",
+      "labelType": "english",
+      "displayLabel": "3"
+    },
+    {
+      "english": "When you move in, you'll need to have the rain gutters along the edge of the roof cleaned.",
+      "accent": "Wh^en you m^ove ^in, you'll n^eed to h^ave the r^ain g^utters al^ong the ^edge of the r^oof cl^eaned.",
+      "vocab": "・move in「入居する」\n・need to do「～する必要がある」\n・have A《過去分詞》「Aを《過去分詞》してもらう」◆ここでのAは、the rain gutter along the edge of the roof「屋根の端に沿っている雨どい」\n・rain gutter「雨どい」\n・along ～「～に沿って」\n・edge「端」\n・roof「屋根」\n・cleaned < clean「～を掃除する」の過去分詞。",
+      "jp": "ご入居の際、屋根の端に沿っている雨どいの掃除をしてもらう必要があるでしょう。",
+      "split": "When you move in,\nyou'll need to have\nthe rain gutters\nalong the edge of the roof\ncleaned.",
+      "splitJp": "ご入居の際、\nしてもらう必要があるでしょう\n雨どいを\n屋根の端に沿っている\n掃除された（状態に）",
+      "labelNumber": "04",
+      "sourceLabel": "英文04",
+      "labelType": "english",
+      "displayLabel": "4"
+    },
+    {
+      "english": "They're filled with dead leaves, which prevents the water from flowing down the drainpipes and away from the house.",
+      "accent": "They're f^illed with d^ead l^eaves, which prev^ents the w^ater from fl^owing d^own the dr^ainpipes and aw^ay from the h^ouse.",
+      "vocab": "・be filled with ～「～がぎっしり詰まっている」\n・dead leaf「枯れ葉」◆leavesは複数形。\n・prevent A from ～ing「Aが～するのを妨げる」\n・flow down ～「～を流れ落ちる」\n・drainpipe「排水管」\n・(flow) away from ～「（流れて）～から離れる」",
+      "jp": "雨どいには枯れ葉がぎっしり詰まっており、それが、 水が排水管を伝って住宅から流れ去るのを妨げています。",
+      "split": "They're filled\nwith dead leaves,\nwhich prevents the water\nfrom flowing down the drainpipes\nand away from the house.",
+      "splitJp": "それら（＝雨どい）にはぎっしり詰まっている\n枯れ葉が\nそれが水を妨げている\n排水管を伝って流れ落ちることを\nそして流れて住宅から離れることを",
+      "labelNumber": "05",
+      "sourceLabel": "英文05",
+      "labelType": "english",
+      "displayLabel": "5"
+    },
+    {
+      "english": "If it's not fixed, then, over time, water buildup could possibly damage the house's foundation.",
+      "accent": "If it's n^ot f^ixed, th^en, ^over t^ime, w^ater b^uildup could p^ossibly d^amage the h^ouse's found^ation.",
+      "vocab": "・fix「～を修理する」◆問題集の日本語訳では「～を解決する」となっているが、これは意訳っぽい。\n・then「そうすると」\n・over time「やがて」\n・water buildup「たまった水」\n・possibly「ことによると」\n・damage「～に損傷を及ぼす」\n・foundation「基礎部分」",
+      "jp": "それが解決されないと、やがて、たまった水が、ことによると住宅の基礎部分に損傷を及ぼすかもしれません。",
+      "split": "If it's not fixed,\nthen, over time,\nwater buildup\ncould possibly damage\nthe house's foundation.",
+      "splitJp": "それが修理されないと\nそうすると、やがて、\nたまった水が\nとによると損傷を及ぼすかもしれない\n住宅の基礎部分に",
+      "labelNumber": "06",
+      "sourceLabel": "英文06",
+      "labelType": "english",
+      "displayLabel": "6"
+    },
+    {
+      "english": "I'm going to send you and the sellers my complete inspection report along with pictures, but I won't include repair estimates because those vary so widely.",
+      "accent": "I'm g^oing to s^end you and the s^ellers my compl^ete insp^ection rep^ort al^ong with p^ictures, but I w^on't incl^ude rep^air ^estimates bec^ause th^ose v^ary so w^idely.",
+      "vocab": "・seller「販売業者」◆問題集では「販売業者」と訳しているが、通常英語でsellerという時には「売主」なので、ここは複数形で販売業者（仲介業者）も含めていると考えて「売主側」という訳が本当は良い。\n・complete「一式の」◆一般的訳語としては「完全な」。\n・inspection report「点検報告書」◆inspection「点検」\n・along with ～「～と共に」\n・include「～を同封する」\n・repair estimate「修理の見積書」◆repair「修理」◆estimate「見積書」\n・vary「変動する」\n・widely「非常に大きく」",
+      "jp": "あなたと販売業者に、私の点検報告書一式を写真と共にお送りしますが、修理の見積書は同封いたしません。そういったものは非常に大きく変動しますので。",
+      "split": "I'm going to send\nyou and the sellers\nmy complete inspection report\nalong with pictures,\nbut I won't include\nrepair estimates\nbecause those vary so widely.",
+      "splitJp": "私は送る予定だ\nあなたと売主側に\n私の完全な点検報告書を\n写真とともに\nしかし同封はしないつもりだ\n修理の見積書は\nそれは非常に大きく変動するので",
+      "labelNumber": "07",
+      "sourceLabel": "英文07",
+      "labelType": "english",
+      "displayLabel": "7"
+    }
+  ]
+}

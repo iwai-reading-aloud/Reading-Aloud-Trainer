@@ -1,0 +1,192 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-03T16:12:37.907Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "公式 TOEIC Listening & Reading 問題集 09",
+    "section": "TEST-1_Part-474-76_設問・選択肢"
+  },
+  "data": [
+    {
+      "english": "Who is the speaker?",
+      "accent": "Wh^o is the sp^eaker?",
+      "vocab": "・speaker「話し手」",
+      "jp": "話し手は誰ですか。",
+      "split": "Who is\nthe speaker?",
+      "splitJp": "誰ですか\n話し手は",
+      "labelNumber": "74",
+      "sourceLabel": "設問74",
+      "labelType": "question",
+      "displayLabel": "74"
+    },
+    {
+      "english": "A hardware store clerk",
+      "accent": "A h^ardware st^ore cl^erk",
+      "vocab": "・hardware store「工具店」\n・clerk「店員」",
+      "jp": "工具店の店員",
+      "split": "A hardware store clerk",
+      "splitJp": "工具店の店員",
+      "labelNumber": "74A",
+      "sourceLabel": "選択肢74A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "A building inspector",
+      "accent": "A b^uilding insp^ector",
+      "vocab": "・building「建物」\n・inspector「検査官」",
+      "jp": "建物の検査官",
+      "split": "A building inspector",
+      "splitJp": "建物の検査官",
+      "labelNumber": "74B",
+      "sourceLabel": "選択肢74B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "A water service provider",
+      "accent": "A w^ater s^ervice prov^ider",
+      "vocab": "・water service provider「水道供給業者」",
+      "jp": "水道供給業者",
+      "split": "A water service provider",
+      "splitJp": "水道供給業者",
+      "labelNumber": "74C",
+      "sourceLabel": "選択肢74C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "A laboratory scientist",
+      "accent": "A l^aboratory sc^ientist",
+      "vocab": "・laboratory「研究所」\n・scientist「科学者」",
+      "jp": "研究所の科学者",
+      "split": "A laboratory scientist",
+      "splitJp": "研究所の科学者",
+      "labelNumber": "74D",
+      "sourceLabel": "選択肢74D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What is the speaker mainly discussing?",
+      "accent": "Wh^at is the sp^eaker m^ainly disc^ussing?",
+      "vocab": "・speaker「話し手」\n・mainly「主に」\n・discuss「～について説明する」",
+      "jp": "話し手は主に何について説明していますか。",
+      "split": "What is\nthe speaker\nmainly discussing?",
+      "splitJp": "何について\n話し手は\n主に説明しているか",
+      "labelNumber": "75",
+      "sourceLabel": "設問75",
+      "labelType": "question",
+      "displayLabel": "75"
+    },
+    {
+      "english": "A maintenance concern",
+      "accent": "A m^aintenance conc^ern",
+      "vocab": "・maintenance「維持管理」\n・concern「懸念」",
+      "jp": "維持管理上の懸念",
+      "split": "A maintenance concern",
+      "splitJp": "維持管理上の懸念",
+      "labelNumber": "75A",
+      "sourceLabel": "選択肢75A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "A city regulation",
+      "accent": "A c^ity regul^ation",
+      "vocab": "・city regulation「市の条例」",
+      "jp": "市の条例",
+      "split": "A city regulation",
+      "splitJp": "市の条例",
+      "labelNumber": "75B",
+      "sourceLabel": "選択肢75B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "A price negotiation",
+      "accent": "A pr^ice negoti^ation",
+      "vocab": "・price「価格」\n・negotiation「交渉」",
+      "jp": "価格の交渉",
+      "split": "A price negotiation",
+      "splitJp": "価格の交渉",
+      "labelNumber": "75C",
+      "sourceLabel": "選択肢75C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "A schedule delay",
+      "accent": "A sch^edule del^ay",
+      "vocab": "・schedule「予定」\n・delay「遅れ」",
+      "jp": "予定の遅れ",
+      "split": "A schedule delay",
+      "splitJp": "予定の遅れ",
+      "labelNumber": "75D",
+      "sourceLabel": "選択肢75D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What does the speaker say he will send?",
+      "accent": "Wh^at does the sp^eaker s^ay he will s^end?",
+      "vocab": "・speaker「話し手」\n・send「～を送る」",
+      "jp": "話し手は何を送ると言っていますか。",
+      "split": "What\ndoes the speaker say\nhe will send?",
+      "splitJp": "何を\n話し手は言っているか\n送ると",
+      "labelNumber": "76",
+      "sourceLabel": "設問76",
+      "labelType": "question",
+      "displayLabel": "76"
+    },
+    {
+      "english": "An article",
+      "accent": "An ^article",
+      "vocab": "・article「記事」",
+      "jp": "記事",
+      "split": "An article",
+      "splitJp": "記事",
+      "labelNumber": "76A",
+      "sourceLabel": "選択肢76A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "A survey",
+      "accent": "A s^urvey",
+      "vocab": "・survey「アンケート」",
+      "jp": "アンケート",
+      "split": "A survey",
+      "splitJp": "アンケート",
+      "labelNumber": "76B",
+      "sourceLabel": "選択肢76B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "A timeline",
+      "accent": "A t^imeline",
+      "vocab": "・timeline「予定表」",
+      "jp": "予定表",
+      "split": "A timeline",
+      "splitJp": "予定表",
+      "labelNumber": "76C",
+      "sourceLabel": "選択肢76C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "A report",
+      "accent": "A rep^ort",
+      "vocab": "・report「報告書」",
+      "jp": "報告書",
+      "split": "A report",
+      "splitJp": "報告書",
+      "labelNumber": "76D",
+      "sourceLabel": "選択肢76D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    }
+  ]
+}
