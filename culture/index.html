@@ -34,15 +34,6 @@ const RAT_DEFAULT_LIBRARY = "カルチャー英語1・2";
 const RAT_BASE_PATH = "../";
 </script>
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="apple-touch-startup-image" href="icons/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="icon" href="icons/favicon.ico">
 <style>
     :root {
@@ -2074,9 +2065,18 @@ button.library-exit-help-btn,
     margin-bottom:6px;
     text-align:center;
 }
+.library-added-group{
+    margin-top:8px;
+}
+.library-added-path{
+    font-weight:800;
+    line-height:1.45;
+    word-break:break-word;
+}
 .library-added-notice ul{
-    margin:0;
-    padding-left:1.4em;
+    margin:4px 0 0 0;
+    padding-left:0;
+    list-style:none;
 }
 .library-added-notice li{
     margin:4px 0;
@@ -2683,8 +2683,22 @@ function resetLibrarySelection() {
 }
 
 
-function collectLibraryItemSnapshots(node, result = []) {
+function getLibraryNoticeRootNames(data) {
+    const names = new Set();
+    if (data && data.name) names.add(String(data.name).trim());
+
+    try {
+        const currentFile = getCurrentLibraryFile();
+        const m = String(currentFile || "").match(/(?:^|\/)([^\/]+)\.json$/i);
+        if (m && m[1]) names.add(decodeURIComponent(m[1]).trim());
+    } catch (e) {}
+
+    return names;
+}
+
+function collectLibraryItemSnapshots(node, result = [], pathNames = [], rootNames = null, depth = 0) {
     if (!node || typeof node !== "object") return result;
+    if (!rootNames) rootNames = getLibraryNoticeRootNames(node);
 
     if (Array.isArray(node.items)) {
         node.items.forEach(item => {
@@ -2693,15 +2707,29 @@ function collectLibraryItemSnapshots(node, result = []) {
             const title = String(item.title || item.name || item.file || "無題の教材").trim();
             const key = file || title;
             if (!key) return;
-            result.push({ key, title: title || key });
+            result.push({
+                key,
+                title: title || key,
+                parentPath: pathNames.join(" / ")
+            });
         });
     }
 
     if (Array.isArray(node.categories)) {
-        node.categories.forEach(child => collectLibraryItemSnapshots(child, result));
+        node.categories.forEach((child, i) => {
+            if (!child || typeof child !== "object") return;
+            const name = String(child.name || `category${i + 1}`).trim();
+            const isCourseRoot = depth === 0 && rootNames && rootNames.has(name);
+            const nextPath = isCourseRoot ? [...pathNames] : [...pathNames, name];
+            collectLibraryItemSnapshots(child, result, nextPath, rootNames, depth + 1);
+        });
     }
 
-    getLibraryChildFolders(node).forEach(child => collectLibraryItemSnapshots(child, result));
+    getLibraryChildFolders(node).forEach((child, i) => {
+        if (!child || typeof child !== "object") return;
+        const name = String(child.name || `section${i + 1}`).trim();
+        collectLibraryItemSnapshots(child, result, [...pathNames, name], rootNames, depth + 1);
+    });
     return result;
 }
 
@@ -2719,14 +2747,21 @@ function updateLibraryAdditionNotice(data) {
         );
 
         if (previousKeys.size > 0) {
-            const seenTitles = new Set();
+            const seen = new Set();
             libraryAddedTitles = currentItems
                 .filter(item => item && item.key && !previousKeys.has(item.key))
-                .map(item => item.title || item.key)
-                .filter(title => {
-                    const clean = String(title || "").trim();
-                    if (!clean || seenTitles.has(clean)) return false;
-                    seenTitles.add(clean);
+                .map(item => ({
+                    title: item.title || item.key,
+                    parentPath: item.parentPath || ""
+                }))
+                .filter(item => {
+                    const cleanTitle = String(item.title || "").trim();
+                    const cleanPath = String(item.parentPath || "").trim();
+                    const key = cleanPath + "||" + cleanTitle;
+                    if (!cleanTitle || seen.has(key)) return false;
+                    seen.add(key);
+                    item.title = cleanTitle;
+                    item.parentPath = cleanPath;
                     return true;
                 });
         }
@@ -2739,12 +2774,39 @@ function updateLibraryAdditionNotice(data) {
 
 function renderLibraryAdditionNotice() {
     if (!Array.isArray(libraryAddedTitles) || !libraryAddedTitles.length) return "";
-    const itemsHtml = libraryAddedTitles
-        .map(title => `<li>${escapeHtml(title)}が追加されました。</li>`)
-        .join("");
+
+    const groups = [];
+    const groupMap = new Map();
+
+    libraryAddedTitles.forEach(item => {
+        const entry = (item && typeof item === "object") ? item : { title: String(item || ""), parentPath: "" };
+        const parentPath = String(entry.parentPath || "").trim() || "教材";
+        const title = String(entry.title || "").trim();
+        if (!title) return;
+
+        if (!groupMap.has(parentPath)) {
+            const group = { parentPath, titles: [] };
+            groupMap.set(parentPath, group);
+            groups.push(group);
+        }
+        groupMap.get(parentPath).titles.push(title);
+    });
+
+    if (!groups.length) return "";
+
+    const groupsHtml = groups.map(group => {
+        const titlesHtml = group.titles
+            .map(title => `<li>・${escapeHtml(title)}</li>`)
+            .join("");
+        return `<div class="library-added-group">
+            <div class="library-added-path">${escapeHtml(group.parentPath)}</div>
+            <ul>${titlesHtml}</ul>
+        </div>`;
+    }).join("");
+
     return `<div class="library-added-notice" role="status" aria-live="polite">
         <div class="library-added-notice-title">新しい教材があります</div>
-        <ul>${itemsHtml}</ul>
+        ${groupsHtml}
     </div>`;
 }
 
