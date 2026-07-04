@@ -16,11 +16,11 @@
               "name": "New York Times",
               "items": [
                 {
-                  "title": "(2026-0623a) Could Iran still build nuclear weapon",
+                  "title": "US-Iran Talk 01 - Could Iran still build nuclear weapon",
                   "file": "教材/外国語演習Ⅰ/Newspaper Article/New York Times/(2026-0623) US-Iran Talk_01 - Could Iran still build nuclear weapon.json"
                 },
                 {
-                  "title": "(2026-0623b) Strait of Hormuz & Iran's financial interests",
+                  "title": "US-Iran Talk 02 - Strait of Hormuz & Iran's financial interests",
                   "file": "教材/外国語演習Ⅰ/Newspaper Article/New York Times/(2026-0623) US-Iran Talk_02 - Strait of Hormuz & Iran's financial interests.json"
                 }
               ]
@@ -59,6 +59,19 @@
                         {
                           "title": "設問・選択肢",
                           "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_89-91_設問・選択肢.json"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "92-94",
+                      "items": [
+                        {
+                          "title": "本文",
+                          "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_92-94_本文.json"
+                        },
+                        {
+                          "title": "設問・選択肢",
+                          "file": "教材/外国語演習Ⅰ/TOEIC公式問題集00/TEST-1/Part-4/公式00_TEST-1_Part-4_92-94_設問・選択肢.json"
                         }
                       ]
                     }
