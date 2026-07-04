@@ -1,0 +1,192 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-04T21:36:59.523Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1_Part-492-94_設問・選択肢"
+  },
+  "data": [
+    {
+      "english": "What does the speaker want to focus on this year?",
+      "accent": "Wh^at does the sp^eaker w^ant to f^ocus ^on this y^ear?",
+      "vocab": "・speaker「話し手」\n・focus on ～「～に焦点を当てる」\n・this year「今年」",
+      "jp": "話し手は今年、何に焦点を当てたいと思っていますか。",
+      "split": "What\ndoes the speaker\nwant to focus on\nthis year?",
+      "splitJp": "何に\n話し手は\n焦点を当てたいと思ってるか？\n今年",
+      "labelNumber": "92",
+      "sourceLabel": "設問92",
+      "labelType": "question",
+      "displayLabel": "92"
+    },
+    {
+      "english": "Increasing staff numbers",
+      "accent": "Incr^easing st^aff n^umbers",
+      "vocab": "・increase「～を増やす」\n・staff「職員」\n・number「数」",
+      "jp": "職員の数を増やすこと。",
+      "split": "Increasing\nstaff numbers",
+      "splitJp": "増やすこと\n職員の数を",
+      "labelNumber": "92A",
+      "sourceLabel": "選択肢92A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Targeting smaller businesses",
+      "accent": "T^argeting sm^aller b^usinesses",
+      "vocab": "・target「～を対象にする」\n・smaller「より小規模な」\n・business「企業」",
+      "jp": "より小規模な企業を対象にすること。",
+      "split": "Targeting\nsmaller businesses",
+      "splitJp": "対象にすること\nより小規模な企業を。",
+      "labelNumber": "92B",
+      "sourceLabel": "選択肢92B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Reducing operating costs",
+      "accent": "Red^ucing ^operating c^osts",
+      "vocab": "・reduce「～を削減する」\n・operating cost「運営コスト」",
+      "jp": "運営コストを削減すること。",
+      "split": "Reducing\noperating costs",
+      "splitJp": "削減すること\n運営コストを",
+      "labelNumber": "92C",
+      "sourceLabel": "選択肢92C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Attracting new clients",
+      "accent": "Attr^acting n^ew cl^ients",
+      "vocab": "・attract「～を引きつける」\n・new「新しい」\n・client「クライアント」",
+      "jp": "新しいクライアントを引きつけること。",
+      "split": "Attracting\nnew clients",
+      "splitJp": "引きつけること\n新しいクライアントを。",
+      "labelNumber": "92D",
+      "sourceLabel": "選択肢92D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What does the speaker request help with?",
+      "accent": "Wh^at does the sp^eaker requ^est h^elp with?",
+      "vocab": "・speaker「話し手」\n・request help with ～「～を手伝うことを要求する」◆request「～を要求する」◆help with ～「～を手伝うこと」。helpは名詞。",
+      "jp": "話し手は何を手伝ってほしいと要求していますか。",
+      "split": "What\ndoes the speaker\nrequest help with?",
+      "splitJp": "何を\n話し手は\n手伝うことを要求しているか？",
+      "labelNumber": "93",
+      "sourceLabel": "設問93",
+      "labelType": "question",
+      "displayLabel": "93"
+    },
+    {
+      "english": "Greeting clients",
+      "accent": "Gr^eeting cl^ients",
+      "vocab": "・greet「～に挨拶する」\n・client「クライアント」◆「取引先」のこと。",
+      "jp": "クライアントに挨拶すること。",
+      "split": "Greeting\nclients",
+      "splitJp": "挨拶すること\nクライアントに",
+      "labelNumber": "93A",
+      "sourceLabel": "選択肢93A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Collecting payments",
+      "accent": "Coll^ecting p^ayments",
+      "vocab": "・collect「～を徴収する」\n・payment「支払い金」",
+      "jp": "支払い金を徴収すること。",
+      "split": "Collecting\npayments",
+      "splitJp": "徴収すること\n支払い金を",
+      "labelNumber": "93B",
+      "sourceLabel": "選択肢93B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Gathering data",
+      "accent": "G^athering d^ata",
+      "vocab": "・gather「～を集める」\n・data「データ」",
+      "jp": "データを集めること。",
+      "split": "Gathering\ndata",
+      "splitJp": "集めること\nデータを",
+      "labelNumber": "93C",
+      "sourceLabel": "選択肢93C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Locating résumés",
+      "accent": "L^ocating r^ésumés",
+      "vocab": "・locate「～を見つけ出す」◆locateの原義は「場所を突き止める」こと。\n・résumé「履歴書」◆発音は /^ﾚｽﾞﾒｲ/。アクセント記号がついているのは、この言葉がフランス語由来であるため。",
+      "jp": "履歴書を見つけ出すこと。",
+      "split": "Locating\nrésumés",
+      "splitJp": "見つけ出すこと\n履歴書を",
+      "labelNumber": "93D",
+      "sourceLabel": "選択肢93D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What will the listeners receive by e-mail?",
+      "accent": "Wh^at will the l^isteners rec^eive by ^e-mail?",
+      "vocab": "・listener「聞き手」\n・receive「～を受け取る」\n・by e-mail「Eメールで」",
+      "jp": "聞き手はEメールで何を受け取りますか。",
+      "split": "What\nwill the listeners\nreceive\nby e-mail?",
+      "splitJp": "何を\n聞き手は\n受け取るのか？\nEメールで",
+      "labelNumber": "94",
+      "sourceLabel": "設問94",
+      "labelType": "question",
+      "displayLabel": "94"
+    },
+    {
+      "english": "A work schedule",
+      "accent": "A w^ork sch^edule",
+      "vocab": "・work schedule「作業の予定表」",
+      "jp": "作業の予定表",
+      "split": "A work schedule",
+      "splitJp": "作業の予定表",
+      "labelNumber": "94A",
+      "sourceLabel": "選択肢94A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "A confirmation number",
+      "accent": "A confirm^ation n^umber",
+      "vocab": "・confirmation number「確認番号」",
+      "jp": "確認番号",
+      "split": "A confirmation number",
+      "splitJp": "確認番号",
+      "labelNumber": "94B",
+      "sourceLabel": "選択肢94B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "A sample report",
+      "accent": "A s^ample rep^ort",
+      "vocab": "・sample「見本の」\n・report「報告書」",
+      "jp": "見本の報告書",
+      "split": "A sample report",
+      "splitJp": "見本の報告書",
+      "labelNumber": "94C",
+      "sourceLabel": "選択肢94C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "An employee roster",
+      "accent": "An empl^oyee r^oster",
+      "vocab": "・employee「従業員」\n・roster「名簿」◆rosterはあるグループに所属する「メンバー・勤務者の一覧」。これに対し、directoryは「連絡先一覧」。",
+      "jp": "従業員の名簿",
+      "split": "An employee roster",
+      "splitJp": "従業員の名簿",
+      "labelNumber": "94D",
+      "sourceLabel": "選択肢94D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    }
+  ]
+}

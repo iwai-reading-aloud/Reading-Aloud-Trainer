@@ -1,0 +1,132 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-04T21:35:39.730Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1_Part-492-94_本文"
+  },
+  "data": [
+    {
+      "english": "Questions 92 through 94 refer to the following excerpt from a meeting.",
+      "accent": "Qu^estions n^inety tw^o through n^inety f^our ref^er to the f^ollowing ^excerpt from a m^eeting.",
+      "vocab": "・refer to「～に関するものである」\n・following「次の」\n・excerpt「抜粋」◆単語としては「抜粋」と訳すことが多いが、TOEICでexcerpt from a meetingと言うときには「会議の一部」と訳した方がわかりやすい。◆発音は /^ｴｸｻﾞｰﾌﾟﾄ/ もしくは /^ｴｸｻｰﾌﾟﾄ/。",
+      "jp": "問題92-94は次の会議の一部に関するものです。",
+      "split": "Questions 92 through 94\nrefer\nto the following excerpt\nfrom a meeting",
+      "splitJp": "問題92-94は\n関するものである\n次の一部に\n会議の",
+      "labelNumber": "00",
+      "sourceLabel": "英文00",
+      "labelType": "english",
+      "displayLabel": "0"
+    },
+    {
+      "english": "Let's talk about this year's financial goals.",
+      "accent": "L^et's t^alk ab^out this y^ear's fin^ancial g^oals.",
+      "vocab": "・talk about ～「～について話す」\n・financial「財務の」\n・goal「目標」",
+      "jp": "今年の財務目標について話しましょう。",
+      "split": "Let's talk\nabout this year's\nfinancial goals.",
+      "splitJp": "話そう\n今年の\n財務目標について",
+      "labelNumber": "01",
+      "sourceLabel": "英文01",
+      "labelType": "english",
+      "displayLabel": "1"
+    },
+    {
+      "english": "So, Sandala Rentals and Wilmington Limited are still our biggest sources of income.",
+      "accent": "S^o, Sand^ala R^entals and W^ilmington L^imited are st^ill our b^iggest s^ources of ^income.",
+      "vocab": "・So,「さて」◆文頭で。\n・Sandala Rentals「サンダラ・レンタルズ社」◆会社名。\n・Wilmington Limited「ウィルミントン社」◆会社名。◆主にイギリスで会社名の後に、Ltd.と略記する。「有限会社」を意味するが、TOEICでは「～社」と訳せばよい。\n・still「今もなお」\n・source of income「収入源」◆source「源」◆income「収入」",
+      "jp": "さて、ダンダラ・レンタルズ社とウィルミントン社は今もなお、当社最大の収入源です。",
+      "split": "So,\nSandala Rentals\nand Wilmington Limited\nare still\nour biggest sources of income.",
+      "splitJp": "さて\nサンダラ・レンタルズ社と\nウィルミントン社は\n今もなお\n当社最大の収入源である",
+      "labelNumber": "02",
+      "sourceLabel": "英文02",
+      "labelType": "english",
+      "displayLabel": "2"
+    },
+    {
+      "english": "And that's great.",
+      "accent": "And th^at's gr^eat.",
+      "vocab": "・great「素晴らしい」",
+      "jp": "そして、それは素晴らしいことです。",
+      "split": "And\nthat's great.",
+      "splitJp": "そして、\nそれは素晴らしいことだ",
+      "labelNumber": "03",
+      "sourceLabel": "英文03",
+      "labelType": "english",
+      "displayLabel": "3"
+    },
+    {
+      "english": "But our other accounts are important too.",
+      "accent": "But our ^other acc^ounts are imp^ortant t^oo.",
+      "vocab": "・other「ほかの」\n・account「得意先」◆accountは、bank account「銀行口座」、あるいは会社間の「取引口座」（顧客登録をして、取引情報を管理する）という意味でよく使われる。そこから転じて、ここでのように「得意先」あるいは「取引先」という意味でも使われる。\n・important「重要な」",
+      "jp": "しかし、当社のほかの得意先も重要です。",
+      "split": "But\nour other accounts\nare important too.",
+      "splitJp": "しかし、\n当社のほかの得意先も\n重要である",
+      "labelNumber": "04",
+      "sourceLabel": "英文04",
+      "labelType": "english",
+      "displayLabel": "4"
+    },
+    {
+      "english": "They could bring in a lot more money than they do now.",
+      "accent": "They could br^ing ^in a l^ot m^ore m^oney than they d^o n^ow.",
+      "vocab": "・bring in ～「～をもたらす」\n・a lot more ～「もっと多くの～」\n・money「利益」",
+      "jp": "それらは、今よりもずっと多くの利益をもたらす可能性があります。",
+      "split": "They could bring in\na lot more money\nthan they do now.",
+      "splitJp": "それらはもたらす可能性がある\nずっと多くの利益を\n今よりも（今それらがしているよりも）",
+      "labelNumber": "05",
+      "sourceLabel": "英文05",
+      "labelType": "english",
+      "displayLabel": "5"
+    },
+    {
+      "english": "And this is what I want to emphasize: we have to get our smaller clients to sign on for bigger advertising campaigns.",
+      "accent": "And th^is is wh^at I w^ant to ^emphasize: we h^ave to g^et our sm^aller cl^ients to s^ign ^on for b^igger ^advertising camp^aigns.",
+      "vocab": "・emphasize「～を強調する」\n・have to ～「～しなければならない」\n・client「クライアント」◆「取引先」のこと。\n・sign on for ～「～の契約をする」\n・advertising campaign「宣伝キャンペーン」◆campaign「キャンペーン」は集中的な活動のこと。advertising campaignという時には、さまざまな媒体に広告を出したり、イベントを催したりすることが多い。",
+      "jp": "そして、ここが強調したい点ですが、私たちはより小規模なクライアントに、もっと大きな宣伝キャンペーンの契約をしてもらわなければならないのです。",
+      "split": "And this is\nwhat I want to emphasize:\nwe have to get\nour smaller clients\nto sign on for\nbigger advertising campaigns.",
+      "splitJp": "そして、ここが\n私が強調したいことだ\n私たちはしてもらわなければならない\n当社のより小規模なクライアントに\n契約することを\nもっと大きな宣伝キャンペーンの",
+      "labelNumber": "06",
+      "sourceLabel": "英文06",
+      "labelType": "english",
+      "displayLabel": "6"
+    },
+    {
+      "english": "That's where you come in.",
+      "accent": "Th^at's wh^ere you c^ome ^in.",
+      "vocab": "・That's where you come in.「そこであなた方の出番だ」◆直訳すると「それがあなた方が登場する場所だ」。◆come in「登場する」",
+      "jp": "そこで皆さんの出番です。",
+      "split": "That's where\nyou come in.",
+      "splitJp": "それが場所だ\nあなた方が登場する",
+      "labelNumber": "07",
+      "sourceLabel": "英文07",
+      "labelType": "english",
+      "displayLabel": "7"
+    },
+    {
+      "english": "I'd like each of you to tell me how much your clients paid for the advertisements we created for them over the past year.",
+      "accent": "I'd l^ike ^each of you to t^ell me h^ow m^uch your cl^ients p^aid for the adv^ertisements we cre^ated for them ^over the p^ast y^ear.",
+      "vocab": "・would like《人》to do「《人》に～してほしい」\n・each of ～「～の一人ひとり」\n・client「クライアント」◆「取引先」\n・paid < pay「～を支払う」の過去形。\n・advertisement「広告」\n・create「～を制作する」\n・over the past year「この1年で」",
+      "jp": "皆さん一人ひとりに、この1年で各自のクライアントが当社制作の広告にいくら支払ったかを私に教えてほしいのです。",
+      "split": "I'd like each of you\nto tell me\nhow much\nyour clients paid\nfor the advertisements\nwe created for them\nover the past year.",
+      "splitJp": "あなた方一人ひとりに\n私に教えてほしい\nいくらの金額を\nあなた方のクライアントが支払ったか\n広告に対して\n当社が彼らのために制作した\nこの1年で",
+      "labelNumber": "08",
+      "sourceLabel": "英文08",
+      "labelType": "english",
+      "displayLabel": "8"
+    },
+    {
+      "english": "I'll send out an e-mail with an example so you can see exactly what information to include in your report.",
+      "accent": "I'll s^end ^out an ^e-mail with an ex^ample so you can s^ee ex^actly wh^at inform^ation to incl^ude in your rep^ort.",
+      "vocab": "・send out ～「～を送る」\n・e-mail「Eメール」\n・example「例」\n・(you) can see「（あなたに）～がわかる」\n・exactly「はっきりと」\n・information「情報」\n・include「～を含める」\n・report「報告書」",
+      "jp": "報告にどのような情報を含めるべきかがはっきりと分かるように、例を示したEメールを送ります。",
+      "split": "I'll send out\nan e-mail with an example\nso you can see exactly\nwhat information to include\nin your report.",
+      "splitJp": "私は送る\n例を示したEメールを\nあなた方がはっきり分かるように\nどのような情報を含めるべきかということが\n報告書に",
+      "labelNumber": "09",
+      "sourceLabel": "英文09",
+      "labelType": "english",
+      "displayLabel": "9"
+    }
+  ]
+}
