@@ -38,6 +38,14 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+
+  // 教材・ライブラリJSONは常に最新版を取得（キャッシュしない）
+  if (new URL(event.request.url).pathname.endsWith(".json")) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // アプリ本体はPWAキャッシュ利用
   event.respondWith(
     fetch(event.request).then(response => {
       const copy = response.clone();
