@@ -1,7 +1,7 @@
 {
   "app": "Reading Aloud Trainer 教員版",
   "version": 1,
-  "savedAt": "2026-07-04T21:35:39.730Z",
+  "savedAt": "2026-07-05T06:50:43.215Z",
   "lessonName": "",
   "lessonMeta": {
     "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
@@ -83,7 +83,7 @@
     {
       "english": "And this is what I want to emphasize: we have to get our smaller clients to sign on for bigger advertising campaigns.",
       "accent": "And th^is is wh^at I w^ant to ^emphasize: we h^ave to g^et our sm^aller cl^ients to s^ign ^on for b^igger ^advertising camp^aigns.",
-      "vocab": "・emphasize「～を強調する」\n・have to ～「～しなければならない」\n・client「クライアント」◆「取引先」のこと。\n・sign on for ～「～の契約をする」\n・advertising campaign「宣伝キャンペーン」◆campaign「キャンペーン」は集中的な活動のこと。advertising campaignという時には、さまざまな媒体に広告を出したり、イベントを催したりすることが多い。",
+      "vocab": "・emphasize「～を強調する」\n・have to ～「～しなければならない」\n・get《人》to do「《人》に～してもらう」◆使役のgetはto不定詞を取る。「説得や努力によって～してもらう」という意味になる。\n・client「クライアント」◆「取引先」のこと。\n・sign on for ～「～の契約をする」\n・advertising campaign「宣伝キャンペーン」◆campaign「キャンペーン」は集中的な活動のこと。advertising campaignという時には、さまざまな媒体に広告を出したり、イベントを催したりすることが多い。",
       "jp": "そして、ここが強調したい点ですが、私たちはより小規模なクライアントに、もっと大きな宣伝キャンペーンの契約をしてもらわなければならないのです。",
       "split": "And this is\nwhat I want to emphasize:\nwe have to get\nour smaller clients\nto sign on for\nbigger advertising campaigns.",
       "splitJp": "そして、ここが\n私が強調したいことだ\n私たちはしてもらわなければならない\n当社のより小規模なクライアントに\n契約することを\nもっと大きな宣伝キャンペーンの",
