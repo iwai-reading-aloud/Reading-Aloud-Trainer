@@ -2533,6 +2533,24 @@ function safeRelativeFileUrl(file) {
         .join("/");
 }
 
+function makeNoCacheJsonUrl(file) {
+    const baseUrl = safeRelativeFileUrl(file);
+    const separator = baseUrl.includes("?") ? "&" : "?";
+    return baseUrl + separator + "rat_nocache=" + Date.now() + "_" + Math.random().toString(36).slice(2);
+}
+
+async function fetchJsonNoCache(file) {
+    const res = await fetch(makeNoCacheJsonUrl(file), {
+        cache: "no-store",
+        headers: {
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache"
+        }
+    });
+    if (!res.ok) throw new Error(`${file}を読み込めませんでした。HTTP ${res.status}`);
+    return await res.json();
+}
+
 const LIBRARY_FILE_STORAGE_KEY = "rat-library-file-culture";
 const LIBRARY_ITEMS_STORAGE_KEY = LIBRARY_FILE_STORAGE_KEY + "-items";
 const LIBRARY_NAME_STORAGE_KEY = "rat-library-name-culture";
@@ -2637,9 +2655,7 @@ async function loadLibraryFromServer(showAlert = false, filePath = null) {
         return;
     }
     try {
-        const res = await fetch(safeRelativeFileUrl(libraryFile) + "?ts=" + Date.now(), { cache: "no-store" });
-        if (!res.ok) throw new Error("教材ライブラリを読み込めませんでした。HTTP " + res.status);
-        const data = await res.json();
+        const data = await fetchJsonNoCache(libraryFile);
         if (!data || !Array.isArray(data.categories)) {
             throw new Error("教材ライブラリの形式が不正です。categories配列が必要です。");
         }
@@ -2979,9 +2995,7 @@ async function fetchLibraryJsonWithFallback(linkedFile, baseFile = "") {
     let lastError = null;
     for (const candidate of candidates) {
         try {
-            const res = await fetch(safeRelativeFileUrl(candidate) + "?ts=" + Date.now(), { cache: "no-store" });
-            if (!res.ok) throw new Error(`${candidate}を読み込めませんでした。HTTP ${res.status}`);
-            const data = await res.json();
+            const data = await fetchJsonNoCache(candidate);
             return { data, file: candidate };
         } catch (e) {
             lastError = e;
@@ -3369,10 +3383,7 @@ async function loadLessonFromLibraryPath(encodedPath) {
         libraryLastOpenedFolderIds = Array.from(libraryOpenFolderIds);
 
         stopAll();
-        const fileUrl = safeRelativeFileUrl(item.file) + "?ts=" + Date.now();
-        const res = await fetch(fileUrl, { cache: "no-store" });
-        if (!res.ok) throw new Error(`${item.file}を読み込めませんでした。HTTP ${res.status}`);
-        const obj = await res.json();
+        const obj = await fetchJsonNoCache(item.file);
         loadLessonObject(obj);
     } catch (e) {
         alert("教材の読み込みに失敗しました。\n" + (e && e.message ? e.message : String(e)));
