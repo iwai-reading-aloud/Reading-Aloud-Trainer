@@ -202,7 +202,7 @@
     },
     {
       "english": "Linda worked overtime to finish the exclusive interview article with the CEO.",
-      "accent": "L^inda w^orked ^overtime to f^inish the excl^usive ^interview ^article with the CEO.",
+      "accent": "L^inda w^orked ^overtime to f^inish the excl^usive ^interview ^article with the ^C^E^O.",
       "vocab": "・Linda「リンダ」◆女性名。\n・work overtime「残業する」\n・finish「～を仕上げる」\n・exclusive interview「独占インタビュー」\n・article「記事」\n・CEO「最高経営責任者」◆CEO = Chief Executive Officer。直訳すれば、「最高執行役員」。Chief「最高位の」、Executive「執行の」、Officer「役員」。",
       "jp": "リンダはその最高経営責任者との独占インタビュー記事を仕上げるために残業をした。",
       "split": "Linda\nworked overtime\nto finish\nthe exclusive interview article\nwith the CEO.",
