@@ -1,0 +1,96 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-12T16:17:44.921Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1_Part-495-97_本文"
+  },
+  "data": [
+    {
+      "english": "Questions 95 through 97 refer to the following talk and map.",
+      "accent": "Qu^estions n^inety f^ive through n^inety s^even ref^er to the f^ollowing t^alk and m^ap.",
+      "vocab": "・refer to「～に関するものである」\n・following「次の」\n・talk「話」\n・map「地図」",
+      "jp": "問題95-97は次の話と地図に関するものです。",
+      "split": "Questions 95 through 97\nrefer\nto the following\ntalk and map",
+      "splitJp": "問題95-97は\n関するものである\n次の\n話と地図に",
+      "labelNumber": "00",
+      "sourceLabel": "英文00",
+      "labelType": "english",
+      "displayLabel": "0"
+    },
+    {
+      "english": "Hello, welcome to the Visitors Center at Mountainside Park.",
+      "accent": "Hell^o, w^elcome to the V^isitors C^enter at M^ountains^ide P^ark.",
+      "vocab": "・welcome to ～「～へようこそ」\n・visitor center「観光案内所」◆「ビジター・センター」という訳語もよく見かける。\n・Mountainside Park「マウンテンサイド公園」",
+      "jp": "こんにちは、マウンテンサイド公園の観光案内所へようこそ。",
+      "split": "Hello,\nwelcome to the Visitors Center\nat Mountainside Park.",
+      "splitJp": "こんにちは\n観光案内所へようこそ\nマウンテンサイド公園の",
+      "labelNumber": "01",
+      "sourceLabel": "英文01",
+      "labelType": "english",
+      "displayLabel": "1"
+    },
+    {
+      "english": "My name’s Josephine and I’ll be guiding your hike today.",
+      "accent": "My n^ame’s J^osephine and I’ll be g^uiding your h^ike tod^ay.",
+      "vocab": "・Josephine「ジョセフィン」◆女性名。発音は /^ｼﾞｮｳｾﾌｨﾝ/。\n・guide「～を案内する」\n・hike「ハイキング」",
+      "jp": "私はジョセフィンと申します。本日皆様のハイキングのご案内をします。",
+      "split": "My name’s Josephine\nand I’ll be guiding your hike\ntoday.",
+      "splitJp": "私はジョセフィンと言う\nあなたがたのハイキングを案内する\n本日",
+      "labelNumber": "02",
+      "sourceLabel": "英文02",
+      "labelType": "english",
+      "displayLabel": "2"
+    },
+    {
+      "english": "Normally we’d be taking the Heron Trail to the Picnic Area, but the second part of that trail is closed for maintenance this week.",
+      "accent": "N^ormally we’d be t^aking the H^eron Tr^ail to the P^icnic ^Area, but the s^econd p^art of that tr^ail is cl^osed for m^aintenance this w^eek.",
+      "vocab": "・normally「通常は」\n・take the Heron Trail「ヘロン登山道を通って行く」◆trail「登山道」。★ここで、would be taking the Heron Trailとなっているのは、これが「（通常は）～することになっている（が、今日は違う）」ということを示す表現だから。will be ～ingは通常、スケジュールとして確定している未来の予定を示す（2番目の文のI'll be guiding your hike today.）が、willがwouldになることで、今日は実際には違う登山道を通るということを暗示している。\n・picnic area「ピクニック場」\n・be closed「閉鎖される」◆閉鎖の理由を示すのに前置詞forが続いている。\n・maintenance「整備」",
+      "jp": "通常はヘロン登山道を通ってピクニック場に行きますが、今週はその道の後半が整備のために閉鎖されています。",
+      "split": "Normally\nwe’d be taking the Heron Trail\nto the Picnic Area,\nbut the second part of that trail\nis closed for maintenance\nthis week.",
+      "splitJp": "通常は\n私たちはヘロン登山道を通る\nピクニック場まで\nしかし、その道の後半は\n整備のため閉鎖されている\n今週は",
+      "labelNumber": "03",
+      "sourceLabel": "英文03",
+      "labelType": "english",
+      "displayLabel": "3"
+    },
+    {
+      "english": "So instead, we’ll be starting out on the Heron Trail and changing over midway to the Pine Trail, as you can see here on the map.",
+      "accent": "S^o inst^ead, we’ll be st^arting ^out on the H^eron Tr^ail and ch^anging ^over m^idway to the P^ine Tr^ail, as you can s^ee h^ere on the m^ap.",
+      "vocab": "・so「だから」◆ここでは丁寧に「ですから」と訳してある。\n・instead「その代わりに」\n・start out「出発する」◆start out on the Heron Trail「（最初は）ヘロン登山道を通って出発する」という意味。\n・change over「変更する」◆change over to ～「～に変更する」\n・midway「途中で」\n・Pine Trail「パイン登山道」\n・as you can see「（あなたが）見てわかるように」\n・here on the map「この地図で」◆このhereは話し手が指で指し示している可能性が高いが、「この地図のここで」よりも「この地図で」と訳すのが自然。",
+      "jp": "ですからその代わりに、こちらの地図でお分かりになるように、ヘロン登山道を歩き始め、道の中ほど過ぎでパイン登山道へ変更します。",
+      "split": "So instead,\nwe’ll be starting out\non the Heron Trail\nand changing over midway\nto the Pine Trail,\nas you can see here\non the map.",
+      "splitJp": "だからその代わりに\n私たちは歩き始める予定だ\nヘロン登山道を\nそして、途中で変更する\nパイン登山道へ\nあなたにわかるように\nこの地図で",
+      "labelNumber": "04",
+      "sourceLabel": "英文04",
+      "labelType": "english",
+      "displayLabel": "4"
+    },
+    {
+      "english": "We’ll break for our lunch at the end of the Pine Trail, and then we’ll take the Sunset Trail back to our starting point.",
+      "accent": "We’ll br^eak for our l^unch at the ^end of the P^ine Tr^ail, and then we’ll t^ake the S^unset Tr^ail b^ack to our st^arting p^oint.",
+      "vocab": "・break for (our) lunch「（私たちの）昼食のために休憩をとる」\n・at the end of ～「～の終点で」\n・take the Sunset Trail「サンセット登山道を進む」\n・back to ～「（～へ）戻って」\n・starting point「出発地点」",
+      "jp": "私たちはパイン登山道の終点で昼食休憩をとり、その後サンセット登山道を通って出発地点へと戻ります。",
+      "split": "We’ll break for our lunch\nat the end of the Pine Trail,\nand then we’ll take the Sunset Trail\nback to our starting point.",
+      "splitJp": "私たちは昼食のために休憩する\nパイン登山道の終点で\nそしてその後、私たちはサンセット登山道を進む\n出発地点へ戻って",
+      "labelNumber": "05",
+      "sourceLabel": "英文05",
+      "labelType": "english",
+      "displayLabel": "5"
+    },
+    {
+      "english": "It’s supposed to be sunny today, so it’s a good idea to put on some sunscreen and wear a hat.",
+      "accent": "It’s supp^osed to be s^unny tod^ay, so it’s a g^ood id^ea to p^ut ^on some s^unscreen and w^ear a h^at.",
+      "vocab": "・be supposed to be ～「～になるはずである」\n・sunny「晴れた」\n・so「だから」\n・good idea「よい考え」◆ここではit ～ to不定詞の構文で「to以下は～」の意味。\n・put on ～「～を塗る」◆put on ～は衣服なら「～を着る」だが、ここでは目的語が「日焼け止め」なので、「～を塗る」となる。\n・sunscreen「日焼け止め」\n・wear「～を身に着ける」◆目的語が「帽子」なので、和訳では「～をかぶる」と訳す。\n・hat「帽子」",
+      "jp": "今日は晴れるはずですので、日焼け止めを塗って帽子をかぶるとよいでしょう。",
+      "split": "It’s supposed to be sunny today,\nso it’s a good idea\nto put on some sunscreen\nand wear a hat.",
+      "splitJp": "今日は晴れるはずである\nだから、（それが）良い考えだ\n日焼け止めを塗ることが\nそして帽子をかぶることが",
+      "labelNumber": "06",
+      "sourceLabel": "英文06",
+      "labelType": "english",
+      "displayLabel": "6"
+    }
+  ]
+}

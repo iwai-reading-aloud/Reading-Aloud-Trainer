@@ -1,0 +1,192 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-15T02:01:20.915Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1_Part-495-97_設問・選択肢"
+  },
+  "data": [
+    {
+      "english": "Who most likely are the listeners?",
+      "accent": "Wh^o most l^ikely are the l^isteners?",
+      "vocab": "・most likely「おそらく」\n・listener「聞き手」",
+      "jp": "聞き手は誰だと考えられますか。",
+      "split": "Who most likely\nare the listeners?",
+      "splitJp": "おそらく誰か\n聞き手は？",
+      "labelNumber": "95",
+      "sourceLabel": "設問95",
+      "labelType": "question",
+      "displayLabel": "95"
+    },
+    {
+      "english": "Maintenance workers",
+      "accent": "M^aintenance w^orkers",
+      "vocab": "・maintenance worker「整備作業員」",
+      "jp": "整備作業員",
+      "split": "Maintenance workers",
+      "splitJp": "整備作業員",
+      "labelNumber": "95A",
+      "sourceLabel": "選択肢95A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Bus drivers",
+      "accent": "B^us dr^ivers",
+      "vocab": "・bus driver「バスの運転手」",
+      "jp": "バスの運転手",
+      "split": "Bus drivers",
+      "splitJp": "バスの運転手",
+      "labelNumber": "95B",
+      "sourceLabel": "選択肢95B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Tourists",
+      "accent": "T^ourists",
+      "vocab": "・tourist「観光客」",
+      "jp": "観光客",
+      "split": "Tourists",
+      "splitJp": "観光客",
+      "labelNumber": "95C",
+      "sourceLabel": "選択肢95C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Park rangers",
+      "accent": "P^ark r^angers",
+      "vocab": "・park ranger「公園の監視員」",
+      "jp": "公園の監視員",
+      "split": "Park rangers",
+      "splitJp": "公園の監視員",
+      "labelNumber": "95D",
+      "sourceLabel": "選択肢95D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "Look at the graphic. Where will the listeners be unable to go today?",
+      "accent": "L^ook at the gr^aphic. Wh^ere will the l^isteners be un^able to g^o tod^ay?",
+      "vocab": "・look at ～「～を見る」\n・graphic「図」◆TOEICでgraphicと言う場合、図、表、グラフ、イラストなどを含む。\n・listener「聞き手」\n・be unable to do「～できない」",
+      "jp": "図を見てください。聞き手は今日、どこに行くことができないのですか。",
+      "split": "Look at the graphic.\nWhere will the listeners\nbe unable to go\ntoday?",
+      "splitJp": "図を見なさい\n聞き手はどこに\n行くことができないのか\n今日",
+      "labelNumber": "96",
+      "sourceLabel": "設問96",
+      "labelType": "question",
+      "displayLabel": "96"
+    },
+    {
+      "english": "The North Lake",
+      "accent": "The N^orth L^ake",
+      "vocab": "・lake「湖」",
+      "jp": "ノース湖",
+      "split": "The North Lake",
+      "splitJp": "ノース湖",
+      "labelNumber": "96A",
+      "sourceLabel": "選択肢96A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "The Picnic Area",
+      "accent": "The P^icnic ^Area",
+      "vocab": "・picnic area「ピクニック場」",
+      "jp": "ピクニック場",
+      "split": "The Picnic Area",
+      "splitJp": "ピクニック場",
+      "labelNumber": "96B",
+      "sourceLabel": "選択肢96B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "The Butterfly Garden",
+      "accent": "The B^utterfly G^arden",
+      "vocab": "・butterfly「蝶」\n・garden「庭園」",
+      "jp": "蝶の庭園",
+      "split": "The Butterfly Garden",
+      "splitJp": "蝶の庭園",
+      "labelNumber": "96C",
+      "sourceLabel": "選択肢96C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "The Visitor Center",
+      "accent": "The V^isitor C^enter",
+      "vocab": "・visitor center「観光案内所」",
+      "jp": "観光案内所",
+      "split": "The Visitor Center",
+      "splitJp": "観光案内所",
+      "labelNumber": "96D",
+      "sourceLabel": "選択肢96D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What does the woman encourage the listeners to do?",
+      "accent": "Wh^at does the w^oman enc^ourage the l^isteners to d^o?",
+      "vocab": "・encourage《人》to do「《人》に～するように勧める」\n・listener「聞き手」",
+      "jp": "女性は聞き手に何をするように勧めていますか。",
+      "split": "What does the woman\nencourage the listeners to do?",
+      "splitJp": "女性は何を\n聞き手にするように勧めているか",
+      "labelNumber": "97",
+      "sourceLabel": "設問97",
+      "labelType": "question",
+      "displayLabel": "97"
+    },
+    {
+      "english": "Bring a map",
+      "accent": "Br^ing a m^ap",
+      "vocab": "・bring「～を持参する」\n・map「地図」",
+      "jp": "地図を持参する",
+      "split": "Bring a map",
+      "splitJp": "地図を持参する",
+      "labelNumber": "97A",
+      "sourceLabel": "選択肢97A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Check the weather forecast",
+      "accent": "Ch^eck the w^eather f^orecast",
+      "vocab": "・check「～を確認する」\n・weather forecast「天気予報」",
+      "jp": "天気予報を確認する",
+      "split": "Check the weather forecast",
+      "splitJp": "天気予報を確認する",
+      "labelNumber": "97B",
+      "sourceLabel": "選択肢97B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Store their belongings",
+      "accent": "St^ore their bel^ongings",
+      "vocab": "・store「～を保管する」\n・belongings「所持品」◆通例、複数形。",
+      "jp": "所持品を保管する",
+      "split": "Store their belongings",
+      "splitJp": "所持品を保管する",
+      "labelNumber": "97C",
+      "sourceLabel": "選択肢97C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Use sun protection",
+      "accent": "^Use s^un prot^ection",
+      "vocab": "・use「～を使う」\n・sun protection「日焼け止め」",
+      "jp": "日焼け止めを使う",
+      "split": "Use sun protection",
+      "splitJp": "日焼け止めを使う",
+      "labelNumber": "97D",
+      "sourceLabel": "選択肢97D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    }
+  ]
+}
