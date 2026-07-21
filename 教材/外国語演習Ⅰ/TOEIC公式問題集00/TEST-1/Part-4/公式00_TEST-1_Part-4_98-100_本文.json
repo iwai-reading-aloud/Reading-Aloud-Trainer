@@ -1,0 +1,120 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-21T03:11:53.931Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1_Part-498-100_本文"
+  },
+  "data": [
+    {
+      "english": "Questions 98 through 100 refer to the following telephone message and order form.",
+      "accent": "Qu^estions n^inety ^eight through ^one h^undred ref^er to the f^ollowing t^elephone m^essage and ^order f^orm.",
+      "vocab": "・refer to ～「～に関するものである」\n・following「次の」\n・telephone message「留守電メッセージ」◆telephone messageは直訳すると「電話のメッセージ」だが、TOEIC Part-4では「留守電メッセージ」と訳した方が適切。\n・order form「注文書」",
+      "jp": "問題98-100は次の留守電メッセージと注文書に関するものです。",
+      "split": "Questions 98 through 100\nrefer\nto the following\ntelephone message.\nand order form",
+      "splitJp": "問題98-100は\n関するものである\n次の\n留守電メッセージと\n注文書（に）",
+      "labelNumber": "00",
+      "sourceLabel": "英文00",
+      "labelType": "english",
+      "displayLabel": "0"
+    },
+    {
+      "english": "Hi, Wendy — I’m calling about the purchase orders we received for office furniture.",
+      "accent": "H^i, W^endy — I’m c^alling ab^out the p^urchase ^orders we rec^eived for ^office f^urniture.",
+      "vocab": "・Wendy「ウェンディ」◆女性名。\n・call about ～「～について電話する」\n・purchase order「注文書」◆purchase「購入」◆order「注文」\n・receive「～を受け取る」\n・office furniture「オフィス家具」",
+      "jp": "もしもし、ウェンディ。私たちが受け取った、オフィス家具の注文書について電話をしています。",
+      "split": "Hi, Wendy\n— I’m calling\nabout the purchase orders\nwe received\nfor office furniture.",
+      "splitJp": "もしもし、ウェンディ\n私は電話をしています\n注文書について\n私たちが受け取った\nオフィス家具の",
+      "labelNumber": "01",
+      "sourceLabel": "英文01",
+      "labelType": "english",
+      "displayLabel": "1"
+    },
+    {
+      "english": "The Accounting Department’s going to need more of everything to accommodate all their new employees.",
+      "accent": "The Acc^ounting Dep^artment’s g^oing to n^eed m^ore of ^everything to acc^ommodate ^all their n^ew empl^oyees.",
+      "vocab": "・Accounting Department「経理部」\n・be going to do「～する見込みである」◆be going to doを使った未来は、「計画・意図・根拠ある予測」などを示す。\n・need「～を必要とする」\n・accommodate「（人）を受け入れる」◆「～に対応する」と訳す場合もある。\n・employee「従業員」",
+      "jp": "経理部では、部の新しい従業員全員を受け入れるためのあらゆるものがもっと必要になる見込みです。",
+      "split": "The Accounting Department's\ngoing to need\nmore of everything\nto accommodate\nall their new employees.",
+      "splitJp": "経理部は\n必要になる見込みだ\nあらゆるものがもっと\n受け入れるための\n部の新しい従業員全員を",
+      "labelNumber": "02",
+      "sourceLabel": "英文02",
+      "labelType": "english",
+      "displayLabel": "2"
+    },
+    {
+      "english": "But luckily, the Human Resources Department just wants more chairs; they said everything else is OK.",
+      "accent": "But l^uckily, the H^uman Res^ources Dep^artment just w^ants m^ore ch^airs; they s^aid ^everything ^else is ^O^K.",
+      "vocab": "・luckily「好都合にも」\n・Human Resources Department「人事部」\n・just (wants)「（望む）だけ」\n・chair「椅子」\n・everything else「そのほかすべて」\n・be OK「大丈夫である」",
+      "jp": "でも、好都合にも、人事部は椅子がさらに必要なだけです。そのほかはすべて大丈夫だと言っていました。",
+      "split": "But luckily,\nthe Human Resources Department\njust wants more chairs;\nthey said\neverything else is OK.",
+      "splitJp": "でも好都合にも\n人事部は\n椅子がさらに必要なだけだ\n彼らは言っていた\nそのほかはすべて大丈夫だと",
+      "labelNumber": "03",
+      "sourceLabel": "英文03",
+      "labelType": "english",
+      "displayLabel": "3"
+    },
+    {
+      "english": "Before you place these orders though, be sure to check the inventory.",
+      "accent": "Bef^ore you pl^ace these ^orders though, be s^ure to ch^eck the ^inventory.",
+      "vocab": "・place an order「注文する」\n・though「ただし」◆「しかし」「でも」「けれど」などの和訳もある。\n・be sure to do「必ず～する」◆ここでは命令文。\n・check「～を確認する」\n・inventory「在庫」",
+      "jp": "ただし、これらを注文する前に、必ず在庫を確認してください。",
+      "split": "Before you place\nthese orders though,\nbe sure to check\nthe inventory.",
+      "splitJp": "（ただし）あなたがする前に\nこれらの注文を\n必ず確認しなさい\n在庫を",
+      "labelNumber": "04",
+      "sourceLabel": "英文04",
+      "labelType": "english",
+      "displayLabel": "4"
+    },
+    {
+      "english": "If we’re still short, then we’ll order the necessary items.",
+      "accent": "If we’re still sh^ort, then we’ll ^order the n^ecessary ^items.",
+      "vocab": "・still「それでも」◆「なお」「まだ」という訳語もある。\n・short「不足している」\n・then「そのときは」\n・order「～を注文する」\n・necessary「必要な」\n・item「品物」",
+      "jp": "それでも足りなければ、そのときは必要な物を注文しましょう。",
+      "split": "If we’re still short,\nthen we’ll order\nthe necessary items.",
+      "splitJp": "それでも足りなければ\nそのときは、私たちは注文する\n必要な物を",
+      "labelNumber": "05",
+      "sourceLabel": "英文05",
+      "labelType": "english",
+      "displayLabel": "5"
+    },
+    {
+      "english": "Please also remember that only I, as your manager, can make changes to orders you’ve already submitted.",
+      "accent": "Pl^ease ^also rem^ember that ^only ^I, as your m^anager, can m^ake ch^anges to ^orders you’ve alr^eady subm^itted.",
+      "vocab": "・please　◆丁寧さを示す。特に訳さなくてもよい。\n・also「また」\n・remember「～を覚えておく」◆ここではremember that《節》「《節》を覚えておく」\n・as「～として」\n・manager「上司」\n・make changes to ～「～に変更を加える」\n・order「注文」\n・already「すでに」\n・submit「～を提出する」",
+      "jp": "また、あなたがすでに提出した注文書を変更できるのは、あなたの上司である私だけだということを覚えておいてください。",
+      "split": "Please also remember\nthat\nonly I,\nas your manager,\ncan make changes\nto orders you’ve already submitted.",
+      "splitJp": "また覚えておいてください\nということを\n私だけが\nあなたの上司として\n変更できる\nあなたがすでに提出した注文書を",
+      "labelNumber": "06",
+      "sourceLabel": "英文06",
+      "labelType": "english",
+      "displayLabel": "6"
+    },
+    {
+      "english": "So let me know if you spot an error that needs to be updated.",
+      "accent": "So l^et me kn^ow if you sp^ot an ^error that n^eeds to be upd^ated.",
+      "vocab": "・so「では」◆文頭ではこの訳でよく使われる。\n・let ～ know「～に知らせる」\n・spot an error「間違いを見つける」◆spot「～を見つける」◆error「間違い」\n・need to do「～する必要がある」\n・update「～を更新する」◆ここでは受動態なので、直訳すれば「更新されなければならない（間違い）」。",
+      "jp": "では、更新する必要がある間違いを見つけたら知らせてください。",
+      "split": "So\nlet me know\nif you spot an error\nthat needs to be updated.",
+      "splitJp": "では\n知らせてください\n間違いを見つけたら\n（それは）更新する必要がある",
+      "labelNumber": "07",
+      "sourceLabel": "英文07",
+      "labelType": "english",
+      "displayLabel": "7"
+    },
+    {
+      "english": "Thanks.",
+      "accent": "Th^anks.",
+      "vocab": "・thanks「よろしく」◆「ありがとう」以外にも覚えておくと便利な訳語。",
+      "jp": "よろしく。",
+      "split": "Thanks.",
+      "splitJp": "よろしく",
+      "labelNumber": "08",
+      "sourceLabel": "英文08",
+      "labelType": "english",
+      "displayLabel": "8"
+    }
+  ]
+}

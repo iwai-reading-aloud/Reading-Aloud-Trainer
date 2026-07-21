@@ -1,0 +1,192 @@
+{
+  "app": "Reading Aloud Trainer 教員版",
+  "version": 1,
+  "savedAt": "2026-07-21T03:37:24.008Z",
+  "lessonName": "",
+  "lessonMeta": {
+    "material": "TOEICテスト公式問題集 新形式問題対応編（2016-0225）",
+    "section": "TEST-1_Part-498-100_設問・選択肢"
+  },
+  "data": [
+    {
+      "english": "Look at the graphic. Which department filled out the order form?",
+      "accent": "L^ook at the gr^aphic. Wh^ich dep^artment f^illed ^out the ^order f^orm?",
+      "vocab": "・look at ～「～を見る」\n・graphic「図」\n・department「部署」\n・fill out ～「～に記入する」\n・order form「注文書」",
+      "jp": "図を見てください。どの部署がこの注文書に記入しましたか。",
+      "split": "Look at the graphic.\nWhich department\nfilled out the order form?",
+      "splitJp": "図を見てください\nどの部署が\nこの注文書に記入しましたか",
+      "labelNumber": "98",
+      "sourceLabel": "設問98",
+      "labelType": "question",
+      "displayLabel": "98"
+    },
+    {
+      "english": "Maintenance",
+      "accent": "M^aintenance",
+      "vocab": "・maintenance「保守」",
+      "jp": "保守",
+      "split": "Maintenance",
+      "splitJp": "保守",
+      "labelNumber": "98A",
+      "sourceLabel": "選択肢98A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Accounting",
+      "accent": "Acc^ounting",
+      "vocab": "・accounting「経理」",
+      "jp": "経理",
+      "split": "Accounting",
+      "splitJp": "経理",
+      "labelNumber": "98B",
+      "sourceLabel": "選択肢98B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Human Resources",
+      "accent": "H^uman R^esources",
+      "vocab": "・human resources「人事」",
+      "jp": "人事",
+      "split": "Human Resources",
+      "splitJp": "人事",
+      "labelNumber": "98C",
+      "sourceLabel": "選択肢98C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Public Relations",
+      "accent": "P^ublic Rel^ations",
+      "vocab": "・public relations「広報」",
+      "jp": "広報",
+      "split": "Public Relations",
+      "splitJp": "広報",
+      "labelNumber": "98D",
+      "sourceLabel": "選択肢98D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What does the speaker anticipate may happen?",
+      "accent": "Wh^at does the sp^eaker ant^icipate may h^appen?",
+      "vocab": "・speaker「話し手」\n・anticipate「～を予測する」\n・happen「起こる」",
+      "jp": "話し手は何が起こるかもしれないと予測していますか。",
+      "split": "What does the speaker anticipate\nmay happen?",
+      "splitJp": "話し手は何を予測していますか\n起こるかもしれないと",
+      "labelNumber": "99",
+      "sourceLabel": "設問99",
+      "labelType": "question",
+      "displayLabel": "99"
+    },
+    {
+      "english": "A project may not be completed on time.",
+      "accent": "A pr^oject may n^ot be compl^eted on t^ime.",
+      "vocab": "・project「プロジェクト」\n・complete「～を完了する」\n・on time「予定通りに」",
+      "jp": "プロジェクトが予定通りに完了しないかもしれない。",
+      "split": "A project\nmay not be completed\non time.",
+      "splitJp": "プロジェクトが\n完了しないかもしれない\n予定通りに",
+      "labelNumber": "99A",
+      "sourceLabel": "選択肢99A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Some measurements may be incorrect.",
+      "accent": "Some m^easurements may be incorr^ect.",
+      "vocab": "・measurement「寸法」\n・incorrect「間違っている」",
+      "jp": "一部の寸法が間違っているかもしれない。",
+      "split": "Some measurements\nmay be incorrect.",
+      "splitJp": "一部の寸法が\n間違っているかもしれない",
+      "labelNumber": "99B",
+      "sourceLabel": "選択肢99B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "An order may be too small.",
+      "accent": "An ^order may be t^oo sm^all.",
+      "vocab": "・order「注文」\n・small「少ない」",
+      "jp": "注文が少なすぎるかもしれない。",
+      "split": "An order\nmay be too small.",
+      "splitJp": "注文が\n少なすぎるかもしれない",
+      "labelNumber": "99C",
+      "sourceLabel": "選択肢99C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "There may not be enough available items.",
+      "accent": "There may n^ot be en^ough av^ailable ^items.",
+      "vocab": "・may「～かもしれない」\n・enough「十分な」\n・available「利用できる」\n・item「用品」",
+      "jp": "利用できる用品が十分ではないかもしれない。",
+      "split": "There may not be\nenough available items.",
+      "splitJp": "ないかもしれない\n十分な利用できる用品が",
+      "labelNumber": "99D",
+      "sourceLabel": "選択肢99D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    },
+    {
+      "english": "What is the listener asked to do if she finds an error?",
+      "accent": "Wh^at is the l^istener ^asked to d^o if she f^inds an ^error?",
+      "vocab": "・listener「聞き手」\n・be asked to do「～するように求められる」\n・find「～を見つける」◆本文ではspot「～を見つける」を使っている。\n・error「間違い」",
+      "jp": "聞き手は、間違いを見つけたら何をするように求められていますか。",
+      "split": "What is the listener\nasked to do\nif she finds an error?",
+      "splitJp": "何を聞き手は\nするように求められているか\n間違いを見つけたら",
+      "labelNumber": "100",
+      "sourceLabel": "設問100",
+      "labelType": "question",
+      "displayLabel": "100"
+    },
+    {
+      "english": "Contact her manager",
+      "accent": "C^ontact her m^anager",
+      "vocab": "・contact「～に連絡する」\n・manager「上司」",
+      "jp": "上司に連絡する",
+      "split": "Contact her manager",
+      "splitJp": "上司に連絡する",
+      "labelNumber": "100A",
+      "sourceLabel": "選択肢100A",
+      "labelType": "choice",
+      "displayLabel": "A"
+    },
+    {
+      "english": "Submit a form",
+      "accent": "Subm^it a f^orm",
+      "vocab": "・submit「～を提出する」\n・form「用紙」",
+      "jp": "用紙を提出する",
+      "split": "Submit a form",
+      "splitJp": "用紙を提出する",
+      "labelNumber": "100B",
+      "sourceLabel": "選択肢100B",
+      "labelType": "choice",
+      "displayLabel": "B"
+    },
+    {
+      "english": "Make a correction",
+      "accent": "M^ake a corr^ection",
+      "vocab": "・make a correction「訂正をする」",
+      "jp": "訂正をする",
+      "split": "Make a correction",
+      "splitJp": "訂正をする",
+      "labelNumber": "100C",
+      "sourceLabel": "選択肢100C",
+      "labelType": "choice",
+      "displayLabel": "C"
+    },
+    {
+      "english": "Keep a record",
+      "accent": "K^eep a r^ecord",
+      "vocab": "・keep「～を残す」\n・record「記録」",
+      "jp": "記録に残す",
+      "split": "Keep a record",
+      "splitJp": "記録に残す",
+      "labelNumber": "100D",
+      "sourceLabel": "選択肢100D",
+      "labelType": "choice",
+      "displayLabel": "D"
+    }
+  ]
+}
