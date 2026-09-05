@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "name": "面接問答集",
+      "sections": [
+        {
+          "name": "カタール航空",
+          "items": [
+            {
+              "title": "質問001",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "001"
+            },
+            {
+              "title": "質問002",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "002"
+            },
+            {
+              "title": "質問003",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "003"
+            },
+            {
+              "title": "質問004",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "004"
+            },
+            {
+              "title": "質問005",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "005"
+            },
+            {
+              "title": "質問006",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "006"
+            },
+            {
+              "title": "質問007",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "007"
+            },
+            {
+              "title": "質問008",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "008"
+            },
+            {
+              "title": "質問009",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "009"
+            },
+            {
+              "title": "質問010",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "010"
+            },
+            {
+              "title": "質問011",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "011"
+            },
+            {
+              "title": "質問012",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "012"
+            },
+            {
+              "title": "質問013",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "013"
+            },
+            {
+              "title": "質問014",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "014"
+            },
+            {
+              "title": "質問015",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "015"
+            },
+            {
+              "title": "質問016",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "016"
+            },
+            {
+              "title": "質問017",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "017"
+            },
+            {
+              "title": "質問018",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "018"
+            },
+            {
+              "title": "質問019",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "019"
+            },
+            {
+              "title": "質問020",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "020"
+            },
+            {
+              "title": "質問021",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "021"
+            },
+            {
+              "title": "質問022",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "022"
+            },
+            {
+              "title": "質問023",
+              "file": "教材/CA採用試験/面接問答集/カタール航空.json",
+              "question": "023"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
