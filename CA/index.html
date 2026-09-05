@@ -2280,7 +2280,7 @@ function normalizeAccentAndVocab(item) {
     if (!item) return item;
 
     const rawVocab = getRawVocabText(item);
-    const rawAccent = item.accent || item.accentText || item["アクセント"] || item.english || "";
+    const rawAccent = item.stress || item["強勢"] || item.accent || item.accentText || item["アクセント"] || item.english || "";
 
     item.accent = rawAccent;
     item.vocab = rawVocab;

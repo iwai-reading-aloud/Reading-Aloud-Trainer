@@ -1,4 +1,4 @@
-const CACHE_NAME = "rat-ca-exam-v1";
+const CACHE_NAME = "rat-ca-exam-v4";
 const CACHE_PREFIX = "rat-ca-exam-";
 const CORE_ASSETS = [
   "./",
