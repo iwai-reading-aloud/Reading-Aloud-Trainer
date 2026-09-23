@@ -10,6 +10,46 @@
       "name": "語彙テキスト",
       "items": [
         {
+          "title": "UNIT-01",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-01.json"
+        },
+        {
+          "title": "UNIT-02",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-02.json"
+        },
+        {
+          "title": "UNIT-03",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-03.json"
+        },
+        {
+          "title": "UNIT-04",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-04.json"
+        },
+        {
+          "title": "UNIT-05",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-05.json"
+        },
+        {
+          "title": "UNIT-06",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-06.json"
+        },
+        {
+          "title": "UNIT-07",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-07.json"
+        },
+        {
+          "title": "UNIT-08",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-08.json"
+        },
+        {
+          "title": "UNIT-09",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-09.json"
+        },
+        {
+          "title": "UNIT-10",
+          "file": "教材/英語3T・4T/語彙テキスト/UNIT-10.json"
+        },
+        {
           "title": "UNIT-16",
           "file": "教材/英語3T・4T/語彙テキスト/UNIT-16.json"
         },
