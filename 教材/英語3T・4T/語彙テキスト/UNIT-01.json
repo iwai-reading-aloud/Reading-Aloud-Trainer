@@ -1,7 +1,7 @@
 {
   "app": "Reading Aloud Trainer 教員版",
   "version": 1,
-  "savedAt": "2026-09-23T13:10:11.967Z",
+  "savedAt": "2026-09-23T13:32:25.991Z",
   "lessonName": "",
   "lessonMeta": {
     "material": "TOEIC TEST 単語　頻度順徹底マスター",
@@ -122,7 +122,7 @@
       "vocab": "・department「部門、部署」\n・speaker「話し手」\n・most likely do「～すると思われる」",
       "jp": "話し手たちはどの部署で働いていると思われますか。",
       "split": "What department\ndo the speakers\nmost likely\nwork in",
-      "splitJp": "どの部署で\n話し手たちは\n働いていると思われるか",
+      "splitJp": "どの部署で\n話し手たちは\n思われるか\n働いていると",
       "labelNumber": "10",
       "sourceLabel": "英文10",
       "labelType": "english",
