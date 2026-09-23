@@ -1,7 +1,7 @@
 {
   "app": "Reading Aloud Trainer 教員版",
   "version": 1,
-  "savedAt": "2026-06-13T08:28:42.257Z",
+  "savedAt": "2026-08-25T04:05:07.786Z",
   "lessonName": "",
   "lessonMeta": {
     "material": "TOEIC TEST 単語　頻度順徹底マスター",
@@ -10,7 +10,7 @@
   "data": [
     {
       "english": "The delivery status of your order can be tracked through our website.",
-      "accent": "The del^ivery st^atus of your ^order can be tr^acked through our w^ebsite.",
+      "stress": "The del^ivery st^atus of your ^order can be tr^acked through our w^ebsite.",
       "vocab": "・delivery status「配送状況」\n・order「注文品」\n・track「～を追跡する」◆ここでは受動態\n・through ～「～を通じて」\n・website「ウェブサイト」",
       "jp": "お客さまのご注文品の配送状況は当社のウェブサイトから追跡ができます。",
       "split": "The delivery status\nof your order\ncan be tracked\nthrough our website.",
@@ -22,7 +22,7 @@
     },
     {
       "english": "We didn’t have the necessary resources to complete the job on schedule.",
-      "accent": "We d^idn’t have the n^ecessary r^esources to compl^ete the j^ob on sch^edule.",
+      "stress": "We d^idn’t have the n^ecessary r^esources to compl^ete the j^ob on sch^edule.",
       "vocab": "・necessary「必要な」\n・resource「資源」\n・complete「～を完了させる」\n・on schedule「予定どおりに」",
       "jp": "その仕事を予定どおりに完了させるための必要な資源がわれわれにはなかった。",
       "split": "We didn’t have\nthe necessary resources\nto complete the job\non schedule.",
@@ -34,7 +34,7 @@
     },
     {
       "english": "I appreciate your sharing the source of the information.",
-      "accent": "I appr^eciate your sh^aring the s^ource of the inform^ation.",
+      "stress": "I appr^eciate your sh^aring the s^ource of the inform^ation.",
       "vocab": "・appreciate「ありがたく思う」\n・share「～を共有する」◆この例文の訳では「～を（人に）話す」\n・source「出どころ」\n・information「情報」",
       "jp": "あなたがその情報の出どころを話してくださったことをありがたく思っております。",
       "split": "I appreciate\nyour sharing\nthe source\nof the information.",
@@ -46,8 +46,8 @@
     },
     {
       "english": "James launched a business that sells auto insurance.",
-      "accent": "J^ames l^aunched a b^usiness that s^ells ^auto ins^urance.",
-      "vocab": "・launch「～を開始する」\n・business「事業」\n・sell「～を販売する」\n・auto insurance「自動車保険」",
+      "stress": "J^ames l^aunched a b^usiness that s^ells ^auto ins^urance.",
+      "vocab": "・James「ジェイムズ」◆男性名\n・launch「～を開始する」\n・business「事業」\n・sell「～を販売する」\n・auto insurance「自動車保険」",
       "jp": "ジェイムズは自動車保険を販売する事業を開始した。",
       "split": "James launched\na business\nthat sells\nauto insurance.",
       "splitJp": "ジェイムズは開始した\n事業を\n（その事業は）販売する\n自動車保険を",
@@ -58,8 +58,8 @@
     },
     {
       "english": "Laura played a key role in implementing the marketing strategy.",
-      "accent": "L^aura pl^ayed a k^ey r^ole in ^implementing the m^arketing str^ategy.",
-      "vocab": "・play a key role in ～「～において重要な役割を果たす」\n・implement「実行する」\n・marketing strategy「市場戦略」",
+      "stress": "L^aura pl^ayed a k^ey r^ole in ^implementing the m^arketing str^ategy.",
+      "vocab": "・Laura「ローラ」◆女性名。\n・play a key role in ～「～において重要な役割を果たす」\n・implement「実行する」\n・marketing strategy「市場戦略」",
       "jp": "ローラはその市場戦略を実行する上で重要な役割を果たした。",
       "split": "Laura played\na key role\nin implementing\nthe marketing strategy.",
       "splitJp": "ローラは果たした\n重要な役割を\n実行することにおいて\nその市場戦略を",
@@ -70,8 +70,8 @@
     },
     {
       "english": "Jim checked whether the musical instrument was valuable or not.",
-      "accent": "J^im ch^ecked wh^ether the m^usical ^instrument was v^aluable or n^ot.",
-      "vocab": "・check「～を確かめる」\n・whether ～or not「～かどうか（ということ）」\n・musical instrument「楽器」\n・valuable「価値がある」",
+      "stress": "J^im ch^ecked wh^ether the m^usical ^instrument was v^aluable or n^ot.",
+      "vocab": "・Jim「ジム」◆男性名James「ジェイムズ」の愛称。\n・check「～を確かめる」\n・whether ～or not「～かどうか（ということ）」\n・musical instrument「楽器」\n・valuable「価値がある」",
       "jp": "ジムはその楽器が価値があるかどうかを確かめた。",
       "split": "Jim checked\nwhether\nthe musical instrument\nwas valuable or not.",
       "splitJp": "ジムは確かめた\nかどうかを\nその楽器は\n価値がある",
@@ -82,7 +82,7 @@
     },
     {
       "english": "The server at the café gave me the directions to the museum.",
-      "accent": "The s^erver at the caf^é g^ave me the dir^ections to the mus^eum.",
+      "stress": "The s^erver at the caf^é g^ave me the dir^ections to the mus^eum.",
       "vocab": "・server「給仕係」\n・café「カフェ」◆発音は、/ｷｬ^ﾌｪｲ/\n・direction「道順」\n・museum「美術館」",
       "jp": "カフェの給仕係が私に美術館までの道順を教えてくれた。",
       "split": "The server\nat the café\ngave me\nthe directions\nto the museum.",
@@ -94,7 +94,7 @@
     },
     {
       "english": "Would you secure the item for me if I pay a deposit?",
-      "accent": "Would you sec^ure the ^item for me if I p^ay a dep^osit?",
+      "stress": "Would you sec^ure the ^item for me if I p^ay a dep^osit?",
       "vocab": "・secure「～を確保する」\n・item「商品」\n・deposit「手付金」◆pay a deposit「手付金を払う」",
       "jp": "手付金を払えば、その商品を確保してもらえますか。",
       "split": "Would you secure\nthe item\nfor me\nif I pay a deposit?",
@@ -106,8 +106,8 @@
     },
     {
       "english": "Kate expects the sales promotion to be successful.",
-      "accent": "K^ate exp^ects the s^ales prom^otion to be succ^essful.",
-      "vocab": "・expect「～を期待する」◆expect《X》to be《Y》「《X》が《Y》になることを期待する」\n・sales promotion「販売促進」\n・successful「成功する」",
+      "stress": "K^ate exp^ects the s^ales prom^otion to be succ^essful.",
+      "vocab": "・Kate「ケイト」◆女性名Catherine/Katharine「キャサリン」の愛称。\n・expect「～を期待する」◆expect《X》to be《Y》「《X》が《Y》になることを期待する」\n・sales promotion「販売促進」\n・successful「成功する」",
       "jp": "ケイトはその販売促進が成功することを期待している。",
       "split": "Kate expects\nthe sales promotion\nto be successful.",
       "splitJp": "ケイトは期待している\nその販売促進が\n成功することを",
@@ -118,7 +118,7 @@
     },
     {
       "english": "The firm’s monthly revenue is estimated at $1 million.",
-      "accent": "The f^irm’s m^onthly r^evenue is ^estimated at [^one m^illion d^ollars].",
+      "stress": "The f^irm’s m^onthly r^evenue is ^estimated at [^one m^illion d^ollars].",
       "vocab": "・firm「会社」\n・monthly revenue「毎月の収益」\n・estimate「～を見積もる」◆ここでは受動態。be estimated at《金額》「《金額》と見積もられる」",
       "jp": "その会社の毎月の収益は100万ドルと見積もられている。",
       "split": "The firm’s\nmonthly revenue\nis estimated\nat $1 million.",
@@ -130,7 +130,7 @@
     },
     {
       "english": "Manufacturing these garments requires a lot of water and electricity.",
-      "accent": "Manuf^acturing these g^arments requ^ires a l^ot of w^ater and electr^icity.",
+      "stress": "Manuf^acturing these g^arments requ^ires a l^ot of w^ater and electr^icity.",
       "vocab": "・manufacture「～を製造する」\n・garment「衣類」\n・require「～を必要とする」\n・electricity「電気」",
       "jp": "これらの衣類を製造するには多くの水と電気が必要だ。",
       "split": "Manufacturing\nthese garments\nrequires\na lot of water\nand electricity.",
@@ -142,8 +142,8 @@
     },
     {
       "english": "Matt is proud of the accomplishments he has made over his career.",
-      "accent": "M^att is pr^oud of the acc^omplishments he has m^ade over his car^eer.",
-      "vocab": "・be proud of ～「～を誇りに思う」\n・accomplishment「業績」\n・career「キャリア」",
+      "stress": "M^att is pr^oud of the acc^omplishments he has m^ade over his car^eer.",
+      "vocab": "・Matt「マット」◆男性名Matthew「マシュー」の愛称。\n・be proud of ～「～を誇りに思う」\n・accomplishment「業績」\n・career「キャリア」",
       "jp": "マットは自分のキャリアにわたって成し遂げてきた業績を誇らしく思っている。",
       "split": "Matt is proud\nof the accomplishments\nhe has made\nover his career.",
       "splitJp": "マットは誇らしく思っている\n業績を\n（その業績を）彼は成し遂げてきた\n自分のキャリアにわたって",
@@ -154,8 +154,8 @@
     },
     {
       "english": "Here’s a financial summary of the association that Linda runs.",
-      "accent": "H^ere’s a fin^ancial s^ummary of the associ^ation that L^inda r^uns.",
-      "vocab": "・financial summary「財政に関する概要」\n・association「協会」\n・run「運営する」",
+      "stress": "H^ere’s a fin^ancial s^ummary of the associ^ation that L^inda r^uns.",
+      "vocab": "・Linda「リンダ」◆女性名。\n・financial summary「財政に関する概要」\n・association「協会」\n・run「運営する」",
       "jp": "これがリンダが運営している協会の財政に関する概要だ。",
       "split": "Here’s\na financial summary\nof the association\nthat Linda runs.",
       "splitJp": "これが\n財政に関する概要（だ）\nその協会の\n（その協会を）リンダは運営している",
@@ -166,8 +166,8 @@
     },
     {
       "english": "Bill shared tips on getting more people to enroll in the course.",
-      "accent": "B^ill sh^ared t^ips on g^etting more p^eople to enr^oll in the c^ourse.",
-      "vocab": "・share「～を共有する」◆この例文の訳では「（人に）～を話す」\n・tip「秘訣」\n・enroll in ～「～に登録する」\n・course「講座」",
+      "stress": "B^ill sh^ared t^ips on g^etting m^ore p^eople to enr^oll in the c^ourse.",
+      "vocab": "・Bill「ビル」◆男性名William「ウィリアム」の愛称。\n・share「～を共有する」◆この例文の訳では「（人に）～を話す」\n・tip「秘訣」\n・enroll in ～「～に登録する」\n・course「講座」",
       "jp": "ビルは講座により多くの人に登録してもらう秘訣を共有した。",
       "split": "Bill shared\ntips\non getting more people\nto enroll in the course.",
       "splitJp": "ビルは共有した\n秘訣を\nより多くの人にさせることについての\nその講座へ登録することを",
@@ -178,8 +178,8 @@
     },
     {
       "english": "Anne requested approval for her business trip.",
-      "accent": "^Anne requ^ested appr^oval for her b^usiness tr^ip.",
-      "vocab": "・request「～を求める」\n・approval「承認」◆approval for ～「～の承認」\n・business trip「出張」",
+      "stress": "^Anne requ^ested appr^oval for her b^usiness tr^ip.",
+      "vocab": "・Anne「アン」◆女性名。\n・request「～を求める」\n・approval「承認」◆approval for ～「～の承認」\n・business trip「出張」",
       "jp": "アンは出張の承認を求めた。",
       "split": "Anne requested\napproval\nfor her business trip.",
       "splitJp": "アンは求めた\n承認を\n彼女の出張の",
@@ -190,7 +190,7 @@
     },
     {
       "english": "Diners seem satisfied with the restaurant’s dessert selection.",
-      "accent": "D^iners s^eem s^atisfied with the r^estaurant’s dess^ert sel^ection.",
+      "stress": "D^iners s^eem s^atisfied with the r^estaurant’s dess^ert sel^ection.",
       "vocab": "・diner「食事客」\n・be satisfied with ～「～に満足している」\n・dessert selection「デザートの品揃え」",
       "jp": "食事客はそのレストランのデザートの品揃えに満足しているようだ。",
       "split": "Diners seem satisfied\nwith the restaurant’s\ndessert selection.",
@@ -202,8 +202,8 @@
     },
     {
       "english": "Mike finished a draft of the report for the company.",
-      "accent": "M^ike f^inished a dr^aft of the rep^ort for the c^ompany.",
-      "vocab": "・finish「～を終える」\n・draft「下書き」\n・report「報告書」",
+      "stress": "M^ike f^inished a dr^aft of the rep^ort for the c^ompany.",
+      "vocab": "・Mike「マイク」◆男性名Michael「マイケル」の愛称。\n・finish「～を終える」\n・draft「下書き」\n・report「報告書」",
       "jp": "マイクは会社への報告書の下書きを終えた。",
       "split": "Mike finished\na draft\nof the report\nfor the company.",
       "splitJp": "マイクは終えた\n下書きを\n報告書の\n会社への",
@@ -214,7 +214,7 @@
     },
     {
       "english": "Establishing the new division will involve a lot of staff transfers.",
-      "accent": "Est^ablishing the n^ew div^ision will inv^olve a l^ot of st^aff tr^ansfers.",
+      "stress": "Est^ablishing the n^ew div^ision will inv^olve a l^ot of st^aff tr^ansfers.",
       "vocab": "・establish「～を設立する」\n・division「部門」\n・involve「～を伴う」\n・staff transfer「スタッフの異動」",
       "jp": "その新部門を設立することには多くのスタッフの異動を伴うだろう。",
       "split": "Establishing\nthe new division\nwill involve\na lot of staff transfers.",
@@ -226,8 +226,8 @@
     },
     {
       "english": "Fred conducted an analysis of the properties he might invest in.",
-      "accent": "Fr^ed cond^ucted an an^alysis of the pr^operties he might inv^est in.",
-      "vocab": "・conduct「（分析など）を行う」\n・analysis「分析」\n・properties < propertyの複数形。「不動産」\n・invest in ～「～に投資する」",
+      "stress": "Fr^ed cond^ucted an an^alysis of the pr^operties he might inv^est in.",
+      "vocab": "・Fred「フレッド」◆男子名Frederick「フレデリック」、Alfred「アルフレッド」の愛称。\n・conduct「（分析など）を行う」◆conductの目的語としてよく使われる単語は、analysis「分析」、investigation「調査」、inspection「検査」、interview「面接」、survey「調査」、research「研究・調査」、experiment「実験」、audit「監査」、assessment「評価」など。\n・inspector「検査官」\n・analysis「分析」\n・properties < propertyの複数形。「不動産」\n・invest in ～「～に投資する」",
       "jp": "フレッドは自分が投資するかもしれない不動産の分析をした。",
       "split": "Fred conducted\nan analysis\nof the properties\nhe might invest in.",
       "splitJp": "フレッドは行った\n分析を\n不動産の\n（その不動産に）彼が投資するかもしれない",
@@ -238,7 +238,7 @@
     },
     {
       "english": "As the editor, Sally felt very excited about the book launch.",
-      "accent": "As the ^editor, S^ally f^elt v^ery exc^ited about the b^ook l^aunch.",
+      "stress": "As the ^editor, S^ally f^elt v^ery exc^ited about the b^ook l^aunch.",
       "vocab": "・editor「編集者」\n・feel excited about ～「～にわくわくする」\n・book launch「本の発売」",
       "jp": "編集者としてサリーはその本の発売にとてもわくわくした気持ちになった。",
       "split": "As the editor,\nSally felt very excited\nabout the book launch.",
