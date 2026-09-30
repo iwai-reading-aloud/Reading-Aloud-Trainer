@@ -1,7 +1,7 @@
 {
   "app": "Reading Aloud Trainer 教員版",
   "version": 1,
-  "savedAt": "2026-09-23T13:32:25.991Z",
+  "savedAt": "2026-09-30T23:38:11.097Z",
   "lessonName": "",
   "lessonMeta": {
     "material": "TOEIC TEST 単語　頻度順徹底マスター",
@@ -110,7 +110,7 @@
       "vocab": "・salesperson「営業担当者」\n・contact「～と連絡を取る」\n・client「クライアント」◆「取引先」「依頼人」という訳もある。\n・regarding「～に関して」\n・problem「問題」",
       "jp": "その営業担当者はある問題に関してクライアントと連絡を取った。",
       "split": "The salesperson\ncontacted some clients\nregarding a problem.",
-      "splitJp": "その営業担当者は\n何人かの顧客と連絡を取った\nある問題に関して",
+      "splitJp": "その営業担当者は\n何人かのクライアントと連絡を取った\nある問題に関して",
       "labelNumber": "09",
       "sourceLabel": "英文09",
       "labelType": "english",
